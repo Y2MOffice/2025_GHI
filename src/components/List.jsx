@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   ImageList,
   ImageListItem,
@@ -40,8 +40,11 @@ const List = ({ title, data }) => {
 
   const handleClick = (item) => {
     if (!isDragging) {
-      setSelectedMovie(item);
-      setIsFadingOut(false);
+      setSelectedMovie(null); // 기존 선택 초기화
+      setTimeout(() => {
+        setSelectedMovie(item); // 새로운 선택 반영
+        setIsFadingOut(false);
+      }, 0); // 즉시 초기화 후 다시 설정
     }
   };
 
@@ -92,6 +95,7 @@ const List = ({ title, data }) => {
         sx={{
           display: "flex",
           overflowX: "auto",
+          overflowY: "hidden",
           gap: 2,
           p: 2,
           cursor: "grab",
@@ -153,7 +157,7 @@ const List = ({ title, data }) => {
       {selectedMovie && (
         <MovieDetail
           movie={selectedMovie}
-          onClose={closeDetail}
+          onClose1={closeDetail}
           isFadingOut={isFadingOut}
         />
       )}

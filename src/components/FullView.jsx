@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Box, Typography, Grid, IconButton, Slide } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import MovieDetail from "./MovieDetail";
@@ -57,14 +57,22 @@ const FullView = ({ data, title, onClose }) => {
           alignItems: "center",
           justifyContent: "center",
         }}
-        onClick={handleClose}
+        onMouseDown={(e) => {
+          e.stopPropagation(); // 이벤트 전파 차단
+          handleMouseDown(e); // 기존 드래그 처리
+        }}
+        onMouseMove={(e) => {
+          e.stopPropagation(); // 이벤트 전파 차단
+          handleMouseMove(e); // 기존 드래그 처리
+        }}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onClick={() => {
+          if (!selectedMovie) handleClose(); // MovieDetail이 열려 있을 때는 FullView 닫기 방지
+        }}
       >
         <Box
           ref={contentRef}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
           onClick={(e) => e.stopPropagation()}
           sx={{
             background: "linear-gradient(to right, #5c2a36, #1d4437)",
