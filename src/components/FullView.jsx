@@ -58,17 +58,17 @@ const FullView = ({ data, title, onClose }) => {
           justifyContent: "center",
         }}
         onMouseDown={(e) => {
-          e.stopPropagation(); // 이벤트 전파 차단
-          handleMouseDown(e); // 기존 드래그 처리
+          e.stopPropagation();
+          handleMouseDown(e);
         }}
         onMouseMove={(e) => {
-          e.stopPropagation(); // 이벤트 전파 차단
-          handleMouseMove(e); // 기존 드래그 처리
+          e.stopPropagation();
+          handleMouseMove(e);
         }}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         onClick={() => {
-          if (!selectedMovie) handleClose(); // MovieDetail이 열려 있을 때는 FullView 닫기 방지
+          if (!selectedMovie) handleClose();
         }}
       >
         <Box

@@ -64,12 +64,12 @@ const MovieDetail = ({ movie, onClose }) => {
         }}
         ref={contentRef}
         onMouseDown={(e) => {
-          e.stopPropagation(); // 이벤트 전파 차단
-          handleMouseDown(e); // 기존 드래그 처리
+          e.stopPropagation();
+          handleMouseDown(e);
         }}
         onMouseMove={(e) => {
-          e.stopPropagation(); // 이벤트 전파 차단
-          handleMouseMove(e); // 기존 드래그 처리
+          e.stopPropagation();
+          handleMouseMove(e);
         }}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}

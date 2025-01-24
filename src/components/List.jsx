@@ -40,11 +40,11 @@ const List = ({ title, data }) => {
 
   const handleClick = (item) => {
     if (!isDragging) {
-      setSelectedMovie(null); // 기존 선택 초기화
+      setSelectedMovie(null);
       setTimeout(() => {
-        setSelectedMovie(item); // 새로운 선택 반영
+        setSelectedMovie(item);
         setIsFadingOut(false);
-      }, 0); // 즉시 초기화 후 다시 설정
+      }, 0);
     }
   };
 

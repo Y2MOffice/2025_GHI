@@ -40,11 +40,11 @@ const List = ({ title, data }) => {
 
   const handleClick = (item) => {
     if (!isDragging) {
-      setSelectedMovie(null); // 기존 선택 초기화
+      setSelectedMovie(null);
       setTimeout(() => {
-        setSelectedMovie(item); // 새로운 선택 반영
+        setSelectedMovie(item);
         setIsFadingOut(false);
-      }, 0); // 즉시 초기화 후 다시 설정
+      }, 0);
     }
   };
 
@@ -140,14 +140,14 @@ const List = ({ title, data }) => {
                 position: "absolute",
                 left: index === 9 ? "1%" : "5%",
                 top: "65%",
-                transform: "translateY(-50%)", // 수직 중앙 정렬
+                transform: "translateY(-50%)",
                 fontSize: index === 9 ? "130px" : "250px",
                 fontWeight: "bold",
-                color: "#191919", // 배경색
-                "-webkit-text-stroke": index === 9 ? "3px white" : "5px white", // 하얀색 아웃라인
-                opacity: 0.8, // 약간 투명
-                zIndex: 1, // 이미지보다 아래
-                letterSpacing: index === 9 ? "-15px" : null, // 글자 간격 조정
+                color: "#191919",
+                "-webkit-text-stroke": index === 9 ? "3px white" : "5px white",
+                opacity: 0.8,
+                zIndex: 1,
+                letterSpacing: index === 9 ? "-15px" : null,
               }}
             >
               {index + 1}
@@ -162,10 +162,10 @@ const List = ({ title, data }) => {
                 height: "100%",
                 objectFit: "cover",
                 borderRadius: "5px",
-                marginLeft: "auto", // 오른쪽으로 정렬
-                zIndex: 2, // 숫자 위에 배치
+                marginLeft: "auto",
+                zIndex: 2,
               }}
-              onDragStart={(e) => e.preventDefault()} // 드래그 방지
+              onDragStart={(e) => e.preventDefault()}
             />
 
             <ImageListItemBar
