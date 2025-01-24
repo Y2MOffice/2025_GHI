@@ -6,6 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import logo from "./assets/logo.png";
 import List from "./components/List.jsx";
 import Footer from "./components/Footer.jsx";
+import Menu from "./components/Menu.jsx";
 import mylist from "./mylist";
 
 const theme = createTheme({
@@ -32,6 +33,7 @@ function App() {
   const [isDragging, setIsDragging] = useState(false);
   const [startY, setStartY] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
@@ -49,6 +51,10 @@ function App() {
     setIsDragging(false);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -61,6 +67,7 @@ function App() {
                 color="inherit"
                 aria-label="menu"
                 sx={{ mr: 2 }}
+                onClick={toggleMenu}
               >
                 <MenuIcon />
               </IconButton>
@@ -82,6 +89,7 @@ function App() {
             </Toolbar>
           </Container>
         </AppBar>
+        <Menu open={isMenuOpen} onClose={toggleMenu} />
         <Box
           ref={contentRef}
           onMouseDown={handleMouseDown}
