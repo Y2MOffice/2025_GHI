@@ -10,11 +10,17 @@ import {
   Avatar,
   IconButton,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import CategoryList from "./CategoryList";
 
 function Menu({ onClose, open }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const navigate = useNavigate();
+
+  const handleAvatarClick = () => {
+    navigate("/mypage"); // mypage 경로로 이동
+  };
 
   const handleListItemClick = (index) => {
     setSelectedIndex(index);
@@ -61,7 +67,12 @@ function Menu({ onClose, open }) {
               borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
             }}
           >
-            <Avatar alt="Profile Picture" src="" sx={{ marginRight: 2 }} />
+            <Avatar
+              alt="Profile Picture"
+              src=""
+              sx={{ marginRight: 2, cursor: "pointer" }}
+              onClick={handleAvatarClick}
+            />
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
               名無しさん
             </Typography>

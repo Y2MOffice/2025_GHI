@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { Box, Typography, Grid, IconButton, Slide } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import MovieDetail from "./MovieDetail";
+import ConditionalPopup from "./ConditionalPopup";
 
 const FullView = ({ data, title, onClose }) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -11,6 +12,8 @@ const FullView = ({ data, title, onClose }) => {
   const [startY, setStartY] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   const [dragged, setDragged] = useState(false);
+  const isUserLoggedIn = false; // 로그인 조건. state등으로 변형하여 사용.
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   const handleMouseDown = (e) => {
     const content = contentRef.current;
@@ -39,7 +42,13 @@ const FullView = ({ data, title, onClose }) => {
   };
 
   const handleMovieClick = (movie) => {
-    if (!dragged) setSelectedMovie(movie);
+    if (!dragged) {
+      if (!isUserLoggedIn) {
+        setShowLoginPopup(true); // 로그인 팝업 표시
+      } else {
+        setSelectedMovie(movie); // MovieDetail 표시
+      }
+    };
   };
 
   return (
@@ -68,7 +77,9 @@ const FullView = ({ data, title, onClose }) => {
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         onClick={() => {
-          if (!selectedMovie) handleClose();
+          if (!(selectedMovie || showLoginPopup)) {
+            handleClose();
+          }
         }}
       >
         <Box
@@ -150,6 +161,9 @@ const FullView = ({ data, title, onClose }) => {
             movie={selectedMovie}
             onClose={() => setSelectedMovie(null)}
           />
+        )}
+        {showLoginPopup && (
+          <ConditionalPopup onClose={() => setShowLoginPopup(false)} />
         )}
       </Box>
     </Slide>

@@ -119,7 +119,7 @@ const Navbar = () => {
         </Container>
       </AppBar>
       <Menu open={isMenuOpen} onClose={toggleMenu} />
-      <Box sx={{ marginTop: "64px" }}>
+      <Box sx={{ paddingTop: "64px", backgroundColor:"#191919dd"}}>
         <Outlet />
       </Box>
     </>
