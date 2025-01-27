@@ -61,13 +61,9 @@ function Menu({ onClose, open }) {
               borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
             }}
           >
-            <Avatar
-              alt="Profile Picture"
-              src=""
-              sx={{ marginRight: 2 }}
-            />
+            <Avatar alt="Profile Picture" src="" sx={{ marginRight: 2 }} />
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              임시 이름
+              名無しさん
             </Typography>
             <IconButton onClick={onClose} sx={{ color: "white" }}>
               <ChangeCircleIcon />
