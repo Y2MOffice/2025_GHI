@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   ImageList,
   ImageListItem,
@@ -40,11 +40,8 @@ const List = ({ title, data }) => {
 
   const handleClick = (item) => {
     if (!isDragging) {
-      setSelectedMovie(null);
-      setTimeout(() => {
-        setSelectedMovie(item);
-        setIsFadingOut(false);
-      }, 0);
+      setSelectedMovie(item);
+      setIsFadingOut(false);
     }
   };
 
@@ -95,7 +92,6 @@ const List = ({ title, data }) => {
         sx={{
           display: "flex",
           overflowX: "auto",
-          overflowY: "hidden",
           gap: 2,
           p: 2,
           cursor: "grab",
@@ -157,7 +153,7 @@ const List = ({ title, data }) => {
       {selectedMovie && (
         <MovieDetail
           movie={selectedMovie}
-          onClose1={closeDetail}
+          onClose={closeDetail}
           isFadingOut={isFadingOut}
         />
       )}
