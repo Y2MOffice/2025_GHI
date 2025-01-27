@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Box, Typography, Grid, IconButton, Slide } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import MovieDetail from "./MovieDetail";
@@ -57,14 +57,22 @@ const FullView = ({ data, title, onClose }) => {
           alignItems: "center",
           justifyContent: "center",
         }}
-        onClick={handleClose}
+        onMouseDown={(e) => {
+          e.stopPropagation();
+          handleMouseDown(e);
+        }}
+        onMouseMove={(e) => {
+          e.stopPropagation();
+          handleMouseMove(e);
+        }}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onClick={() => {
+          if (!selectedMovie) handleClose();
+        }}
       >
         <Box
           ref={contentRef}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
           onClick={(e) => e.stopPropagation()}
           sx={{
             background: "linear-gradient(to right, #5c2a36, #1d4437)",
