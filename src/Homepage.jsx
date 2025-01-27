@@ -3,6 +3,8 @@ import { Box, createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 import List from "./components/List.jsx";
 import Footer from "./components/Footer.jsx";
 import mylist from "./mylist";
+import RankingList from "./components/RankingList.jsx";
+import rList from "./Rankinglist.js";
 
 const theme = createTheme({
   palette: {
@@ -65,6 +67,7 @@ const HomePage = () => {
         <List title="마이리스트" data={mylist} />
         <List title="임시" data={mylist} />
         <List title="임시" data={mylist} />
+        <RankingList title="오늘의 영화 TOP10" data={rList} />
         <Footer />
       </Box>
     </ThemeProvider>

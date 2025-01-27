@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Box, Typography, IconButton, Slide } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -62,16 +62,22 @@ const MovieDetail = ({ movie, onClose }) => {
           alignItems: "center",
           justifyContent: "center",
         }}
-        onClick={(e) => e.stopPropagation()}
+        ref={contentRef}
+        onMouseDown={(e) => {
+          e.stopPropagation();
+          handleMouseDown(e);
+        }}
+        onMouseMove={(e) => {
+          e.stopPropagation();
+          handleMouseMove(e);
+        }}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onWheel={handleWheel}
+        onClick={handleClose}
       >
         <Box
           onClick={(e) => e.stopPropagation()}
-          ref={contentRef}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          onWheel={handleWheel}
           sx={{
             background: "linear-gradient(to right, #5c2a36, #1d4437)",
             color: "white",

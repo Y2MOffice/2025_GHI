@@ -7,6 +7,7 @@ import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import logo from "../assets/logo.png";
+import Menu from "./Menu.jsx";
 
 // Search Box 스타일 정의 (StyledInputBase까지)
 const Search = styled("div")(({ theme }) => ({
@@ -50,6 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Navbar = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState(""); //검색란 초기하기위한 state
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSearch = (event) => {
     if (event.key === "Enter") {
@@ -69,6 +71,10 @@ const Navbar = () => {
     setSearchTerm(event.target.value);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   return (
     <>
       <AppBar position="fixed" sx={{ backgroundColor: "#191919dd" }}>
@@ -79,6 +85,7 @@ const Navbar = () => {
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2 }}
+              onClick={toggleMenu}
             >
               <MenuIcon />
             </IconButton>
@@ -111,7 +118,7 @@ const Navbar = () => {
           </Toolbar>
         </Container>
       </AppBar>
-
+      <Menu open={isMenuOpen} onClose={toggleMenu} />
       <Box sx={{ marginTop: "64px" }}>
         <Outlet />
       </Box>
