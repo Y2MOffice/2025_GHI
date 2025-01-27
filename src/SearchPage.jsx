@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Typography, Grid, Box } from "@mui/material";
-import data from "./mylist";
+import data from "./data/List";
 import MovieDetail from "./components/MovieDetail";
 
 const SearchPage = () => {
@@ -30,14 +30,14 @@ const SearchPage = () => {
 
   return (
     <>
-      <h1>검색결과</h1>
+      <h1>検索結果</h1>
       {/* 검색 결과가 없는 경우 */}
       {filteredData.length === 0 ? (
         <Typography
           variant="body1"
           sx={{ textAlign: "center", marginTop: "20px" }}
         >
-          검색 결과 없음
+          検索結果がありません。
         </Typography>
       ) : (
         <Grid container spacing={2}>

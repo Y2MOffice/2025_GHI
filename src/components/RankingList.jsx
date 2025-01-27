@@ -87,7 +87,7 @@ const List = ({ title, data }) => {
           sx={{ color: "#e50914", cursor: "pointer" }}
           onClick={openFullView}
         >
-          전부 보기
+          全部見る
         </Typography>
       </Box>
 

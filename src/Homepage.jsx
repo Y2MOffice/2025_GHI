@@ -2,9 +2,9 @@ import React, { useRef, useState } from "react";
 import { Box, createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 import List from "./components/List.jsx";
 import Footer from "./components/Footer.jsx";
-import mylist from "./mylist";
+import mylist from "./data/List.js";
 import RankingList from "./components/RankingList.jsx";
-import rList from "./Rankinglist.js";
+import rList from "./data/Rankinglist.js";
 
 const theme = createTheme({
   palette: {
@@ -63,11 +63,11 @@ const HomePage = () => {
           userSelect: "none",
         }}
       >
-        <List title="Netflix 인기 동영상" data={mylist} />
-        <List title="마이리스트" data={mylist} />
+        <RankingList title="今日の映画TOP10" data={rList} />
+        <List title="Netflix人気動画" data={mylist} />
+        <List title="マイリスト" data={mylist} />
         <List title="임시" data={mylist} />
         <List title="임시" data={mylist} />
-        <RankingList title="오늘의 영화 TOP10" data={rList} />
         <Footer />
       </Box>
     </ThemeProvider>

@@ -17,7 +17,7 @@ const Footer = () => {
     >
       <Container maxWidth="md">
         <Typography variant="body2" sx={{ mb: 1 }}>
-          © 2025 임시 웹사이트. All rights reserved.
+          © 2025 臨時ウェブサイト. All rights reserved.
         </Typography>
         <Box>
           <Link
