@@ -1,12 +1,14 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { Box, AppBar, Toolbar, IconButton, Container } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import logo from "./assets/logo.png";
 import List from "./components/List.jsx";
+import RankingList from "./components/RankingList.jsx";
 import Footer from "./components/Footer.jsx";
 import mylist from "./mylist";
+import rList from "./Rankinglist.js";
 
 const theme = createTheme({
   palette: {
@@ -100,6 +102,7 @@ function App() {
           <List title="마이리스트" data={mylist} />
           <List title="임시" data={mylist} />
           <List title="임시" data={mylist} />
+          <RankingList title="오늘의 영화 TOP10" data={rList} />
           <Footer />
         </Box>
       </Box>
