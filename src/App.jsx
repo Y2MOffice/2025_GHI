@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./Homepage";
 import SearchPage from "./SearchPage";
 import Navbar from "./components/Navbar";
 import SignUpComplete from "./SignUpComplete";
 import LoginPage from "./LoginPage";
+import PrivateRoute from "./routes/PrivateRoute";
 
 const App = () => {
+  const [authenticate, setAuthenticate] = useState(false); //false>>로그인 안된거 true면 로그인 된거
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<Navbar />}>
+        <Route path="/" element={<Navbar authenticate={authenticate} />}>
           <Route index element={<HomePage />} />
           <Route path="search" element={<SearchPage />} />
+          <Route
+            path="mypage"
+            element={<PrivateRoute authenticate={authenticate} />}
+          />
           <Route path="SignUpComplete" element={<SignUpComplete />} />
-          <Route path="login" element={<LoginPage />} />
+          <Route
+            path="login"
+            element={<LoginPage setAuthenticate={setAuthenticate} />}
+          />
         </Route>
       </Routes>
     </>
