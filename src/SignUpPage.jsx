@@ -38,15 +38,29 @@ const theme = createTheme({
   },
 });
 
-const LoginPage = ({ setAuthenticate }) => {
+const SignUpPage = () => {
+  const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (event) => {
-    event.preventDefault(); // Prevent refresh
-    setAuthenticate(true);
-    navigate("/");
+  const handleSignUp = (event) => {
+    event.preventDefault();
+
+    if (!nickname) {
+      alert("ニックネームを入力してください。");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("パスワードが一致しません。");
+      return;
+    }
+
+    // 会員登録完了後にログインページへ移動
+    alert(`登録が完了しました。ようこそ、${nickname}さん！`);
+    navigate("/login");
   };
 
   return (
@@ -61,12 +75,22 @@ const LoginPage = ({ setAuthenticate }) => {
             boxShadow: 3,
           }}
         >
-          <Typography variant="h5">ログイン</Typography>
+          <Typography variant="h5">アカウント作成</Typography>
           <Box
             component="form"
-            onSubmit={handleLogin}
+            onSubmit={handleSignUp}
             sx={{ mt: 1, width: "100%" }}
           >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              label="ニックネーム"
+              type="text"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              InputLabelProps={{ style: { color: "#FFFFFF" } }}
+            />
             <TextField
               margin="normal"
               required
@@ -87,6 +111,16 @@ const LoginPage = ({ setAuthenticate }) => {
               onChange={(e) => setPassword(e.target.value)}
               InputLabelProps={{ style: { color: "#FFFFFF" } }}
             />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              label="パスワード（確認）"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              InputLabelProps={{ style: { color: "#FFFFFF" } }}
+            />
             <Button
               fullWidth
               variant="contained"
@@ -94,15 +128,12 @@ const LoginPage = ({ setAuthenticate }) => {
               type="submit"
               sx={{ mt: 2, mb: 2 }}
             >
-              ログイン
+              登録する
             </Button>
           </Box>
-          <Box display="flex" justifyContent="space-between" width="100%">
-            <Link href="#" variant="body2" sx={{ color: "#FFFFFF" }}>
-              パスワードを忘れましたか？
-            </Link>
-            <Link href="/signup" variant="body2" sx={{ color: "#FFFFFF" }}>
-              新規登録
+          <Box display="flex" justifyContent="center" width="100%">
+            <Link href="/login" variant="body2" sx={{ color: "#FFFFFF" }}>
+              すでにアカウントをお持ちですか？ ログイン
             </Link>
           </Box>
         </Box>
@@ -111,4 +142,4 @@ const LoginPage = ({ setAuthenticate }) => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;
