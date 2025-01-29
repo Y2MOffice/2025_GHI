@@ -10,7 +10,6 @@ import {
   ThemeProvider,
   createTheme,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -38,15 +37,12 @@ const theme = createTheme({
   },
 });
 
-const LoginPage = ({ setAuthenticate }) => {
+const FindPasswordPage = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
-  const handleLogin = (event) => {
-    event.preventDefault(); // Prevent refresh
-    setAuthenticate(true);
-    navigate("/");
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`パスワードリセットのリンクを ${email} に送信しました。`);
   };
 
   return (
@@ -59,14 +55,18 @@ const LoginPage = ({ setAuthenticate }) => {
             p: 4,
             borderRadius: 2,
             boxShadow: 3,
+            textAlign: "center",
           }}
         >
-          <Typography variant="h5">ログイン</Typography>
-          <Box
-            component="form"
-            onSubmit={handleLogin}
-            sx={{ mt: 1, width: "100%" }}
-          >
+          <Typography variant="h5" gutterBottom>
+            パスワードをお忘れですか？
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 2 }}>
+            登録したメールアドレスを入力してください。
+            <br />
+            パスワードリセットのリンクをお送りします。
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
             <TextField
               margin="normal"
               required
@@ -77,16 +77,6 @@ const LoginPage = ({ setAuthenticate }) => {
               onChange={(e) => setEmail(e.target.value)}
               InputLabelProps={{ style: { color: "#FFFFFF" } }}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="パスワード"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              InputLabelProps={{ style: { color: "#FFFFFF" } }}
-            />
             <Button
               fullWidth
               variant="contained"
@@ -94,25 +84,16 @@ const LoginPage = ({ setAuthenticate }) => {
               type="submit"
               sx={{ mt: 2, mb: 2 }}
             >
-              ログイン
+              リセットリンクを送信
             </Button>
           </Box>
-          <Box display="flex" justifyContent="space-between" width="100%">
-            <Link
-              href="/find-password"
-              variant="body2"
-              sx={{ color: "#FFFFFF" }}
-            >
-              パスワードを忘れましたか？
-            </Link>
-            <Link href="/signup" variant="body2" sx={{ color: "#FFFFFF" }}>
-              新規登録
-            </Link>
-          </Box>
+          <Link href="/login" variant="body2" sx={{ color: "#FFFFFF" }}>
+            ログインページに戻る
+          </Link>
         </Box>
       </Container>
     </ThemeProvider>
   );
 };
 
-export default LoginPage;
+export default FindPasswordPage;
