@@ -52,6 +52,7 @@ const Navbar = ({ authenticate }) => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState(""); //검색란 초기하기위한 state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleSearch = (event) => {
     if (event.key === "Enter") {
@@ -98,7 +99,7 @@ const Navbar = ({ authenticate }) => {
                 alignItems: "center",
               }}
             >
-              <Link to="/">
+              <Link to="/" onClick={() => setSelectedIndex(0)}>
                 <img src={logo} alt="Netflix Logo" style={{ height: "40px" }} />
               </Link>
             </Box>
@@ -118,8 +119,14 @@ const Navbar = ({ authenticate }) => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Menu open={isMenuOpen} onClose={toggleMenu} authenticate={authenticate} />
-      <Box sx={{ paddingTop: "64px", backgroundColor:"#191919dd"}}>
+      <Menu
+        open={isMenuOpen}
+        onClose={toggleMenu}
+        authenticate={authenticate}
+        selectedIndex={selectedIndex}
+        setSelectedIndex={setSelectedIndex}
+      />
+      <Box sx={{ paddingTop: "64px", backgroundColor: "#191919dd" }}>
         <Outlet />
       </Box>
     </>

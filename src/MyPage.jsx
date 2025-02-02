@@ -1,27 +1,26 @@
 import { useState, useRef } from "react";
 import { Box, Typography, Grid, Button, Avatar } from "@mui/material";
-import MyPageList from "./data/MyPageList.js";
-import MovieDetail from "./components/MovieDetail";
-import ConditionalPopup from "./components/ConditionalPopup";
 import { useNavigate } from "react-router-dom";
+import FilterVintageIcon from "@mui/icons-material/FilterVintage";
 
 const MyPage = () => {
-  const [selectedMovie, setSelectedMovie] = useState(null);
   const contentRef = useRef(null);
-  const isUserLoggedIn = false; // 로그인 조건. state등으로 변형하여 사용.
-  const [showLoginPopup, setShowLoginPopup] = useState(false);
   const navigate = useNavigate();
 
   const handleEditClick = () => {
     navigate("/edit_account");
   };
 
-  const handleMovieClick = (movie) => {
-    if (!isUserLoggedIn) {
-      setShowLoginPopup(true);
-    } else {
-      setSelectedMovie(movie); 
-    }
+  const handlePointHistory = () => {
+    navigate("/point-history");
+  };
+
+  const handlePhotoPurchaseHistory = () => {
+    navigate("/photo-history");
+  };
+
+  const handleFavoriteList = () => {
+    navigate("/favorites");
   };
 
   return (
@@ -36,6 +35,7 @@ const MyPage = () => {
         color: "white",
         maxWidth: "1200px",
         margin: "0 auto",
+        height: "100vh",
       }}
     >
       <Box
@@ -59,10 +59,21 @@ const MyPage = () => {
         <Typography variant="h6" sx={{ mt: 1, color: "rgb(200, 200, 200)" }}>
           名無しさん
         </Typography>
-
-        <Box sx={{ textAlign: "center", mb: 2, color: "rgb(200, 200, 200)" }}>
-          <Typography variant="body1">レビュー : 0</Typography>
-          <Typography variant="body1">コメント : 1</Typography>
+        <Box
+          sx={{
+            textAlign: "center",
+            mb: 2,
+            color: "rgb(200, 200, 200)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 1,
+          }}
+        >
+          <FilterVintageIcon
+            sx={{ fontSize: "24px", color: "rgb(255, 182, 193)" }}
+          />{" "}
+          <Typography variant="body1">10</Typography>
         </Box>
 
         <Button
@@ -77,24 +88,9 @@ const MyPage = () => {
               backgroundColor: "rgba(200, 200, 200, 0.1)",
             },
           }}
-        >
-          メンバーシップ
-        </Button>
-        <Button
-          variant="outlined"
-          fullWidth
-          sx={{
-            mb: 1,
-            borderColor: "rgb(184, 184, 184)",
-            color: "rgb(184, 184, 184)",
-            "&:hover": {
-              borderColor: "rgb(200, 200, 200)",
-              backgroundColor: "rgba(200, 200, 200, 0.1)",
-            },
-          }}
           onClick={handleEditClick}
         >
-          アカウント設定
+          個人情報変更
         </Button>
         <Button
           variant="outlined"
@@ -108,8 +104,25 @@ const MyPage = () => {
               backgroundColor: "rgba(200, 200, 200, 0.1)",
             },
           }}
+          onClick={handlePointHistory}
         >
-          カスタマーサポート
+          ポイント決済履歴
+        </Button>
+        <Button
+          variant="outlined"
+          fullWidth
+          sx={{
+            mb: 1,
+            borderColor: "rgb(184, 184, 184)",
+            color: "rgb(184, 184, 184)",
+            "&:hover": {
+              borderColor: "rgb(200, 200, 200)",
+              backgroundColor: "rgba(200, 200, 200, 0.1)",
+            },
+          }}
+          onClick={handlePhotoPurchaseHistory}
+        >
+          写真購入履歴
         </Button>
         <Button
           variant="outlined"
@@ -122,64 +135,11 @@ const MyPage = () => {
               backgroundColor: "rgba(200, 200, 200, 0.1)",
             },
           }}
+          onClick={handleFavoriteList}
         >
-          ログアウト
+          お気に入りリスト
         </Button>
       </Box>
-
-      <Box
-        sx={{
-          flex: 1,
-          width: { xs: "100%", md: "75%" },
-        }}
-      >
-        <Typography variant="h5" sx={{ mb: 3 }}>
-          お気に入りの映画
-        </Typography>
-        <Grid container spacing={2}>
-          {MyPageList.map((item) => (
-            <Grid
-              item
-              xs={6}
-              sm={4}
-              md={3}
-              key={item.id}
-              onClick={() => handleMovieClick(item)}
-            >
-              <Box
-                sx={{
-                  textAlign: "center",
-                  cursor: "pointer",
-                  "&:hover": { transform: "scale(1.05)" },
-                  transition: "transform 0.2s",
-                }}
-              >
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    borderRadius: "10px",
-                    marginBottom: "10px",
-                  }}
-                  onDragStart={(e) => e.preventDefault()}
-                />
-                <Typography variant="subtitle1">{item.title}</Typography>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-      {selectedMovie && (
-        <MovieDetail
-          movie={selectedMovie}
-          onClose={() => setSelectedMovie(null)}
-        />
-      )}
-      {showLoginPopup && (
-          <ConditionalPopup onClose={() => setShowLoginPopup(false)} />
-        )}
     </Box>
   );
 };
