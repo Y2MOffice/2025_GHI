@@ -13,7 +13,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import CategoryList from "./CategoryList";
-import { useNavigate } from "react-router-dom";
 
 function Menu({ onClose, open, authenticate }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -30,6 +29,11 @@ function Menu({ onClose, open, authenticate }) {
   const handleListItemClick = (index) => {
     setSelectedIndex(index);
   };
+
+  const handleAvatarClick = () => {
+    //아바타 클릭
+  };
+
   return (
     <Slide direction="right" in={open} mountOnEnter unmountOnExit>
       <Box
