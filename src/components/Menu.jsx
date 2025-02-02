@@ -12,9 +12,19 @@ import {
 } from "@mui/material";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import CategoryList from "./CategoryList";
+import { useNavigate } from "react-router-dom";
 
-function Menu({ onClose, open }) {
+function Menu({ onClose, open, authenticate }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    if (authenticate) {
+      navigate("/mypage");
+    } else {
+      navigate("/login");
+    }
+  };
 
   const handleListItemClick = (index) => {
     setSelectedIndex(index);
@@ -62,8 +72,12 @@ function Menu({ onClose, open }) {
             }}
           >
             <Avatar alt="Profile Picture" src="" sx={{ marginRight: 2 }} />
-            <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              名無しさん
+            <Typography
+              variant="h6"
+              sx={{ flexGrow: 1, cursor: "pointer" }}
+              onClick={handleNavigation}
+            >
+              {authenticate ? "マイページ" : "ログイン"}
             </Typography>
             <IconButton onClick={onClose} sx={{ color: "white" }}>
               <ChangeCircleIcon />
