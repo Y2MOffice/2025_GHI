@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import MovieDetail from "./MovieDetail";
 import FullView from "./FullView";
+import ConditionalPopup from "./ConditionalPopup";
 
 const List = ({ title, data }) => {
   const rowRef = useRef(null);
@@ -15,6 +16,8 @@ const List = ({ title, data }) => {
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isFullViewOpen, setIsFullViewOpen] = useState(false);
+  const isUserLoggedIn = false; // 로그인 조건. state등으로 변형하여 사용.
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   const handleMouseDown = (e) => {
     const row = rowRef.current;
@@ -40,11 +43,15 @@ const List = ({ title, data }) => {
 
   const handleClick = (item) => {
     if (!isDragging) {
-      setSelectedMovie(null);
-      setTimeout(() => {
-        setSelectedMovie(item);
-        setIsFadingOut(false);
-      }, 0);
+      if (!isUserLoggedIn) {
+        setShowLoginPopup(true);
+      } else {
+        setSelectedMovie(null);
+        setTimeout(() => {
+          setSelectedMovie(item);
+          setIsFadingOut(false);
+        }, 0);
+      }
     }
   };
 
@@ -192,6 +199,9 @@ const List = ({ title, data }) => {
           onClose={closeDetail}
           isFadingOut={isFadingOut}
         />
+      )}
+      {showLoginPopup && (
+        <ConditionalPopup onClose={() => setShowLoginPopup(false)} />
       )}
 
       {isFullViewOpen && (

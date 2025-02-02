@@ -10,6 +10,7 @@ import {
   Avatar,
   IconButton,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import CategoryList from "./CategoryList";
 import { useNavigate } from "react-router-dom";
@@ -71,7 +72,13 @@ function Menu({ onClose, open, authenticate }) {
               borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
             }}
           >
-            <Avatar alt="Profile Picture" src="" sx={{ marginRight: 2 }} />
+
+            <Avatar
+              alt="Profile Picture"
+              src=""
+              sx={{ marginRight: 2, cursor: "pointer" }}
+              onClick={handleAvatarClick}
+            />
             <Typography
               variant="h6"
               sx={{ flexGrow: 1, cursor: "pointer" }}

@@ -118,12 +118,8 @@ const Navbar = ({ authenticate }) => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Menu
-        open={isMenuOpen}
-        onClose={toggleMenu}
-        authenticate={authenticate}
-      />
-      <Box sx={{ marginTop: "64px" }}>
+      <Menu open={isMenuOpen} onClose={toggleMenu} authenticate={authenticate} />
+      <Box sx={{ paddingTop: "64px", backgroundColor:"#191919dd"}}>
         <Outlet />
       </Box>
     </>
