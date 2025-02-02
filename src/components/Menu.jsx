@@ -13,13 +13,18 @@ import {
 import { useNavigate } from "react-router-dom";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import CategoryList from "./CategoryList";
+import { useNavigate } from "react-router-dom";
 
-function Menu({ onClose, open }) {
+function Menu({ onClose, open, authenticate }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const navigate = useNavigate();
 
-  const handleAvatarClick = () => {
-    navigate("/mypage"); // mypage 경로로 이동
+  const handleNavigation = () => {
+    if (authenticate) {
+      navigate("/mypage");
+    } else {
+      navigate("/login");
+    }
   };
 
   const handleListItemClick = (index) => {
@@ -67,14 +72,19 @@ function Menu({ onClose, open }) {
               borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
             }}
           >
+
             <Avatar
               alt="Profile Picture"
               src=""
               sx={{ marginRight: 2, cursor: "pointer" }}
               onClick={handleAvatarClick}
             />
-            <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              名無しさん
+            <Typography
+              variant="h6"
+              sx={{ flexGrow: 1, cursor: "pointer" }}
+              onClick={handleNavigation}
+            >
+              {authenticate ? "マイページ" : "ログイン"}
             </Typography>
             <IconButton onClick={onClose} sx={{ color: "white" }}>
               <ChangeCircleIcon />

@@ -48,7 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Navbar = () => {
+const Navbar = ({ authenticate }) => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState(""); //검색란 초기하기위한 state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -118,7 +118,7 @@ const Navbar = () => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Menu open={isMenuOpen} onClose={toggleMenu} />
+      <Menu open={isMenuOpen} onClose={toggleMenu} authenticate={authenticate} />
       <Box sx={{ paddingTop: "64px", backgroundColor:"#191919dd"}}>
         <Outlet />
       </Box>
