@@ -6,13 +6,20 @@ import {
   Divider,
   Avatar,
   IconButton,
+  Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MenuButton from "./MenuButton";
 import FilterVintageIcon from "@mui/icons-material/FilterVintage";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-function Menu({ onClose, open, authenticate, selectedIndex, setSelectedIndex }) {
+function Menu({
+  onClose,
+  open,
+  authenticate,
+  selectedIndex,
+  setSelectedIndex,
+}) {
   const navigate = useNavigate();
   const userName = authenticate ? "ユーザー名" : "ゲスト";
   const [pointCount, setPointCount] = useState(10); //사쿠라포인트
@@ -87,10 +94,6 @@ function Menu({ onClose, open, authenticate, selectedIndex, setSelectedIndex }) 
               {userName}
             </Typography>
 
-            <IconButton sx={{ color: "white" }}>
-              <LogoutIcon fontSize="large" />
-            </IconButton>
-
             <IconButton sx={{ color: "pink" }}>
               <FilterVintageIcon fontSize="large" />
             </IconButton>
@@ -110,7 +113,26 @@ function Menu({ onClose, open, authenticate, selectedIndex, setSelectedIndex }) 
 
           <Divider sx={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }} />
 
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2 }}>
+          <Button
+            variant="contained"
+            fullWidth
+            sx={{
+              backgroundColor: "pink",
+              color: "black",
+              fontWeight: "bold",
+              mb: 1,
+              mt: 1,
+              "&:hover": {
+                backgroundColor: "rgb(255, 182, 193)",
+              },
+            }}
+          >
+            桜をチャージする
+          </Button>
+
+          <Divider sx={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }} />
+
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1, p: 2 }}>
             <MenuButton
               text="ホーム"
               index={0}
@@ -139,6 +161,11 @@ function Menu({ onClose, open, authenticate, selectedIndex, setSelectedIndex }) 
               onClick={() => setSelectedIndex(3)}
               path="user-guide"
             />
+
+            <IconButton sx={{ color: "white" }}>
+              <LogoutIcon fontSize="large" />
+              LogOut
+            </IconButton>
             <Box
               sx={{
                 marginTop: 3,

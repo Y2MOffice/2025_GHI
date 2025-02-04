@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Box, Typography, IconButton, Slide } from "@mui/material";
+import { Box, Typography, IconButton, Slide, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 const MovieDetail = ({ movie, onClose }) => {
@@ -8,6 +8,8 @@ const MovieDetail = ({ movie, onClose }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragStartY, setDragStartY] = useState(0);
   const [scrollStartY, setScrollStartY] = useState(0);
+  const [isPurchased, setIsPurchased] = useState(false); //구매여부 임시
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleClose = () => {
     setShow(false);
@@ -89,7 +91,7 @@ const MovieDetail = ({ movie, onClose }) => {
             maxHeight: "90%",
             position: "relative",
             userSelect: "none",
-            cursor: isDragging ? "grabbing" : "grab", 
+            cursor: isDragging ? "grabbing" : "grab",
           }}
         >
           <IconButton
@@ -107,9 +109,11 @@ const MovieDetail = ({ movie, onClose }) => {
           >
             <CloseIcon />
           </IconButton>
-
+          <Typography variant="h5" sx={{ mb: 1, ml: 5 }}>
+            {movie?.title}
+          </Typography>
           <img
-            src={movie?.img}
+            src={movie?.mainImg}
             alt={movie?.title}
             style={{
               width: "100%",
@@ -120,11 +124,118 @@ const MovieDetail = ({ movie, onClose }) => {
             onDragStart={(e) => e.preventDefault()}
           />
           <Typography variant="h6" sx={{ mb: 1 }}>
-            {movie?.title}
+            {movie?.summary}
           </Typography>
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mt: 1, mb: 2 }}>
+            {movie?.tags?.map((tag, index) => (
+              <Typography
+                key={index}
+                variant="body2"
+                sx={{
+                  backgroundColor: "rgba(255, 255, 255, 0.2)",
+                  padding: "4px 8px",
+                  borderRadius: "4px",
+                  fontSize: "14px",
+                  cursor: "pointer",
+                  "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.3)" },
+                }}
+                onClick={() => console.log(`Clicked tag: ${tag}`)} //작동 테스트
+              >
+                #{tag}
+              </Typography>
+            ))}
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center", mt: 2, gap: 2 }}>
+            <Typography
+              variant="body1"
+              sx={{ minWidth: "100px", textAlign: "left" }}
+            >
+              금액 : {movie?.price}원
+            </Typography>
+            <Button
+              variant="contained"
+              color={isPurchased ? "success" : "primary"}
+              onClick={() => setIsPurchased(true)} //추후 수정
+              sx={{
+                flexGrow: 1,
+                maxWidth: "150px",
+                textAlign: "center",
+              }}
+            >
+              {isPurchased ? "작품보기" : "구매하기"}
+            </Button>
+          </Box>
           <Typography variant="body1" sx={{ mb: 2 }}>
             {movie?.content}
           </Typography>
+          <Box sx={{ display: "flex", gap: 1, mt: 2 }}>
+            <Box
+              sx={{ flex: 1, position: "relative", cursor: "pointer" }}
+              onClick={() => console.log("첫 번째 이미지 클릭")}
+            >
+              <img
+                src={movie?.img[0]}
+                alt={movie?.title}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  borderRadius: "10px",
+                }}
+                onDragStart={(e) => e.preventDefault()}
+              />
+            </Box>
+
+            <Box
+              sx={{ flex: 1, position: "relative", cursor: "pointer" }}
+              onClick={() => console.log("두 번째 이미지 클릭")}
+            >
+              <img
+                src={movie?.img[1]}
+                alt={movie?.title}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  borderRadius: "10px",
+                }}
+                onDragStart={(e) => e.preventDefault()}
+              />
+            </Box>
+
+            <Box
+              sx={{ flex: 1, position: "relative" }}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <img
+                src={movie?.img[2]}
+                alt={movie?.title}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  borderRadius: "10px",
+                  filter: isHovered ? "blur(3px)" : "blur(0px)",
+                  transition: "filter 0.3s ease",
+                }}
+                onDragStart={(e) => e.preventDefault()}
+              />
+              {isHovered && (
+                <Button
+                  variant="contained"
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
+                  onClick={() => console.log("구매하기")}//임시
+                >
+                  구매하기
+                </Button>
+              )}
+            </Box>
+          </Box>
         </Box>
       </Box>
     </Slide>

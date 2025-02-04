@@ -16,7 +16,7 @@ const List = ({ title, data }) => {
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isFullViewOpen, setIsFullViewOpen] = useState(false);
-  const isUserLoggedIn = false; // 로그인 조건. state등으로 변형하여 사용.
+  const isUserLoggedIn = true; // 로그인 조건. state등으로 변형하여 사용.
   const [showLoginPopup, setShowLoginPopup] = useState(false);
 
 
@@ -138,7 +138,7 @@ const List = ({ title, data }) => {
           >
             <Box
               component="img"
-              src={item.img}
+              src={item.mainImg}
               alt={item.title}
               sx={{
                 width: "100%",

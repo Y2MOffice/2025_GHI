@@ -17,7 +17,7 @@ import TradeLaw from "./TradeLaw";
 import UserGuide from "./UserGuide";
 
 const App = () => {
-  const [authenticate, setAuthenticate] = useState(false); //false>>로그인 안된거 true면 로그인 된거
+  const [authenticate, setAuthenticate] = useState(true); //false>>로그인 안된거 true면 로그인 된거
 
   return (
     <>

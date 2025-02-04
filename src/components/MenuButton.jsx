@@ -32,7 +32,11 @@ const MenuButton = ({ text, index, selectedIndex, onClick, path }) => {
           transition: "background-color 0.3s ease",
         }}
       />
-      <Typography variant="h6">{text}</Typography>
+      <Typography
+        variant={index === 0 ? "h5" : "body1"}
+      >
+        {text}
+      </Typography>
     </ListItemButton>
   );
 };
