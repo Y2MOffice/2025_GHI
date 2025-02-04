@@ -85,7 +85,7 @@ const SignUpPage = () => {
               margin="normal"
               required
               fullWidth
-              label="ニックネーム"
+              label="ニックネーム" //nickname
               type="text"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
@@ -95,7 +95,7 @@ const SignUpPage = () => {
               margin="normal"
               required
               fullWidth
-              label="メールアドレス"
+              label="メールアドレス" //mail
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -105,7 +105,7 @@ const SignUpPage = () => {
               margin="normal"
               required
               fullWidth
-              label="パスワード"
+              label="パスワード" //password
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -115,7 +115,7 @@ const SignUpPage = () => {
               margin="normal"
               required
               fullWidth
-              label="パスワード（確認）"
+              label="パスワード（確認）" //password correct
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
