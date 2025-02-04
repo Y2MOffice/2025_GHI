@@ -15,6 +15,7 @@ import FindPasswordPage from "./FindPasswordPage";
 import PrivacyPolicy from "./PrivacyPolicy";
 import TradeLaw from "./TradeLaw";
 import UserGuide from "./UserGuide";
+import ViewPage from "./viewPage(list)";
 
 const App = () => {
   const [authenticate, setAuthenticate] = useState(true); //false>>로그인 안된거 true면 로그인 된거
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="point-history" element={<PointHistory />} />
           <Route path="photo-history" element={<PhotoPurchaseHistory />} />
           <Route path="favorites" element={<FavoriteList />} />
+          <Route path="/viewPage/:id" element={<ViewPage />} />
         </Route>
       </Routes>
     </>

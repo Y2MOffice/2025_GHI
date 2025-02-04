@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { Box, Typography, IconButton, Slide, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 
 const MovieDetail = ({ movie, onClose }) => {
   const contentRef = useRef(null);
@@ -10,6 +11,7 @@ const MovieDetail = ({ movie, onClose }) => {
   const [scrollStartY, setScrollStartY] = useState(0);
   const [isPurchased, setIsPurchased] = useState(false); //구매여부 임시
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
 
   const handleClose = () => {
     setShow(false);
@@ -155,7 +157,13 @@ const MovieDetail = ({ movie, onClose }) => {
             <Button
               variant="contained"
               color={isPurchased ? "success" : "primary"}
-              onClick={() => setIsPurchased(true)} //추후 수정
+              onClick={() => {
+                if (isPurchased) {
+                  navigate(`/viewPage/${movie.id}`);
+                } else {
+                  setIsPurchased(true); // 구매처리
+                }
+              }} //추후 수정
               sx={{
                 flexGrow: 1,
                 maxWidth: "150px",
@@ -229,7 +237,7 @@ const MovieDetail = ({ movie, onClose }) => {
                     color: "white",
                     fontWeight: "bold",
                   }}
-                  onClick={() => console.log("구매하기")}//임시
+                  onClick={() => console.log("구매하기")} //임시
                 >
                   구매하기
                 </Button>
