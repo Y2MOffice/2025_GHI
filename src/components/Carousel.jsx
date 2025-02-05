@@ -23,7 +23,7 @@ const ImageCarousel = ({ data }) => {
             }}
           >
             <img
-              src={item.img}
+              src={item.img[0]}
               alt={item.title}
               style={{
                 width: "100%",

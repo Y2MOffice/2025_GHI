@@ -14,7 +14,7 @@ import {
 const theme = createTheme({
   palette: {
     background: {
-      default: "#191919",
+      default: "#c1a3a3",
     },
     text: {
       primary: "#FFFFFF",
@@ -24,7 +24,7 @@ const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: "#191919",
+          backgroundColor: "#c1a3a3",
           color: "#FFFFFF",
           display: "flex",
           justifyContent: "center",
@@ -51,7 +51,7 @@ const FindPasswordPage = () => {
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
-            bgcolor: "#202020",
+            bgcolor: "#7d5959",
             p: 4,
             borderRadius: 2,
             boxShadow: 3,
@@ -82,7 +82,14 @@ const FindPasswordPage = () => {
               variant="contained"
               color="error"
               type="submit"
-              sx={{ mt: 2, mb: 2 }}
+              sx={{
+                mt: 2,
+                mb: 2,
+                backgroundColor: "#c1a3a3",
+                "&:hover": {
+                  backgroundColor: "#c1a9a9",
+                },
+              }}
             >
               リセットリンクを送信
             </Button>

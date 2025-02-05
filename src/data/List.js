@@ -1,21 +1,21 @@
+import img1 from "../assets/1.png";
+import img2 from "../assets/2.png";
+import img3 from "../assets/3.png";
+import img4 from "../assets/4.png";
+import img5 from "../assets/5.png";
+
 let data = [
   {
     id: 0,
-    title: "スプリント: 人類最速と呼ばれるために",
-    content:
-      "人類最速の走者となるため、トレーニングを積むエリート短距離走者たちの心理を深く掘り下げる本シリーズでは、世界各国の陸上競技アスリートの姿を追っていく。運命を左右する勝負の様子や、世界最速記録でゴールするために人生の全てをささげるスプリンターたちの不屈の精神力など、ここでしか見られない舞台裏に密着。わずか1秒の何分の1という僅差でプロとしての未来が決まる世界に迫る。シーズン2では、遠征の様子や2024年パリオリンピックの一部始終を通して、シャカリ・リチャードソンやノア・ライルズなど、トップスプリンターたちにクローズアップする。",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+    title: "이상해씨",
+    content: "태어나서 얼마 동안 등의 씨앗에 담긴 영양을 섭취하며 자란다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000101.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000101.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000201.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000301.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000302.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000303.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -23,15 +23,17 @@ let data = [
   },
   {
     id: 1,
-    title: 'DON\'T DIE: "永遠に生きる"を極めし男',
+    title: "파이리",
     content:
-      '永遠に生きるために、あるいは単に老化作用を遅らせるために、人はどこまで挑戦するのか? 「FYRE: 夢に終わった史上最高のパーティー」「100フィートの波/100 FOOT WAVE」のクリス・スミス監督によるこの衝撃的なドキュメンタリーは、老化現象に立ち向かうことに人生をささげてきたひとりの男性、ブライアン・ジョンソンに密着取材。「DON\'T DIE: "永遠に生きる"を極めし男」では、彼が若さと生命力を維持するために実践している賛否両論の健康管理法や、こうした試みが彼自身と周りの人々に及ぼす影響について掘り下げる。',
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "꼬리에서 타오르는 불꽃은 생명력의 상징. 기운이 없으면 불꽃이 약해진다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000401.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABYXDec_Y85xRTHBDcencl-9RZIosEqvsHOlddlUBU6plfskOWYwP9tMS8SumI26ltN54u8gkbMPH5FlHzNxB4MPR8n-LfPZV3torki0V4YnwC_ESLWWZ6xTwC4si9wHAjtIZFQ.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABYXDec_Y85xRTHBDcencl-9RZIosEqvsHOlddlUBU6plfskOWYwP9tMS8SumI26ltN54u8gkbMPH5FlHzNxB4MPR8n-LfPZV3torki0V4YnwC_ESLWWZ6xTwC4si9wHAjtIZFQ.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABYXDec_Y85xRTHBDcencl-9RZIosEqvsHOlddlUBU6plfskOWYwP9tMS8SumI26ltN54u8gkbMPH5FlHzNxB4MPR8n-LfPZV3torki0V4YnwC_ESLWWZ6xTwC4si9wHAjtIZFQ.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000401.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000501.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000601.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000602.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000603.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000604.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -39,15 +41,16 @@ let data = [
   },
   {
     id: 2,
-    title: "ロマンスは嘘から始まって",
+    title: "꼬부기",
     content:
-      "ナポリに暮らす借金を抱えた兄弟が、自宅差し押さえの危機を回避するために考え出した詐欺計画。富豪令嬢から大金をだましとろうとするが、思いがけない恋がその計画を狂わせていく。",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "태어난 뒤 등이 부풀면서 단단한 등껍질이 생긴다. 입에서 강력한 거품을 발사한다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000701.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000701.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000801.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000901.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000902.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/000903.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -55,15 +58,15 @@ let data = [
   },
   {
     id: 3,
-    title: "ミッシング・ユー",
+    title: "캐터피",
     content:
-      "11年前、カット・ドノヴァン刑事が最愛の人と信じた婚約者のジョシュが姿を消し、それ以来連絡も途絶えていた。しかし、カットがデートアプリで何人かのプロフィールを見ていると、突然彼の画像を発見し、またしても彼女の世界が揺らぐことに。ジョシュが再び姿を現したことで、彼女は自分の父親が殺害された事件の謎に挑み、長年隠されてきた過去の秘密を掘り返すことになる。",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "빨간 더듬이로부터 냄새를 내어 상대를 쫓아 버린다. 탈피를 반복하여 자라난다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001001.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001001.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001101.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001201.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001202.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -71,15 +74,15 @@ let data = [
   },
   {
     id: 4,
-    title: "義母とカオスなパラダイス",
+    title: "뿔충이",
     content:
-      "孤島の楽園に新たな家族とその義母たちが集結し、自己発見の旅に乗り出して行く、目が離せないリアリティ番組。",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "매일 자신과 똑같은 무게의 잎사귀를 먹는다. 머리의 침으로 달려드는 상대를 물리친다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001301.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001301.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001401.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001501.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001502.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -87,15 +90,15 @@ let data = [
   },
   {
     id: 5,
-    title: "ウォレスとグルミット 仕返しなんてコワくない!",
+    title: "구구",
     content:
-      "アカデミー賞®を4度受賞したアードマンのニック・パーク監督とエミー賞ノミネートのマーリン・クロシンガムが、新作アドベンチャー映画「Wallace & Gromit: Vengeance Most Fowl (原題)」で再びタッグを組む! 今回は、ウォレスが自身の発明に依存しすぎているのではないかというグルミットの懸念が的中する壮大な物語。なんとウォレスは自らの意思を持つスマートゲノムを発明してしまうのだ。さらに過去の恨みを持つある人物がこの一連の出来事に黒幕として絡んでいることが発覚。悪の勢力と戦い、主人であるウォレスを救えるかどうかはグルミットの肩にかかっている。救出できなければ、ウォレスはもう二度と発明できなくなるかもしれない!",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "싸움을 좋아하지 않는 얌전한 성격이지만 어설프게 건드리면 강력한 반격을 당하게 된다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001601.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001601.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001701.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001801.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001802.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -103,15 +106,15 @@ let data = [
   },
   {
     id: 6,
-    title: "セリング・ザ・シティ ～NY、夢の豪華物件～",
+    title: "구구",
     content:
-      "「セリング・サンセット ～ハリウッド、夢の豪華物件～」「セリング・オレンジカウンティ ～ビーチタウン、夢の豪華物件～」のクリエイターが贈る新作シリーズ。ダグラス・エリマン社で働く実直で野心あふれるパワフルなエージェントたちが、ニューヨークの熾烈な超高級不動産の世界で渡り合っていく姿を追いかける。「セリング・ザ・シティ ～NY、夢の豪華物件～」は、目を見張るようなニューヨークの不動産物件を舞台に、エージェントたちが直面する激しい競争から目まぐるしいキャリア、さらには私生活のドラマに至るまで、数々の興奮と感動をお届けする。",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "어떤 장소에도 정착하여 살아갈 수 있는 생명력이 있다. 경계심이 매우 강하다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001901.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001901.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/001902.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002001.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002002.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -119,15 +122,14 @@ let data = [
   },
   {
     id: 7,
-    title: "ブレイクスルー",
+    title: "깨비참",
     content:
-      '2004年にスウェーデンのリンシェービングで起きた殺人事件が、16年ぶりにようやく解決します。突破口を開いたのは、1人の系図学者。ヨーロッパで初めて家系図調査によって解決に導かれた殺人事件となります。「The Breakthrough (英題)」は、意外な主人公と、思いも寄らないコラボレーションによる犯人捜しを描くフィクションです。さらに、未解決の犯罪が社会に与える影響と、"誰が? 何のために?"いう問いに、答えを得られずにいる遺族の姿を映し出します。',
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "작은 날개를 쉴 새 없이 파닥여 날아오른다. 풀밭에 있는 먹이를 부리로 찾아낸다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002101.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002101.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002201.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002201.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -135,15 +137,14 @@ let data = [
   },
   {
     id: 8,
-    title: "ガブリエル・イグレシアスのぽっちゃり伝説",
+    title: "아보",
     content:
-      'コメディアンとして27年目を迎えたガブリエル・"フラッフィー"・イグレシアスが、デートのような日常のことから、家に強盗に入られたこと、果ては飛行機での乱気流体験まで、人生のさまざまな危機を振り返る。いつまでも続く重苦しい雰囲気から世界を笑いで救うため、ガブリエル、ここに参上!',
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "자유롭게 턱을 뺄 수 있어서 큰 먹이도 삼킬 수 있지만 무거워져서 움직일 수 없게 된다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002301.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002301.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002401.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002401.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -151,15 +152,15 @@ let data = [
   },
   {
     id: 9,
-    title: "偽りのプロフィール",
+    title: "피카츄",
     content:
-      "コロンビアでも有数の魅力的な男たちが、何者かによる特異な手口で殺されていく。殺人犯は、出会い系アプリでカミラ・ロマンになりすました偽アカウントを使い、被害者と会って、色仕掛けで誘惑。そして相手を快楽の極限に導いた末に手を下す。冷酷で捉えどころのない殺人犯に狙われたメキシコ人ダンサーのカミラは、自分の無実を証明するために、予想だにしていなかった協力者や数ヵ月前に自分を裏切った男ミゲル・エステベスと手を組むことに。ふたりは複数の容疑者たちに復讐心を抱きながら、かつて出会い系アプリTinderで出会った元恋人同士として抑えがたい想いを再燃させていく。謎が深まるなか、高級居住区リビエラ・エスメラルダの住民や訪問者の中に、その偽アカウントを隠れみのにした犯人がいるのではと疑いの目が向けられていく。",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "양 볼에는 전기를 저장하는 주머니가 있다. 화가 나면 저장한 전기를 단숨에 방출한다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002501.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002501.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002502.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002601.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002602.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -167,15 +168,15 @@ let data = [
   },
   {
     id: 10,
-    title: "スプリント: 人類最速と呼ばれるために",
+    title: "모래두지",
     content:
-      "人類最速の走者となるため、トレーニングを積むエリート短距離走者たちの心理を深く掘り下げる本シリーズでは、世界各国の陸上競技アスリートの姿を追っていく。運命を左右する勝負の様子や、世界最速記録でゴールするために人生の全てをささげるスプリンターたちの不屈の精神力など、ここでしか見られない舞台裏に密着。わずか1秒の何分の1という僅差でプロとしての未来が決まる世界に迫る。シーズン2では、遠征の様子や2024年パリオリンピックの一部始終を通して、シャカリ・リチャードソンやノア・ライルズなど、トップスプリンターたちにクローズアップする。",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "깊은 구멍을 파서 생활한다. 위험이 닥치면 몸을 말아 상대의 공격을 가만히 견딘다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002701.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002701.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002702.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002801.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002802.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -183,15 +184,14 @@ let data = [
   },
   {
     id: 11,
-    title: 'DON\'T DIE: "永遠に生きる"を極めし男',
+    title: "니드런♀",
     content:
-      '永遠に生きるために、あるいは単に老化作用を遅らせるために、人はどこまで挑戦するのか? 「FYRE: 夢に終わった史上最高のパーティー」「100フィートの波/100 FOOT WAVE」のクリス・スミス監督によるこの衝撃的なドキュメンタリーは、老化現象に立ち向かうことに人生をささげてきたひとりの男性、ブライアン・ジョンソンに密着取材。「DON\'T DIE: "永遠に生きる"を極めし男」では、彼が若さと生命力を維持するために実践している賛否両論の健康管理法や、こうした試みが彼自身と周りの人々に及ぼす影響について掘り下げる。',
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "싸움을 좋아하지 않는 성격이다. 독침에서 분비된 독은 한 방울만 맞아도 생명을 빼앗긴다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002901.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/002901.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003001.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003101.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -199,15 +199,14 @@ let data = [
   },
   {
     id: 12,
-    title: "ロマンスは嘘から始まって",
+    title: "니드런♂",
     content:
-      "ナポリに暮らす借金を抱えた兄弟が、自宅差し押さえの危機を回避するために考え出した詐欺計画。富豪令嬢から大金をだましとろうとするが、思いがけない恋がその計画を狂わせていく。",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "풀밭 위로 귀만 내놓고 주위의 낌새를 살핀다. 맹독의 뿔로 몸을 보호한다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003201.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003201.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003301.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003401.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -215,15 +214,14 @@ let data = [
   },
   {
     id: 13,
-    title: "ミッシング・ユー",
+    title: "삐삐",
     content:
-      "11年前、カット・ドノヴァン刑事が最愛の人と信じた婚約者のジョシュが姿を消し、それ以来連絡も途絶えていた。しかし、カットがデートアプリで何人かのプロフィールを見ていると、突然彼の画像を発見し、またしても彼女の世界が揺らぐことに。ジョシュが再び姿を現したことで、彼女は自分の父親が殺害された事件の謎に挑み、長年隠されてきた過去の秘密を掘り返すことになる。",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "삐삐들은 보름달 밤에 어디에서 왔는지도 모르게 모여 춤춘다. 달빛을 받으면 떠오른다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003501.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003501.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003601.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003601.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -231,15 +229,15 @@ let data = [
   },
   {
     id: 14,
-    title: "義母とカオスなパラダイス",
+    title: "식스테일",
     content:
-      "孤島の楽園に新たな家族とその義母たちが集結し、自己発見の旅に乗り出して行く、目が離せないリアリティ番組。",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "자신보다 강한 상대에게 공격을 받으면 다친 척을 해서 속이고 그 틈을 타서 도망친다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003701.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003701.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003702.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003801.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003802.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -247,15 +245,14 @@ let data = [
   },
   {
     id: 15,
-    title: "ウォレスとグルミット 仕返しなんてコワくない!",
+    title: "푸린",
     content:
-      "アカデミー賞®を4度受賞したアードマンのニック・パーク監督とエミー賞ノミネートのマーリン・クロシンガムが、新作アドベンチャー映画「Wallace & Gromit: Vengeance Most Fowl (原題)」で再びタッグを組む! 今回は、ウォレスが自身の発明に依存しすぎているのではないかというグルミットの懸念が的中する壮大な物語。なんとウォレスは自らの意思を持つスマートゲノムを発明してしまうのだ。さらに過去の恨みを持つある人物がこの一連の出来事に黒幕として絡んでいることが発覚。悪の勢力と戦い、主人であるウォレスを救えるかどうかはグルミットの肩にかかっている。救出できなければ、ウォレスはもう二度と発明できなくなるかもしれない!",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "초롱초롱한 눈동자가 흔들릴 때 졸음이 쏟아지게 하는 이상하고 기분 좋은 노래를 부른다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003901.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/003901.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004001.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004001.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -263,15 +260,14 @@ let data = [
   },
   {
     id: 16,
-    title: "セリング・ザ・シティ ～NY、夢の豪華物件～",
+    title: "주뱃",
     content:
-      "「セリング・サンセット ～ハリウッド、夢の豪華物件～」「セリング・オレンジカウンティ ～ビーチタウン、夢の豪華物件～」のクリエイターが贈る新作シリーズ。ダグラス・エリマン社で働く実直で野心あふれるパワフルなエージェントたちが、ニューヨークの熾烈な超高級不動産の世界で渡り合っていく姿を追いかける。「セリング・ザ・シティ ～NY、夢の豪華物件～」は、目を見張るようなニューヨークの不動産物件を舞台に、エージェントたちが直面する激しい競争から目まぐるしいキャリア、さらには私生活のドラマに至るまで、数々の興奮と感動をお届けする。",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "입에서 내는 초음파로 두 눈이 없어도 주위의 장애물을 탐색할 수 있다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004101.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004101.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004201.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004201.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -279,15 +275,14 @@ let data = [
   },
   {
     id: 17,
-    title: "ブレイクスルー",
+    title: "뚜벅쵸",
     content:
-      '2004年にスウェーデンのリンシェービングで起きた殺人事件が、16年ぶりにようやく解決します。突破口を開いたのは、1人の系図学者。ヨーロッパで初めて家系図調査によって解決に導かれた殺人事件となります。「The Breakthrough (英題)」は、意外な主人公と、思いも寄らないコラボレーションによる犯人捜しを描くフィクションです。さらに、未解決の犯罪が社会に与える影響と、"誰が? 何のために?"いう問いに、答えを得られずにいる遺族の姿を映し出します。',
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "별명은 걸어 다니는 독초. 밤이 되면 2개의 뿌리로 300m나 걷는다고 한다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004301.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004301.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004401.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004501.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -295,15 +290,14 @@ let data = [
   },
   {
     id: 18,
-    title: "ガブリエル・イグレシアスのぽっちゃり伝説",
+    title: "파라스",
     content:
-      'コメディアンとして27年目を迎えたガブリエル・"フラッフィー"・イグレシアスが、デートのような日常のことから、家に強盗に入られたこと、果ては飛行機での乱気流体験まで、人生のさまざまな危機を振り返る。いつまでも続く重苦しい雰囲気から世界を笑いで救うため、ガブリエル、ここに参上!',
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "동충하초라고 불리는 버섯을 등에 기르고 있다. 파라스와 함께 크게 자란다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004601.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004601.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004701.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004701.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
@@ -311,20 +305,19 @@ let data = [
   },
   {
     id: 19,
-    title: "偽りのプロフィール",
+    title: "콘팡",
     content:
-      "コロンビアでも有数の魅力的な男たちが、何者かによる特異な手口で殺されていく。殺人犯は、出会い系アプリでカミラ・ロマンになりすました偽アカウントを使い、被害者と会って、色仕掛けで誘惑。そして相手を快楽の極限に導いた末に手を下す。冷酷で捉えどころのない殺人犯に狙われたメキシコ人ダンサーのカミラは、自分の無実を証明するために、予想だにしていなかった協力者や数ヵ月前に自分を裏切った男ミゲル・エステベスと手を組むことに。ふたりは複数の容疑者たちに復讐心を抱きながら、かつて出会い系アプリTinderで出会った元恋人同士として抑えがたい想いを再燃させていく。謎が深まるなか、高級居住区リビエラ・エスメラルダの住民や訪問者の中に、その偽アカウントを隠れみのにした犯人がいるのではと疑いの目が向けられていく。",
-    mainImg:
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABRPu-36I6vfEjHPLi5y0hsCEnmwblH5Hm8NfnZIfYhTwpDvui2EHLaqcCqFxA1OqrOcHPjeD5DURHfHGj3q3JO4Qmez5VHDAqdsW6ojT8aSyr_I-9eyJH8DGdxNByiz0sJyHrA.jpg",
+      "전신에서 독이 스며 나온다. 어두워지면 밝은 곳에 모인 작은 벌레포켓몬을 잡아먹는다.",
+    mainImg: "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004801.png",
     img: [
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
-      "https://dnm.nflximg.net/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABTHwLZK6bcLsO1UplLYUp43nHlUJJHVvcQuPELkN0VaZbkZUfuO0_ymgSJ7SOdVwI51OvZePpGXHeWx2gQI4KmoysPip4DhrTAEcxb7QJC6RAnT5pMEkdwXRJzU0inQpKL7SDA.jpg",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004801.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004901.png",
+      "https://data1.pokemonkorea.co.kr/newdata/pokedex/mid/004901.png",
     ],
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
     price: 10000,
-  },
+  }
 ];
 
 export default data;

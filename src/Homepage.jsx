@@ -26,7 +26,7 @@ const theme = createTheme({
   },
 });
 
-const HomePage = () => {
+const HomePage = ( authenticate ) => {
   const contentRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startY, setStartY] = useState(0);
@@ -65,11 +65,11 @@ const HomePage = () => {
         }}
       >
         <Carousel data={rList} />
-        <RankingList title="今日の映画TOP10" data={rList} />
-        <List title="Netflix人気動画" data={mylist} />
-        <List title="マイリスト" data={mylist} />
-        <List title="임시" data={mylist} />
-        <List title="임시" data={mylist} />
+        <RankingList title="今日の映画TOP10" data={rList} authenticate={authenticate} />
+        <List title="Netflix人気動画" data={mylist} authenticate={authenticate} />
+        <List title="マイリスト" data={mylist} authenticate={authenticate} />
+        <List title="임시" data={mylist} authenticate={authenticate} />
+        <List title="임시" data={mylist} authenticate={authenticate} />
         <Footer />
       </Box>
     </ThemeProvider>

@@ -31,8 +31,8 @@ const MyPage = () => {
         justifyContent: "center",
         alignItems: { xs: "center", md: "start" },
         padding: 3,
-        backgroundColor: "#191919",
-        color: "white",
+        color: "rgb(250, 241, 242)",
+        textShadow: "1px 1px 4px rgb(241, 209, 210)",
         maxWidth: "1200px",
         margin: "0 auto",
         height: "100vh",
@@ -44,7 +44,7 @@ const MyPage = () => {
         sx={{
           width: { xs: "90%", md: "25%" },
           padding: 3,
-          backgroundColor: "#1f1f1f",
+          backgroundColor: "#7d5959",
           borderRadius: 2,
           marginBottom: { xs: 3, md: 0 },
           marginRight: { xs: 0, md: 3 },
@@ -56,7 +56,14 @@ const MyPage = () => {
           src=""
           sx={{ width: 100, height: 100, margin: "0 auto" }}
         />
-        <Typography variant="h6" sx={{ mt: 1, color: "rgb(200, 200, 200)" }}>
+        <Typography
+          variant="h6"
+          sx={{
+            mt: 1,
+            color: "rgb(250, 241, 242)",
+            textShadow: "2px 2px 4px rgb(241, 209, 210)",
+          }}
+        >
           名無しさん
         </Typography>
         <Box
@@ -73,7 +80,11 @@ const MyPage = () => {
           <FilterVintageIcon
             sx={{ fontSize: "24px", color: "rgb(255, 182, 193)" }}
           />{" "}
-          <Typography variant="body1">10</Typography>
+          <Typography
+            variant="body1"
+          >
+            10
+          </Typography>
         </Box>
 
         <Button
@@ -81,11 +92,11 @@ const MyPage = () => {
           fullWidth
           sx={{
             mb: 1,
-            borderColor: "rgb(184, 184, 184)",
-            color: "rgb(184, 184, 184)",
+            borderColor: "rgb(241, 209, 210)",
+            color: "rgb(241, 209, 210)",
             "&:hover": {
-              borderColor: "rgb(200, 200, 200)",
-              backgroundColor: "rgba(200, 200, 200, 0.1)",
+              borderColor: "rgb(250, 241, 242)",
+              backgroundColor: "rgba(250, 241, 242, 0.1)",
             },
           }}
           onClick={handleEditClick}
@@ -97,11 +108,11 @@ const MyPage = () => {
           fullWidth
           sx={{
             mb: 1,
-            borderColor: "rgb(184, 184, 184)",
-            color: "rgb(184, 184, 184)",
+            borderColor: "rgb(241, 209, 210)",
+            color: "rgb(241, 209, 210)",
             "&:hover": {
-              borderColor: "rgb(200, 200, 200)",
-              backgroundColor: "rgba(200, 200, 200, 0.1)",
+              borderColor: "rgb(250, 241, 242)",
+              backgroundColor: "rgba(250, 241, 242, 0.1)",
             },
           }}
           onClick={handlePointHistory}
@@ -113,11 +124,11 @@ const MyPage = () => {
           fullWidth
           sx={{
             mb: 1,
-            borderColor: "rgb(184, 184, 184)",
-            color: "rgb(184, 184, 184)",
+            borderColor: "rgb(241, 209, 210)",
+            color: "rgb(241, 209, 210)",
             "&:hover": {
-              borderColor: "rgb(200, 200, 200)",
-              backgroundColor: "rgba(200, 200, 200, 0.1)",
+              borderColor: "rgb(250, 241, 242)",
+              backgroundColor: "rgba(250, 241, 242, 0.1)",
             },
           }}
           onClick={handlePhotoPurchaseHistory}
@@ -128,11 +139,11 @@ const MyPage = () => {
           variant="outlined"
           fullWidth
           sx={{
-            borderColor: "rgb(184, 184, 184)",
-            color: "rgb(184, 184, 184)",
+            borderColor: "rgb(241, 209, 210)",
+            color: "rgb(241, 209, 210)",
             "&:hover": {
-              borderColor: "rgb(200, 200, 200)",
-              backgroundColor: "rgba(200, 200, 200, 0.1)",
+              borderColor: "rgb(250, 241, 242)",
+              backgroundColor: "rgba(250, 241, 242, 0.1)",
             },
           }}
           onClick={handleFavoriteList}

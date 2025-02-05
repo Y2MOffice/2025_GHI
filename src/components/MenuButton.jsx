@@ -19,6 +19,7 @@ const MenuButton = ({ text, index, selectedIndex, onClick, path }) => {
           index === selectedIndex ? "rgba(255, 255, 255, 0.1)" : "transparent",
         transition: "background-color 0.3s ease",
         paddingLeft: "20px",
+        textShadow: index === selectedIndex ? "2px 2px 4px rgb(125, 89, 89)" : "2px 2px 4px rgb(241,209,210)",
       }}
     >
       <Box
@@ -28,12 +29,15 @@ const MenuButton = ({ text, index, selectedIndex, onClick, path }) => {
           top: 0,
           bottom: 0,
           width: "5px",
-          backgroundColor: index === selectedIndex ? "red" : "transparent",
+          backgroundColor: index === selectedIndex ? "rgb(241,209,210)" : "transparent",
           transition: "background-color 0.3s ease",
         }}
       />
       <Typography
         variant={index === 0 ? "h5" : "body1"}
+        sx={{
+          color: index === selectedIndex ? "rgb(250,241,242)" : "rgb(125,89,89)",
+        }}
       >
         {text}
       </Typography>

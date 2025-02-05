@@ -32,8 +32,8 @@ const ConditionalPopup = ({ onClose }) => {
         <Box
           onClick={(e) => e.stopPropagation()}
           sx={{
-            background: "linear-gradient(to right, #5c2a36, #1d4437)",
-            color: "white",
+            background: "linear-gradient(to right, #f1d1d2, #c1a3a3)",
+            color: "rgb(250, 241, 242)",
             borderRadius: 2,
             maxWidth: "400px",
             width: "70%",
@@ -48,7 +48,7 @@ const ConditionalPopup = ({ onClose }) => {
               position: "absolute",
               top: 10,
               left: 10,
-              color: "white",
+              color: "rgb(250, 241, 242)",
               backgroundColor: "rgba(0, 0, 0, 0.6)",
               "&:hover": {
                 backgroundColor: "rgba(0, 0, 0, 0.8)",
@@ -57,15 +57,18 @@ const ConditionalPopup = ({ onClose }) => {
           >
             <CloseIcon />
           </IconButton>
-          <Typography variant="h6" sx={{ mb: 2 }}>
+          <Typography
+            variant="h6"
+            sx={{ mb: 2, mt: 5, textShadow: "2px 2px 4px rgb(125, 89, 89)" }}
+          >
             ログインしてご利用くださいませ
           </Typography>
           <Button
             variant="contained"
             sx={{
-              backgroundColor: "#1d4437",
+              backgroundColor: "#7d5959",
               "&:hover": {
-                backgroundColor: "#285c4f",
+                backgroundColor: "#7d5959",
               },
             }}
           >

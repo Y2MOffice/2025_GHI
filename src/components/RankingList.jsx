@@ -10,13 +10,12 @@ import MovieDetail from "./MovieDetail";
 import FullView from "./FullView";
 import ConditionalPopup from "./ConditionalPopup";
 
-const List = ({ title, data }) => {
+const List = ({ title, data, authenticate }) => {
   const rowRef = useRef(null);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isFullViewOpen, setIsFullViewOpen] = useState(false);
-  const isUserLoggedIn = false; // 로그인 조건. state등으로 변형하여 사용.
   const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   const handleMouseDown = (e) => {
@@ -43,7 +42,7 @@ const List = ({ title, data }) => {
 
   const handleClick = (item) => {
     if (!isDragging) {
-      if (!isUserLoggedIn) {
+      if (!Boolean(authenticate.authenticate)) {
         setShowLoginPopup(true);
       } else {
         setSelectedMovie(null);
@@ -63,7 +62,11 @@ const List = ({ title, data }) => {
   };
 
   const openFullView = () => {
-    setIsFullViewOpen(true);
+    if (!Boolean(authenticate.authenticate)) {
+      setShowLoginPopup(true);
+    } else {
+      setIsFullViewOpen(true);
+    }
   };
 
   const closeFullView = () => {
@@ -78,7 +81,8 @@ const List = ({ title, data }) => {
           justifyContent: "space-between",
           alignItems: "center",
           px: 2,
-          color: "white",
+          color: "rgb(250, 241, 242)",
+          textShadow: "2px 2px 4px rgb(125, 89, 89)",
         }}
       >
         <Typography
@@ -90,8 +94,12 @@ const List = ({ title, data }) => {
           {title}
         </Typography>
         <Typography
-          variant="body2"
-          sx={{ color: "#e50914", cursor: "pointer" }}
+          variant="body1"
+          sx={{
+            color: "rgb(241, 209, 210)",
+            cursor: "pointer",
+            textShadow: "2px 2px 4px rgb(125, 89, 89)",
+          }}
           onClick={openFullView}
         >
           全部見る
@@ -148,13 +156,17 @@ const List = ({ title, data }) => {
                 left: index === 9 ? "1%" : "5%",
                 top: "65%",
                 transform: "translateY(-50%)",
-                fontSize: index === 9 ? "130px" : "250px",
+                fontSize: index === 9 ? "130px" : "200px",
                 fontWeight: "bold",
                 color: "#191919",
-                "-webkit-text-stroke": index === 9 ? "3px white" : "5px white",
+                "-webkit-text-stroke":
+                  index === 9
+                    ? "3px rgb(250, 241, 242)"
+                    : "5px rgb(250, 241, 242)",
                 opacity: 0.8,
                 zIndex: 1,
                 letterSpacing: index === 9 ? "-15px" : null,
+                textShadow: "2px 2px 9px rgb(125, 89, 89)",
               }}
             >
               {index + 1}
@@ -162,10 +174,10 @@ const List = ({ title, data }) => {
 
             <Box
               component="img"
-              src={item.img}
+              src={item.img[0]}
               alt={item.title}
               sx={{
-                width: "67%",
+                width: "70%",
                 height: "100%",
                 objectFit: "cover",
                 borderRadius: "5px",
@@ -183,8 +195,8 @@ const List = ({ title, data }) => {
                 width: "67%",
                 marginLeft: "auto",
                 background:
-                  "linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0) 100%)",
-                color: "white",
+                  "linear-gradient(to top, rgba(125, 89, 89, 0.8) 0%, rgba(125, 89, 89, 0.2) 70%, rgba(125, 89, 89, 0) 100%)",
+                color: "rgb(250, 241, 242)",
                 zIndex: 3,
                 borderRadius: "5px",
               }}

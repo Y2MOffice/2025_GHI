@@ -63,10 +63,10 @@ function Menu({
               lg: "30%",
             },
             height: "100vh",
-            backgroundColor: "rgb(30, 30, 30)",
+            backgroundColor: "rgb(193, 163, 163)",
             color: "white",
             zIndex: 1200,
-            boxShadow: "2px 0 5px rgba(0, 0, 0, 0.5)",
+            boxShadow: "2px 0 5px rgba(125, 89, 89, 0.7)",
           }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -75,8 +75,7 @@ function Menu({
               display: "flex",
               alignItems: "center",
               padding: 2,
-              backgroundColor: "rgb(40, 40, 40)",
-              borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
+              backgroundColor: "rgb(125, 89, 89)",
             }}
           >
             <Avatar
@@ -88,12 +87,23 @@ function Menu({
 
             <Typography
               variant="h5"
-              sx={{ flexGrow: 1, cursor: "pointer" }}
+              sx={{
+                flexGrow: 1,
+                cursor: "pointer",
+                textShadow: "2px 2px 4px rgb(241, 209, 210)",
+              }}
               onClick={handleNavigation}
             >
               {userName}
             </Typography>
-
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              backgroundColor: "rgb(125, 89, 89)",
+            }}
+          >
             <IconButton sx={{ color: "pink" }}>
               <FilterVintageIcon fontSize="large" />
             </IconButton>
@@ -105,32 +115,33 @@ function Menu({
                 borderRadius: "10px",
                 padding: "5px 10px 5px 0px",
                 cursor: "pointer",
+                textShadow: "2px 2px 4px rgb(241, 209, 210)",
               }}
             >
               {pointCount}
             </Typography>
+            <Button
+              variant="contained"
+              fullWidth
+              sx={{
+                backgroundColor: "pink",
+                color: "black",
+                fontWeight: "bold",
+                ml: 5,
+                mr: 2,
+                mb: 1,
+                mt: 1,
+                textShadow: "2px 2px 4px rgb(125, 89, 89)",
+                "&:hover": {
+                  backgroundColor: "rgb(255, 182, 193)",
+                },
+              }}
+            >
+              桜をチャージする
+            </Button>
           </Box>
 
           <Divider sx={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }} />
-
-          <Button
-            variant="contained"
-            fullWidth
-            sx={{
-              backgroundColor: "pink",
-              color: "black",
-              fontWeight: "bold",
-              mb: 1,
-              mt: 1,
-              "&:hover": {
-                backgroundColor: "rgb(255, 182, 193)",
-              },
-            }}
-          >
-            桜をチャージする
-          </Button>
-
-          <Divider sx={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }} />
 
           <Box sx={{ display: "flex", flexDirection: "column", gap: 1, p: 2 }}>
             <MenuButton
@@ -162,7 +173,12 @@ function Menu({
               path="user-guide"
             />
 
-            <IconButton sx={{ color: "white" }}>
+            <IconButton
+              sx={{
+                color: "white",
+                textShadow: "2px 2px 4px rgb(125, 89, 89)",
+              }}
+            >
               <LogoutIcon fontSize="large" />
               LogOut
             </IconButton>
@@ -172,6 +188,7 @@ function Menu({
                 padding: 2,
                 textAlign: "center",
                 fontSize: "14px",
+                textShadow: "2px 2px 4px rgb(125, 89, 89)",
                 color: "rgba(255, 255, 255, 0.7)",
                 borderTop: "1px solid rgba(255, 255, 255, 0.2)",
               }}

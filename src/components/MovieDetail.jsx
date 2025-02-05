@@ -83,8 +83,8 @@ const MovieDetail = ({ movie, onClose }) => {
         <Box
           onClick={(e) => e.stopPropagation()}
           sx={{
-            background: "linear-gradient(to right, #5c2a36, #1d4437)",
-            color: "white",
+            background: "linear-gradient(to right, #c1a3a3,rgb(182, 137, 137))",
+            color: "rgb(250, 241, 242)",
             borderRadius: 2,
             maxWidth: "400px",
             width: "70%",
@@ -102,7 +102,7 @@ const MovieDetail = ({ movie, onClose }) => {
               position: "absolute",
               top: 10,
               left: 10,
-              color: "white",
+              color: "rgb(250, 241, 242)",
               backgroundColor: "rgba(0, 0, 0, 0.6)",
               "&:hover": {
                 backgroundColor: "rgba(0, 0, 0, 0.8)",
@@ -168,6 +168,10 @@ const MovieDetail = ({ movie, onClose }) => {
                 flexGrow: 1,
                 maxWidth: "150px",
                 textAlign: "center",
+                backgroundColor: "#7d5959", // 버튼 배경색 변경
+                "&:hover": {
+                  backgroundColor: "#6c4f4f", // 호버 시 색상 변경 (살짝 어두운 톤)
+                },
               }}
             >
               {isPurchased ? "작품보기" : "구매하기"}
@@ -234,7 +238,7 @@ const MovieDetail = ({ movie, onClose }) => {
                     top: "50%",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    color: "white",
+                    color: "rgb(250, 241, 242)",
                     fontWeight: "bold",
                   }}
                   onClick={() => console.log("구매하기")} //임시
