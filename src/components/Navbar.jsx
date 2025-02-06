@@ -13,9 +13,9 @@ import Menu from "./Menu.jsx";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha("rgb(250, 241, 242)", 0.15),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha("rgb(250, 241, 242)", 0.25),
   },
   marginLeft: 0,
   width: "100%",
@@ -52,6 +52,7 @@ const Navbar = ({ authenticate }) => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState(""); //검색란 초기하기위한 state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleSearch = (event) => {
     if (event.key === "Enter") {
@@ -77,7 +78,13 @@ const Navbar = ({ authenticate }) => {
 
   return (
     <>
-      <AppBar position="fixed" sx={{ backgroundColor: "#191919dd" }}>
+      <AppBar
+        position="fixed"
+        sx={{
+          backgroundColor: "#c1a3a3dd",
+          boxShadow: "0px 4px 10px rgba(125, 89, 89, 0.7)",
+        }}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
             <IconButton
@@ -98,7 +105,7 @@ const Navbar = ({ authenticate }) => {
                 alignItems: "center",
               }}
             >
-              <Link to="/">
+              <Link to="/" onClick={() => setSelectedIndex(0)}>
                 <img src={logo} alt="Netflix Logo" style={{ height: "40px" }} />
               </Link>
             </Box>
@@ -118,8 +125,14 @@ const Navbar = ({ authenticate }) => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Menu open={isMenuOpen} onClose={toggleMenu} authenticate={authenticate} />
-      <Box sx={{ paddingTop: "64px", backgroundColor:"#191919dd"}}>
+      <Menu
+        open={isMenuOpen}
+        onClose={toggleMenu}
+        authenticate={authenticate}
+        selectedIndex={selectedIndex}
+        setSelectedIndex={setSelectedIndex}
+      />
+      <Box sx={{ paddingTop: "64px", backgroundColor: "#c1a3a3dd" }}>
         <Outlet />
       </Box>
     </>

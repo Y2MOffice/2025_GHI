@@ -10,15 +10,13 @@ import MovieDetail from "./MovieDetail";
 import FullView from "./FullView";
 import ConditionalPopup from "./ConditionalPopup";
 
-const List = ({ title, data }) => {
+const List = ({ title, data, authenticate }) => {
   const rowRef = useRef(null);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isFullViewOpen, setIsFullViewOpen] = useState(false);
-  const isUserLoggedIn = false; // 로그인 조건. state등으로 변형하여 사용.
   const [showLoginPopup, setShowLoginPopup] = useState(false);
-
 
   const handleMouseDown = (e) => {
     const row = rowRef.current;
@@ -44,7 +42,7 @@ const List = ({ title, data }) => {
 
   const handleClick = (item) => {
     if (!isDragging) {
-      if (!isUserLoggedIn) {
+      if (!Boolean(authenticate.authenticate)) {
         setShowLoginPopup(true);
       } else {
         setSelectedMovie(null);
@@ -64,7 +62,11 @@ const List = ({ title, data }) => {
   };
 
   const openFullView = () => {
-    setIsFullViewOpen(true);
+    if (!Boolean(authenticate.authenticate)) {
+      setShowLoginPopup(true);
+    } else {
+      setIsFullViewOpen(true);
+    }
   };
 
   const closeFullView = () => {
@@ -79,7 +81,8 @@ const List = ({ title, data }) => {
           justifyContent: "space-between",
           alignItems: "center",
           px: 2,
-          color: "white",
+          color: "rgb(250, 241, 242)",
+          textShadow: "2px 2px 4px rgb(125, 89, 89)",
         }}
       >
         <Typography
@@ -92,7 +95,11 @@ const List = ({ title, data }) => {
         </Typography>
         <Typography
           variant="body2"
-          sx={{ color: "#e50914", cursor: "pointer" }}
+          sx={{
+            color: "rgb(241, 209, 210)",
+            cursor: "pointer",
+            textShadow: "2px 2px 4px rgb(125, 89, 89)",
+          }}
           onClick={openFullView}
         >
           全部見る
@@ -129,7 +136,7 @@ const List = ({ title, data }) => {
                 md: "20%",
                 lg: "15%",
               },
-              aspectRatio: "2 / 3",
+              aspectRatio: "1",
               textAlign: "center",
               position: "relative",
               "&:hover": { transform: "scale(1.05)" },
@@ -138,7 +145,7 @@ const List = ({ title, data }) => {
           >
             <Box
               component="img"
-              src={item.img}
+              src={item.mainImg}
               alt={item.title}
               sx={{
                 width: "100%",
@@ -154,8 +161,11 @@ const List = ({ title, data }) => {
               position="bottom"
               sx={{
                 background:
-                  "linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0) 100%)",
+                  "linear-gradient(to top, rgba(125, 89, 89, 0.8) 0%, rgba(125, 89, 89, 0.2) 70%, rgba(125, 89, 89, 0) 100%)",
                 borderRadius: "5px",
+                "& .MuiImageListItemBar-title": {
+                  color: "rgb(250, 241, 242)",
+                },
               }}
             />
           </ImageListItem>
@@ -167,9 +177,12 @@ const List = ({ title, data }) => {
           movie={selectedMovie}
           onClose1={closeDetail}
           isFadingOut={isFadingOut}
+          authenticate={authenticate}
         />
       )}
-      {showLoginPopup && <ConditionalPopup onClose={() => setShowLoginPopup(false)} />}
+      {showLoginPopup && (
+        <ConditionalPopup onClose={() => setShowLoginPopup(false)} />
+      )}
 
       {isFullViewOpen && (
         <FullView
@@ -177,6 +190,7 @@ const List = ({ title, data }) => {
           title={title}
           onClose={closeFullView}
           isFadingOut={isFadingOut}
+          authenticate={authenticate}
         />
       )}
     </Box>

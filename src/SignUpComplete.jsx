@@ -13,14 +13,14 @@ const SignUpComplete = () => {
   const theme = createTheme({
     palette: {
       background: {
-        default: "#191919",
+        default: "#c1a3a3",
       },
     },
     components: {
       MuiCssBaseline: {
         styleOverrides: {
           body: {
-            backgroundColor: "#191919",
+            backgroundColor: "#c1a3a3",
             color: "#FFFFFF",
           },
         },
@@ -61,7 +61,13 @@ const SignUpComplete = () => {
         <Button
           variant="contained"
           color="error"
-          sx={{ mt: 2 }}
+          sx={{
+            mt: 2,
+            backgroundColor: "#7d5959",
+            "&:hover": {
+              backgroundColor: "#7d5959",
+            },
+          }}
           component={Link}
           to="/login"
         >
