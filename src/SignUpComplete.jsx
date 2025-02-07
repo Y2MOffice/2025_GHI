@@ -7,26 +7,11 @@ import {
   createTheme,
   useMediaQuery,
 } from "@mui/material";
+import { pink } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
 const SignUpComplete = () => {
-  const theme = createTheme({
-    palette: {
-      background: {
-        default: "#191919",
-      },
-    },
-    components: {
-      MuiCssBaseline: {
-        styleOverrides: {
-          body: {
-            backgroundColor: "#191919",
-            color: "#FFFFFF",
-          },
-        },
-      },
-    },
-  });
+  const theme = createTheme({});
 
   return (
     <ThemeProvider theme={theme}>
@@ -34,10 +19,10 @@ const SignUpComplete = () => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column", // 수직 정렬
-          justifyContent: "center", // 세로 중앙 정렬
-          alignItems: "center", // 가로 중앙 정렬
-          height: "calc(100vh - 64px)", // 화면 전체 높이
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "calc(100vh - 64px)",
         }}
       >
         <Typography
@@ -46,9 +31,9 @@ const SignUpComplete = () => {
           gutterBottom
           sx={{
             fontSize: {
-              xs: "1.5rem", // 모바일 화면 (xs)에서는 글씨 크기를 작게
-              sm: "2rem", // 작은 화면 (sm)에서는 중간 크기
-              md: "2.5rem", // 일반 화면에서는 기본 크기
+              xs: "1.5rem",
+              sm: "2rem",
+              md: "2.5rem",
             },
           }}
         >
@@ -60,12 +45,18 @@ const SignUpComplete = () => {
         </Typography>
         <Button
           variant="contained"
-          color="error"
-          sx={{ mt: 2 }}
           component={Link}
-          to="/login"
+          to="/"
+          sx={{
+            mt: 2,
+            backgroundColor: pink[100],
+            color: "#fff",
+            "&:hover": {
+              backgroundColor: pink[200],
+            },
+          }}
         >
-          ログインページへ移動
+          ホームページに移動
         </Button>
       </Box>
     </ThemeProvider>

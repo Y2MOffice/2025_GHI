@@ -11,22 +11,13 @@ import {
   createTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { pink } from "@mui/material/colors";
 
 const theme = createTheme({
-  palette: {
-    background: {
-      default: "#191919",
-    },
-    text: {
-      primary: "#FFFFFF",
-    },
-  },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: "#191919",
-          color: "#FFFFFF",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -55,7 +46,6 @@ const LoginPage = ({ setAuthenticate }) => {
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
-            bgcolor: "#202020",
             p: 4,
             borderRadius: 2,
             boxShadow: 3,
@@ -68,44 +58,46 @@ const LoginPage = ({ setAuthenticate }) => {
             sx={{ mt: 1, width: "100%" }}
           >
             <TextField
-              margin="normal"
+              margin="dense"
               required
               fullWidth
               label="メールアドレス"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              InputLabelProps={{ style: { color: "#FFFFFF" } }}
             />
             <TextField
-              margin="normal"
+              margin="dense"
               required
               fullWidth
               label="パスワード"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              InputLabelProps={{ style: { color: "#FFFFFF" } }}
             />
             <Button
               fullWidth
               variant="contained"
               color="error"
               type="submit"
-              sx={{ mt: 2, mb: 2 }}
+              sx={{
+                mt: 1,
+                mb: 1,
+                backgroundColor: pink[100],
+                color: "#fff",
+                "&:hover": {
+                  backgroundColor: pink[200],
+                },
+              }}
             >
               ログイン
             </Button>
           </Box>
           <Box display="flex" justifyContent="space-between" width="100%">
-            <Link
-              href="/find-password"
-              variant="body2"
-              sx={{ color: "#FFFFFF" }}
-            >
+            <Link href="/find-password" variant="body2">
               パスワードを忘れましたか？
             </Link>
-            <Link href="/signup" variant="body2" sx={{ color: "#FFFFFF" }}>
+            <Link href="/signup" variant="body2">
               新規登録
             </Link>
           </Box>

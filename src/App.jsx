@@ -11,6 +11,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import SignUpPage from "./SignUpPage";
 import FindPasswordPage from "./FindPasswordPage";
 import NotFoundPage from "./NotFoundPage";
+import PasswordResetPage from "./PasswordResetPage";
 
 const App = () => {
   const [authenticate, setAuthenticate] = useState(false); //false>>로그인 안된거 true면 로그인 된거
@@ -33,6 +34,7 @@ const App = () => {
           />
           <Route path="signup" element={<SignUpPage />} />
           <Route path="find-password" element={<FindPasswordPage />} />
+          <Route path="reset-password" element={<PasswordResetPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

@@ -10,22 +10,13 @@ import {
   ThemeProvider,
   createTheme,
 } from "@mui/material";
+import { pink } from "@mui/material/colors";
 
 const theme = createTheme({
-  palette: {
-    background: {
-      default: "#191919",
-    },
-    text: {
-      primary: "#FFFFFF",
-    },
-  },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: "#191919",
-          color: "#FFFFFF",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -51,7 +42,6 @@ const FindPasswordPage = () => {
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
-            bgcolor: "#202020",
             p: 4,
             borderRadius: 2,
             boxShadow: 3,
@@ -75,21 +65,26 @@ const FindPasswordPage = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              InputLabelProps={{ style: { color: "#FFFFFF" } }}
             />
             <Button
               fullWidth
               variant="contained"
-              color="error"
               type="submit"
-              sx={{ mt: 2, mb: 2 }}
+              sx={{
+                mt: 2,
+                backgroundColor: pink[100],
+                color: "#fff",
+                "&:hover": {
+                  backgroundColor: pink[200],
+                },
+              }}
             >
               リセットリンクを送信
             </Button>
           </Box>
-          <Link href="/login" variant="body2" sx={{ color: "#FFFFFF" }}>
+          {/* <Link href="/login" variant="body2">
             ログインページに戻る
-          </Link>
+          </Link> */}
         </Box>
       </Container>
     </ThemeProvider>

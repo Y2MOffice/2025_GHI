@@ -150,7 +150,7 @@ const List = ({ title, data }) => {
                 transform: "translateY(-50%)",
                 fontSize: index === 9 ? "130px" : "250px",
                 fontWeight: "bold",
-                color: "#191919",
+                // color: "#191919",
                 "-webkit-text-stroke": index === 9 ? "3px white" : "5px white",
                 opacity: 0.8,
                 zIndex: 1,

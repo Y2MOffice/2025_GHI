@@ -20,7 +20,7 @@ const MyPage = () => {
     if (!isUserLoggedIn) {
       setShowLoginPopup(true);
     } else {
-      setSelectedMovie(movie); 
+      setSelectedMovie(movie);
     }
   };
 
@@ -178,8 +178,8 @@ const MyPage = () => {
         />
       )}
       {showLoginPopup && (
-          <ConditionalPopup onClose={() => setShowLoginPopup(false)} />
-        )}
+        <ConditionalPopup onClose={() => setShowLoginPopup(false)} />
+      )}
     </Box>
   );
 };
