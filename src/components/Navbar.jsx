@@ -9,9 +9,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import logo from "../assets/ABCDE.png";
 import Menu from "./Menu.jsx";
 
-const Navbar = ({ authenticate }) => {
+const Navbar = ({ setAuthenticate }) => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleSearchClick = () => {
     navigate("/search");
@@ -23,7 +24,13 @@ const Navbar = ({ authenticate }) => {
 
   return (
     <>
-      <AppBar position="fixed" sx={{ backgroundColor: "#191919dd" }}>
+      <AppBar
+        position="fixed"
+        sx={{
+          backgroundColor: "#c1a3a3dd",
+          boxShadow: "0px 4px 10px rgba(125, 89, 89, 0.7)",
+        }}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
             <IconButton
@@ -44,7 +51,7 @@ const Navbar = ({ authenticate }) => {
                 alignItems: "center",
               }}
             >
-              <Link to="/">
+              <Link to="/" onClick={() => setSelectedIndex(0)}>
                 <img src={logo} alt="Netflix Logo" style={{ height: "40px" }} />
               </Link>
             </Box>
@@ -57,7 +64,7 @@ const Navbar = ({ authenticate }) => {
       <Menu
         open={isMenuOpen}
         onClose={toggleMenu}
-        authenticate={authenticate}
+        setAuthenticate={setAuthenticate}
       />
       <Box sx={{ paddingTop: "64px" }}>
         <Outlet />

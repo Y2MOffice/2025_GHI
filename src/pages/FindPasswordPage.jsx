@@ -82,9 +82,9 @@ const FindPasswordPage = () => {
               リセットリンクを送信
             </Button>
           </Box>
-          {/* <Link href="/login" variant="body2">
+          <Link href="/login" variant="body2">
             ログインページに戻る
-          </Link> */}
+          </Link>
         </Box>
       </Container>
     </ThemeProvider>

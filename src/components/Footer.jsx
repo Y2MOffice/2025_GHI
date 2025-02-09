@@ -8,11 +8,11 @@ const Footer = () => {
       sx={{
         bottom: 0,
         width: "100%",
-        backgroundColor: "#191919",
-        color: "white",
+        backgroundColor: "#7d5959",
+        color: "rgb(250, 241, 242)",
         py: 2,
         textAlign: "center",
-        boxShadow: "0px -1px 10px rgba(0, 0, 0, 0.5)",
+        boxShadow: "0px -1px 10px rgba(125, 89, 89, 0.7)",
       }}
     >
       <Container maxWidth="md">
@@ -23,7 +23,7 @@ const Footer = () => {
           <Link
             href="#"
             sx={{
-              color: "white",
+              color: "rgb(250, 241, 242)",
               mx: 1,
               textDecoration: "none",
               "&:hover": { textDecoration: "underline" },
@@ -34,7 +34,7 @@ const Footer = () => {
           <Link
             href="#"
             sx={{
-              color: "white",
+              color: "rgb(250, 241, 242)",
               mx: 1,
               textDecoration: "none",
               "&:hover": { textDecoration: "underline" },

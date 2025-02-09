@@ -12,7 +12,6 @@ const FullView = ({ data, title, onClose }) => {
   const [startY, setStartY] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   const [dragged, setDragged] = useState(false);
-  const isUserLoggedIn = false; // 로그인 조건. state등으로 변형하여 사용.
   const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   const handleMouseDown = (e) => {
@@ -43,12 +42,8 @@ const FullView = ({ data, title, onClose }) => {
 
   const handleMovieClick = (movie) => {
     if (!dragged) {
-      if (!isUserLoggedIn) {
-        setShowLoginPopup(true); // 로그인 팝업 표시
-      } else {
-        setSelectedMovie(movie); // MovieDetail 표시
-      }
-    };
+      setSelectedMovie(movie); // MovieDetail 표시
+    }
   };
 
   return (
@@ -86,7 +81,7 @@ const FullView = ({ data, title, onClose }) => {
           ref={contentRef}
           onClick={(e) => e.stopPropagation()}
           sx={{
-            background: "linear-gradient(to right, #5c2a36, #1d4437)",
+            background: "linear-gradient(to right, #c1a3a3,rgb(182, 137, 137))",
             color: "white",
             borderRadius: 2,
             maxWidth: "1200px",
@@ -139,7 +134,7 @@ const FullView = ({ data, title, onClose }) => {
                   }}
                 >
                   <img
-                    src={movie.img}
+                    src={movie.img[0]}
                     alt={movie.title}
                     style={{
                       width: "100%",
@@ -162,9 +157,9 @@ const FullView = ({ data, title, onClose }) => {
             onClose={() => setSelectedMovie(null)}
           />
         )}
-        {showLoginPopup && (
+        {/* {showLoginPopup && (
           <ConditionalPopup onClose={() => setShowLoginPopup(false)} />
-        )}
+        )} */}
       </Box>
     </Slide>
   );

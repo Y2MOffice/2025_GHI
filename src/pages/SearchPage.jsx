@@ -1,16 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Typography,
   Box,
   InputBase,
-  CircularProgress,
   ImageList,
   ImageListItem,
   ImageListItemBar,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import data from "./data/List";
+import Loading from "../components/Loading";
+import dataList from "../data/List"; // 기존 data 가져오기
 
 const SearchPage = () => {
   const location = useLocation();
@@ -18,20 +18,27 @@ const SearchPage = () => {
   const rowRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isDragging, setIsDragging] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+  const [data, setData] = useState([]); // 데이터 상태 추가
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setData(dataList);
+      setIsLoading(false);
+    }, 500); //(임시)
+  }, []);
 
   // 검색어 입력 핸들러
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
-    setIsLoading(true); // 입력하면 로딩 상태 활성화
   };
 
   // 엔터 입력 시 검색 실행
   const handleSearch = (event) => {
     if (event.key === "Enter") {
       const keyword = searchTerm.trim();
-      navigate(keyword ? `/search?q=${keyword}` : "/search");
-      setIsLoading(false); // 검색 실행 후 로딩 해제
+      navigate(`/search?q=${keyword}`);
     }
   };
 
@@ -47,7 +54,6 @@ const SearchPage = () => {
   // 가로 스크롤 기능 (드래그)
   const handleMouseDown = (e) => {
     const row = rowRef.current;
-    setIsDragging(false);
     row.isDragging = true;
     row.startX = e.pageX - row.offsetLeft;
     row.scrollLeftStart = row.scrollLeft;
@@ -63,8 +69,7 @@ const SearchPage = () => {
   };
 
   const handleMouseUpOrLeave = () => {
-    const row = rowRef.current;
-    row.isDragging = false;
+    rowRef.current.isDragging = false;
   };
 
   return (
@@ -99,10 +104,7 @@ const SearchPage = () => {
 
       {/* 로딩 중일 때 */}
       {isLoading ? (
-        <Box sx={{ textAlign: "center", marginTop: "20px" }}>
-          <CircularProgress size={24} />
-          <Typography variant="body2">Loading...</Typography>
-        </Box>
+        <Loading width={210} height={118} />
       ) : filteredData.length === 0 ? (
         <Typography
           variant="body1"
@@ -150,7 +152,7 @@ const SearchPage = () => {
               >
                 <Box
                   component="img"
-                  src={item.img}
+                  src={item.mainImg}
                   alt={item.title}
                   sx={{
                     width: "100%",

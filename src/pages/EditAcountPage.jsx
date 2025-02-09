@@ -5,9 +5,8 @@ const EditAccount = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "#2c2c2c",
         minHeight: "100vh",
-        color: "white",
+        color: "rgb(250, 241, 242)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -19,7 +18,7 @@ const EditAccount = () => {
         sx={{
           width: "100%",
           maxWidth: { xs: "90%", sm: "600px" },
-          backgroundColor: "#3a3a3a",
+          backgroundColor: "#7d5959",
           borderRadius: 2,
           padding: { xs: 3, sm: 4 },
           boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
@@ -43,13 +42,13 @@ const EditAccount = () => {
                 borderColor: "rgba(255, 255, 255, 0.5)",
               },
               "&:hover fieldset": {
-                borderColor: "white",
+                borderColor: "rgb(250, 241, 242)",
               },
               "&.Mui-focused fieldset": {
-                borderColor: "white",
+                borderColor: "rgb(250, 241, 242)",
               },
             },
-            input: { color: "white" },
+            input: { color: "rgb(250, 241, 242)" },
             label: { color: "rgba(255, 255, 255, 0.7)" },
           }}
         />
@@ -65,13 +64,13 @@ const EditAccount = () => {
                 borderColor: "rgba(255, 255, 255, 0.5)",
               },
               "&:hover fieldset": {
-                borderColor: "white",
+                borderColor: "rgb(250, 241, 242)",
               },
               "&.Mui-focused fieldset": {
-                borderColor: "white",
+                borderColor: "rgb(250, 241, 242)",
               },
             },
-            input: { color: "white" },
+            input: { color: "rgb(250, 241, 242)" },
             label: { color: "rgba(255, 255, 255, 0.7)" },
           }}
         />
@@ -88,13 +87,13 @@ const EditAccount = () => {
                 borderColor: "rgba(255, 255, 255, 0.5)",
               },
               "&:hover fieldset": {
-                borderColor: "white",
+                borderColor: "rgb(250, 241, 242)",
               },
               "&.Mui-focused fieldset": {
-                borderColor: "white",
+                borderColor: "rgb(250, 241, 242)",
               },
             },
-            input: { color: "white" },
+            input: { color: "rgb(250, 241, 242)" },
             label: { color: "rgba(255, 255, 255, 0.7)" },
           }}
         />
@@ -110,13 +109,13 @@ const EditAccount = () => {
                 borderColor: "rgba(255, 255, 255, 0.5)",
               },
               "&:hover fieldset": {
-                borderColor: "white",
+                borderColor: "rgb(250, 241, 242)",
               },
               "&.Mui-focused fieldset": {
-                borderColor: "white",
+                borderColor: "rgb(250, 241, 242)",
               },
             },
-            input: { color: "white" },
+            input: { color: "rgb(250, 241, 242)" },
             label: { color: "rgba(255, 255, 255, 0.7)" },
           }}
         />
@@ -131,13 +130,13 @@ const EditAccount = () => {
                 borderColor: "rgba(255, 255, 255, 0.5)",
               },
               "&:hover fieldset": {
-                borderColor: "white",
+                borderColor: "rgb(250, 241, 242)",
               },
               "&.Mui-focused fieldset": {
-                borderColor: "white",
+                borderColor: "rgb(250, 241, 242)",
               },
             },
-            input: { color: "white" },
+            input: { color: "rgb(250, 241, 242)" },
             label: { color: "rgba(255, 255, 255, 0.7)" },
           }}
         />
@@ -146,9 +145,10 @@ const EditAccount = () => {
           variant="contained"
           fullWidth
           sx={{
-            backgroundColor: "#4caf50",
+            backgroundColor: "#f1d1d2",
+            color: "#7d5959",
             "&:hover": {
-              backgroundColor: "#45a045",
+              backgroundColor: "#faf1f2",
             },
           }}
         >

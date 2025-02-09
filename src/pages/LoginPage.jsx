@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Button,
@@ -33,6 +33,11 @@ const LoginPage = ({ setAuthenticate }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (authenticate) {
+  //     navigate("/");
+  // }, [authenticate, navigate]);
 
   const handleLogin = (event) => {
     event.preventDefault(); // Prevent refresh

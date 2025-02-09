@@ -26,7 +26,7 @@ const PasswordResetPage = () => {
       return;
     }
 
-    // バックエンドなし（仮）
+    // (백엔드 없어서 임시로)
     setSuccess("パスワードが正常に変更されました。");
   };
 
