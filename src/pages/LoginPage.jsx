@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Button,
@@ -11,22 +11,13 @@ import {
   createTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { pink } from "@mui/material/colors";
 
 const theme = createTheme({
-  palette: {
-    background: {
-      default: "#c1a3a3",
-    },
-    text: {
-      primary: "#FFFFFF",
-    },
-  },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: "#c1a3a3",
-          color: "#FFFFFF",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -43,6 +34,11 @@ const LoginPage = ({ setAuthenticate }) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   if (authenticate) {
+  //     navigate("/");
+  // }, [authenticate, navigate]);
+
   const handleLogin = (event) => {
     event.preventDefault(); // Prevent refresh
     setAuthenticate(true);
@@ -55,7 +51,6 @@ const LoginPage = ({ setAuthenticate }) => {
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
-            bgcolor: "#7d5959",
             p: 4,
             borderRadius: 2,
             boxShadow: 3,
@@ -68,24 +63,22 @@ const LoginPage = ({ setAuthenticate }) => {
             sx={{ mt: 1, width: "100%" }}
           >
             <TextField
-              margin="normal"
+              margin="dense"
               required
               fullWidth
               label="メールアドレス"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              InputLabelProps={{ style: { color: "#FFFFFF" } }}
             />
             <TextField
-              margin="normal"
+              margin="dense"
               required
               fullWidth
               label="パスワード"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              InputLabelProps={{ style: { color: "#FFFFFF" } }}
             />
             <Button
               fullWidth
@@ -93,11 +86,12 @@ const LoginPage = ({ setAuthenticate }) => {
               color="error"
               type="submit"
               sx={{
-                mt: 2,
-                mb: 2,
-                backgroundColor: "#c1a3a3",
+                mt: 1,
+                mb: 1,
+                backgroundColor: pink[100],
+                color: "#fff",
                 "&:hover": {
-                  backgroundColor: "#c1a9a9",
+                  backgroundColor: pink[200],
                 },
               }}
             >
@@ -105,14 +99,10 @@ const LoginPage = ({ setAuthenticate }) => {
             </Button>
           </Box>
           <Box display="flex" justifyContent="space-between" width="100%">
-            <Link
-              href="/find-password"
-              variant="body2"
-              sx={{ color: "#FFFFFF" }}
-            >
+            <Link href="/find-password" variant="body2">
               パスワードを忘れましたか？
             </Link>
-            <Link href="/signup" variant="body2" sx={{ color: "#FFFFFF" }}>
+            <Link href="/signup" variant="body2">
               新規登録
             </Link>
           </Box>

@@ -10,7 +10,7 @@ import MovieDetail from "./MovieDetail";
 import FullView from "./FullView";
 import ConditionalPopup from "./ConditionalPopup";
 
-const List = ({ title, data, authenticate }) => {
+const List = ({ title, data }) => {
   const rowRef = useRef(null);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isFadingOut, setIsFadingOut] = useState(false);
@@ -42,15 +42,11 @@ const List = ({ title, data, authenticate }) => {
 
   const handleClick = (item) => {
     if (!isDragging) {
-      if (!Boolean(authenticate.authenticate)) {
-        setShowLoginPopup(true);
-      } else {
-        setSelectedMovie(null);
-        setTimeout(() => {
-          setSelectedMovie(item);
-          setIsFadingOut(false);
-        }, 0);
-      }
+      setSelectedMovie(null);
+      setTimeout(() => {
+        setSelectedMovie(item);
+        setIsFadingOut(false);
+      }, 0);
     }
   };
 
@@ -62,11 +58,7 @@ const List = ({ title, data, authenticate }) => {
   };
 
   const openFullView = () => {
-    if (!Boolean(authenticate.authenticate)) {
-      setShowLoginPopup(true);
-    } else {
-      setIsFullViewOpen(true);
-    }
+    setIsFullViewOpen(true);
   };
 
   const closeFullView = () => {
@@ -158,11 +150,8 @@ const List = ({ title, data, authenticate }) => {
                 transform: "translateY(-50%)",
                 fontSize: index === 9 ? "130px" : "200px",
                 fontWeight: "bold",
-                color: "#191919",
-                "-webkit-text-stroke":
-                  index === 9
-                    ? "3px rgb(250, 241, 242)"
-                    : "5px rgb(250, 241, 242)",
+                // color: "#191919",
+                "-webkit-text-stroke": index === 9 ? "3px white" : "5px white",
                 opacity: 0.8,
                 zIndex: 1,
                 letterSpacing: index === 9 ? "-15px" : null,

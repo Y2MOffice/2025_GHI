@@ -62,6 +62,8 @@ const ConditionalPopup = ({ onClose }) => {
             sx={{ mb: 2, mt: 5, textShadow: "2px 2px 4px rgb(125, 89, 89)" }}
           >
             ログインしてご利用くださいませ
+            <br />
+            【修正必要】
           </Typography>
           <Button
             variant="contained"
@@ -72,7 +74,7 @@ const ConditionalPopup = ({ onClose }) => {
               },
             }}
           >
-            ログイン
+            ログイン【修正必要】
           </Button>
         </Box>
       </Box>

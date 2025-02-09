@@ -22,6 +22,7 @@ const ImagePopup = ({ open, onClose, images, startIndex }) => {
     }
   }, [currentIndex, images, preloadedImages]);
 
+
   useEffect(() => {
     const preloadImages = (index) => {
       if (index < 0 || index >= images.length || preloadedImages.has(index)) return;
@@ -37,7 +38,7 @@ const ImagePopup = ({ open, onClose, images, startIndex }) => {
     preloadImages(currentIndex + 1);
     preloadImages(currentIndex + 2);
   }, [currentIndex, images, preloadedImages]);
-
+  
   if (!open) return null;
 
   return (
@@ -71,8 +72,9 @@ const ImagePopup = ({ open, onClose, images, startIndex }) => {
           maxWidth: "100%",
           maxHeight: "100vh",
           objectFit: "contain",
-          imageRendering: "crisp-edges",
+          imageRendering: "crisp-edges",//화질구지가 아니였네
         }}
+
         toolbarButtons={[
           <span
             key="image-counter"

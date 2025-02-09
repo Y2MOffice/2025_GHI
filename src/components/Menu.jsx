@@ -16,20 +16,16 @@ import LogoutIcon from "@mui/icons-material/Logout";
 function Menu({
   onClose,
   open,
-  authenticate,
+  setAuthenticate,
   selectedIndex,
   setSelectedIndex,
 }) {
   const navigate = useNavigate();
-  const userName = authenticate ? "ユーザー名" : "ゲスト";
+  const userName = "ユーザー名";
   const [pointCount, setPointCount] = useState(10); //사쿠라포인트
 
   const handleNavigation = () => {
-    if (authenticate) {
-      navigate("/mypage");
-    } else {
-      navigate("/login");
-    }
+    navigate("/mypage");
   };
 
   const handleAvatarClick = () => {
@@ -37,6 +33,9 @@ function Menu({
     setSelectedIndex(null);
   };
 
+  const handleLogout = () => {
+    setAuthenticate(false);
+  };
   return (
     <Slide direction="right" in={open} mountOnEnter unmountOnExit>
       <Box
@@ -178,6 +177,7 @@ function Menu({
                 color: "white",
                 textShadow: "2px 2px 4px rgb(125, 89, 89)",
               }}
+              onClick={handleLogout}
             >
               <LogoutIcon fontSize="large" />
               LogOut

@@ -80,11 +80,7 @@ const MyPage = () => {
           <FilterVintageIcon
             sx={{ fontSize: "24px", color: "rgb(255, 182, 193)" }}
           />{" "}
-          <Typography
-            variant="body1"
-          >
-            10
-          </Typography>
+          <Typography variant="body1">10</Typography>
         </Box>
 
         <Button
