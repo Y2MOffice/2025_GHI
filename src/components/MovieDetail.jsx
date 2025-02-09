@@ -115,7 +115,7 @@ const MovieDetail = ({ movie, onClose }) => {
             {movie?.title}
           </Typography>
           <img
-            src={movie?.mainImg[0]}
+            src={movie?.mainImg}
             alt={movie?.title}
             style={{
               width: "100%",

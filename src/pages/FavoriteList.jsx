@@ -1,5 +1,5 @@
 import { Box, Typography, Grid } from "@mui/material";
-import MyPageList from "./data/MyPageList.js";
+import MyPageList from "../data/MyPageList.js";
 
 const FavoriteList = () => {
   return (

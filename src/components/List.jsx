@@ -10,7 +10,7 @@ import MovieDetail from "./MovieDetail";
 import FullView from "./FullView";
 import ConditionalPopup from "./ConditionalPopup";
 
-const List = ({ title, data, authenticate }) => {
+const List = ({ title, data }) => {
   const rowRef = useRef(null);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isFadingOut, setIsFadingOut] = useState(false);
@@ -42,15 +42,11 @@ const List = ({ title, data, authenticate }) => {
 
   const handleClick = (item) => {
     if (!isDragging) {
-      if (!Boolean(authenticate.authenticate)) {
-        setShowLoginPopup(true);
-      } else {
-        setSelectedMovie(null);
-        setTimeout(() => {
-          setSelectedMovie(item);
-          setIsFadingOut(false);
-        }, 0);
-      }
+      setSelectedMovie(null);
+      setTimeout(() => {
+        setSelectedMovie(item);
+        setIsFadingOut(false);
+      }, 0);
     }
   };
 
@@ -62,11 +58,7 @@ const List = ({ title, data, authenticate }) => {
   };
 
   const openFullView = () => {
-    if (!Boolean(authenticate.authenticate)) {
-      setShowLoginPopup(true);
-    } else {
-      setIsFullViewOpen(true);
-    }
+    setIsFullViewOpen(true);
   };
 
   const closeFullView = () => {
@@ -177,11 +169,7 @@ const List = ({ title, data, authenticate }) => {
           movie={selectedMovie}
           onClose1={closeDetail}
           isFadingOut={isFadingOut}
-          authenticate={authenticate}
         />
-      )}
-      {showLoginPopup && (
-        <ConditionalPopup onClose={() => setShowLoginPopup(false)} />
       )}
 
       {isFullViewOpen && (
@@ -190,7 +178,6 @@ const List = ({ title, data, authenticate }) => {
           title={title}
           onClose={closeFullView}
           isFadingOut={isFadingOut}
-          authenticate={authenticate}
         />
       )}
     </Box>

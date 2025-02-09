@@ -4,7 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import MovieDetail from "./MovieDetail";
 import ConditionalPopup from "./ConditionalPopup";
 
-const FullView = ({ data, title, onClose, authenticate }) => {
+const FullView = ({ data, title, onClose }) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [show, setShow] = useState(true);
   const contentRef = useRef(null);
@@ -42,12 +42,8 @@ const FullView = ({ data, title, onClose, authenticate }) => {
 
   const handleMovieClick = (movie) => {
     if (!dragged) {
-      if (!Boolean(authenticate.authenticate)) {
-        setShowLoginPopup(true); // 로그인 팝업 표시
-      } else {
-        setSelectedMovie(movie); // MovieDetail 표시
-      }
-    };
+      setSelectedMovie(movie); // MovieDetail 표시
+    }
   };
 
   return (
@@ -161,9 +157,9 @@ const FullView = ({ data, title, onClose, authenticate }) => {
             onClose={() => setSelectedMovie(null)}
           />
         )}
-        {showLoginPopup && (
+        {/* {showLoginPopup && (
           <ConditionalPopup onClose={() => setShowLoginPopup(false)} />
-        )}
+        )} */}
       </Box>
     </Slide>
   );

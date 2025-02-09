@@ -9,24 +9,22 @@ import {
   CssBaseline,
   ThemeProvider,
   createTheme,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
+import { MuiTelInput } from "mui-tel-input";
 import { useNavigate } from "react-router-dom";
-
+import { pink } from "@mui/material/colors";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 const theme = createTheme({
-  palette: {
-    background: {
-      default: "#c1a3a3",
-    },
-    text: {
-      primary: "#FFFFFF",
-    },
-  },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: "#c1a3a3",
-          color: "#FFFFFF",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -43,7 +41,15 @@ const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [selectedDate, setSelectedDate] = React.useState(null);
+  const [language, setLanguage] = useState("jp");
+
   const navigate = useNavigate();
+
+  const handleChange = (newPhone) => {
+    setPhone(newPhone);
+  };
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -57,10 +63,7 @@ const SignUpPage = () => {
       alert("パスワードが一致しません。");
       return;
     }
-
-    // 会員登録完了後にログインページへ移動
-    alert(`登録が完了しました。ようこそ、${nickname}さん！`);
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -69,7 +72,6 @@ const SignUpPage = () => {
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
-            bgcolor: "#7d5959",
             p: 4,
             borderRadius: 2,
             boxShadow: 3,
@@ -82,64 +84,92 @@ const SignUpPage = () => {
             sx={{ mt: 1, width: "100%" }}
           >
             <TextField
-              margin="normal"
+              margin="dense"
               required
               fullWidth
-              label="ニックネーム"
+              label="ニックネーム" //nickname
               type="text"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
-              InputLabelProps={{ style: { color: "#FFFFFF" } }}
             />
             <TextField
-              margin="normal"
+              margin="dense"
               required
               fullWidth
-              label="メールアドレス"
+              label="メールアドレス" //mail
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              InputLabelProps={{ style: { color: "#FFFFFF" } }}
             />
             <TextField
-              margin="normal"
+              margin="dense"
               required
               fullWidth
-              label="パスワード"
+              label="パスワード" //password
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              InputLabelProps={{ style: { color: "#FFFFFF" } }}
             />
             <TextField
-              margin="normal"
+              margin="dense"
               required
               fullWidth
-              label="パスワード（確認）"
+              label="パスワード（確認）" //password correct
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              InputLabelProps={{ style: { color: "#FFFFFF" } }}
             />
+            <MuiTelInput
+              required
+              margin="dense"
+              value={phone}
+              onChange={handleChange}
+              defaultCountry="JP"
+              fullWidth
+              variant="outlined"
+            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                required
+                value={selectedDate}
+                onChange={(newValue) => setSelectedDate(newValue)}
+                sx={{ mt: 1, mb: 1, width: "100%" }}
+              />
+            </LocalizationProvider>
+            <FormControl fullWidth sx={{ mt: 1 }}>
+              <Select
+                required
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+              >
+                <MenuItem value="ko">한국어</MenuItem>
+                <MenuItem value="jp">日本語</MenuItem>
+                <MenuItem value="en">English</MenuItem>
+              </Select>
+            </FormControl>
             <Button
               fullWidth
               variant="contained"
-              color="error"
               type="submit"
               sx={{
                 mt: 2,
-                mb: 2,
-                backgroundColor: "#c1a3a3",
+                backgroundColor: pink[100],
+                color: "#fff",
                 "&:hover": {
-                  backgroundColor: "#c1a9a9",
+                  backgroundColor: pink[200],
                 },
               }}
             >
               登録する
             </Button>
           </Box>
-          <Box display="flex" justifyContent="center" width="100%">
-            <Link href="/login" variant="body2" sx={{ color: "#FFFFFF" }}>
+          <Box
+            display="flex"
+            justifyContent="center"
+            width="100%"
+            sx={{ mt: 1 }}
+          >
+            <Link href="/login" variant="body2">
               すでにアカウントをお持ちですか？ ログイン
             </Link>
           </Box>

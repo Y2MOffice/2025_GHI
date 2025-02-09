@@ -4,8 +4,8 @@ import { useState } from "react";
 import DownloadIcon from "@mui/icons-material/Download";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
-import ImagePopup from "./components/viewPage(detail)";
-import imageList from "./data/List";
+import ImagePopup from "../components/viewPage(detail)";
+import imageList from "../data/List";
 
 const ViewPage = () => {
   const { id } = useParams();
