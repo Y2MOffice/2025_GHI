@@ -1,9 +1,3 @@
-// import img1 from "../assets/1.png";
-// import img2 from "../assets/2.png";
-// import img3 from "../assets/3.png";
-// import img4 from "../assets/4.png";
-// import img5 from "../assets/5.png";
-
 let data = [
   {
     id: 0,
@@ -317,7 +311,59 @@ let data = [
     tags: ["임시1", "임시2", "임시3", "임시4"],
     summary: "임시",
     price: 10000,
-  }
+  },
+  {
+    id: 20,
+    title: "임시",
+    content: "임시 이미지다. 아무튼 그런것이다.",
+    mainImg: [
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t.jpg",
+    ],
+    img: [
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s_01.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s_02.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s_03.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s_04.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s_05.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s_06.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s_07.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s_08.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s_09.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/s_10.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t_01.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t_02.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t_03.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t_04.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t_05.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t_06.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t_07.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t_08.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t_09.jpg",
+      "https://ddsezz5aus0zz.cloudfront.net/Banner/sample/t_10.jpg",
+    ],
+    tags: ["임시1", "임시2", "임시3", "임시4"],
+    summary: "임시",
+    price: 10000,
+  },
 ];
 
 export default data;

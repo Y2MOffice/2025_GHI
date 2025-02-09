@@ -50,7 +50,7 @@ const ViewPage = () => {
       }}
     >
       <Grid container spacing={2}>
-        {image.img.map((imgSrc, index) => (
+        {image.mainImg.map((imgSrc, index) => (
           <Grid item xs={6} sm={4} md={4} key={index}>
             <Box
               component="img"
