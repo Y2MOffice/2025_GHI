@@ -33,6 +33,7 @@ const MyPage = () => {
         padding: 3,
         color: "rgb(250, 241, 242)",
         textShadow: "1px 1px 4px rgb(241, 209, 210)",
+        backgroundColor: "rgb(228, 216, 217)",
         maxWidth: "1200px",
         margin: "0 auto",
         height: "100vh",

@@ -115,7 +115,7 @@ const MovieDetail = ({ movie, onClose }) => {
             {movie?.title}
           </Typography>
           <img
-            src={movie?.mainImg}
+            src={movie?.mainImg[0]}
             alt={movie?.title}
             style={{
               width: "100%",
@@ -186,7 +186,7 @@ const MovieDetail = ({ movie, onClose }) => {
               onClick={() => console.log("첫 번째 이미지 클릭")}
             >
               <img
-                src={movie?.img[0]}
+                src={movie?.mainImg[0]}
                 alt={movie?.title}
                 style={{
                   width: "100%",
@@ -202,7 +202,7 @@ const MovieDetail = ({ movie, onClose }) => {
               onClick={() => console.log("두 번째 이미지 클릭")}
             >
               <img
-                src={movie?.img[1]}
+                src={movie?.mainImg[1]}
                 alt={movie?.title}
                 style={{
                   width: "100%",
@@ -219,7 +219,7 @@ const MovieDetail = ({ movie, onClose }) => {
               onMouseLeave={() => setIsHovered(false)}
             >
               <img
-                src={movie?.img[2]}
+                src={movie?.mainImg[2]}
                 alt={movie?.title}
                 style={{
                   width: "100%",

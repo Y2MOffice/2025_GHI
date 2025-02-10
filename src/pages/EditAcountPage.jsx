@@ -7,6 +7,7 @@ const EditAccount = () => {
       sx={{
         minHeight: "100vh",
         color: "rgb(250, 241, 242)",
+        backgroundColor: "rgb(228, 216, 217)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

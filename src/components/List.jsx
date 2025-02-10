@@ -137,7 +137,7 @@ const List = ({ title, data }) => {
           >
             <Box
               component="img"
-              src={item.mainImg}
+              src={item.mainImg[0]}
               alt={item.title}
               sx={{
                 width: "100%",

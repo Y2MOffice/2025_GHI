@@ -10,7 +10,7 @@ import Carousel from "../components/Carousel.jsx";
 const theme = createTheme({
   palette: {
     background: {
-      default: "#191919",
+      default: "#c1a3a3",
     },
   },
   components: {
