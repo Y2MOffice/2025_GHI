@@ -19,12 +19,6 @@ import TradeLaw from "./pages/TradeLaw";
 import UserGuide from "./pages/UserGuide";
 import ViewPage from "./pages/viewPage(list)";
 import MyPage from "./pages/MyPage";
-import AdminNavbar from "./components/AdminNavbar";
-import AdminManage from "./components/AdminManage";
-import UserManage from "./components/UserManage";
-import ArtistManage from "./components/ArtistManage";
-import PhotoManage from "./components/PhotoManage";
-import PurchaseManage from "./components/PurchaseManage";
 
 const App = () => {
   const [authenticate, setAuthenticate] = useState(false); //false>>로그인 안된거 true면 로그인 된거
@@ -62,23 +56,6 @@ const App = () => {
           </Route>
         </Route>
         {/* <Route>admin페이지(추후)</Route> */}
-        <Route
-          path="/admin/*"
-          element={
-            <div style={{ display: "flex" }}>
-              <AdminNavbar />
-              <div style={{ flexGrow: 1, padding: "20px" }}>
-                <Routes>
-                  <Route path="manage" element={<AdminManage />} />
-                  <Route path="users" element={<UserManage />} />
-                  <Route path="artists" element={<ArtistManage />} />
-                  <Route path="photos" element={<PhotoManage />} />
-                  <Route path="purchase" element={<PurchaseManage />} />
-                </Routes>
-              </div>
-            </div>
-          }
-        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
