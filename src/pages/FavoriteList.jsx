@@ -3,7 +3,13 @@ import MyPageList from "../data/MyPageList.js";
 
 const FavoriteList = () => {
   return (
-    <Box sx={{ padding: 3, color: "rgb(250, 241, 242)" }}>
+    <Box
+      sx={{
+        padding: 3,
+        color: "rgb(250, 241, 242)",
+        backgroundColor: "#c1a3a3",
+      }}
+    >
       <Typography variant="h4" sx={{ mb: 3 }}>
         お気に入りリスト
       </Typography>

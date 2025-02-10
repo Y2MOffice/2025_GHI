@@ -134,7 +134,7 @@ const FullView = ({ data, title, onClose }) => {
                   }}
                 >
                   <img
-                    src={movie.img[0]}
+                    src={movie.mainImg[0]}
                     alt={movie.title}
                     style={{
                       width: "100%",
