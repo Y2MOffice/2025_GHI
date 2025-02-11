@@ -10,67 +10,58 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Loading from "../components/Loading";
-import dataList from "../data/List"; // 기존 data 가져오기
+import dataList from "../data/List";
+import MovieDetail from "../components/MovieDetail"; // 추가
 
 const SearchPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const rowRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isDragging, setIsDragging] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
-  const [data, setData] = useState([]); // 데이터 상태 추가
+  const [filteredData, setFilteredData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState(null); // 추가
 
-  useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setData(dataList);
-      setIsLoading(false);
-    }, 500); //(임시)
-  }, []);
-
-  // 검색어 입력 핸들러
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  // 엔터 입력 시 검색 실행
-  const handleSearch = (event) => {
+  const handleSearch = async (event) => {
     if (event.key === "Enter") {
       const keyword = searchTerm.trim();
+      if (!keyword) return;
+
+      setIsLoading(true);
+      setFilteredData([]);
+
       navigate(`/search?q=${keyword}`);
+
+      setTimeout(() => {
+        const result = dataList.filter((item) =>
+          item.title.toLowerCase().includes(keyword.toLowerCase())
+        );
+        setFilteredData(result);
+        setIsLoading(false);
+      }, 1000);
     }
   };
 
-  // 쿼리스트링에서 검색어 추출
-  const queryParams = new URLSearchParams(location.search);
-  const searchQuery = queryParams.get("q") || searchTerm;
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const query = queryParams.get("q");
+    if (query) {
+      setSearchTerm(query);
+      setIsLoading(true);
 
-  // 검색어로 데이터 필터링
-  const filteredData = data.filter((item) =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  // 가로 스크롤 기능 (드래그)
-  const handleMouseDown = (e) => {
-    const row = rowRef.current;
-    row.isDragging = true;
-    row.startX = e.pageX - row.offsetLeft;
-    row.scrollLeftStart = row.scrollLeft;
-  };
-
-  const handleMouseMove = (e) => {
-    const row = rowRef.current;
-    if (!row.isDragging) return;
-    setIsDragging(true);
-    const x = e.pageX - row.offsetLeft;
-    const walk = x - row.startX;
-    row.scrollLeft = row.scrollLeftStart - walk;
-  };
-
-  const handleMouseUpOrLeave = () => {
-    rowRef.current.isDragging = false;
-  };
+      setTimeout(() => {
+        const result = dataList.filter((item) =>
+          item.title.toLowerCase().includes(query.toLowerCase())
+        );
+        setFilteredData(result);
+        setIsLoading(false);
+      }, 1000);
+    }
+  }, [location.search]);
 
   return (
     <>
@@ -102,9 +93,12 @@ const SearchPage = () => {
       </Typography>
       <Typography variant="h5">ARTIST</Typography>
 
-      {/* 로딩 중일 때 */}
       {isLoading ? (
-        <Loading width={210} height={118} />
+        <Box
+          sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
+        >
+          <Loading />
+        </Box>
       ) : filteredData.length === 0 ? (
         <Typography
           variant="body1"
@@ -127,14 +121,11 @@ const SearchPage = () => {
               userSelect: "none",
             }}
             ref={rowRef}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUpOrLeave}
-            onMouseLeave={handleMouseUpOrLeave}
           >
             {filteredData.map((item) => (
               <ImageListItem
                 key={item.id}
+                onClick={() => setSelectedMovie(item)} // 이미지 클릭 시 detail 열기
                 sx={{
                   flex: "0 0 auto",
                   width: {
@@ -143,7 +134,6 @@ const SearchPage = () => {
                     md: "20%",
                     lg: "15%",
                   },
-                  aspectRatio: "2 / 3",
                   textAlign: "center",
                   position: "relative",
                   "&:hover": { transform: "scale(1.05)" },
@@ -152,7 +142,7 @@ const SearchPage = () => {
               >
                 <Box
                   component="img"
-                  src={item.mainImg}
+                  src={item.mainImg[0]}
                   alt={item.title}
                   sx={{
                     width: "100%",
@@ -162,7 +152,6 @@ const SearchPage = () => {
                   }}
                   onDragStart={(e) => e.preventDefault()}
                 />
-
                 <ImageListItemBar
                   title={item.title}
                   position="bottom"
@@ -176,6 +165,14 @@ const SearchPage = () => {
             ))}
           </ImageList>
         </Box>
+      )}
+
+      {/* MovieDetail 모달 */}
+      {selectedMovie && (
+        <MovieDetail
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)} // 닫기 기능 추가
+        />
       )}
     </>
   );
