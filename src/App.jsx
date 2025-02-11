@@ -39,9 +39,6 @@ const App = () => {
         />
         <Route path="signup" element={<SignUpPage />} />
         <Route path="find-password" element={<FindPasswordPage />} />
-        <Route path="privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="trade-law" element={<TradeLaw />} />
-        <Route path="user-guide" element={<UserGuide />} />
         <Route path="password-reset" element={<PasswordResetPage />} />
         {/* PrivateRoute로 넘어가ㅁ */}
         <Route element={<PrivateRoute authenticate={authenticate} />}>
@@ -50,6 +47,9 @@ const App = () => {
             path="/"
             element={<Navbar setAuthenticate={setAuthenticate} />}
           >
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="trade-law" element={<TradeLaw />} />
+            <Route path="user-guide" element={<UserGuide />} />
             <Route index element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
             <Route path="mypage" element={<MyPage />} />

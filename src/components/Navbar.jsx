@@ -65,6 +65,8 @@ const Navbar = ({ setAuthenticate }) => {
         open={isMenuOpen}
         onClose={toggleMenu}
         setAuthenticate={setAuthenticate}
+        setSelectedIndex={setSelectedIndex}
+        selectedIndex={selectedIndex}
       />
       <Box sx={{ paddingTop: "64px" }}>
         <Outlet />
