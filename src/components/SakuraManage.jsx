@@ -5,7 +5,7 @@ const AdminManage = () => {
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
-        사진집 구매 관리
+        사쿠라 구매 관리
       </Typography>
       <Typography>임시</Typography>
     </Container>

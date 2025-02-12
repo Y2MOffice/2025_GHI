@@ -25,6 +25,7 @@ import UserManage from "./components/UserManage";
 import ArtistManage from "./components/ArtistManage";
 import PhotoManage from "./components/PhotoManage";
 import PurchaseManage from "./components/PurchaseManage";
+import SakuraManage from "./components/SakuraManage";
 
 const App = () => {
   const [authenticate, setAuthenticate] = useState(false); //false>>로그인 안된거 true면 로그인 된거
@@ -74,6 +75,7 @@ const App = () => {
                   <Route path="artists" element={<ArtistManage />} />
                   <Route path="photos" element={<PhotoManage />} />
                   <Route path="purchase" element={<PurchaseManage />} />
+                  <Route path="sakura" element={<SakuraManage />} />
                 </Routes>
               </div>
             </div>
