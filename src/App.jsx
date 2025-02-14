@@ -19,13 +19,14 @@ import TradeLaw from "./pages/TradeLaw";
 import UserGuide from "./pages/UserGuide";
 import ViewPage from "./pages/viewPage(list)";
 import MyPage from "./pages/MyPage";
-import AdminNavbar from "./components/AdminNavbar";
-import AdminManage from "./components/AdminManage";
-import UserManage from "./components/UserManage";
-import ArtistManage from "./components/ArtistManage";
-import PhotoManage from "./components/PhotoManage";
-import PurchaseManage from "./components/PurchaseManage";
-import SakuraManage from "./components/SakuraManage";
+import AdminNavbar from "./components/Admin_component/AdminNavbar";
+import AdminManage from "./pages/AdminPages/AdminManagePage";
+import UserManage from "./pages/AdminPages/UserManagePage";
+import ArtistManage from "./pages/AdminPages/ArtistManagePage";
+import PhotoManage from "./pages/AdminPages/PhotoManagePage";
+import PurchaseManage from "./pages/AdminPages/PurchaseManagePage";
+import SakuraManage from "./pages/AdminPages/SakuraManagePage";
+import AdminHomepage from "./pages/AdminPages/AdminHomepage";
 
 const App = () => {
   const [authenticate, setAuthenticate] = useState(false); //false>>로그인 안된거 true면 로그인 된거
@@ -43,7 +44,7 @@ const App = () => {
         <Route path="password-reset" element={<PasswordResetPage />} />
         {/* PrivateRoute로 넘어가ㅁ */}
         <Route element={<PrivateRoute authenticate={authenticate} />}>
-          {/* 로그인 됐을때 */}
+          {/* 로그인 됐을때 user*/}
           <Route
             path="/"
             element={<Navbar setAuthenticate={setAuthenticate} />}
@@ -62,25 +63,16 @@ const App = () => {
             <Route path="viewPage/:id" element={<ViewPage />} />
           </Route>
         </Route>
-        {/* <Route>admin페이지(추후)</Route> */}
-        <Route
-          path="/admin/*"
-          element={
-            <div style={{ display: "flex" }}>
-              <AdminNavbar />
-              <div style={{ flexGrow: 1, padding: "20px" }}>
-                <Routes>
-                  <Route path="manage" element={<AdminManage />} />
-                  <Route path="users" element={<UserManage />} />
-                  <Route path="artists" element={<ArtistManage />} />
-                  <Route path="photos" element={<PhotoManage />} />
-                  <Route path="purchase" element={<PurchaseManage />} />
-                  <Route path="sakura" element={<SakuraManage />} />
-                </Routes>
-              </div>
-            </div>
-          }
-        />
+        {/* admin페이지 */}
+        <Route path="/admin" element={<AdminNavbar />}>
+          <Route index element={<AdminHomepage />} />
+          <Route path="manage" element={<AdminManage />} />
+          <Route path="users" element={<UserManage />} />
+          <Route path="artists" element={<ArtistManage />} />
+          <Route path="photos" element={<PhotoManage />} />
+          <Route path="purchase" element={<PurchaseManage />} />
+          <Route path="sakura" element={<SakuraManage />} />
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
