@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Typography } from "@mui/material";
 
-const AdminManage = () => {
+const UserManagePage = () => {
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
@@ -12,4 +12,4 @@ const AdminManage = () => {
   );
 };
 
-export default AdminManage;
+export default UserManagePage;

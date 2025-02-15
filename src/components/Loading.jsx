@@ -1,12 +1,12 @@
 import React from "react";
-import Skeleton from "@mui/material/Skeleton";
+import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
-const Loading = ({ width, height }) => {
+const Loading = () => {
   return (
-    <div>
-      <Skeleton variant="rectangular" width={width} height={height} />
-    </div>
+    <Box sx={{ display: "flex" }}>
+      <CircularProgress />
+    </Box>
   );
 };
 
