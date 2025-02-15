@@ -3,6 +3,8 @@ import { Container, Typography } from "@mui/material";
 import PaginationComponent from "../../components/Admin_component/PaginationComponent";
 import DownloadButton from "../../components/Admin_component/DownloadButton";
 import DateRangePicker from "../../components/Admin_component/DateRangePicker";
+import SearchBar from "../../components/Admin_component/SearchBar";
+import CustomTable from "../../components/Admin_component/Table";
 
 const AdminManagePage = () => {
   return (
@@ -18,8 +20,10 @@ const AdminManagePage = () => {
           관리자
         </Typography>
         <Typography>임시</Typography>
-        <DateRangePicker />
         <DownloadButton />
+        <DateRangePicker />
+        <SearchBar />
+        <CustomTable />
         <PaginationComponent />
       </Container>
     </>
