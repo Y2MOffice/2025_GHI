@@ -30,6 +30,7 @@ const CustomDateRangePicker = () => {
           format="YYYY-MM-DD"
           value={endDate}
           onChange={(newValue) => setEndDate(newValue)}
+          minDate={startDate}
         />
       </Box>
     </LocalizationProvider>

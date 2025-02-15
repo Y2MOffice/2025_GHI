@@ -1,6 +1,7 @@
 import React from "react";
 import { createTheme, Pagination, ThemeProvider } from "@mui/material";
 import { pink } from "@mui/material/colors";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -11,23 +12,29 @@ const theme = createTheme({
   },
 }); //color
 
-const handleChange = (event, value) => {
-  console.log("클릭한 페이지 번호", value);
-};
-
 const PaginationComponent = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  //url에서 query값 받앙ㅗ기
+  const query = searchParams.get("query") || "";
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+
+  const handleChange = (event, value) => {
+    console.log("클릭한 페이지 번호", value);
+    navigate(`?query=${query}&page=${value}`);
+  };
   return (
     // backend 연결 후 수정
     <ThemeProvider theme={theme}>
       <Pagination
         onChange={handleChange}
+        page={currentPage}
         count={20} //총페이지
         boundaryCount={1} //맨 처음과 마지막에 몇개의 페이지가 보이는지
         siblingCount={1}
         shape="rounded"
         color="primary"
-        showFirstButton //제일 첫번째 페이지로 이동
-        showLastButton //제일 마지막 페이지로 이동
       />
     </ThemeProvider>
   );
