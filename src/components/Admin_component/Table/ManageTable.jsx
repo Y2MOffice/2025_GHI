@@ -37,7 +37,7 @@ const usersData = [
     createdAt: "2023-11-15",
   },
   {
-    id: "bye",
+    id: "bye2",
     name: "박민수",
     email: "minsoo@example.com",
     status: "Inactive",

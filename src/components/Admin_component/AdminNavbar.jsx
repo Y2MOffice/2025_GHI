@@ -14,9 +14,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import logo from "../../assets/ABCDE.png";
 
-const StyledListItemButton = styled(ListItemButton)(({ active }) => ({
-  backgroundColor: active ? "black" : "inherit",
-  color: active ? "pink" : "black",
+const StyledListItemButton = styled(ListItemButton)(() => ({
   "&:hover": {
     color: "black",
     backgroundColor: "lightgray",
@@ -34,7 +32,7 @@ const AdminNavbar = () => {
   };
 
   return (
-    <Box Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }}>
       <Drawer
         variant="permanent"
         sx={{
@@ -58,14 +56,26 @@ const AdminNavbar = () => {
             <List component="div" disablePadding>
               <NavLink to="manage" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
                     <ListItemText primary="관리자 목록" />
                   </StyledListItemButton>
                 )}
               </NavLink>
               <NavLink to="manage1" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
                     <ListItemText primary="관리자 통계" />
                   </StyledListItemButton>
                 )}
@@ -81,14 +91,26 @@ const AdminNavbar = () => {
             <List component="div" disablePadding>
               <NavLink to="users" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
                     <ListItemText primary="사용자 목록" />
                   </StyledListItemButton>
                 )}
               </NavLink>
               <NavLink to="users1" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
                     <ListItemText primary="사용자 통계" />
                   </StyledListItemButton>
                 )}
@@ -104,14 +126,26 @@ const AdminNavbar = () => {
             <List component="div" disablePadding>
               <NavLink to="artists" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
                     <ListItemText primary="아티스트 목록" />
                   </StyledListItemButton>
                 )}
               </NavLink>
               <NavLink to="artists1" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
                     <ListItemText primary="아티스트 통계" />
                   </StyledListItemButton>
                 )}
@@ -127,14 +161,26 @@ const AdminNavbar = () => {
             <List component="div" disablePadding>
               <NavLink to="photos" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
                     <ListItemText primary="사진집 목록" />
                   </StyledListItemButton>
                 )}
               </NavLink>
               <NavLink to="photos1" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
                     <ListItemText primary="사진집 통계" />
                   </StyledListItemButton>
                 )}
@@ -150,14 +196,26 @@ const AdminNavbar = () => {
             <List component="div" disablePadding>
               <NavLink to="purchase" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
                     <ListItemText primary="사쿠라 결제 내역" />
                   </StyledListItemButton>
                 )}
               </NavLink>
               <NavLink to="sakura" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
                     <ListItemText primary="사진집 결제 내역" />
                   </StyledListItemButton>
                 )}
