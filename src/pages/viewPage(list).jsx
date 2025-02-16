@@ -1,17 +1,19 @@
 import { useParams } from "react-router-dom";
 import { Box, Grid, IconButton } from "@mui/material";
-import { useState } from "react";
 import DownloadIcon from "@mui/icons-material/Download";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import ImagePopup from "../components/viewPage(detail)";
 import imageList from "../data/List";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const ViewPage = () => {
   const { id } = useParams();
   const image = imageList.find((item) => item.id.toString() === id);
   const [openPopup, setOpenPopup] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { translations } = useContext(LanguageContext);
 
   const handleOpenPopup = (index) => {
     setSelectedIndex(index);
@@ -35,7 +37,7 @@ const ViewPage = () => {
   };
 
   if (!image) {
-    return <h2>영화를 찾을 수 없습니다.</h2>;
+    return <h2>{translations.nfpage.t1}</h2>;
   }
 
   return (

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import { Box, Typography, IconButton, Button, Slide } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 const ConditionalPopup = ({ onClose }) => {
   const [show, setShow] = useState(true);
+  const { translations } = useContext(LanguageContext);
 
   const handleClose = () => {
     setShow(false);
@@ -61,9 +63,7 @@ const ConditionalPopup = ({ onClose }) => {
             variant="h6"
             sx={{ mb: 2, mt: 5, textShadow: "2px 2px 4px rgb(125, 89, 89)" }}
           >
-            ログインしてご利用くださいませ
-            <br />
-            【修正必要】
+            {translations.conditional.popup}
           </Typography>
           <Button
             variant="contained"
@@ -74,7 +74,7 @@ const ConditionalPopup = ({ onClose }) => {
               },
             }}
           >
-            ログイン【修正必要】
+            {translations.conditional.login}
           </Button>
         </Box>
       </Box>

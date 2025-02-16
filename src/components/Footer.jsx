@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import { Box, Typography, Link, Container } from "@mui/material";
 
 const Footer = () => {
+  const { translations } = useContext(LanguageContext);
   return (
     <Box
       component="footer"
@@ -17,7 +19,7 @@ const Footer = () => {
     >
       <Container maxWidth="md">
         <Typography variant="body2" sx={{ mb: 1 }}>
-          © 2025 臨時ウェブサイト. All rights reserved.
+          © 2025. All rights reserved.
         </Typography>
         <Box>
           <Link

@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import { Box, Typography, IconButton, Slide, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +12,7 @@ const MovieDetail = ({ movie, onClose }) => {
   const [scrollStartY, setScrollStartY] = useState(0);
   const [isPurchased, setIsPurchased] = useState(false); //구매여부 임시
   const [isHovered, setIsHovered] = useState(false);
+  const { translations } = useContext(LanguageContext);
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -152,7 +154,7 @@ const MovieDetail = ({ movie, onClose }) => {
               variant="body1"
               sx={{ minWidth: "100px", textAlign: "left" }}
             >
-              금액 : {movie?.price}원
+              {translations.detail.price} : {movie?.price}{translations.detail.price2}
             </Typography>
             <Button
               variant="contained"
@@ -174,7 +176,7 @@ const MovieDetail = ({ movie, onClose }) => {
                 },
               }}
             >
-              {isPurchased ? "작품보기" : "구매하기"}
+              {isPurchased ? translations.detail.view : translations.detail.buy}
             </Button>
           </Box>
           <Typography variant="body1" sx={{ mb: 2 }}>
@@ -243,7 +245,7 @@ const MovieDetail = ({ movie, onClose }) => {
                   }}
                   onClick={() => console.log("구매하기")} //임시
                 >
-                  구매하기
+                  {translations.detail.buy}
                 </Button>
               )}
             </Box>

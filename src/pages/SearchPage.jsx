@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Typography,
@@ -21,6 +22,7 @@ const SearchPage = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null); // 추가
+  const { translations } = useContext(LanguageContext);
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -89,7 +91,7 @@ const SearchPage = () => {
 
       {/* 검색 결과 */}
       <Typography variant="h5" sx={{ marginBottom: "20px" }}>
-        検索結果
+        {translations.searchpage.name}
       </Typography>
       <Typography variant="h5">ARTIST</Typography>
 
@@ -104,7 +106,7 @@ const SearchPage = () => {
           variant="body1"
           sx={{ textAlign: "center", marginTop: "20px" }}
         >
-          検索結果がありません。
+          {translations.searchpage.none}
         </Typography>
       ) : (
         <Box sx={{ overflowX: "auto", overflowY: "hidden" }}>

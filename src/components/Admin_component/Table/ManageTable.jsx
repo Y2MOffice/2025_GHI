@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 import {
   Table,
   TableHead,
@@ -48,6 +49,7 @@ const usersData = [
 const MIN_ROWS = 10; // 최소 표시할 행 개수
 
 const ManageTable = () => {
+  const { translations } = useContext(LanguageContext);
   const [users, setUsers] = useState(usersData);
   const [selected, setSelected] = useState([]);
 
@@ -85,11 +87,11 @@ const ManageTable = () => {
               />
             </TableCell>
             <TableCell padding="none">ID</TableCell>
-            <TableCell padding="none">이름</TableCell>
-            <TableCell padding="none">이메일</TableCell>
-            <TableCell padding="none">상태</TableCell>
-            <TableCell padding="none">가입 날짜</TableCell>
-            <TableCell padding="none">관리</TableCell>
+            <TableCell padding="none">{translations.managetable.name}</TableCell>
+            <TableCell padding="none">{translations.managetable.email}</TableCell>
+            <TableCell padding="none">{translations.managetable.state}</TableCell>
+            <TableCell padding="none">{translations.managetable.date}</TableCell>
+            <TableCell padding="none">{translations.managetable.manage}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -132,7 +134,7 @@ const ManageTable = () => {
         disabled={selected.length === 0}
         style={{ margin: "10px" }}
       >
-        선택 삭제
+        {translations.managetable.delete}
       </Button>
     </TableContainer>
   );

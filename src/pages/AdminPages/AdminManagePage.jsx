@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../../contexts/LanguageContext";
 import { Container, Typography, Grid, Box, Button, Paper } from "@mui/material";
 import PaginationComponent from "../../components/Admin_component/PaginationComponent";
 import DownloadButton from "../../components/Admin_component/DownloadButton";
@@ -7,10 +8,11 @@ import SearchBar from "../../components/Admin_component/SearchBar";
 import ManageTable from "../../components/Admin_component/Table/ManageTable";
 
 const AdminManagePage = () => {
+  const { translations } = useContext(LanguageContext);
   return (
     <Container maxWidth="lg" sx={{ mt: 3 }}>
       <Typography variant="h5" mb={1}>
-        관리자페이지
+      {translations.adminpage.name}
       </Typography>
       {/* 다운로드 버튼 */}
       <Grid container justifyContent="flex-end" mb={2}>
