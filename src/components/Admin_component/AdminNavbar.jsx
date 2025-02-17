@@ -5,14 +5,18 @@ import {
   List,
   ListItemButton,
   ListItemText,
-  Typography,
   Box,
   Collapse,
   styled,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Backdrop,
 } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MenuIcon from "@mui/icons-material/Menu";
 import logo from "../../assets/ABCDE.png";
 
 const StyledListItemButton = styled(ListItemButton)(({ active }) => ({
@@ -27,6 +31,7 @@ const StyledListItemButton = styled(ListItemButton)(({ active }) => ({
 const AdminNavbar = () => {
   const { translations } = useContext(LanguageContext);
   const [openMenus, setOpenMenus] = useState({});
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleMenuToggle = (menu) => {
     setOpenMenus((prev) => ({
@@ -35,10 +40,11 @@ const AdminNavbar = () => {
     }));
   };
 
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
   return (
-<<<<<<< Updated upstream
-    <Box Box sx={{ display: "flex" }}>
-=======
     <Box sx={{ display: "flex" }}>
       <AppBar position="fixed" sx={{ display: { xs: "flex", md: "none", background:"pink" } }}>
         <Toolbar sx={{ display: "flex", justifyContent: "flex-start" }}>
@@ -48,10 +54,10 @@ const AdminNavbar = () => {
           <Box component="img" src={logo} alt="Logo" sx={{ height: 40 }} />
         </Toolbar>
       </AppBar>
->>>>>>> Stashed changes
       <Drawer
         variant="permanent"
         sx={{
+          display: { xs: "none", md: "block" },
           width: 240,
           flexShrink: 0,
           "& .MuiDrawer-paper": { width: 240, boxSizing: "border-box" },
@@ -72,10 +78,6 @@ const AdminNavbar = () => {
             <List component="div" disablePadding>
               <NavLink to="manage" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-<<<<<<< Updated upstream
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="관리자 목록" />
-=======
                   <StyledListItemButton
                     sx={{
                       pl: 4,
@@ -84,16 +86,11 @@ const AdminNavbar = () => {
                     }}
                   >
                     <ListItemText primary={translations.admin.list} />
->>>>>>> Stashed changes
                   </StyledListItemButton>
                 )}
               </NavLink>
               <NavLink to="manage1" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-<<<<<<< Updated upstream
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="관리자 통계" />
-=======
                   <StyledListItemButton
                     sx={{
                       pl: 4,
@@ -102,7 +99,6 @@ const AdminNavbar = () => {
                     }}
                   >
                     <ListItemText primary={translations.admin.regist} />
->>>>>>> Stashed changes
                   </StyledListItemButton>
                 )}
               </NavLink>
@@ -117,10 +113,6 @@ const AdminNavbar = () => {
             <List component="div" disablePadding>
               <NavLink to="users" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-<<<<<<< Updated upstream
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="사용자 목록" />
-=======
                   <StyledListItemButton
                     sx={{
                       pl: 4,
@@ -129,16 +121,11 @@ const AdminNavbar = () => {
                     }}
                   >
                     <ListItemText primary={translations.users.list} />
->>>>>>> Stashed changes
                   </StyledListItemButton>
                 )}
               </NavLink>
               <NavLink to="users1" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-<<<<<<< Updated upstream
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="사용자 통계" />
-=======
                   <StyledListItemButton
                     sx={{
                       pl: 4,
@@ -147,7 +134,6 @@ const AdminNavbar = () => {
                     }}
                   >
                     <ListItemText primary={translations.users.regist} />
->>>>>>> Stashed changes
                   </StyledListItemButton>
                 )}
               </NavLink>
@@ -162,10 +148,6 @@ const AdminNavbar = () => {
             <List component="div" disablePadding>
               <NavLink to="artists" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-<<<<<<< Updated upstream
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="아티스트 목록" />
-=======
                   <StyledListItemButton
                     sx={{
                       pl: 4,
@@ -174,16 +156,11 @@ const AdminNavbar = () => {
                     }}
                   >
                     <ListItemText primary={translations.artists.list} />
->>>>>>> Stashed changes
                   </StyledListItemButton>
                 )}
               </NavLink>
               <NavLink to="artists1" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-<<<<<<< Updated upstream
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="아티스트 통계" />
-=======
                   <StyledListItemButton
                     sx={{
                       pl: 4,
@@ -192,7 +169,6 @@ const AdminNavbar = () => {
                     }}
                   >
                     <ListItemText primary={translations.artists.regist} />
->>>>>>> Stashed changes
                   </StyledListItemButton>
                 )}
               </NavLink>
@@ -207,10 +183,6 @@ const AdminNavbar = () => {
             <List component="div" disablePadding>
               <NavLink to="photos" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-<<<<<<< Updated upstream
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="사진집 목록" />
-=======
                   <StyledListItemButton
                     sx={{
                       pl: 4,
@@ -219,16 +191,11 @@ const AdminNavbar = () => {
                     }}
                   >
                     <ListItemText primary={translations.photos.list} />
->>>>>>> Stashed changes
                   </StyledListItemButton>
                 )}
               </NavLink>
               <NavLink to="photos1" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-<<<<<<< Updated upstream
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="사진집 통계" />
-=======
                   <StyledListItemButton
                     sx={{
                       pl: 4,
@@ -237,7 +204,6 @@ const AdminNavbar = () => {
                     }}
                   >
                     <ListItemText primary={translations.photos.regist} />
->>>>>>> Stashed changes
                   </StyledListItemButton>
                 )}
               </NavLink>
@@ -252,10 +218,6 @@ const AdminNavbar = () => {
             <List component="div" disablePadding>
               <NavLink to="purchase" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-<<<<<<< Updated upstream
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="사쿠라 결제 내역" />
-=======
                   <StyledListItemButton
                     sx={{
                       pl: 4,
@@ -264,16 +226,11 @@ const AdminNavbar = () => {
                     }}
                   >
                     <ListItemText primary={translations.purchase.sakura} />
->>>>>>> Stashed changes
                   </StyledListItemButton>
                 )}
               </NavLink>
               <NavLink to="sakura" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
-<<<<<<< Updated upstream
-                  <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="사진집 결제 내역" />
-=======
                   <StyledListItemButton
                     sx={{
                       pl: 4,
@@ -282,7 +239,6 @@ const AdminNavbar = () => {
                     }}
                   >
                     <ListItemText primary={translations.purchase.photobook} />
->>>>>>> Stashed changes
                   </StyledListItemButton>
                 )}
               </NavLink>
@@ -290,9 +246,6 @@ const AdminNavbar = () => {
           </Collapse>
         </List>
       </Drawer>
-<<<<<<< Updated upstream
-      <Box sx={{ display: "flex", width: "calc(100vw - 240px)" }}>
-=======
       <Drawer
         anchor="left"
         open={mobileOpen}
@@ -482,7 +435,6 @@ const AdminNavbar = () => {
       <Backdrop open={mobileOpen} onClick={handleDrawerToggle} sx={{ zIndex: 10 }} />
 
       <Box sx={{ display: "flex", width: "100%", marginTop: { xs: 8, md: 0 } }}>
->>>>>>> Stashed changes
         <Outlet />
       </Box>
     </Box>
