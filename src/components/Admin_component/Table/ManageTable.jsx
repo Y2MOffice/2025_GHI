@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import dayjs from "dayjs";
+import { pink } from "@mui/material/colors";
 
 // 유저 데이터
 const usersData = [
@@ -71,7 +72,7 @@ const ManageTable = () => {
       sx={{ overflow: "auto" }} // 스크롤 가능
     >
       <Table size="small" sx={{ minWidth: "100%" }}>
-        <TableHead>
+        <TableHead sx={{ backgroundColor: pink[50] }}>
           <TableRow sx={{ height: "40px" }}>
             <TableCell padding="checkbox">
               <Checkbox

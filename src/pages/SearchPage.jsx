@@ -76,7 +76,6 @@ const SearchPage = () => {
         padding: "20px",
         maxWidth: "1200px",
         margin: "auto",
-        backgroundColor: "#f5f5f5",
         minHeight: "calc(100vh - 110px)",
       }}
     >
@@ -109,11 +108,6 @@ const SearchPage = () => {
       </Paper>
 
       {/* 검색 결과 */}
-      <Typography variant="h5" sx={{ marginBottom: "20px" }}>
-        {translations.searchpage.name}
-      </Typography>
-      <Typography variant="h5">ARTIST</Typography>
-
       {isLoading ? (
         <Box
           sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}

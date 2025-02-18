@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   InputBase,
@@ -12,6 +12,7 @@ import { pink } from "@mui/material/colors";
 import dayjs from "dayjs";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 const theme = createTheme({
   palette: {
@@ -23,6 +24,7 @@ const theme = createTheme({
 });
 
 const SearchArea = () => {
+  const { translations } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -43,7 +45,7 @@ const SearchArea = () => {
   };
 
   return (
-    <Box display="flex" flexDirection="column" gap={2}>
+    <Box display="flex" flexWrap="wrap" gap={2}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Box display="flex" gap={2} alignItems="center">
           <DatePicker
@@ -76,15 +78,17 @@ const SearchArea = () => {
         >
           <InputBase
             sx={{ ml: 1, flex: 1 }}
-            placeholder="検索内容"
-            inputProps={{ "aria-label": "検索内容" }}
+            placeholder={translations.managetable.search_result}
+            inputProps={{
+              "aria-label": translations.managetable.search_result,
+            }}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </Paper>
         <ThemeProvider theme={theme}>
           <Button variant="contained" disableElevation onClick={handleSearch}>
-            検索
+            {translations.managetable.search}
           </Button>
         </ThemeProvider>
       </Box>

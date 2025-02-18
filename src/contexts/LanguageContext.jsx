@@ -4,7 +4,7 @@ import yaml from "js-yaml";
 export const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState("jp");
+  const [language, setLanguage] = useState("en");
   const [translations, setTranslations] = useState({
     admin: {},
     users: {},
