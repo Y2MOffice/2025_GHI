@@ -6,6 +6,7 @@ import {
   TableCell,
   TableBody,
   TableContainer,
+  TableSortLabel,
   Paper,
   Checkbox,
   IconButton,
@@ -14,6 +15,7 @@ import {
 import { Edit, Delete } from "@mui/icons-material";
 import dayjs from "dayjs";
 
+// 유저 데이터
 const usersData = [
   {
     id: "hello",
@@ -30,14 +32,14 @@ const usersData = [
     createdAt: "2023-12-25",
   },
   {
-    id: "bye",
+    id: "bye1",
     name: "박민수",
     email: "minsoo@example.com",
     status: "Inactive",
     createdAt: "2023-11-15",
   },
   {
-    id: "bye",
+    id: "bye2",
     name: "박민수",
     email: "minsoo@example.com",
     status: "Inactive",
@@ -64,7 +66,7 @@ const ManageTable = () => {
   return (
     <TableContainer
       component={Paper}
-      sx={{ width: "1200px", height: "500px", overflow: "auto" }} // 고정 크기
+      sx={{ overflow: "auto" }} // 스크롤 가능
     >
       <Table size="small" sx={{ minWidth: "100%" }}>
         <TableHead>
@@ -84,11 +86,17 @@ const ManageTable = () => {
                 }
               />
             </TableCell>
-            <TableCell padding="none">ID</TableCell>
-            <TableCell padding="none">이름</TableCell>
-            <TableCell padding="none">이메일</TableCell>
-            <TableCell padding="none">상태</TableCell>
-            <TableCell padding="none">가입 날짜</TableCell>
+            {[
+              { id: "id", label: "ID" },
+              { id: "name", label: "이름" },
+              { id: "email", label: "이메일" },
+              { id: "status", label: "상태" },
+              { id: "createdAt", label: "가입 날짜" },
+            ].map((headCell) => (
+              <TableCell key={headCell.id} padding="none">
+                <TableSortLabel active={false}>{headCell.label}</TableSortLabel>
+              </TableCell>
+            ))}
             <TableCell padding="none">관리</TableCell>
           </TableRow>
         </TableHead>

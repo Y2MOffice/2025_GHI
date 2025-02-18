@@ -22,6 +22,7 @@ const CustomDateRangePicker = () => {
           format="YYYY-MM-DD"
           value={startDate}
           onChange={(newValue) => setStartDate(newValue)}
+          maxDate={endDate}
         />
         <span>_</span>
         {/* 종료 날짜  */}

@@ -4,7 +4,6 @@ import {
   List,
   ListItemButton,
   ListItemText,
-  Typography,
   Box,
   Collapse,
   styled,
@@ -66,7 +65,7 @@ const AdminNavbar = () => {
               <NavLink to="manage1" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
                   <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="관리자 통계" />
+                    <ListItemText primary="관리자 등록" />
                   </StyledListItemButton>
                 )}
               </NavLink>
@@ -89,7 +88,7 @@ const AdminNavbar = () => {
               <NavLink to="users1" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
                   <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="사용자 통계" />
+                    <ListItemText primary="사용자 등록" />
                   </StyledListItemButton>
                 )}
               </NavLink>
@@ -112,7 +111,7 @@ const AdminNavbar = () => {
               <NavLink to="artists1" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
                   <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="아티스트 통계" />
+                    <ListItemText primary="아티스트 등록" />
                   </StyledListItemButton>
                 )}
               </NavLink>
@@ -135,7 +134,7 @@ const AdminNavbar = () => {
               <NavLink to="photos1" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
                   <StyledListItemButton active={isActive} sx={{ pl: 4 }}>
-                    <ListItemText primary="사진집 통계" />
+                    <ListItemText primary="사진집 등록" />
                   </StyledListItemButton>
                 )}
               </NavLink>
