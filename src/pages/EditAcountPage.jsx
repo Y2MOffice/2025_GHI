@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import { Box, Typography, TextField, Button } from "@mui/material";
 
 const EditAccount = () => {
+  const { translations } = useContext(LanguageContext);
   return (
     <Box
       sx={{
@@ -29,13 +31,13 @@ const EditAccount = () => {
           variant="h5"
           sx={{ textAlign: "center", mb: { xs: 2, sm: 3 } }}
         >
-          メンバー情報修正
+          {translations.editacc.name}
         </Typography>
 
         <TextField
           fullWidth
           variant="outlined"
-          label="名無しさん" //이름칸
+          label={translations.editacc.namelabel} //이름칸
           sx={{
             mb: { xs: 1.5, sm: 2 },
             "& .MuiOutlinedInput-root": {
@@ -57,7 +59,7 @@ const EditAccount = () => {
         <TextField
           fullWidth
           variant="outlined"
-          label="アイディー"
+          label="ID"
           sx={{
             mb: { xs: 1.5, sm: 2 },
             "& .MuiOutlinedInput-root": {
@@ -80,7 +82,7 @@ const EditAccount = () => {
           fullWidth
           type="password"
           variant="outlined"
-          label="パスワード"
+          label={translations.editacc.password}
           sx={{
             mb: { xs: 1.5, sm: 2 },
             "& .MuiOutlinedInput-root": {
@@ -102,7 +104,7 @@ const EditAccount = () => {
         <TextField
           fullWidth
           variant="outlined"
-          label="電話番号"
+          label={translations.editacc.phone}
           sx={{
             mb: { xs: 1.5, sm: 2 },
             "& .MuiOutlinedInput-root": {
@@ -123,7 +125,7 @@ const EditAccount = () => {
         <TextField
           fullWidth
           variant="outlined"
-          label="メールアドレス"
+          label={translations.editacc.mail}
           sx={{
             mb: { xs: 2, sm: 3 },
             "& .MuiOutlinedInput-root": {
@@ -153,7 +155,7 @@ const EditAccount = () => {
             },
           }}
         >
-          セーブ
+          {translations.editacc.save}
         </Button>
       </Box>
     </Box>

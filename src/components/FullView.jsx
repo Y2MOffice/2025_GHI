@@ -42,7 +42,7 @@ const FullView = ({ data, title, onClose }) => {
 
   const handleMovieClick = (movie) => {
     if (!dragged) {
-      setSelectedMovie(movie); // MovieDetail 표시
+      setSelectedMovie(movie);
     }
   };
 

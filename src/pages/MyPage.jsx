@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import { Box, Typography, Grid, Button, Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import FilterVintageIcon from "@mui/icons-material/FilterVintage";
@@ -6,6 +7,7 @@ import FilterVintageIcon from "@mui/icons-material/FilterVintage";
 const MyPage = () => {
   const contentRef = useRef(null);
   const navigate = useNavigate();
+  const { translations } = useContext(LanguageContext);
 
   const handleEditClick = () => {
     navigate("/edit_account");
@@ -98,7 +100,7 @@ const MyPage = () => {
           }}
           onClick={handleEditClick}
         >
-          個人情報変更
+          {translations.mypage.editacc}
         </Button>
         <Button
           variant="outlined"
@@ -114,7 +116,7 @@ const MyPage = () => {
           }}
           onClick={handlePointHistory}
         >
-          ポイント決済履歴
+          {translations.mypage.pointhis}
         </Button>
         <Button
           variant="outlined"
@@ -130,7 +132,7 @@ const MyPage = () => {
           }}
           onClick={handlePhotoPurchaseHistory}
         >
-          写真購入履歴
+          {translations.mypage.photohis}
         </Button>
         <Button
           variant="outlined"
@@ -145,7 +147,7 @@ const MyPage = () => {
           }}
           onClick={handleFavoriteList}
         >
-          お気に入りリスト
+          {translations.mypage.favli}
         </Button>
       </Box>
     </Box>

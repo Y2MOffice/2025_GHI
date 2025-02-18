@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Typography,
@@ -23,6 +24,7 @@ const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [hasSearched, setHasSearched] = useState(false);
+  const { translations } = useContext(LanguageContext);
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -40,10 +42,11 @@ const SearchPage = () => {
       navigate(`/search?q=${keyword}`);
 
       setTimeout(() => {
-        const result = dataList.filter((item) =>
-          item.title.toLowerCase().includes(keyword.toLowerCase())
+        setFilteredData(
+          dataList.filter((item) =>
+            item.title.toLowerCase().includes(keyword.toLowerCase())
+          )
         );
-        setFilteredData(result);
         setIsLoading(false);
       }, 1000);
     }
@@ -57,10 +60,11 @@ const SearchPage = () => {
       setIsLoading(true);
 
       setTimeout(() => {
-        const result = dataList.filter((item) =>
-          item.title.toLowerCase().includes(query.toLowerCase())
+        setFilteredData(
+          dataList.filter((item) =>
+            item.title.toLowerCase().includes(query.toLowerCase())
+          )
         );
-        setFilteredData(result);
         setIsLoading(false);
       }, 1000);
     }
@@ -104,94 +108,98 @@ const SearchPage = () => {
         />
       </Paper>
 
-      {hasSearched && (
-        <>
-          {/* 검색 결과 */}
-          {isLoading ? (
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-              <Loading />
-            </Box>
-          ) : filteredData.length === 0 ? (
-            <Typography
-              variant="body1"
-              sx={{ textAlign: "center", color: "#555" }}
-            >
-              検索結果がありません。
-            </Typography>
-          ) : (
-            <Box sx={{ overflowX: "auto", overflowY: "hidden" }}>
-              <ImageList
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  p: 2,
-                  cursor: "grab",
-                  "&:active": { cursor: "grabbing" },
-                  "::-webkit-scrollbar": { display: "none" },
-                  userSelect: "none",
-                }}
-                ref={rowRef}
-              >
-                {filteredData.map((item) => (
-                  <ImageListItem
-                    key={item.id}
-                    onClick={() => setSelectedMovie(item)}
-                    sx={{
-                      flex: "0 0 auto",
-                      width: { xs: "45%", sm: "30%", md: "20%", lg: "15%" },
-                      textAlign: "center",
-                      position: "relative",
-                      overflow: "hidden",
-                      borderRadius: "10px",
-                      transition: "transform 0.3s, box-shadow 0.3s",
-                      "&:hover": {
-                        transform: "scale(1.05)",
-                        boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)",
-                      },
-                    }}
-                  >
-                    <Box
-                      component="img"
-                      src={item.mainImg[0]}
-                      alt={item.title}
-                      sx={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        borderRadius: "10px",
-                        filter: "brightness(1)",
-                        transition: "filter 0.3s",
-                        "&:hover": { filter: "brightness(0.85)" },
-                      }}
-                      onDragStart={(e) => e.preventDefault()}
-                    />
-                    <ImageListItemBar
-                      title={item.title}
-                      sx={{
-                        background:
-                          "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
-                        borderRadius: "10px",
-                        textAlign: "left",
-                        padding: "8px",
-                        fontSize: "1.1rem",
-                        fontWeight: "bold",
-                        color: "#fff",
-                      }}
-                    />
-                  </ImageListItem>
-                ))}
-              </ImageList>
-            </Box>
-          )}
+      {/* 검색 결과 */}
+      <Typography variant="h5" sx={{ marginBottom: "20px" }}>
+        {translations.searchpage.name}
+      </Typography>
+      <Typography variant="h5">ARTIST</Typography>
 
-          {/* MovieDetail 모달 */}
-          {selectedMovie && (
-            <MovieDetail
-              movie={selectedMovie}
-              onClose={() => setSelectedMovie(null)}
-            />
-          )}
-        </>
+      {isLoading ? (
+        <Box
+          sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
+        >
+          <Loading />
+        </Box>
+      ) : filteredData.length === 0 ? (
+        <Typography
+          variant="body1"
+          sx={{ textAlign: "center", marginTop: "20px" }}
+        >
+          {translations.searchpage.none}
+        </Typography>
+      ) : (
+        <Box sx={{ overflowX: "auto" }}>
+          <ImageList
+            sx={{
+              display: "flex",
+              overflowX: "auto",
+              gap: 2,
+              p: 2,
+              cursor: "grab",
+              "&:active": { cursor: "grabbing" },
+              "::-webkit-scrollbar": { display: "none" },
+              userSelect: "none",
+            }}
+            ref={rowRef}
+          >
+            {filteredData.map((item) => (
+              <ImageListItem
+                key={item.id}
+                onClick={() => setSelectedMovie(item)}
+                sx={{
+                  flex: "0 0 auto",
+                  width: { xs: "45%", sm: "30%", md: "20%", lg: "15%" },
+                  textAlign: "center",
+                  position: "relative",
+                  overflow: "hidden",
+                  borderRadius: "10px",
+                  transition: "transform 0.3s, box-shadow 0.3s",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)",
+                  },
+                }}
+              >
+                <Box
+                  component="img"
+                  src={item.mainImg[0]}
+                  alt={item.title}
+                  draggable={false}
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "10px",
+                    filter: "brightness(1)",
+                    transition: "filter 0.3s",
+                    "&:hover": { filter: "brightness(0.85)" },
+                  }}
+                />
+                <ImageListItemBar
+                  title={item.title}
+                  sx={{
+                    background:
+                      "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
+                    borderRadius: "10px",
+                    textAlign: "left",
+                    padding: "8px",
+                    fontSize: "1.1rem",
+                    fontWeight: "bold",
+                    color: "#fff",
+                  }}
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </Box>
+      )}
+
+      {/* MovieDetail 모달 */}
+      {selectedMovie && (
+        <MovieDetail
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)}
+        />
       )}
     </Box>
   );

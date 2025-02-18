@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import {
   Box,
   Typography,
@@ -26,6 +27,7 @@ const PointHistory = () => {
     (page - 1) * itemsPerPage,
     page * itemsPerPage
   );
+  const { translations } = useContext(LanguageContext);
 
   return (
     <Box
@@ -37,7 +39,7 @@ const PointHistory = () => {
       }}
     >
       <Typography variant="h4" sx={{ marginBottom: 2 }}>
-        ポイント決済履歴
+      {translations.phis.name}
       </Typography>
 
       <TableContainer component={Paper} sx={{ backgroundColor: "#7d5959" }}>
@@ -51,7 +53,7 @@ const PointHistory = () => {
                   fontSize: "1.2rem",
                 }}
               >
-                内訳
+                {translations.phis.list}
               </TableCell>
               <TableCell
                 sx={{
@@ -61,7 +63,7 @@ const PointHistory = () => {
                   textAlign: "right",
                 }}
               >
-                金額
+                {translations.phis.price}
               </TableCell>
             </TableRow>
           </TableHead>

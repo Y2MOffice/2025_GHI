@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
+
 import {
   TextField,
   Button,
@@ -33,6 +35,7 @@ const LoginPage = ({ setAuthenticate }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { translations } = useContext(LanguageContext);
 
   // useEffect(() => {
   //   if (authenticate) {
@@ -56,7 +59,7 @@ const LoginPage = ({ setAuthenticate }) => {
             boxShadow: 3,
           }}
         >
-          <Typography variant="h5">ログイン</Typography>
+          <Typography variant="h5">{translations.loginpage.name}</Typography>
           <Box
             component="form"
             onSubmit={handleLogin}
@@ -66,7 +69,7 @@ const LoginPage = ({ setAuthenticate }) => {
               margin="dense"
               required
               fullWidth
-              label="メールアドレス"
+              label={translations.loginpage.mail}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -75,7 +78,7 @@ const LoginPage = ({ setAuthenticate }) => {
               margin="dense"
               required
               fullWidth
-              label="パスワード"
+              label={translations.loginpage.pw}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -95,15 +98,15 @@ const LoginPage = ({ setAuthenticate }) => {
                 },
               }}
             >
-              ログイン
+              {translations.loginpage.login}
             </Button>
           </Box>
           <Box display="flex" justifyContent="space-between" width="100%">
             <Link href="/find-password" variant="body2">
-              パスワードを忘れましたか？
+              {translations.loginpage.pwsearch}
             </Link>
             <Link href="/signup" variant="body2">
-              新規登録
+              {translations.loginpage.regist}
             </Link>
           </Box>
         </Box>

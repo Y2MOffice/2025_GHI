@@ -1,6 +1,7 @@
 import { Button, createTheme, ThemeProvider } from "@mui/material";
 import { pink } from "@mui/material/colors";
-import React from "react";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 const theme = createTheme({
   palette: {
@@ -12,10 +13,11 @@ const theme = createTheme({
 });
 
 const DownloadButton = () => {
+  const { translations } = useContext(LanguageContext);
   return (
     <ThemeProvider theme={theme}>
       <Button variant="contained" disableElevation>
-        ダウンロード
+      {translations.managetable.download}
       </Button>
     </ThemeProvider>
   );

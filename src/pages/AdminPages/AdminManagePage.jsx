@@ -1,18 +1,14 @@
-import React from "react";
-import {
-  Container,
-  Typography,
-  Paper,
-  Box,
-  useMediaQuery,
-} from "@mui/material";
+import React, { useContext } from "react";
+import { LanguageContext } from "../../contexts/LanguageContext";
+import { Container, Typography, Box, Paper } from "@mui/material";
 import PaginationComponent from "../../components/Admin_component/PaginationComponent";
 import DownloadButton from "../../components/Admin_component/DownloadButton";
-
 import ManageTable from "../../components/Admin_component/Table/ManageTable";
 import SearchArea from "../../components/Admin_component/SearchArea";
+import { useMediaQuery } from "@mui/material";
 
 const AdminManagePage = () => {
+  const { translations } = useContext(LanguageContext);
   const isMobile = useMediaQuery("(max-width:600px)");
 
   return (
@@ -25,7 +21,7 @@ const AdminManagePage = () => {
         mb={1}
       >
         <Typography variant="h5" fontWeight="bold">
-          관리자 페이지
+          {translations.adminpage.name}
         </Typography>
         <DownloadButton />
       </Box>
@@ -39,7 +35,7 @@ const AdminManagePage = () => {
           display: "flex",
           gap: 1,
           borderRadius: 2,
-          flexDirection: isMobile ? "column" : "row", // 모바일에서는 세로 정렬
+          flexDirection: isMobile ? "column" : "row",
           justifyContent: isMobile ? "center" : "flex-start",
         }}
       >
@@ -47,14 +43,7 @@ const AdminManagePage = () => {
       </Paper>
 
       {/* 데이터 테이블 영역 */}
-      <Paper
-        elevation={3}
-        sx={{
-          p: 1,
-          borderRadius: 2,
-          mb: 1,
-        }}
-      >
+      <Paper elevation={3} sx={{ p: 1, borderRadius: 2, mb: 1 }}>
         <ManageTable />
       </Paper>
 

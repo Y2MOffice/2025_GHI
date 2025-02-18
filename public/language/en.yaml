@@ -1,0 +1,120 @@
+admin:
+  manage: "Admin Management"
+  list: "Admin List"
+  regist: "Register Admin"
+users:
+  manage: "User Management"
+  list: "User List"
+  regist: "Register User"
+artists:
+  manage: "Artist Management"
+  list: "Artist List"
+  regist: "Register Artist"
+photos:
+  manage: "Photo Album Management"
+  list: "Photo Album List"
+  regist: "Register Photo Album"
+purchase:
+  manage: "Payment Management"
+  sakura: "Sakura Payment History"
+  photobook: "Photo Album Payment History"
+managetable:
+  name: "Name"
+  email: "Email"
+  state: "Status"
+  date: "Join Date"
+  manage: "Manage"
+  delete: "Delete Selected"
+  download: "Download"
+  search_result: "Search Results"
+  search: "Search"
+conditional:
+  popup: "Please log in to use this service"
+  login: "Log in"
+fullview:
+  open: "View All"
+menu:
+  charge: "Charge Sakura"
+  home: "Home"
+  policy: "Privacy Policy"
+  commercial: "Specified Commercial Transactions Act"
+  guide: "User Guide"
+  text: "This application is under development."
+detail:
+  price: "Price"
+  price2: "$"
+  view: "View Work"
+  buy: "Purchase"
+adminpage:
+  name: "Admin Page"
+editacc:
+  name: "Edit Account Information"
+  namelabel: "Name"
+  password: "Password"
+  phone: "Phone Number"
+  mail: "Email Address"
+  save: "Save"
+favli:
+  name: "Favorite List"
+findpw:
+  send1: "Password reset link has been"
+  send2: "sent to your email."
+  question1: "Forgot your password?"
+  question2: "Please enter your registered email address."
+  question3: "We will send you a password reset link."
+  maillabel: "Email Address"
+  button: "Send Reset Link"
+  return: "Return to Login Page"
+homepage:
+  rankinglist: "Top 10 Pokémon of the Month"
+  list1: "Popular Pokémon"
+  temp: "Temporary"
+loginpage:
+  name: "Login"
+  mail: "Email Address"
+  pw: "Password"
+  login: "Log in"
+  pwsearch: "Forgot your password?"
+  regist: "Sign Up"
+mypage:
+  editacc: "Edit Personal Information"
+  pointhis: "Point Usage History"
+  photohis: "Photo Purchase History"
+  favli: "Favorite List"
+nfpage:
+  text1: "Page Not Found"
+  text2: "The page you are looking for does not exist or has been deleted."
+  button: "Return to Home"
+prpage:
+  error1: "Please fill in all fields."
+  error2: "Passwords do not match."
+  name: "Reset Password"
+  password: "Password"
+  pwchk: "Confirm Password"
+  button: "Change Password"
+pphis:
+  name: "Photo Purchase History"
+  list: "Details"
+  price: "Amount"
+phis:
+  name: "Point Usage History"
+  list: "Details"
+  price: "Amount"
+searchpage:
+  name: "Search Results"
+  none: "No search results found."
+sucomp:
+  message1: "🎉 Congratulations! 🎉"
+  message2: "You have successfully registered!"
+  message3: "Enjoy your time."
+  button: "Go to Homepage"
+supage:
+  error1: "Please enter a nickname"
+  error2: "Passwords do not match."
+  name: "Create Account"
+  nickname: "Nickname"
+  mail: "Email Address"
+  password: "Password"
+  pwdchk: "Confirm Password"
+  button: "Register"
+  login: "Already have an account? Log in"

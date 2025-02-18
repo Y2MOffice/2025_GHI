@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import {
   ImageList,
   ImageListItem,
@@ -17,6 +18,7 @@ const List = ({ title, data }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isFullViewOpen, setIsFullViewOpen] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const { translations } = useContext(LanguageContext);
 
   const handleMouseDown = (e) => {
     const row = rowRef.current;
@@ -94,7 +96,7 @@ const List = ({ title, data }) => {
           }}
           onClick={openFullView}
         >
-          全部見る
+          {translations.fullview.open}
         </Typography>
       </Box>
 

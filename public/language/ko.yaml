@@ -1,0 +1,120 @@
+admin:
+  manage: "관리자 관리"
+  list: "관리자 목록"
+  regist: "관리자 등록"
+users:
+  manage: "사용자 관리"
+  list: "사용자 목록"
+  regist: "사용자 등록"
+artists:
+  manage: "아티스트 관리"
+  list: "아티스트 목록"
+  regist: "아티스트 등록"
+photos:
+  manage: "사진집 관리"
+  list: "사진집 목록"
+  regist: "사진집 등록"
+purchase:
+  manage: "결제 관리"
+  sakura: "사쿠라 결제 내역"
+  photobook: "사진집 결제 내역"
+managetable:
+  name: "이름"
+  email: "이메일"
+  state: "상태"
+  date: "가입 날짜"
+  manage: "관리"
+  delete: "선택 삭제"
+  download: "다운로드"
+  search_result: "검색결과"
+  search: "검색"
+conditional:
+  popup: "로그인하고 이용해주세요"
+  login: "로그인"
+fullview:
+  open: "전부 보기"
+menu:
+  charge: "사쿠라 충전하기"
+  home: "홈"
+  policy: "개인정보보호정책"
+  commercial: "특정상거래법표시"
+  guide: "이용 가이드"
+  text: "이 애플리케이션은 만드는 중 입니다."
+detail:
+  price: "금액"
+  price2: "원"
+  view: "작품보기"
+  buy: "구매하기"
+adminpage:
+  name: "관리자페이지"
+editacc:
+  name: "회원정보수정"
+  namelabel: "이름"
+  password: "비밀번호"
+  phone: "전화번호"
+  mail: "메일주소"
+  save: "저장"
+favli:
+  name: "마음에 드는 리스트"
+findpw:
+  send1: "비밀번호 초기화 링크를"
+  send2: "에 보냈습니다."
+  question1: "비밀번호를 잊어버렸나요?"
+  question2: "등록한 이메일 주소를 입력해주세요."
+  question3: "비밀번호 초기화 링크를 보내드립니다."
+  maillabel: "메일 주소"
+  button: "초기화 링크 송신"
+  return: "로그인 페이지로 돌아가기"
+homepage:
+  rankinglist: "이번달의 포켓몬 Top 10"
+  list1: "인기 포켓몬"
+  temp: "임시"
+loginpage:
+  name: "로그인"
+  mail: "메일주소"
+  pw: "비밀번호"
+  login: "로그인"
+  pwsearch: "비밀번호를 잊어버리셨나요?"
+  regist: "회원가입"
+mypage:
+  editacc: "개인정보수정"
+  pointhis: "포인트 사용 내역"
+  photohis: "사진 구입 내역"
+  favli: "마음에 드는 리스트"
+nfpage:
+  text1: "페이지가 없습니다."
+  text2: "찾으시는 페이지는 존재하지 않거나 삭제되었습니다."
+  button: "홈으로 돌아가기"
+prpage:
+  error1: "모든 필드에 입력하십시오."
+  error2: "비밀번호가 일치하지 않습니다."
+  name: "비밀번호 초기화"
+  password: "비밀번호"
+  pwchk: "비밀번호 확인"
+  button: "비밀번호 수정"
+pphis:
+  name: "사진구입내역"
+  list: "내역"
+  price: "금액"
+phis:
+  name: "포인트사용내역"
+  list: "내역"
+  price: "금액"
+searchpage:
+  name: "검색결과"
+  none: "검색 결과가 없습니다."
+sucomp:
+  message1: "🎉축하합니다!🎉"
+  message2: "회원가입에 성공하셨습니다!"
+  message3: "즐거운 시간 보내주세요."
+  button: "홈페이지로 이동"
+supage:
+  error1: "닉네임을 입력해주세요"
+  error2: "비밀번호가 일치하지 않습니다."
+  name: "계정 생성"
+  nickname: "닉네임"
+  mail: "메일주소"
+  password: "비밀번호"
+  pwdchk: "비밀번호 (확인)"
+  button: "등록"
+  login: "이미 계정을 가지고 계십니까? 로그인"

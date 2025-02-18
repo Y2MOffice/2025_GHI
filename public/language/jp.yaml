@@ -1,0 +1,120 @@
+admin:
+  manage: "管理者管理"
+  list: "管理者リスト"
+  regist: "管理者登録"
+users:
+  manage: "ユーザー管理"
+  list: "ユーザーリスト"
+  regist: "ユーザー登録"
+artists:
+  manage: "アーティスト管理"
+  list: "アーティストリスト"
+  regist: "アーティスト登録"
+photos:
+  manage: "写真集管理"
+  list: "写真集リスト"
+  regist: "写真集登録"
+purchase:
+  manage: "決済管理"
+  sakura: "サクラ決済履歴"
+  photobook: "写真集決済履歴"
+managetable:
+  name: "名前"
+  email: "メールアドレス"
+  state: "状態"
+  date: "登録日"
+  manage: "管理"
+  delete: "選択削除"
+  download: "ダウンロード"
+  search_result: "検索結果"
+  search: "検索"
+conditional:
+  popup: "ログインしてご利用ください"
+  login: "ログイン"
+fullview:
+  open: "すべて表示"
+menu:
+  charge: "サクラチャージ"
+  home: "ホーム"
+  policy: "個人情報保護ポリシー"
+  commercial: "特定商取引法表示"
+  guide: "ご利用ガイド"
+  text: "このアプリは作り中です。"
+detail:
+  price: "金額"
+  price2: "円"
+  view: "作品を見る"
+  buy: "購入する"
+adminpage:
+  name: "管理者ページ"
+editacc:
+  name: "メンバー情報修正"
+  namelabel: "名前"
+  password: "パスワード"
+  phone: "電話番号"
+  mail: "メールアドレス"
+  save: "保存"
+favli:
+  name: "お気に入りリスト"
+findpw:
+  send1: "パスワードリセットのリンクを"
+  send2: "送信しました。"
+  question1: "パスワードをお忘れですか？"
+  question2: "登録したメールアドレスを入力してください。"
+  question3: "パスワードリセットのリンクをお送りします。"
+  maillabel: "メールアドレス"
+  button: "リセットリンクを送信"
+  return: "ログインページに戻る"
+homepage:
+  rankinglist: "今月のポケモンTop 10"
+  list1: "人気ポケモン"
+  temp: "臨時"
+loginpage:
+  name: "ログイン"
+  mail: "メールアドレス"
+  pw: "パスワード"
+  login: "ログイン"
+  pwsearch: "パスワードをお忘れですか？"
+  regist: "会員登録"
+mypage:
+  editacc: "個人情報修正"
+  pointhis: "ポイント利用履歴"
+  photohis: "写真購入履歴"
+  favli: "お気に入りリスト"
+nfpage:
+  text1: "ページがありません。"
+  text2: "お探しのページは存在しないか、削除されました。"
+  button: "ホームへ戻る"
+prpage:
+  error1: "すべての項目を入力してください。"
+  error2: "パスワードが一致しません。"
+  name: "パスワードリセット"
+  password: "パスワード"
+  pwchk: "パスワード確認"
+  button: "パスワード変更"
+pphis:
+  name: "写真購入履歴"
+  list: "履歴"
+  price: "金額"
+phis:
+  name: "ポイント利用履歴"
+  list: "履歴"
+  price: "金額"
+searchpage:
+  name: "検索結果"
+  none: "検索結果がありません。"
+sucomp:
+  message1: "🎉おめでとうございます！🎉"
+  message2: "会員登録に成功しました！"
+  message3: "楽しい時間をお過ごしください。"
+  button: "ホームページへ移動"
+supage:
+  error1: "ニックネームを入力してください"
+  error2: "パスワードが一致しません。"
+  name: "アカウント作成"
+  nickname: "ニックネーム"
+  mail: "メールアドレス"
+  password: "パスワード"
+  pwdchk: "パスワード（確認）"
+  button: "登録"
+  login: "すでにアカウントをお持ちですか？ログイン"

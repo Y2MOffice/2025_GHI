@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import { Container, TextField, Button, Typography, Alert } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 import { pink } from "@mui/material/colors";
@@ -10,6 +11,7 @@ const PasswordResetPage = () => {
   const [success, setSuccess] = useState("");
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
+  const { translations } = useContext(LanguageContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,12 +19,12 @@ const PasswordResetPage = () => {
     setSuccess("");
 
     if (!password || !confirmPassword) {
-      setError("すべてのフィールドに入力してください。");
+      setError(translations.prpage.error1);
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("パスワードが一致しません。");
+      setError(translations.prpage.error2);
       return;
     }
 
@@ -33,13 +35,13 @@ const PasswordResetPage = () => {
   return (
     <Container maxWidth="xs" sx={{ mt: 5, textAlign: "center" }}>
       <Typography variant="h5" gutterBottom>
-        パスワードリセット
+        {translations.prpage.name}
       </Typography>
       {error && <Alert severity="error">{error}</Alert>}
       {success && <Alert severity="success">{success}</Alert>}
       <form onSubmit={handleSubmit}>
         <TextField
-          label="パスワード"
+          label={translations.prpage.password}
           type="password"
           fullWidth
           margin="dense"
@@ -47,7 +49,7 @@ const PasswordResetPage = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <TextField
-          label="パスワード確認"
+          label={translations.prpage.pwchk}
           type="password"
           fullWidth
           margin="dense"
@@ -68,7 +70,7 @@ const PasswordResetPage = () => {
             },
           }}
         >
-          パスワードを変更
+          {translations.prpage.button}
         </Button>
       </form>
     </Container>

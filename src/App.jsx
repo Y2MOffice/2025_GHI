@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { LanguageProvider } from "./contexts/LanguageContext";
 import HomePage from "./pages/Homepage";
 import SearchPage from "./pages/SearchPage";
 import PointHistory from "./pages/PointHistory";
@@ -32,7 +33,7 @@ const App = () => {
   const [authenticate, setAuthenticate] = useState(false); //false>>로그인 안된거 true면 로그인 된거
 
   return (
-    <>
+    <LanguageProvider>
       <Routes>
         {/* 로그인 안된 유저가 접근 가능한 페이지들 */}
         <Route
@@ -75,7 +76,7 @@ const App = () => {
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </>
+      </LanguageProvider>
   );
 };
 

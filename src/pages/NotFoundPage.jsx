@@ -1,8 +1,11 @@
 import { Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
+  const { translations } = useContext(LanguageContext);
 
   return (
     <Box
@@ -20,10 +23,10 @@ const NotFoundPage = () => {
         404
       </Typography>
       <Typography variant="h5" sx={{ mb: 2 }}>
-        ページが見つかりません。
+        {translations.nfpage.text1}
       </Typography>
       <Typography variant="body1" sx={{ mb: 4 }}>
-        お探しのページは存在しないか、削除されました。
+        {translations.nfpage.text2}
       </Typography>
       <Button
         variant="contained"
@@ -39,7 +42,7 @@ const NotFoundPage = () => {
         }}
         onClick={() => navigate("/")}
       >
-        ホームに戻る
+        {translations.nfpage.button}
       </Button>
     </Box>
   );
