@@ -37,7 +37,7 @@ const EditAccount = () => {
         <TextField
           fullWidth
           variant="outlined"
-          label={translations.editacc.l1} //이름칸
+          label={translations.editacc.namelabel} //이름칸
           sx={{
             mb: { xs: 1.5, sm: 2 },
             "& .MuiOutlinedInput-root": {
@@ -82,7 +82,7 @@ const EditAccount = () => {
           fullWidth
           type="password"
           variant="outlined"
-          label={translations.editacc.l2}
+          label={translations.editacc.password}
           sx={{
             mb: { xs: 1.5, sm: 2 },
             "& .MuiOutlinedInput-root": {
@@ -104,7 +104,7 @@ const EditAccount = () => {
         <TextField
           fullWidth
           variant="outlined"
-          label={translations.editacc.l3}
+          label={translations.editacc.phone}
           sx={{
             mb: { xs: 1.5, sm: 2 },
             "& .MuiOutlinedInput-root": {
@@ -125,7 +125,7 @@ const EditAccount = () => {
         <TextField
           fullWidth
           variant="outlined"
-          label={translations.editacc.l4}
+          label={translations.editacc.mail}
           sx={{
             mb: { xs: 2, sm: 3 },
             "& .MuiOutlinedInput-root": {

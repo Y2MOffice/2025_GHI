@@ -100,7 +100,7 @@ const MyPage = () => {
           }}
           onClick={handleEditClick}
         >
-          {translations.mypage.b1}
+          {translations.mypage.editacc}
         </Button>
         <Button
           variant="outlined"
@@ -116,7 +116,7 @@ const MyPage = () => {
           }}
           onClick={handlePointHistory}
         >
-          {translations.mypage.b2}
+          {translations.mypage.pointhis}
         </Button>
         <Button
           variant="outlined"
@@ -132,7 +132,7 @@ const MyPage = () => {
           }}
           onClick={handlePhotoPurchaseHistory}
         >
-          {translations.mypage.b3}
+          {translations.mypage.photohis}
         </Button>
         <Button
           variant="outlined"
@@ -147,7 +147,7 @@ const MyPage = () => {
           }}
           onClick={handleFavoriteList}
         >
-          {translations.mypage.b4}
+          {translations.mypage.favli}
         </Button>
       </Box>
     </Box>

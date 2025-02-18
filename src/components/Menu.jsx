@@ -146,28 +146,28 @@ function Menu({
 
           <Box sx={{ display: "flex", flexDirection: "column", gap: 1, p: 2 }}>
             <MenuButton
-              text={translations.menu.m1}
+              text={translations.menu.home}
               index={0}
               selectedIndex={selectedIndex}
               onClick={() => setSelectedIndex(0)}
               path="/"
             />
             <MenuButton
-              text={translations.menu.m2}
+              text={translations.menu.policy}
               index={1}
               selectedIndex={selectedIndex}
               onClick={() => setSelectedIndex(1)}
               path="privacy-policy"
             />
             <MenuButton
-              text={translations.menu.m3}
+              text={translations.menu.commercial}
               index={2}
               selectedIndex={selectedIndex}
               onClick={() => setSelectedIndex(2)}
               path="trade-law"
             />
             <MenuButton
-              text={translations.menu.m4}
+              text={translations.menu.guide}
               index={3}
               selectedIndex={selectedIndex}
               onClick={() => setSelectedIndex(3)}
@@ -195,7 +195,7 @@ function Menu({
                 borderTop: "1px solid rgba(255, 255, 255, 0.2)",
               }}
             >
-              {translations.menu.t1}
+              {translations.menu.text}
             </Box>
           </Box>
         </Box>

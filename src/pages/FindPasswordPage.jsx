@@ -35,7 +35,7 @@ const FindPasswordPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(`${translations.findpw.a1} ${email} ${translations.findpw.a2}`);
+    alert(`${translations.findpw.send1} ${email} ${translations.findpw.send2}`);
   };
 
   return (
@@ -51,19 +51,19 @@ const FindPasswordPage = () => {
           }}
         >
           <Typography variant="h5" gutterBottom>
-            {translations.findpw.q1}
+            {translations.findpw.question1}
           </Typography>
           <Typography variant="body2" sx={{ mb: 2 }}>
-            {translations.findpw.q2}
+            {translations.findpw.question2}
             <br />
-            {translations.findpw.q3}
+            {translations.findpw.question3}
           </Typography>
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              label={translations.findpw.l1}
+              label={translations.findpw.maillabel}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -81,7 +81,7 @@ const FindPasswordPage = () => {
                 },
               }}
             >
-              {translations.findpw.b1}
+              {translations.findpw.button}
             </Button>
           </Box>
           <Link href="/login" variant="body2">

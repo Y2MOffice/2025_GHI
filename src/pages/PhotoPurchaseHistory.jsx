@@ -32,7 +32,7 @@ const PhotoPurchaseHistory = () => {
   return (
     <Box sx={{ padding: 3, backgroundColor: "#c1a3a3", color: "rgb(250, 241, 242)", height: "100vh" }}>
       <Typography variant="h4" sx={{ marginBottom: 2 }}>
-        {translations.pphis.d1}
+        {translations.pphis.name}
       </Typography>
 
       <TableContainer component={Paper} sx={{ backgroundColor: "#7d5959" }}>
@@ -42,7 +42,7 @@ const PhotoPurchaseHistory = () => {
               <TableCell
                 sx={{ color: "rgb(250, 241, 242)", fontWeight: "bold", fontSize: "1.2rem" }}
               >
-                {translations.pphis.d2}
+                {translations.pphis.list}
               </TableCell>
               <TableCell
                 sx={{
@@ -52,7 +52,7 @@ const PhotoPurchaseHistory = () => {
                   textAlign: "right",
                 }}
               >
-                {translations.pphis.d3}
+                {translations.pphis.price}
               </TableCell>
             </TableRow>
           </TableHead>

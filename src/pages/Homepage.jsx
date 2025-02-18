@@ -68,18 +68,18 @@ const HomePage = (authenticate) => {
       >
         <Carousel data={rList} />
         <RankingList
-          title={translations.homepage.t1}
+          title={translations.homepage.rankinglist}
           data={rList}
           authenticate={authenticate}
         />
         <List
-          title={translations.homepage.t2}
+          title={translations.homepage.list1}
           data={mylist}
           authenticate={authenticate}
         />
-        <List title={translations.homepage.t3} data={mylist} authenticate={authenticate} />
-        <List title={translations.homepage.t3} data={mylist} authenticate={authenticate} />
-        <List title={translations.homepage.t3} data={mylist} authenticate={authenticate} />
+        <List title={translations.homepage.temp} data={mylist} authenticate={authenticate} />
+        <List title={translations.homepage.temp} data={mylist} authenticate={authenticate} />
+        <List title={translations.homepage.temp} data={mylist} authenticate={authenticate} />
         <Footer />
       </Box>
     </ThemeProvider>
