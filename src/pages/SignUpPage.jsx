@@ -57,12 +57,12 @@ const SignUpPage = () => {
     event.preventDefault();
 
     if (!nickname) {
-      alert(translations.supage.a1);
+      alert(translations.supage.error1);
       return;
     }
 
     if (password !== confirmPassword) {
-      alert(translations.supage.a2);
+      alert(translations.supage.error2);
       return;
     }
     navigate("/");
@@ -79,7 +79,7 @@ const SignUpPage = () => {
             boxShadow: 3,
           }}
         >
-          <Typography variant="h5">{translations.supage.t1}</Typography>
+          <Typography variant="h5">{translations.supage.name}</Typography>
           <Box
             component="form"
             onSubmit={handleSignUp}
@@ -89,7 +89,7 @@ const SignUpPage = () => {
               margin="dense"
               required
               fullWidth
-              label={translations.supage.t1} //nickname
+              label={translations.supage.nickname} //nickname
               type="text"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
@@ -98,7 +98,7 @@ const SignUpPage = () => {
               margin="dense"
               required
               fullWidth
-              label={translations.supage.t2} //mail
+              label={translations.supage.mail} //mail
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -107,7 +107,7 @@ const SignUpPage = () => {
               margin="dense"
               required
               fullWidth
-              label={translations.supage.t3} //password
+              label={translations.supage.password} //password
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -116,7 +116,7 @@ const SignUpPage = () => {
               margin="dense"
               required
               fullWidth
-              label={translations.supage.t4} //password correct
+              label={translations.supage.pwdchk} //password correct
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -162,7 +162,7 @@ const SignUpPage = () => {
                 },
               }}
             >
-              {translations.supage.b1}
+              {translations.supage.button}
             </Button>
           </Box>
           <Box

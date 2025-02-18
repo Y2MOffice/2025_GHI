@@ -40,11 +40,11 @@ const SignUpComplete = () => {
             },
           }}
         >
-          {translations.sucomp.t1}
+          {translations.sucomp.message1}
           <br />
-          {translations.sucomp.t2}
+          {translations.sucomp.message2}
           <br />
-          {translations.sucomp.t3}
+          {translations.sucomp.message3}
         </Typography>
         <Button
           variant="contained"
@@ -59,7 +59,7 @@ const SignUpComplete = () => {
             },
           }}
         >
-          {translations.sucomp.t4}
+          {translations.sucomp.button}
         </Button>
       </Box>
     </ThemeProvider>

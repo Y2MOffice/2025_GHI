@@ -39,7 +39,7 @@ const PointHistory = () => {
       }}
     >
       <Typography variant="h4" sx={{ marginBottom: 2 }}>
-      {translations.phis.d1}
+      {translations.phis.name}
       </Typography>
 
       <TableContainer component={Paper} sx={{ backgroundColor: "#7d5959" }}>
@@ -53,7 +53,7 @@ const PointHistory = () => {
                   fontSize: "1.2rem",
                 }}
               >
-                {translations.phis.d2}
+                {translations.phis.list}
               </TableCell>
               <TableCell
                 sx={{
@@ -63,7 +63,7 @@ const PointHistory = () => {
                   textAlign: "right",
                 }}
               >
-                {translations.phis.d3}
+                {translations.phis.price}
               </TableCell>
             </TableRow>
           </TableHead>

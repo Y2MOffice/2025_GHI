@@ -19,12 +19,12 @@ const PasswordResetPage = () => {
     setSuccess("");
 
     if (!password || !confirmPassword) {
-      setError(translations.prpage.t1);
+      setError(translations.prpage.error1);
       return;
     }
 
     if (password !== confirmPassword) {
-      setError(translations.prpage.t2);
+      setError(translations.prpage.error2);
       return;
     }
 
@@ -35,13 +35,13 @@ const PasswordResetPage = () => {
   return (
     <Container maxWidth="xs" sx={{ mt: 5, textAlign: "center" }}>
       <Typography variant="h5" gutterBottom>
-        {translations.prpage.t3}
+        {translations.prpage.name}
       </Typography>
       {error && <Alert severity="error">{error}</Alert>}
       {success && <Alert severity="success">{success}</Alert>}
       <form onSubmit={handleSubmit}>
         <TextField
-          label={translations.prpage.t4}
+          label={translations.prpage.password}
           type="password"
           fullWidth
           margin="dense"
@@ -49,7 +49,7 @@ const PasswordResetPage = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <TextField
-          label={translations.prpage.t5}
+          label={translations.prpage.pwchk}
           type="password"
           fullWidth
           margin="dense"
@@ -70,7 +70,7 @@ const PasswordResetPage = () => {
             },
           }}
         >
-          {translations.prpage.t6}
+          {translations.prpage.button}
         </Button>
       </form>
     </Container>

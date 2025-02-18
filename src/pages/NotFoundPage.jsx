@@ -23,10 +23,10 @@ const NotFoundPage = () => {
         404
       </Typography>
       <Typography variant="h5" sx={{ mb: 2 }}>
-        {translations.nfpage.t1}
+        {translations.nfpage.text1}
       </Typography>
       <Typography variant="body1" sx={{ mb: 4 }}>
-        {translations.nfpage.t2}
+        {translations.nfpage.text2}
       </Typography>
       <Button
         variant="contained"
@@ -42,7 +42,7 @@ const NotFoundPage = () => {
         }}
         onClick={() => navigate("/")}
       >
-        {translations.nfpage.t3}
+        {translations.nfpage.button}
       </Button>
     </Box>
   );
