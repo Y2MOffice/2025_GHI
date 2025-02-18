@@ -8,7 +8,8 @@ import {
 } from "@mui/material";
 import { pink } from "@mui/material/colors";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 const theme = createTheme({
   palette: {
@@ -20,6 +21,7 @@ const theme = createTheme({
 });
 
 const SearchBar = () => {
+  const { translations } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -42,15 +44,15 @@ const SearchBar = () => {
       >
         <InputBase
           sx={{ ml: 1, flex: 1 }}
-          placeholder="検索内容"
-          inputProps={{ "aria-label": "検索内容" }}
+          placeholder={translations.managetable.search_result}
+          inputProps={{ "aria-label": translations.managetable.search_result }}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </Paper>
       <ThemeProvider theme={theme}>
         <Button variant="contained" disableElevation onClick={handleSearch}>
-          検索
+        {translations.managetable.search}
         </Button>
       </ThemeProvider>
     </Box>

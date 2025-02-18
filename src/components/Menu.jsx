@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import {
   Box,
   Typography,
@@ -23,6 +24,7 @@ function Menu({
   const navigate = useNavigate();
   const userName = "ユーザー名";
   const [pointCount, setPointCount] = useState(10); //사쿠라포인트
+  const { translations } = useContext(LanguageContext);
 
   const handleNavigation = () => {
     navigate("/mypage");
@@ -136,7 +138,7 @@ function Menu({
                 },
               }}
             >
-              桜をチャージする
+              {translations.menu.charge}
             </Button>
           </Box>
 
@@ -144,28 +146,28 @@ function Menu({
 
           <Box sx={{ display: "flex", flexDirection: "column", gap: 1, p: 2 }}>
             <MenuButton
-              text="ホーム"
+              text={translations.menu.m1}
               index={0}
               selectedIndex={selectedIndex}
               onClick={() => setSelectedIndex(0)}
               path="/"
             />
             <MenuButton
-              text="個人情報保護ポリシー"
+              text={translations.menu.m2}
               index={1}
               selectedIndex={selectedIndex}
               onClick={() => setSelectedIndex(1)}
               path="privacy-policy"
             />
             <MenuButton
-              text="特定商取引法表示"
+              text={translations.menu.m3}
               index={2}
               selectedIndex={selectedIndex}
               onClick={() => setSelectedIndex(2)}
               path="trade-law"
             />
             <MenuButton
-              text="ご利用ガイド"
+              text={translations.menu.m4}
               index={3}
               selectedIndex={selectedIndex}
               onClick={() => setSelectedIndex(3)}
@@ -193,7 +195,7 @@ function Menu({
                 borderTop: "1px solid rgba(255, 255, 255, 0.2)",
               }}
             >
-              このアプリは作り中です。
+              {translations.menu.t1}
             </Box>
           </Box>
         </Box>

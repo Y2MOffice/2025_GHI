@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import { Box, createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 import List from "../components/List.jsx";
 import Footer from "../components/Footer.jsx";
@@ -31,6 +32,7 @@ const HomePage = (authenticate) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startY, setStartY] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
+  const { translations } = useContext(LanguageContext);
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
@@ -66,18 +68,18 @@ const HomePage = (authenticate) => {
       >
         <Carousel data={rList} />
         <RankingList
-          title="今日の映画TOP10"
+          title={translations.homepage.t1}
           data={rList}
           authenticate={authenticate}
         />
         <List
-          title="Netflix人気動画"
+          title={translations.homepage.t2}
           data={mylist}
           authenticate={authenticate}
         />
-        <List title="マイリスト" data={mylist} authenticate={authenticate} />
-        <List title="임시" data={mylist} authenticate={authenticate} />
-        <List title="임시" data={mylist} authenticate={authenticate} />
+        <List title={translations.homepage.t3} data={mylist} authenticate={authenticate} />
+        <List title={translations.homepage.t3} data={mylist} authenticate={authenticate} />
+        <List title={translations.homepage.t3} data={mylist} authenticate={authenticate} />
         <Footer />
       </Box>
     </ThemeProvider>

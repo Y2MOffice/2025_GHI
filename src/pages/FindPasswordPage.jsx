@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import {
   TextField,
   Button,
@@ -30,10 +31,11 @@ const theme = createTheme({
 
 const FindPasswordPage = () => {
   const [email, setEmail] = useState("");
+  const { translations } = useContext(LanguageContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(`パスワードリセットのリンクを ${email} に送信しました。`);
+    alert(`${translations.findpw.a1} ${email} ${translations.findpw.a2}`);
   };
 
   return (
@@ -49,19 +51,19 @@ const FindPasswordPage = () => {
           }}
         >
           <Typography variant="h5" gutterBottom>
-            パスワードをお忘れですか？
+            {translations.findpw.q1}
           </Typography>
           <Typography variant="body2" sx={{ mb: 2 }}>
-            登録したメールアドレスを入力してください。
+            {translations.findpw.q2}
             <br />
-            パスワードリセットのリンクをお送りします。
+            {translations.findpw.q3}
           </Typography>
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              label="メールアドレス"
+              label={translations.findpw.l1}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -79,11 +81,11 @@ const FindPasswordPage = () => {
                 },
               }}
             >
-              リセットリンクを送信
+              {translations.findpw.b1}
             </Button>
           </Box>
           <Link href="/login" variant="body2">
-            ログインページに戻る
+          {translations.findpw.return}
           </Link>
         </Box>
       </Container>

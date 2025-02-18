@@ -9,9 +9,12 @@ import {
 } from "@mui/material";
 import { pink } from "@mui/material/colors";
 import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const SignUpComplete = () => {
   const theme = createTheme({});
+  const { translations } = useContext(LanguageContext);
 
   return (
     <ThemeProvider theme={theme}>
@@ -37,11 +40,11 @@ const SignUpComplete = () => {
             },
           }}
         >
-          🎉おめでとう！🎉
+          {translations.sucomp.t1}
           <br />
-          これからネットフリックスで楽しい
+          {translations.sucomp.t2}
           <br />
-          時間を過ごしてください。
+          {translations.sucomp.t3}
         </Typography>
         <Button
           variant="contained"
@@ -56,7 +59,7 @@ const SignUpComplete = () => {
             },
           }}
         >
-          ホームページに移動
+          {translations.sucomp.t4}
         </Button>
       </Box>
     </ThemeProvider>

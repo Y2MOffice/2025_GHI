@@ -1,7 +1,10 @@
 import { Box, Typography, Grid } from "@mui/material";
 import MyPageList from "../data/MyPageList.js";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const FavoriteList = () => {
+  const { translations } = useContext(LanguageContext);
   return (
     <Box
       sx={{
@@ -11,7 +14,7 @@ const FavoriteList = () => {
       }}
     >
       <Typography variant="h4" sx={{ mb: 3 }}>
-        お気に入りリスト
+      {translations.favli.name}
       </Typography>
       <Grid container spacing={2}>
         {MyPageList.map((item) => (

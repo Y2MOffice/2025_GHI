@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { LanguageContext } from "../contexts/LanguageContext";
 import {
   TextField,
   Button,
@@ -37,6 +38,7 @@ const theme = createTheme({
 });
 
 const SignUpPage = () => {
+  const { translations } = useContext(LanguageContext);
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,12 +57,12 @@ const SignUpPage = () => {
     event.preventDefault();
 
     if (!nickname) {
-      alert("ニックネームを入力してください。");
+      alert(translations.supage.a1);
       return;
     }
 
     if (password !== confirmPassword) {
-      alert("パスワードが一致しません。");
+      alert(translations.supage.a2);
       return;
     }
     navigate("/");
@@ -77,7 +79,7 @@ const SignUpPage = () => {
             boxShadow: 3,
           }}
         >
-          <Typography variant="h5">アカウント作成</Typography>
+          <Typography variant="h5">{translations.supage.t1}</Typography>
           <Box
             component="form"
             onSubmit={handleSignUp}
@@ -87,7 +89,7 @@ const SignUpPage = () => {
               margin="dense"
               required
               fullWidth
-              label="ニックネーム" //nickname
+              label={translations.supage.t1} //nickname
               type="text"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
@@ -96,7 +98,7 @@ const SignUpPage = () => {
               margin="dense"
               required
               fullWidth
-              label="メールアドレス" //mail
+              label={translations.supage.t2} //mail
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -105,7 +107,7 @@ const SignUpPage = () => {
               margin="dense"
               required
               fullWidth
-              label="パスワード" //password
+              label={translations.supage.t3} //password
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -114,7 +116,7 @@ const SignUpPage = () => {
               margin="dense"
               required
               fullWidth
-              label="パスワード（確認）" //password correct
+              label={translations.supage.t4} //password correct
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -160,7 +162,7 @@ const SignUpPage = () => {
                 },
               }}
             >
-              登録する
+              {translations.supage.b1}
             </Button>
           </Box>
           <Box
@@ -170,7 +172,7 @@ const SignUpPage = () => {
             sx={{ mt: 1 }}
           >
             <Link href="/login" variant="body2">
-              すでにアカウントをお持ちですか？ ログイン
+              {translations.supage.login}
             </Link>
           </Box>
         </Box>
