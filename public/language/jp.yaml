@@ -118,3 +118,31 @@ supage:
   pwdchk: "パスワード（確認）"
   button: "登録"
   login: "すでにアカウントをお持ちですか？ログイン"
+artistpage:
+  name: "アーティスト一覧"
+artisttable:
+  name: "名前"
+  description: "説明"
+  created_at: "作成日"
+  updated_at: "更新日"
+  manage: "管理"
+  photo: "写真集一覧"
+  edit: "編集"
+  cancel: "キャンセル"
+photopage:
+  name: "写真集一覧"
+phototable:
+  artist: "アーティスト"
+  title: "タイトル"
+  description: "説明"
+  price: "価格"
+  created_at: "作成日"
+  updated_at: "更新日"
+  manage: "管理"
+  photo: "写真一覧"
+  edit: "編集"
+  cancel: "キャンセル"
+sakurapage:
+  name: "サクラ決済履歴"
+purchasepage:
+  name: "写真集決済履歴"

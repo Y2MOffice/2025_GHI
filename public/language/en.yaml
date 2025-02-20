@@ -118,3 +118,31 @@ supage:
   pwdchk: "Confirm Password"
   button: "Register"
   login: "Already have an account? Log in"
+artistpage:
+  name: "Artist List"
+artisttable:
+  name: "Name"
+  description: "Description"
+  created_at: "Created Date"
+  updated_at: "Updated Date"
+  manage: "Manage"
+  photo: "Photobook List"
+  edit: "Edit"
+  cancel: "Cancel"
+photopage:
+  name: "Photobook List"
+phototable:
+  artist: "Artist"
+  title: "Title"
+  description: "Description"
+  price: "Price"
+  created_at: "Created Date"
+  updated_at: "Updated Date"
+  manage: "Manage"
+  photo: "Photo List"
+  edit: "Edit"
+  cancel: "Cancel"
+sakurapage:
+  name: "Sakura Payment History"
+purchasepage:
+  name: "Photobook Purchase History"

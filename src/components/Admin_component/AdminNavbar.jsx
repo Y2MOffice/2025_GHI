@@ -167,7 +167,7 @@ const AdminNavbar = () => {
                   </StyledListItemButton>
                 )}
               </NavLink>
-              <NavLink to="artists1" style={{ textDecoration: "none" }}>
+              <NavLink to="artistsedit" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
                   <StyledListItemButton
                     sx={{
@@ -202,7 +202,7 @@ const AdminNavbar = () => {
                   </StyledListItemButton>
                 )}
               </NavLink>
-              <NavLink to="photos1" style={{ textDecoration: "none" }}>
+              <NavLink to="photosedit" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
                   <StyledListItemButton
                     sx={{
@@ -351,7 +351,7 @@ const AdminNavbar = () => {
                     </StyledListItemButton>
                   )}
                 </NavLink>
-                <NavLink to="artists1" style={{ textDecoration: "none" }}>
+                <NavLink to="artistsedit" style={{ textDecoration: "none" }}>
                   {({ isActive }) => (
                     <StyledListItemButton
                       sx={{
@@ -386,7 +386,7 @@ const AdminNavbar = () => {
                     </StyledListItemButton>
                   )}
                 </NavLink>
-                <NavLink to="photos1" style={{ textDecoration: "none" }}>
+                <NavLink to="photosedit" style={{ textDecoration: "none" }}>
                   {({ isActive }) => (
                     <StyledListItemButton
                       sx={{
