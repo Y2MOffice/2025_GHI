@@ -7,6 +7,7 @@ import {
   TableCell,
   TableBody,
   TableContainer,
+  TableSortLabel,
   Paper,
   Checkbox,
   IconButton,
@@ -14,7 +15,9 @@ import {
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import dayjs from "dayjs";
+import { pink } from "@mui/material/colors";
 
+// 유저 데이터
 const usersData = [
   {
     id: "hello",
@@ -31,14 +34,14 @@ const usersData = [
     createdAt: "2023-12-25",
   },
   {
-    id: "bye",
+    id: "bye1",
     name: "박민수",
     email: "minsoo@example.com",
     status: "Inactive",
     createdAt: "2023-11-15",
   },
   {
-    id: "bye",
+    id: "bye2",
     name: "박민수",
     email: "minsoo@example.com",
     status: "Inactive",
@@ -66,10 +69,10 @@ const ManageTable = () => {
   return (
     <TableContainer
       component={Paper}
-      sx={{ width: "1200px", height: "500px", overflow: "auto" }} // 고정 크기
+      sx={{ overflow: "auto" }} // 스크롤 가능
     >
       <Table size="small" sx={{ minWidth: "100%" }}>
-        <TableHead>
+        <TableHead sx={{ backgroundColor: pink[50] }}>
           <TableRow sx={{ height: "40px" }}>
             <TableCell padding="checkbox">
               <Checkbox
@@ -87,11 +90,21 @@ const ManageTable = () => {
               />
             </TableCell>
             <TableCell padding="none">ID</TableCell>
-            <TableCell padding="none">{translations.managetable.name}</TableCell>
-            <TableCell padding="none">{translations.managetable.email}</TableCell>
-            <TableCell padding="none">{translations.managetable.state}</TableCell>
-            <TableCell padding="none">{translations.managetable.date}</TableCell>
-            <TableCell padding="none">{translations.managetable.manage}</TableCell>
+            <TableCell padding="none">
+              {translations.managetable.name}
+            </TableCell>
+            <TableCell padding="none">
+              {translations.managetable.email}
+            </TableCell>
+            <TableCell padding="none">
+              {translations.managetable.state}
+            </TableCell>
+            <TableCell padding="none">
+              {translations.managetable.date}
+            </TableCell>
+            <TableCell padding="none">
+              {translations.managetable.manage}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

@@ -8,11 +8,12 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
+  Paper,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Loading from "../components/Loading";
 import dataList from "../data/List";
-import MovieDetail from "../components/MovieDetail"; // 추가
+import MovieDetail from "../components/MovieDetail";
 
 const SearchPage = () => {
   const location = useLocation();
@@ -21,7 +22,8 @@ const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedMovie, setSelectedMovie] = useState(null); // 추가
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [hasSearched, setHasSearched] = useState(false);
   const { translations } = useContext(LanguageContext);
 
   const handleInputChange = (event) => {
@@ -35,14 +37,16 @@ const SearchPage = () => {
 
       setIsLoading(true);
       setFilteredData([]);
+      setHasSearched(true);
 
       navigate(`/search?q=${keyword}`);
 
       setTimeout(() => {
-        const result = dataList.filter((item) =>
-          item.title.toLowerCase().includes(keyword.toLowerCase())
+        setFilteredData(
+          dataList.filter((item) =>
+            item.title.toLowerCase().includes(keyword.toLowerCase())
+          )
         );
-        setFilteredData(result);
         setIsLoading(false);
       }, 1000);
     }
@@ -56,45 +60,54 @@ const SearchPage = () => {
       setIsLoading(true);
 
       setTimeout(() => {
-        const result = dataList.filter((item) =>
-          item.title.toLowerCase().includes(query.toLowerCase())
+        setFilteredData(
+          dataList.filter((item) =>
+            item.title.toLowerCase().includes(query.toLowerCase())
+          )
         );
-        setFilteredData(result);
         setIsLoading(false);
       }, 1000);
     }
   }, [location.search]);
 
   return (
-    <>
+    <Box
+      sx={{
+        padding: "20px",
+        maxWidth: "1200px",
+        margin: "auto",
+        minHeight: "calc(100vh - 110px)",
+      }}
+    >
       {/* 검색창 */}
-      <Box
+      <Paper
         sx={{
           display: "flex",
           alignItems: "center",
-          backgroundColor: "#f1f1f1",
-          borderRadius: "5px",
-          padding: "5px 10px",
-          marginBottom: "20px",
+          backgroundColor: "#ffffff",
+          borderRadius: "10px",
+          padding: "10px 15px",
+          mb: 3,
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <SearchIcon sx={{ marginRight: "8px" }} />
+        <SearchIcon sx={{ color: "#555", mr: 1 }} />
         <InputBase
-          placeholder="Search…"
+          placeholder="Search for an artist…"
           inputProps={{ "aria-label": "search" }}
           value={searchTerm}
           onChange={handleInputChange}
           onKeyDown={handleSearch}
-          sx={{ flex: 1 }}
+          sx={{
+            flex: 1,
+            color: "#000",
+            fontSize: "1rem",
+            "&::placeholder": { color: "#666" },
+          }}
         />
-      </Box>
+      </Paper>
 
       {/* 검색 결과 */}
-      <Typography variant="h5" sx={{ marginBottom: "20px" }}>
-        {translations.searchpage.name}
-      </Typography>
-      <Typography variant="h5">ARTIST</Typography>
-
       {isLoading ? (
         <Box
           sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
@@ -109,12 +122,11 @@ const SearchPage = () => {
           {translations.searchpage.none}
         </Typography>
       ) : (
-        <Box sx={{ overflowX: "auto", overflowY: "hidden" }}>
+        <Box sx={{ overflowX: "auto" }}>
           <ImageList
             sx={{
               display: "flex",
               overflowX: "auto",
-              overflowY: "hidden",
               gap: 2,
               p: 2,
               cursor: "grab",
@@ -127,40 +139,47 @@ const SearchPage = () => {
             {filteredData.map((item) => (
               <ImageListItem
                 key={item.id}
-                onClick={() => setSelectedMovie(item)} // 이미지 클릭 시 detail 열기
+                onClick={() => setSelectedMovie(item)}
                 sx={{
                   flex: "0 0 auto",
-                  width: {
-                    xs: "45%",
-                    sm: "30%",
-                    md: "20%",
-                    lg: "15%",
-                  },
+                  width: { xs: "45%", sm: "30%", md: "20%", lg: "15%" },
                   textAlign: "center",
                   position: "relative",
-                  "&:hover": { transform: "scale(1.05)" },
-                  transition: "transform 0.2s",
+                  overflow: "hidden",
+                  borderRadius: "10px",
+                  transition: "transform 0.3s, box-shadow 0.3s",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)",
+                  },
                 }}
               >
                 <Box
                   component="img"
                   src={item.mainImg[0]}
                   alt={item.title}
+                  draggable={false}
                   sx={{
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
-                    borderRadius: "5px",
+                    borderRadius: "10px",
+                    filter: "brightness(1)",
+                    transition: "filter 0.3s",
+                    "&:hover": { filter: "brightness(0.85)" },
                   }}
-                  onDragStart={(e) => e.preventDefault()}
                 />
                 <ImageListItemBar
                   title={item.title}
-                  position="bottom"
                   sx={{
                     background:
-                      "linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0) 100%)",
-                    borderRadius: "5px",
+                      "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
+                    borderRadius: "10px",
+                    textAlign: "left",
+                    padding: "8px",
+                    fontSize: "1.1rem",
+                    fontWeight: "bold",
+                    color: "#fff",
                   }}
                 />
               </ImageListItem>
@@ -173,10 +192,10 @@ const SearchPage = () => {
       {selectedMovie && (
         <MovieDetail
           movie={selectedMovie}
-          onClose={() => setSelectedMovie(null)} // 닫기 기능 추가
+          onClose={() => setSelectedMovie(null)}
         />
       )}
-    </>
+    </Box>
   );
 };
 

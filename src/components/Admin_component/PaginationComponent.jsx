@@ -31,7 +31,6 @@ const PaginationComponent = () => {
         onChange={handleChange}
         page={currentPage}
         count={20} //총페이지
-        boundaryCount={1} //맨 처음과 마지막에 몇개의 페이지가 보이는지
         siblingCount={1}
         shape="rounded"
         color="primary"
