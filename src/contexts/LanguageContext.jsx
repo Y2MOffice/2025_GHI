@@ -4,7 +4,7 @@ import yaml from "js-yaml";
 export const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState("ko");
   const [translations, setTranslations] = useState({
     admin: {},
     users: {},
@@ -30,6 +30,12 @@ export const LanguageProvider = ({ children }) => {
     searchpage: {},
     sucomp: {},
     supage: {},
+    artistpage: {},
+    artisttable: {},
+    photopage:{},
+    phototable:{},
+    sakurapage:{},
+    purchasepage:{},
   });
 
   useEffect(() => {

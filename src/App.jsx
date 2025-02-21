@@ -28,6 +28,8 @@ import PhotoManage from "./pages/AdminPages/PhotoManagePage";
 import PurchaseManage from "./pages/AdminPages/PurchaseManagePage";
 import SakuraManage from "./pages/AdminPages/SakuraManagePage";
 import AdminHomepage from "./pages/AdminPages/AdminHomepage";
+import ArtistEdit from "./pages/AdminPages/ArtistEditPage";
+import PhotoEdit from "./pages/AdminPages/PhotoEditPage";
 
 const App = () => {
   const [authenticate, setAuthenticate] = useState(false); //false>>로그인 안된거 true면 로그인 된거
@@ -70,7 +72,9 @@ const App = () => {
           <Route path="manage" element={<AdminManage />} />
           <Route path="users" element={<UserManage />} />
           <Route path="artists" element={<ArtistManage />} />
+          <Route path="artistsedit" element={<ArtistEdit />} />
           <Route path="photos" element={<PhotoManage />} />
+          <Route path="photosedit" element={<PhotoEdit />} />
           <Route path="purchase" element={<PurchaseManage />} />
           <Route path="sakura" element={<SakuraManage />} />
         </Route>

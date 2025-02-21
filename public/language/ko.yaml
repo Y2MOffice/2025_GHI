@@ -118,3 +118,43 @@ supage:
   pwdchk: "비밀번호 (확인)"
   button: "등록"
   login: "이미 계정을 가지고 계십니까? 로그인"
+artistpage:
+  name: "아티스트 목록"
+artisttable:
+  name: "이름"
+  description: "설명"
+  created_at: "생성 날짜"
+  updated_at: "수정 날짜"
+  manage: "관리"
+  photo: "사진집 목록"
+  edit: "수정"
+  cancel: "취소"
+photopage:
+  name: "사진집 목록"
+phototable:
+  artist: "아티스트"
+  title: "타이틀"
+  description: "설명"
+  price: "가격"
+  created_at: "생성 날짜"
+  updated_at: "수정 날짜"
+  manage: "관리"
+  photo: "사진 목록"
+  edit: "수정"
+  cancel: "취소"
+sakurapage:
+  name: "사쿠라 결제 내역"
+sakuratable:
+  user_id: "유저 id"
+  transaction_type: "거래 유형"
+  amount: "포인트량"
+  is_paid: "유료여부"
+  created_at: "거래 일시"
+  manage: "관리"
+purchasepage:
+  name: "사진집 결제 내역"
+purchasetable:
+  user_id: "유저 id"
+  photo_collection_id: "사진집 id"
+  price: "가격"
+  created_at: "거래 일시"
