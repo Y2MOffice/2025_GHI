@@ -68,7 +68,7 @@ const truncateText = (text, maxLength) => {
 
 const MIN_ROWS = 10; // 최소 표시할 행 개수
 
-const ManageTable = () => {
+const ArtistTable = () => {
   const { translations } = useContext(LanguageContext);
   const [artists, setArtists] = useState(artistData);
   const [selected, setSelected] = useState([]);
@@ -179,4 +179,4 @@ const ManageTable = () => {
   );
 };
 
-export default ManageTable;
+export default ArtistTable;

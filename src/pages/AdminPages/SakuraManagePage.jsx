@@ -3,7 +3,7 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 import { Container, Typography, Box, Paper } from "@mui/material";
 import PaginationComponent from "../../components/Admin_component/PaginationComponent";
 import DownloadButton from "../../components/Admin_component/DownloadButton";
-import ManageTable from "../../components/Admin_component/Table/ManageTable";
+import SakuraTable from "../../components/Admin_component/Table/SakuraTable";
 import SearchArea from "../../components/Admin_component/SearchArea";
 import { useMediaQuery } from "@mui/material";
 
@@ -44,7 +44,7 @@ const SakuraManagePage = () => {
 
       {/* 데이터 테이블 영역 */}
       <Paper elevation={3} sx={{ p: 1, borderRadius: 2, mb: 1 }}>
-        <ManageTable />
+        <SakuraTable />
       </Paper>
 
       {/* 페이지네이션 */}

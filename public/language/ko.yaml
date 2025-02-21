@@ -144,5 +144,17 @@ phototable:
   cancel: "취소"
 sakurapage:
   name: "사쿠라 결제 내역"
+sakuratable:
+  user_id: "유저 id"
+  transaction_type: "거래 유형"
+  amount: "포인트량"
+  is_paid: "유료여부"
+  created_at: "거래 일시"
+  manage: "관리"
 purchasepage:
   name: "사진집 결제 내역"
+purchasetable:
+  user_id: "유저 id"
+  photo_collection_id: "사진집 id"
+  price: "가격"
+  created_at: "거래 일시"

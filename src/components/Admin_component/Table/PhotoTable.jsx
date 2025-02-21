@@ -98,18 +98,13 @@ const artistData = [
   },
 ];
 
-const truncateText = (text, maxLength) => {
-  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
-};
-
 const MIN_ROWS = 10; // 최소 표시할 행 개수
 
-const ManageTable = () => {
+const PhotoTable = () => {
   const { translations } = useContext(LanguageContext);
   const [photos, setphotos] = useState(photoData);
-  const [artists, setartists] = useState(photoData);
+  const [artists, setartists] = useState(artistData);
   const [selected, setSelected] = useState([]);
-  const isMobile = useMediaQuery("(max-width:600px)");
   const navigate = useNavigate();
 
   // 체크박스 선택 핸들러
@@ -175,7 +170,7 @@ const ManageTable = () => {
                 />
               </TableCell>
               <TableCell padding="none">
-                {artistData.find((artist) => artist.id === user.artist_id)
+                {artists.find((artist) => artist.id === user.artist_id)
                   ?.name || "MissingName"}
               </TableCell>
 
@@ -221,4 +216,4 @@ const ManageTable = () => {
   );
 };
 
-export default ManageTable;
+export default PhotoTable;
