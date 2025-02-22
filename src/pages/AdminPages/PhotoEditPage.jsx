@@ -9,7 +9,9 @@ import {
   Container,
   Box,
   Button,
+  IconButton,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import { LanguageContext } from "../../contexts/LanguageContext";
 
 // 사진집 데이터
@@ -49,27 +51,31 @@ const artistData = [
   },
 ];
 
-// 사진 목록 데이터
-const listData = [
-  { image_url: "https://pbs.twimg.com/media/DD5ji7jUIAAgCxN.jpg:large" },
-  { image_url: "https://pbs.twimg.com/media/DD5ji7jUIAAgCxN.jpg:large" },
-  { image_url: "https://pbs.twimg.com/media/DD5ji7jUIAAgCxN.jpg:large" },
-  { image_url: "https://pbs.twimg.com/media/DD5ji7jUIAAgCxN.jpg:large" },
-  { image_url: "https://pbs.twimg.com/media/DD5ji7jUIAAgCxN.jpg:large" },
-  { image_url: "https://pbs.twimg.com/media/DD5ji7jUIAAgCxN.jpg:large" },
-];
-
 const DataEditor = () => {
   const { translations } = useContext(LanguageContext);
   const [formData, setFormData] = useState(photoData);
 
-  // artist_id에 해당하는 아티스트 이름 가져오기
-  const artist = artistData.find((a) => a.id === formData.artist_id) || {
-    name: "알 수 없음",
-  };
+  const [photoList, setPhotoList] = useState([
+    { image_url: "https://pbs.twimg.com/media/DD5ji7jUIAAgCxN.jpg:large" },
+    { image_url: "https://pbs.twimg.com/media/DD5ji7jUIAAgCxN.jpg:large" },
+    { image_url: "https://pbs.twimg.com/media/DD5ji7jUIAAgCxN.jpg:large" },
+    { image_url: "https://pbs.twimg.com/media/DD5ji7jUIAAgCxN.jpg:large" },
+  ]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const newPhoto = {
+        image_url: URL.createObjectURL(file),
+      };
+      //선택한 파일을 FormData를 이용해 서버로 전송.
+      //업로드 성공 시 서버에서 받은 URL을 setPhotoList([...photoList, { image_url: 서버URL }]) 형태로 저장.
+      setPhotoList([...photoList, newPhoto]);
+    }
   };
 
   return (
@@ -82,25 +88,22 @@ const DataEditor = () => {
           onChange={handleChange}
           fullWidth
         />
-
         <Card sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
           <CardMedia
             component="img"
             height="auto"
-            sx={{
-              maxWidth: "100%",
-              objectFit: "contain",
-              aspectRatio: "auto",
-            }}
+            sx={{ maxWidth: "100%", objectFit: "contain" }}
             image={formData.cover_image_url}
           />
         </Card>
         <TextField
           label={translations.phototable.artist}
-          value={artist.name}
+          value={
+            artistData.find((a) => a.id === formData.artist_id)?.name ||
+            "**MissingArtist**"
+          }
           fullWidth
         />
-
         <TextField
           label={translations.phototable.description}
           name="description"
@@ -136,8 +139,9 @@ const DataEditor = () => {
       <Typography variant="h6" sx={{ mt: 4, mb: 2 }}>
         {translations.phototable.photo}
       </Typography>
+
       <Grid container spacing={2}>
-        {listData.map((item, index) => (
+        {photoList.map((item, index) => (
           <Grid item xs={6} sm={4} md={3} key={index}>
             <Card>
               <CardMedia component="img" height="180" image={item.image_url} />
@@ -149,6 +153,36 @@ const DataEditor = () => {
             </Card>
           </Grid>
         ))}
+
+        <Grid item xs={6} sm={4} md={3}>
+          <Card
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "180px",
+              cursor: "pointer",
+            }}
+          >
+            <input
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              id="upload-photo"
+              onChange={handleFileChange}
+            />
+            <label htmlFor="upload-photo">
+              <IconButton color="primary" component="span">
+                <AddIcon sx={{ fontSize: 48 }} />
+              </IconButton>
+            </label>
+          </Card>
+          <CardContent>
+            <Typography variant="body2" align="center">
+            {translations.phototable.add}
+            </Typography>
+          </CardContent>
+        </Grid>
       </Grid>
 
       <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 4 }}>

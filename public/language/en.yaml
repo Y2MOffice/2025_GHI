@@ -142,7 +142,20 @@ phototable:
   photo: "Photo List"
   edit: "Edit"
   cancel: "Cancel"
+  add: "Add Photo"
 sakurapage:
   name: "Sakura Payment History"
+sakuratable:
+  user_id: "User ID"
+  transaction_type: "Transaction Type"
+  amount: "Point Amount"
+  is_paid: "Paid Status"
+  created_at: "Transaction Date"
+  manage: "Manage"
 purchasepage:
   name: "Photobook Purchase History"
+purchasetable:
+  user_id: "User ID"
+  photo_collection_id: "Photo Collection ID"
+  price: "Price"
+  created_at: "Transaction Date"

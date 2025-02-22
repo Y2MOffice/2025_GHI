@@ -142,6 +142,7 @@ phototable:
   photo: "사진 목록"
   edit: "수정"
   cancel: "취소"
+  add: "사진 추가"
 sakurapage:
   name: "사쿠라 결제 내역"
 sakuratable:
