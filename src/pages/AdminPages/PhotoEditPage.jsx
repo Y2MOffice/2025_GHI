@@ -75,6 +75,13 @@ const DataEditor = () => {
   };
 
   const handleDrop = (acceptedFiles) => {
+    const validImages = acceptedFiles.filter((file) =>
+      file.type.startsWith("image/")
+    );
+    if (validImages.length === 0) {
+      console.warn("올바른 이미지 파일이 아닙니다.");
+      return;
+    }
     const newPhotos = acceptedFiles.map((file) => ({
       image_url: URL.createObjectURL(file),
     }));
@@ -86,7 +93,12 @@ const DataEditor = () => {
   };
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/*",
+    accept: {
+      "image/jpeg": [".jpg", ".jpeg"],
+      "image/png": [".png"],
+      "image/gif": [".gif"],
+      "image/webp": [".webp"],
+    },
     onDrop: handleDrop,
     multiple: true,
   });
@@ -156,7 +168,7 @@ const DataEditor = () => {
               >
                 <AddIcon sx={{ fontSize: 48, color: "gray" }} />
                 <Typography variant="body2" color="gray">
-                {translations.phototable.addthumbnail}
+                  {translations.phototable.addthumbnail}
                 </Typography>
               </Box>
             </label>
