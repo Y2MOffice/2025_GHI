@@ -129,6 +129,7 @@ artisttable:
   photo: "사진집 목록"
   edit: "수정"
   cancel: "취소"
+  page: "아티스트 등록"
 photopage:
   name: "사진집 목록"
 phototable:
@@ -142,7 +143,9 @@ phototable:
   photo: "사진 목록"
   edit: "수정"
   cancel: "취소"
-  add: "사진 추가"
+  add: "여기에 이미지를 드래그 앤 드롭하거나 클릭하여 업로드하세요."
+  page: "사진집 등록"
+  addthumbnail: "여기에 썸네일 이미지를 드래그 앤 드롭하거나 클릭하여 업로드하세요."
 sakurapage:
   name: "사쿠라 결제 내역"
 sakuratable:

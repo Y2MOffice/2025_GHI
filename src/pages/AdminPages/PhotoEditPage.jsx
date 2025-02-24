@@ -12,6 +12,7 @@ import {
   IconButton,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { useDropzone } from "react-dropzone";
 import { LanguageContext } from "../../contexts/LanguageContext";
 
 // 사진집 데이터
@@ -20,8 +21,7 @@ const photoData = {
   artist_id: "0",
   title: "TWICE 1st Photobook: ONE IN A MILLION",
   description: "트와이스의 첫 번째 공식 사진집, 멤버들의 다양한 매력을 담았다.",
-  cover_image_url:
-    "https://i.ebayimg.com/images/g/S~wAAOSwdPxgHWlY/s-l1200.jpg",
+  cover_image_url: "",
   price: "39.99",
   created_at: "2024-02-21",
   updated_at: "2024-02-21",
@@ -66,20 +66,43 @@ const DataEditor = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (event) => {
+  const handleThumbnailChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const newPhoto = {
-        image_url: URL.createObjectURL(file),
-      };
-      //선택한 파일을 FormData를 이용해 서버로 전송.
-      //업로드 성공 시 서버에서 받은 URL을 setPhotoList([...photoList, { image_url: 서버URL }]) 형태로 저장.
-      setPhotoList([...photoList, newPhoto]);
+      const imageUrl = URL.createObjectURL(file);
+      setFormData((prev) => ({ ...prev, cover_image_url: imageUrl }));
     }
   };
 
+  const handleDrop = (acceptedFiles) => {
+    const newPhotos = acceptedFiles.map((file) => ({
+      image_url: URL.createObjectURL(file),
+    }));
+
+    //선택한 파일을 FormData를 이용해 서버로 전송.
+    //업로드 성공 시 서버에서 받은 URL을 setPhotoList([...photoList, { image_url: 서버URL }]) 형태로 저장.
+
+    setPhotoList((prevPhotos) => [...prevPhotos, ...newPhotos]);
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/*",
+    onDrop: handleDrop,
+    multiple: true,
+  });
+
   return (
     <Container maxWidth="md">
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={1}
+      >
+        <Typography variant="h5" fontWeight="bold">
+          {translations.phototable.page}
+        </Typography>
+      </Box>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 4 }}>
         <TextField
           label={translations.phototable.title}
@@ -88,14 +111,58 @@ const DataEditor = () => {
           onChange={handleChange}
           fullWidth
         />
-        <Card sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
-          <CardMedia
-            component="img"
-            height="auto"
-            sx={{ maxWidth: "100%", objectFit: "contain" }}
-            image={formData.cover_image_url}
-          />
+        <Card
+          sx={{
+            mt: 2,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: 200,
+          }}
+        >
+          {formData.cover_image_url ? (
+            <CardMedia
+              component="img"
+              sx={{
+                maxWidth: "100%",
+                maxHeight: "100%",
+                objectFit: "contain", // 이미지 비율 유지
+              }}
+              image={formData.cover_image_url}
+            />
+          ) : (
+            <label htmlFor="thumbnail-upload">
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                id="thumbnail-upload"
+                onChange={handleThumbnailChange}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  border: "2px dashed gray",
+                  padding: "20px",
+                  borderRadius: "8px",
+                  textAlign: "center",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <AddIcon sx={{ fontSize: 48, color: "gray" }} />
+                <Typography variant="body2" color="gray">
+                {translations.phototable.addthumbnail}
+                </Typography>
+              </Box>
+            </label>
+          )}
         </Card>
+
         <TextField
           label={translations.phototable.artist}
           value={
@@ -154,34 +221,23 @@ const DataEditor = () => {
           </Grid>
         ))}
 
-        <Grid item xs={6} sm={4} md={3}>
-          <Card
+        <Grid item xs={12}>
+          <Box
+            {...getRootProps()}
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "180px",
+              border: "2px dashed gray",
+              borderRadius: "8px",
+              padding: "16px",
+              textAlign: "center",
               cursor: "pointer",
+              backgroundColor: "#f9f9f9",
             }}
           >
-            <input
-              type="file"
-              accept="image/*"
-              style={{ display: "none" }}
-              id="upload-photo"
-              onChange={handleFileChange}
-            />
-            <label htmlFor="upload-photo">
-              <IconButton color="primary" component="span">
-                <AddIcon sx={{ fontSize: 48 }} />
-              </IconButton>
-            </label>
-          </Card>
-          <CardContent>
-            <Typography variant="body2" align="center">
-            {translations.phototable.add}
+            <input {...getInputProps()} />
+            <Typography variant="body2" color="textSecondary">
+              {translations.phototable.add}
             </Typography>
-          </CardContent>
+          </Box>
         </Grid>
       </Grid>
 
