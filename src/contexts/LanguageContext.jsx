@@ -38,6 +38,9 @@ export const LanguageProvider = ({ children }) => {
     phototable: {},
     sakurapage: {},
     purchasepage: {},
+    usereditpage: {},
+    admineditpage: {},
+    registeradmin: {},
   });
 
   useEffect(() => {

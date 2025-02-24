@@ -113,40 +113,21 @@ const AdminNavbar = () => {
             </List>
           </Collapse>
 
-          <StyledListItemButton onClick={() => handleMenuToggle("users")}>
-            <ListItemText primary={translations.users.manage} />
-            {openMenus["users"] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </StyledListItemButton>
-          <Collapse in={openMenus["users"]} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <NavLink to="users" style={{ textDecoration: "none" }}>
-                {({ isActive }) => (
-                  <StyledListItemButton
-                    sx={{
-                      pl: 4,
-                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
-                      color: isActive ? "white" : "black",
-                    }}
-                  >
-                    <ListItemText primary={translations.users.list} />
-                  </StyledListItemButton>
-                )}
-              </NavLink>
-              <NavLink to="users1" style={{ textDecoration: "none" }}>
-                {({ isActive }) => (
-                  <StyledListItemButton
-                    sx={{
-                      pl: 4,
-                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
-                      color: isActive ? "white" : "black",
-                    }}
-                  >
-                    <ListItemText primary={translations.users.regist} />
-                  </StyledListItemButton>
-                )}
-              </NavLink>
-            </List>
-          </Collapse>
+          <List component="div" disablePadding>
+            <NavLink to="users" style={{ textDecoration: "none" }}>
+              {({ isActive }) => (
+                <StyledListItemButton
+                  sx={{
+                    pl: 4,
+                    backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                    color: isActive ? "white" : "black",
+                  }}
+                >
+                  <ListItemText primary={translations.users.list} />
+                </StyledListItemButton>
+              )}
+            </NavLink>
+          </List>
 
           <StyledListItemButton onClick={() => handleMenuToggle("artists")}>
             <ListItemText primary={translations.artists.manage} />
@@ -297,40 +278,21 @@ const AdminNavbar = () => {
               </List>
             </Collapse>
 
-            <StyledListItemButton onClick={() => handleMenuToggle("users")}>
-              <ListItemText primary={translations.users.manage} />
-              {openMenus["users"] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            </StyledListItemButton>
-            <Collapse in={openMenus["users"]} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <NavLink to="users" style={{ textDecoration: "none" }}>
-                  {({ isActive }) => (
-                    <StyledListItemButton
-                      sx={{
-                        pl: 4,
-                        backgroundColor: isActive ? "#c1a3a3" : "inherit",
-                        color: isActive ? "white" : "black",
-                      }}
-                    >
-                      <ListItemText primary={translations.users.list} />
-                    </StyledListItemButton>
-                  )}
-                </NavLink>
-                <NavLink to="users1" style={{ textDecoration: "none" }}>
-                  {({ isActive }) => (
-                    <StyledListItemButton
-                      sx={{
-                        pl: 4,
-                        backgroundColor: isActive ? "#c1a3a3" : "inherit",
-                        color: isActive ? "white" : "black",
-                      }}
-                    >
-                      <ListItemText primary={translations.users.regist} />
-                    </StyledListItemButton>
-                  )}
-                </NavLink>
-              </List>
-            </Collapse>
+            <List component="div" disablePadding>
+              <NavLink to="users" style={{ textDecoration: "none" }}>
+                {({ isActive }) => (
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
+                    <ListItemText primary={translations.users.list} />
+                  </StyledListItemButton>
+                )}
+              </NavLink>
+            </List>
 
             <StyledListItemButton onClick={() => handleMenuToggle("artists")}>
               <ListItemText primary={translations.artists.manage} />

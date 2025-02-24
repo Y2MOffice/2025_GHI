@@ -158,7 +158,8 @@ purchasetable:
   user_id: "ユーザーID"
   photo_collection_id: "写真集ID"
   price: "価格"
-  created_at: "取引日時"usertable:
+  created_at: "取引日時"
+usertable:
   name: "名前"
   nickname: "ニックネーム"
   email: "メールアドレス"
@@ -173,5 +174,56 @@ purchasetable:
   phonenumber: "電話番号"
 userpage:
   name: "ユーザーページ"
+usereditpage:
+  title: "ユーザー編集"
+  first_name: "名"
+  last_name: "姓"
+  nickname: "ニックネーム"
+  email: "メールアドレス"
+  phone_number: "電話番号"
+  user_type: "ユーザータイプを選択"
+  user_type_options:
+    user: "一般ユーザー"
+    admin: "管理者"
+    superadmin: "スーパー管理者"
+  status: "ステータスを選択"
+  status_options:
+    active: "アクティブ"
+    inactive: "非アクティブ"
+  cancel: "キャンセル"
+  save: "保存"
+admineditpage:
+  title: "管理者編集"
+  first_name: "名"
+  last_name: "姓"
+  nickname: "ニックネーム"
+  email: "メールアドレス"
+  phone_number: "電話番号"
+  user_type: "ユーザータイプを選択"
+  user_type_options:
+    admin: "管理者"
+    superadmin: "スーパー管理者"
+  status: "ステータスを選択"
+  status_options:
+    active: "アクティブ"
+    inactive: "非アクティブ"
+  cancel: "キャンセル"
+  save: "保存"
+registeradmin:
+  title: "管理者登録"
+  first_name: "名"
+  last_name: "姓"
+  nickname: "ニックネーム"
+  email: "メールアドレス"
+  password: "パスワード"
+  confirm_password: "パスワード確認"
+  phone_number: "電話番号"
+  user_type: "ユーザータイプを選択"
+  user_type_options:
+    admin: "管理者"
+    superadmin: "スーパー管理者"
+  cancel: "キャンセル"
+  save: "保存"
+
 
 

@@ -31,6 +31,8 @@ import AdminHomepage from "./pages/AdminPages/AdminHomepage";
 import ArtistEdit from "./pages/AdminPages/ArtistEditPage";
 import PhotoEdit from "./pages/AdminPages/PhotoEditPage";
 import RegisterAdmin from "./pages/AdminPages/RegisterAdmin";
+import UserEditPage from "./pages/AdminPages/UserEditPage";
+import AdminEditPage from "./pages/AdminPages/AdminEditPage";
 
 const App = () => {
   const [authenticate, setAuthenticate] = useState(false); //false>>로그인 안된거 true면 로그인 된거
@@ -72,7 +74,9 @@ const App = () => {
           <Route index element={<AdminHomepage />} />
           <Route path="manage" element={<AdminManage />} />
           <Route path="manage1" element={<RegisterAdmin />} />
+          <Route path="adminedit" element={<AdminEditPage />} />
           <Route path="users" element={<UserManage />} />
+          <Route path="usersedit" element={<UserEditPage />} />
           <Route path="artists" element={<ArtistManage />} />
           <Route path="artistsedit" element={<ArtistEdit />} />
           <Route path="photos" element={<PhotoManage />} />

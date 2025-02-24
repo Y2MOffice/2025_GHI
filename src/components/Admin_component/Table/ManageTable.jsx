@@ -15,6 +15,7 @@ import {
 import { Edit, Delete } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { pink } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
 
 // 유저 데이터
 const usersData = [
@@ -33,6 +34,7 @@ const ManageTable = () => {
   const { translations } = useContext(LanguageContext);
   const [users, setUsers] = useState(usersData);
   const [selected, setSelected] = useState([]);
+  const Navigate = useNavigate();
 
   // 체크박스 선택 핸들러
   const handleSelect = (id) => {
@@ -112,7 +114,11 @@ const ManageTable = () => {
                 {dayjs(user.createdAt).format("YYYY-MM-DD")}
               </TableCell>
               <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-                <IconButton color="primary" size="small">
+                <IconButton
+                  color="primary"
+                  size="small"
+                  onClick={() => Navigate("/admin/adminedit")}
+                >
                   <Edit fontSize="small" />
                 </IconButton>
                 <IconButton color="error" size="small">

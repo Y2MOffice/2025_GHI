@@ -15,6 +15,7 @@ import {
 import { Edit, Delete } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { pink } from "@mui/material/colors";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const usersData = [
   {
@@ -37,6 +38,7 @@ const UserTable = () => {
   const { translations } = useContext(LanguageContext);
   const [users, setUsers] = useState(usersData);
   const [selected, setSelected] = useState([]);
+  const Navigate = useNavigate();
 
   const handleSelect = (id) => {
     setSelected((prev) =>
@@ -87,7 +89,7 @@ const UserTable = () => {
               {translations.usertable.date}
             </TableCell>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
-              {translations.usertable.status}
+              {translations.usertable.state}
             </TableCell>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
               {translations.usertable.manage}
@@ -131,7 +133,11 @@ const UserTable = () => {
                 {user.isDeleted ? "Deleted" : "Active"}
               </TableCell>
               <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
-                <IconButton color="primary" size="small">
+                <IconButton
+                  color="primary"
+                  size="small"
+                  onClick={() => Navigate("/admin/usersedit")}
+                >
                   <Edit fontSize="small" />
                 </IconButton>
                 <IconButton color="error" size="small">
