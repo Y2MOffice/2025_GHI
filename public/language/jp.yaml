@@ -119,7 +119,7 @@ supage:
   button: "登録"
   login: "すでにアカウントをお持ちですか？ログイン"
 artistpage:
-  name: "アーティスト一覧"
+  page: "アーティスト 登録"
 artisttable:
   name: "名前"
   description: "説明"
@@ -129,6 +129,7 @@ artisttable:
   photo: "写真集一覧"
   edit: "編集"
   cancel: "キャンセル"
+  name: "アーティスト一覧"
 photopage:
   name: "写真集一覧"
 phototable:
@@ -142,7 +143,9 @@ phototable:
   photo: "写真一覧"
   edit: "編集"
   cancel: "キャンセル"
-  add: "写真追加"
+  add: "ここに画像をドラッグ アンド ドロップするか、クリックしてアップロードします。"
+  page: "写真集 登録"
+  addthumbnail: "ここにサムネイル画像をドラッグ アンド ドロップするか、クリックしてアップロードします。"
 sakurapage:
   name: "サクラ決済履歴"
 sakuratable:

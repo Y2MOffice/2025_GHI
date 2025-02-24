@@ -96,7 +96,7 @@ const PurchaseTable = () => {
             <TableRow key={user.id} sx={{ height: "40px" }}>
               <TableCell padding="none">{user.user_id}</TableCell>
               <TableCell padding="none">{user.photo_collection_id}</TableCell>
-              <TableCell padding="none">{user.price}</TableCell>
+              <TableCell padding="none">{user.price}円</TableCell>
               <TableCell padding="none">
                 {dayjs(user.created_at).format("YYYY-MM-DD")}
               </TableCell>
