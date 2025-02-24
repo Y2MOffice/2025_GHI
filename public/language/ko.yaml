@@ -118,3 +118,18 @@ supage:
   pwdchk: "비밀번호 (확인)"
   button: "등록"
   login: "이미 계정을 가지고 계십니까? 로그인"
+usertable:
+  name: "이름"
+  nickname: "닉네임"
+  email: "이메일"
+  state: "상태"
+  date: "가입일"
+  manage: "관리"
+  usertype: "사용자 유형"
+  delete: "선택 삭제"
+  download: "다운로드"
+  search_result: "검색 결과"
+  search: "검색"
+  phonenumber: "전화번호"  
+userpage:
+  name: "사용자 페이지"

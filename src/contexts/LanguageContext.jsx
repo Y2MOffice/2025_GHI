@@ -30,6 +30,8 @@ export const LanguageProvider = ({ children }) => {
     searchpage: {},
     sucomp: {},
     supage: {},
+    usertable: {},
+    userpage: {},
   });
 
   useEffect(() => {

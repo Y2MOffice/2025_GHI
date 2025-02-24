@@ -118,3 +118,20 @@ supage:
   pwdchk: "パスワード（確認）"
   button: "登録"
   login: "すでにアカウントをお持ちですか？ログイン"
+usertable:
+  name: "名前"
+  nickname: "ニックネーム"
+  email: "メールアドレス"
+  state: "ステータス"
+  date: "登録日"
+  manage: "管理"
+  usertype: "ユーザータイプ"
+  delete: "選択削除"
+  download: "ダウンロード"
+  search_result: "検索結果"
+  search: "検索"
+  phonenumber: "電話番号"
+userpage:
+  name: "ユーザーページ"
+
+

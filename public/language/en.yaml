@@ -118,3 +118,19 @@ supage:
   pwdchk: "Confirm Password"
   button: "Register"
   login: "Already have an account? Log in"
+usertable:
+  name: "Name"
+  nickname: "Nickname"
+  email: "Email"
+  state: "Status"
+  date: "Join Date"
+  manage: "Manage"
+  usertype: "UserType"
+  delete: "Delete Selected"
+  download: "Download"
+  search_result: "Search Results"
+  search: "Search"
+  phonenumber: "PhoneNumber"
+userpage:
+  name: "User Page"
+

@@ -28,6 +28,7 @@ import PhotoManage from "./pages/AdminPages/PhotoManagePage";
 import PurchaseManage from "./pages/AdminPages/PurchaseManagePage";
 import SakuraManage from "./pages/AdminPages/SakuraManagePage";
 import AdminHomepage from "./pages/AdminPages/AdminHomepage";
+import RegisterAdmin from "./pages/AdminPages/RegisterAdmin";
 
 const App = () => {
   const [authenticate, setAuthenticate] = useState(false); //false>>로그인 안된거 true면 로그인 된거
@@ -68,6 +69,7 @@ const App = () => {
         <Route path="/admin" element={<AdminNavbar />}>
           <Route index element={<AdminHomepage />} />
           <Route path="manage" element={<AdminManage />} />
+          <Route path="manage1" element={<RegisterAdmin />} />
           <Route path="users" element={<UserManage />} />
           <Route path="artists" element={<ArtistManage />} />
           <Route path="photos" element={<PhotoManage />} />
@@ -76,7 +78,7 @@ const App = () => {
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      </LanguageProvider>
+    </LanguageProvider>
   );
 };
 
