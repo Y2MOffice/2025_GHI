@@ -1,13 +1,56 @@
-import React from "react";
-import { Container, Typography } from "@mui/material";
+import React, { useContext } from "react";
+import { LanguageContext } from "../../contexts/LanguageContext";
+import { Container, Typography, Box, Paper } from "@mui/material";
+import PaginationComponent from "../../components/Admin_component/PaginationComponent";
+import DownloadButton from "../../components/Admin_component/DownloadButton";
+import ArtistTable from "../../components/Admin_component/Table/ArtistTable";
+import SearchArea from "../../components/Admin_component/SearchArea";
+import { useMediaQuery } from "@mui/material";
 
 const ArtistManagePage = () => {
+  const { translations } = useContext(LanguageContext);
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>
-        아티스트 관리
-      </Typography>
-      <Typography>임시</Typography>
+    <Container maxWidth="lg" sx={{ mt: 2 }}>
+      {/* 헤더 영역 */}
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={1}
+      >
+        <Typography variant="h5" fontWeight="bold">
+          {translations.artistpage.name}
+        </Typography>
+        <DownloadButton />
+      </Box>
+
+      {/* 검색 및 필터 영역 */}
+      <Paper
+        elevation={3}
+        sx={{
+          p: 1,
+          mb: 1,
+          display: "flex",
+          gap: 1,
+          borderRadius: 2,
+          flexDirection: isMobile ? "column" : "row",
+          justifyContent: isMobile ? "center" : "flex-start",
+        }}
+      >
+        <SearchArea />
+      </Paper>
+
+      {/* 데이터 테이블 영역 */}
+      <Paper elevation={3} sx={{ p: 1, borderRadius: 2, mb: 1 }}>
+        <ArtistTable />
+      </Paper>
+
+      {/* 페이지네이션 */}
+      <Box display="flex" justifyContent="center" mt={1}>
+        <PaginationComponent />
+      </Box>
     </Container>
   );
 };

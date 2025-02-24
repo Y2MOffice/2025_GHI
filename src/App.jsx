@@ -28,6 +28,8 @@ import PhotoManage from "./pages/AdminPages/PhotoManagePage";
 import PurchaseManage from "./pages/AdminPages/PurchaseManagePage";
 import SakuraManage from "./pages/AdminPages/SakuraManagePage";
 import AdminHomepage from "./pages/AdminPages/AdminHomepage";
+import ArtistEdit from "./pages/AdminPages/ArtistEditPage";
+import PhotoEdit from "./pages/AdminPages/PhotoEditPage";
 import RegisterAdmin from "./pages/AdminPages/RegisterAdmin";
 
 const App = () => {
@@ -72,7 +74,9 @@ const App = () => {
           <Route path="manage1" element={<RegisterAdmin />} />
           <Route path="users" element={<UserManage />} />
           <Route path="artists" element={<ArtistManage />} />
+          <Route path="artistsedit" element={<ArtistEdit />} />
           <Route path="photos" element={<PhotoManage />} />
+          <Route path="photosedit" element={<PhotoEdit />} />
           <Route path="purchase" element={<PurchaseManage />} />
           <Route path="sakura" element={<SakuraManage />} />
         </Route>
