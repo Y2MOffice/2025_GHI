@@ -55,6 +55,16 @@ const DataEditor = () => {
 
   return (
     <Container maxWidth="md">
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={1}
+      >
+        <Typography variant="h5" fontWeight="bold">
+          {translations.artisttable.page}
+        </Typography>
+      </Box>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 4 }}>
         <TextField
           label={translations.artisttable.name}

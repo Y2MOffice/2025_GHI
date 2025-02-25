@@ -98,9 +98,14 @@ const artistData = [
   },
 ];
 
+const truncateText = (text, maxLength) => {
+  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+};
+
 const MIN_ROWS = 10; // 최소 표시할 행 개수
 
 const PhotoTable = () => {
+  const isMobile = useMediaQuery("(max-width:600px)");
   const { translations } = useContext(LanguageContext);
   const [photos, setphotos] = useState(photoData);
   const [artists, setartists] = useState(artistData);
@@ -174,7 +179,7 @@ const PhotoTable = () => {
                   ?.name || "MissingName"}
               </TableCell>
 
-              <TableCell padding="none">{user.title}</TableCell>
+              <TableCell padding="none">{truncateText(user.title, isMobile ? 6 : 15)}</TableCell>
               <TableCell padding="none">{user.price}</TableCell>
               <TableCell padding="none">
                 {dayjs(user.created_at).format("YYYY-MM-DD")}

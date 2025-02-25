@@ -33,9 +33,12 @@ import PhotoEdit from "./pages/AdminPages/PhotoEditPage";
 import RegisterAdmin from "./pages/AdminPages/RegisterAdmin";
 import UserEditPage from "./pages/AdminPages/UserEditPage";
 import AdminEditPage from "./pages/AdminPages/AdminEditPage";
+import RequireSuperUser from "./routes/RequireSuperUser";
 
 const App = () => {
   const [authenticate, setAuthenticate] = useState(false); //false>>로그인 안된거 true면 로그인 된거
+
+  const [superUser, setSuperUser] = useState(true); //슈퍼유저 여부
 
   return (
     <LanguageProvider>
@@ -70,19 +73,48 @@ const App = () => {
           </Route>
         </Route>
         {/* admin페이지 */}
-        <Route path="/admin" element={<AdminNavbar />}>
+        <Route path="/admin" element={<AdminNavbar superUser={superUser} />}>
           <Route index element={<AdminHomepage />} />
-          <Route path="manage" element={<AdminManage />} />
           <Route path="manage1" element={<RegisterAdmin />} />
           <Route path="adminedit" element={<AdminEditPage />} />
-          <Route path="users" element={<UserManage />} />
           <Route path="usersedit" element={<UserEditPage />} />
+          <Route
+            path="manage"
+            element={
+              <RequireSuperUser superUser={superUser}>
+                <AdminManage />
+              </RequireSuperUser>
+            }
+          />
+          <Route
+            path="users"
+            element={
+              <RequireSuperUser superUser={superUser}>
+                <UserManage />
+              </RequireSuperUser>
+            }
+          />
+          <Route
+            path="purchase"
+            element={
+              <RequireSuperUser superUser={superUser}>
+                <PurchaseManage />
+              </RequireSuperUser>
+            }
+          />
+          <Route
+            path="sakura"
+            element={
+              <RequireSuperUser superUser={superUser}>
+                <SakuraManage />
+              </RequireSuperUser>
+            }
+          />
+
           <Route path="artists" element={<ArtistManage />} />
           <Route path="artistsedit" element={<ArtistEdit />} />
           <Route path="photos" element={<PhotoManage />} />
           <Route path="photosedit" element={<PhotoEdit />} />
-          <Route path="purchase" element={<PurchaseManage />} />
-          <Route path="sakura" element={<SakuraManage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
