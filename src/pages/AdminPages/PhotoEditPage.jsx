@@ -9,10 +9,9 @@ import {
   Container,
   Box,
   Button,
-  IconButton,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { useDropzone } from "react-dropzone";
+import Dropzone from "react-dropzone-uploader";
 import { LanguageContext } from "../../contexts/LanguageContext";
 
 // 사진집 데이터
@@ -54,6 +53,7 @@ const artistData = [
 const DataEditor = () => {
   const { translations } = useContext(LanguageContext);
   const [formData, setFormData] = useState(photoData);
+  const [files, setFiles] = useState([]);
 
   const [photoList, setPhotoList] = useState([
     { image_url: "https://pbs.twimg.com/media/DD5ji7jUIAAgCxN.jpg:large" },
@@ -74,34 +74,27 @@ const DataEditor = () => {
     }
   };
 
-  const handleDrop = (acceptedFiles) => {
-    const validImages = acceptedFiles.filter((file) =>
-      file.type.startsWith("image/")
-    );
-    if (validImages.length === 0) {
-      console.warn("올바른 이미지 파일이 아닙니다.");
-      return;
+  // ✅ `react-dropzone-uploader`에서 사용하는 이벤트 핸들러
+  const handleChangeStatus = ({ file, meta }, status) => {
+    console.log(status, meta);
+
+    if (status === "done") {
+      setFiles((prevFiles) => [...prevFiles, file]);
     }
-    const newPhotos = acceptedFiles.map((file) => ({
-      image_url: URL.createObjectURL(file),
-    }));
-
-    //선택한 파일을 FormData를 이용해 서버로 전송.
-    //업로드 성공 시 서버에서 받은 URL을 setPhotoList([...photoList, { image_url: 서버URL }]) 형태로 저장.
-
-    setPhotoList((prevPhotos) => [...prevPhotos, ...newPhotos]);
   };
 
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: {
-      "image/jpeg": [".jpg", ".jpeg"],
-      "image/png": [".png"],
-      "image/gif": [".gif"],
-      "image/webp": [".webp"],
-    },
-    onDrop: handleDrop,
-    multiple: true,
-  });
+  const handleSubmit = (files, allFiles) => {
+    console.log(
+      "업로드 완료된 파일 목록:",
+      files.map((f) => f.meta)
+    );
+    const newPhotos = files.map((fileWithMeta) => ({
+      image_url: URL.createObjectURL(fileWithMeta.file), // ✅ 미리보기 URL 생성
+    }));
+
+    setPhotoList((prevPhotos) => [...prevPhotos, ...newPhotos]);
+    allFiles.forEach((f) => f.remove()); // 파일 리스트에서 제거
+  };
 
   return (
     <Container maxWidth="md">
@@ -138,7 +131,7 @@ const DataEditor = () => {
               sx={{
                 maxWidth: "100%",
                 maxHeight: "100%",
-                objectFit: "contain", // 이미지 비율 유지
+                objectFit: "contain",
               }}
               image={formData.cover_image_url}
             />
@@ -232,26 +225,26 @@ const DataEditor = () => {
             </Card>
           </Grid>
         ))}
-
-        <Grid item xs={12}>
-          <Box
-            {...getRootProps()}
-            sx={{
-              border: "2px dashed gray",
-              borderRadius: "8px",
-              padding: "16px",
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "#f9f9f9",
-            }}
-          >
-            <input {...getInputProps()} />
-            <Typography variant="body2" color="textSecondary">
-              {translations.phototable.add}
-            </Typography>
-          </Box>
-        </Grid>
       </Grid>
+
+      <Dropzone
+        onChangeStatus={handleChangeStatus}
+        onSubmit={handleSubmit}
+        accept="image/*"
+        maxFiles={30}
+        autoUpload={false}
+        inputContent={translations.phototable.add}
+        styles={{
+          dropzone: {
+            border: "2px dashed gray",
+            borderRadius: "8px",
+            padding: "16px",
+            textAlign: "center",
+            cursor: "pointer",
+            backgroundColor: "#f9f9f9",
+          },
+        }}
+      />
 
       <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 4 }}>
         <Button variant="contained" color="primary">
