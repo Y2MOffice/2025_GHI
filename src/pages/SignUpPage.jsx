@@ -130,14 +130,6 @@ const SignUpPage = () => {
               fullWidth
               variant="outlined"
             />
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                required
-                value={selectedDate}
-                onChange={(newValue) => setSelectedDate(newValue)}
-                sx={{ mt: 1, mb: 1, width: "100%" }}
-              />
-            </LocalizationProvider>
             <FormControl fullWidth sx={{ mt: 1 }}>
               <Select
                 required

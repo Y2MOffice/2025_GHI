@@ -162,3 +162,71 @@ purchasetable:
   photo_collection_id: "사진집 id"
   price: "가격"
   created_at: "거래 일시"
+usertable:
+  name: "이름"
+  nickname: "닉네임"
+  email: "이메일"
+  state: "상태"
+  date: "가입일"
+  manage: "관리"
+  usertype: "사용자 유형"
+  delete: "선택 삭제"
+  download: "다운로드"
+  search_result: "검색 결과"
+  search: "검색"
+  phonenumber: "전화번호"  
+userpage:
+  name: "사용자 페이지"
+usereditpage:
+  title: "사용자 편집"
+  first_name: "이름"
+  last_name: "성"
+  nickname: "닉네임"
+  email: "이메일"
+  phone_number: "전화번호"
+  user_type: "사용자 유형 선택"
+  user_type_options:
+    user: "일반 사용자"
+    admin: "관리자"
+    superadmin: "슈퍼 관리자"
+  status: "상태 선택"
+  status_options:
+    active: "활성"
+    inactive: "비활성"
+  cancel: "취소"
+  save: "저장"
+admineditpage:
+  title: "관리자 수정"
+  first_name: "이름"
+  last_name: "성"
+  nickname: "닉네임"
+  email: "이메일"
+  phone_number: "전화번호"
+  user_type: "사용자 유형 선택"
+  user_type_options:
+    admin: "관리자"
+    superadmin: "최고 관리자"
+  status: "상태 선택"
+  status_options:
+    active: "활성"
+    inactive: "비활성"
+  cancel: "취소"
+  save: "저장"
+registeradmin:
+  title: "관리자 등록"
+  first_name: "이름"
+  last_name: "성"
+  nickname: "닉네임"
+  email: "이메일"
+  password: "비밀번호"
+  confirm_password: "비밀번호 확인"
+  phone_number: "전화번호"
+  user_type: "사용자 유형 선택"
+  user_type_options:
+    admin: "관리자"
+    superadmin: "최고 관리자"
+  cancel: "취소"
+  save: "저장"
+
+
+

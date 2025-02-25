@@ -30,6 +30,9 @@ import SakuraManage from "./pages/AdminPages/SakuraManagePage";
 import AdminHomepage from "./pages/AdminPages/AdminHomepage";
 import ArtistEdit from "./pages/AdminPages/ArtistEditPage";
 import PhotoEdit from "./pages/AdminPages/PhotoEditPage";
+import RegisterAdmin from "./pages/AdminPages/RegisterAdmin";
+import UserEditPage from "./pages/AdminPages/UserEditPage";
+import AdminEditPage from "./pages/AdminPages/AdminEditPage";
 import RequireSuperUser from "./routes/RequireSuperUser";
 
 const App = () => {
@@ -72,6 +75,9 @@ const App = () => {
         {/* admin페이지 */}
         <Route path="/admin" element={<AdminNavbar superUser={superUser} />}>
           <Route index element={<AdminHomepage />} />
+          <Route path="manage1" element={<RegisterAdmin />} />
+          <Route path="adminedit" element={<AdminEditPage />} />
+          <Route path="usersedit" element={<UserEditPage />} />
           <Route
             path="manage"
             element={

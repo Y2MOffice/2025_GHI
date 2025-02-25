@@ -15,35 +15,36 @@ import {
 import { Edit, Delete } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { pink } from "@mui/material/colors";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
-// 유저 데이터
 const usersData = [
   {
-    id: "hello",
-    name: "김철수",
+    id: 1,
+    firstName: "김",
+    lastName: "철수",
     email: "chulsoo@example.com",
-    status: "Active",
-    createdAt: "2024-02-10",
+    phoneNumber: "01011111111",
+    nickname: "철수",
+    userType: "user",
+    isDeleted: false,
+    createdAt: "2024-02-10T00:00:00Z",
+    updatedAt: "2024-02-10T00:00:00Z",
   },
 ];
 
-const MIN_ROWS = 10; // 최소 표시할 행 개수
+const MIN_ROWS = 10;
 
-const ManageTable = () => {
+const UserTable = () => {
   const { translations } = useContext(LanguageContext);
   const [users, setUsers] = useState(usersData);
   const [selected, setSelected] = useState([]);
   const Navigate = useNavigate();
 
-  // 체크박스 선택 핸들러
   const handleSelect = (id) => {
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
-
-  // 빈 행 추가 (테이블 높이를 유지하려고)
   const emptyRows = Math.max(MIN_ROWS - users.length, 0);
 
   return (
@@ -51,7 +52,7 @@ const ManageTable = () => {
       <Table size="small" sx={{ minWidth: "100%" }}>
         <TableHead sx={{ backgroundColor: pink[50] }}>
           <TableRow sx={{ height: "40px" }}>
-            <TableCell padding="checkbox" sx={{ whiteSpace: "nowrap", px: 2 }}>
+            <TableCell padding="checkbox" sx={{ whiteSpace: "nowrap", px: 1 }}>
               <Checkbox
                 indeterminate={
                   selected.length > 0 && selected.length < users.length
@@ -66,23 +67,32 @@ const ManageTable = () => {
                 }
               />
             </TableCell>
-            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
+            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
               ID
             </TableCell>
-            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-              {translations.managetable.name}
+            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
+              {translations.usertable.name}
             </TableCell>
-            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-              {translations.managetable.email}
+            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
+              {translations.usertable.nickname}
             </TableCell>
-            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-              {translations.managetable.state}
+            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
+              {translations.usertable.email}
             </TableCell>
-            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-              {translations.managetable.date}
+            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 5 }}>
+              {translations.usertable.phonenumber}
             </TableCell>
-            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-              {translations.managetable.manage}
+            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
+              {translations.usertable.usertype}
+            </TableCell>
+            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
+              {translations.usertable.date}
+            </TableCell>
+            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
+              {translations.usertable.state}
+            </TableCell>
+            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
+              {translations.usertable.manage}
             </TableCell>
           </TableRow>
         </TableHead>
@@ -91,33 +101,42 @@ const ManageTable = () => {
             <TableRow key={user.id} sx={{ height: "40px" }}>
               <TableCell
                 padding="checkbox"
-                sx={{ whiteSpace: "nowrap", px: 2 }}
+                sx={{ whiteSpace: "nowrap", px: 1 }}
               >
                 <Checkbox
                   checked={selected.includes(user.id)}
                   onChange={() => handleSelect(user.id)}
                 />
               </TableCell>
-              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
+              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
                 {user.id}
               </TableCell>
-              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-                {user.name}
+              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
+                {`${user.firstName} ${user.lastName}`}
               </TableCell>
-              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
+              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
+                {user.nickname}
+              </TableCell>
+              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
                 {user.email}
               </TableCell>
-              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-                {user.status}
+              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 5 }}>
+                {user.phoneNumber}
               </TableCell>
-              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
+              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
+                {user.userType}
+              </TableCell>
+              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
                 {dayjs(user.createdAt).format("YYYY-MM-DD")}
               </TableCell>
-              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
+              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
+                {user.isDeleted ? "Deleted" : "Active"}
+              </TableCell>
+              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 1 }}>
                 <IconButton
                   color="primary"
                   size="small"
-                  onClick={() => Navigate("/admin/adminedit")}
+                  onClick={() => Navigate("/admin/usersedit")}
                 >
                   <Edit fontSize="small" />
                 </IconButton>
@@ -127,10 +146,10 @@ const ManageTable = () => {
               </TableCell>
             </TableRow>
           ))}
-          {/* 부족한 행을 빈 행으로 채움 */}
+          {/* 빈 행 추가 (빈 행의 colSpan를 전체 열 수 10으로 수정) */}
           {Array.from({ length: emptyRows }).map((_, index) => (
             <TableRow key={`empty-${index}`} sx={{ height: "40px" }}>
-              <TableCell colSpan={7} />
+              <TableCell colSpan={10} />
             </TableRow>
           ))}
         </TableBody>
@@ -147,4 +166,4 @@ const ManageTable = () => {
   );
 };
 
-export default ManageTable;
+export default UserTable;

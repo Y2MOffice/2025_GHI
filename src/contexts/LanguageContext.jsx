@@ -30,12 +30,17 @@ export const LanguageProvider = ({ children }) => {
     searchpage: {},
     sucomp: {},
     supage: {},
+    usertable: {},
+    userpage: {},
     artistpage: {},
     artisttable: {},
-    photopage:{},
-    phototable:{},
-    sakurapage:{},
-    purchasepage:{},
+    photopage: {},
+    phototable: {},
+    sakurapage: {},
+    purchasepage: {},
+    usereditpage: {},
+    admineditpage: {},
+    registeradmin: {},
   });
 
   useEffect(() => {
