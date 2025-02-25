@@ -13,14 +13,10 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel,
 } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
 import { useNavigate } from "react-router-dom";
 import { pink } from "@mui/material/colors";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 const theme = createTheme({
   components: {
     MuiCssBaseline: {
@@ -39,13 +35,15 @@ const theme = createTheme({
 
 const SignUpPage = () => {
   const { translations } = useContext(LanguageContext);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
-  const [selectedDate, setSelectedDate] = React.useState(null);
   const [language, setLanguage] = useState("jp");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -53,19 +51,48 @@ const SignUpPage = () => {
     setPhone(newPhone);
   };
 
-  const handleSignUp = (event) => {
+  const handleSignUp = async (event) => {
     event.preventDefault();
 
-    if (!nickname) {
-      alert(translations.supage.error1);
+    if (!nickname || !firstName || !lastName) {
+      setErrorMessage(translations.supage.error1);
       return;
     }
 
     if (password !== confirmPassword) {
-      alert(translations.supage.error2);
+      setErrorMessage(translations.supage.error2);
       return;
     }
-    navigate("/");
+    try {
+      const response = await fetch("https://stage-api.glowsnaps.tokyo/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+          phoneNumber: phone,
+          displayLanguage: language,
+          nickname,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        }),
+        mode: "cors"
+      });
+
+      if (response.ok) {
+        alert("회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.");
+        navigate("/login");
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(errorData.message || "회원가입 실패");
+      }
+    } catch (error) {
+      console.error("회원가입 요청 오류:", error);
+      setErrorMessage("네트워크 오류가 발생했습니다.");
+    }
   };
 
   return (
@@ -85,6 +112,24 @@ const SignUpPage = () => {
             onSubmit={handleSignUp}
             sx={{ mt: 1, width: "100%" }}
           >
+            <TextField
+              margin="dense"
+              required
+              fullWidth
+              label={translations.supage.name1}
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            <TextField
+              margin="dense"
+              required
+              fullWidth
+              label={translations.supage.name2}
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
             <TextField
               margin="dense"
               required

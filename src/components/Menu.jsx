@@ -17,8 +17,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 function Menu({
   onClose,
   open,
-  setAuthenticate,
   selectedIndex,
+  setAuthenticate,
   setSelectedIndex,
 }) {
   const navigate = useNavigate();
@@ -35,9 +35,39 @@ function Menu({
     setSelectedIndex(null);
   };
 
-  const handleLogout = () => {
-    setAuthenticate(false);
+  const handleLogout = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+
+      if (!token) {
+        console.warn("토큰이 없습니다. 이미 로그아웃된 상태일 수 있습니다.");
+      } else {
+        const response = await fetch(
+          "https://stage-api.glowsnaps.tokyo/api/users/logout",
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) {
+          console.error("서버 로그아웃 실패:", response.status);
+        } else {
+          sessionStorage.removeItem("token");
+          sessionStorage.removeItem("authenticate");
+
+          setAuthenticate(false);
+          navigate("/login");
+        }
+      }
+    } catch (error) {
+      console.error("로그아웃 요청 중 오류 발생:", error);
+    }
   };
+
   return (
     <Slide direction="right" in={open} mountOnEnter unmountOnExit>
       <Box
