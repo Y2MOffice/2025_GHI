@@ -129,7 +129,7 @@ artisttable:
   photo: "写真集一覧"
   edit: "編集"
   cancel: "キャンセル"
-  name: "アーティスト一覧"
+  page: "アーティスト一覧"
 photopage:
   name: "写真集一覧"
 phototable:
