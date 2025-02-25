@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Lightbox from "react-image-lightbox";
-import "react-image-lightbox/style.css";
+import Lightbox from "react-18-image-lightbox";
+import "react-18-image-lightbox/style.css";
 import { CircularProgress, Box } from "@mui/material";
 
 const ImagePopup = ({ open, onClose, images, startIndex }) => {
