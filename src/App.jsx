@@ -78,7 +78,12 @@ const App = () => {
         </Route>
         {/* admin페이지 */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/admin" element={<AdminNavbar superUser={superUser} />}>
+          <Route
+            path="/admin"
+            element={
+              <AdminNavbar superUser={superUser} setAuthenticate={setAuth} />
+            }
+          >
             <Route index element={<AdminHomepage />} />
             <Route path="manage1" element={<RegisterAdmin />} />
             <Route path="adminedit" element={<AdminEditPage />} />

@@ -12,7 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import MenuButton from "./MenuButton";
 import FilterVintageIcon from "@mui/icons-material/FilterVintage";
-import LogoutIcon from "@mui/icons-material/Logout";
+import LogoutButton from "./LogoutButton";
 
 function Menu({
   onClose,
@@ -42,41 +42,6 @@ function Menu({
   const handleAvatarClick = () => {
     navigate("/mypage");
     setSelectedIndex(null);
-  };
-
-  const handleLogout = async () => {
-    try {
-      const token = sessionStorage.getItem("token");
-
-      if (!token) {
-        console.warn("토큰이 없습니다. 이미 로그아웃된 상태일 수 있습니다.");
-      } else {
-        const response = await fetch(
-          "https://stage-api.glowsnaps.tokyo/api/users/logout",
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // ✅ 인증 토큰 추가
-            },
-            credentials: "include",
-          }
-        );
-
-        if (!response.ok) {
-          console.error("서버 로그아웃 실패:", response.status);
-        } else {
-          sessionStorage.removeItem("token");
-          sessionStorage.removeItem("authenticate");
-          sessionStorage.removeItem("user");
-
-          setAuthenticate(false);
-          navigate("/login");
-        }
-      }
-    } catch (error) {
-      console.error("로그아웃 요청 중 오류 발생:", error);
-    }
   };
 
   return (
@@ -215,16 +180,7 @@ function Menu({
               path="user-guide"
             />
 
-            <IconButton
-              sx={{
-                color: "white",
-                textShadow: "2px 2px 4px rgb(125, 89, 89)",
-              }}
-              onClick={handleLogout}
-            >
-              <LogoutIcon fontSize="large" />
-              LogOut
-            </IconButton>
+            <LogoutButton setAuthenticate={setAuthenticate} />
             <Box
               sx={{
                 marginTop: 3,
