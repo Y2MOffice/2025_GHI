@@ -109,7 +109,7 @@ sucomp:
   message3: "Enjoy your time."
   button: "Go to Homepage"
 supage:
-  error1: "Please enter a nickname"
+  error1: "Please enter All Fields"
   error2: "Passwords do not match."
   name: "Create Account"
   nickname: "Nickname"
@@ -118,6 +118,8 @@ supage:
   pwdchk: "Confirm Password"
   button: "Register"
   login: "Already have an account? Log in"
+  name1: "LastName"
+  name2:  "FirstName"
 artistpage:
   name: "Artist List"
 artisttable:
@@ -227,4 +229,3 @@ registeradmin:
     superadmin: "SuperAdmin"
   cancel: "Cancel"
   save: "Save"
-

@@ -9,7 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import logo from "../assets/ABCDE.png";
 import Menu from "./Menu.jsx";
 
-const Navbar = ({ setAuthenticate }) => {
+const Navbar = ({setAuthenticate}) => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -64,9 +64,9 @@ const Navbar = ({ setAuthenticate }) => {
       <Menu
         open={isMenuOpen}
         onClose={toggleMenu}
-        setAuthenticate={setAuthenticate}
         setSelectedIndex={setSelectedIndex}
         selectedIndex={selectedIndex}
+        setAuthenticate={setAuthenticate}
       />
       <Box sx={{ paddingTop: "64px" }}>
         <Outlet />

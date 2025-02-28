@@ -12,19 +12,28 @@ import {
 import { useNavigate } from "react-router-dom";
 import MenuButton from "./MenuButton";
 import FilterVintageIcon from "@mui/icons-material/FilterVintage";
-import LogoutIcon from "@mui/icons-material/Logout";
+import LogoutButton from "./LogoutButton";
 
 function Menu({
   onClose,
   open,
-  setAuthenticate,
   selectedIndex,
+  setAuthenticate,
   setSelectedIndex,
 }) {
   const navigate = useNavigate();
-  const userName = "ユーザー名";
-  const [pointCount, setPointCount] = useState(10); //사쿠라포인트
   const { translations } = useContext(LanguageContext);
+  const firstName = JSON.parse(sessionStorage.getItem("user"))?.firstName;
+  const lastName = JSON.parse(sessionStorage.getItem("user"))?.lastName;
+
+  const paidSakura = Number(
+    JSON.parse(sessionStorage.getItem("user"))?.paidSakura
+  );
+  const freeSakura = Number(
+    JSON.parse(sessionStorage.getItem("user"))?.freeSakura
+  );
+  const userName = lastName + firstName;
+  const pointCount = paidSakura + freeSakura;
 
   const handleNavigation = () => {
     navigate("/mypage");
@@ -35,9 +44,6 @@ function Menu({
     setSelectedIndex(null);
   };
 
-  const handleLogout = () => {
-    setAuthenticate(false);
-  };
   return (
     <Slide direction="right" in={open} mountOnEnter unmountOnExit>
       <Box
@@ -174,16 +180,7 @@ function Menu({
               path="user-guide"
             />
 
-            <IconButton
-              sx={{
-                color: "white",
-                textShadow: "2px 2px 4px rgb(125, 89, 89)",
-              }}
-              onClick={handleLogout}
-            >
-              <LogoutIcon fontSize="large" />
-              LogOut
-            </IconButton>
+            <LogoutButton setAuthenticate={setAuthenticate} />
             <Box
               sx={{
                 marginTop: 3,

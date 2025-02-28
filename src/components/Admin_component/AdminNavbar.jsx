@@ -33,6 +33,7 @@ import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import LogoutButton from "../LogoutButton";
 
 const StyledListItemButton = styled(ListItemButton)(({ active }) => ({
   backgroundColor: active ? "black" : "inherit",
@@ -43,7 +44,7 @@ const StyledListItemButton = styled(ListItemButton)(({ active }) => ({
   },
 }));
 
-const AdminNavbar = ({ superUser }) => {
+const AdminNavbar = ({ setAuthenticate, superUser }) => {
   const { translations } = useContext(LanguageContext);
   const [openMenus, setOpenMenus] = useState({});
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -291,6 +292,7 @@ const AdminNavbar = ({ superUser }) => {
               </NavLink>
             </List>
           </Collapse>
+          <LogoutButton setAuthenticate={setAuthenticate} />
         </List>
       </Drawer>
       <Drawer
@@ -507,6 +509,7 @@ const AdminNavbar = ({ superUser }) => {
                 </NavLink>
               </List>
             </Collapse>
+            <LogoutButton setAuthenticate={setAuthenticate} />
           </List>
         </Box>
       </Drawer>

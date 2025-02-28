@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import HomePage from "./pages/Homepage";
@@ -11,6 +11,8 @@ import Navbar from "./components/Navbar";
 import SignUpComplete from "./pages/SignUpComplete";
 import LoginPage from "./pages/LoginPage";
 import PrivateRoute from "./routes/PrivateRoute";
+import PublicRoute from "./routes/PublicRoute";
+import ProtectedRoute from "./routes/ProtectedRoute";
 import SignUpPage from "./pages/SignUpPage";
 import FindPasswordPage from "./pages/FindPasswordPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -36,28 +38,30 @@ import AdminEditPage from "./pages/AdminPages/AdminEditPage";
 import RequireSuperUser from "./routes/RequireSuperUser";
 
 const App = () => {
-  const [authenticate, setAuthenticate] = useState(false); //false>>로그인 안된거 true면 로그인 된거
-
-  const [superUser, setSuperUser] = useState(true); //슈퍼유저 여부
+  const superUser =
+    JSON.parse(sessionStorage.getItem("user"))?.userType === "super_admin";
+  const token = sessionStorage.getItem("token");
+  const [auth, setAuth] = useState(
+    token !== null && sessionStorage.getItem("authenticate") === "true"
+  );
 
   return (
     <LanguageProvider>
       <Routes>
         {/* 로그인 안된 유저가 접근 가능한 페이지들 */}
-        <Route
-          path="login"
-          element={<LoginPage setAuthenticate={setAuthenticate} />}
-        />
-        <Route path="signup" element={<SignUpPage />} />
-        <Route path="find-password" element={<FindPasswordPage />} />
-        <Route path="password-reset" element={<PasswordResetPage />} />
-        {/* PrivateRoute로 넘어가ㅁ */}
-        <Route element={<PrivateRoute authenticate={authenticate} />}>
-          {/* 로그인 됐을때 user*/}
+        <Route element={<PublicRoute authenticate={auth} />}>
           <Route
-            path="/"
-            element={<Navbar setAuthenticate={setAuthenticate} />}
-          >
+            path="login"
+            element={<LoginPage setAuthenticate={setAuth} />}
+          />
+          <Route path="signup" element={<SignUpPage />} />
+          <Route path="find-password" element={<FindPasswordPage />} />
+          <Route path="password-reset" element={<PasswordResetPage />} />
+        </Route>
+        {/* PrivateRoute로 넘어가ㅁ */}
+        <Route element={<PrivateRoute authenticate={auth} />}>
+          {/* 로그인 됐을때 user*/}
+          <Route path="/" element={<Navbar setAuthenticate={setAuth} />}>
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="trade-law" element={<TradeLaw />} />
             <Route path="user-guide" element={<UserGuide />} />
@@ -73,48 +77,55 @@ const App = () => {
           </Route>
         </Route>
         {/* admin페이지 */}
-        <Route path="/admin" element={<AdminNavbar superUser={superUser} />}>
-          <Route index element={<AdminHomepage />} />
-          <Route path="manage1" element={<RegisterAdmin />} />
-          <Route path="adminedit" element={<AdminEditPage />} />
-          <Route path="usersedit" element={<UserEditPage />} />
+        <Route element={<ProtectedRoute />}>
           <Route
-            path="manage"
+            path="/admin"
             element={
-              <RequireSuperUser superUser={superUser}>
-                <AdminManage />
-              </RequireSuperUser>
+              <AdminNavbar superUser={superUser} setAuthenticate={setAuth} />
             }
-          />
-          <Route
-            path="users"
-            element={
-              <RequireSuperUser superUser={superUser}>
-                <UserManage />
-              </RequireSuperUser>
-            }
-          />
-          <Route
-            path="purchase"
-            element={
-              <RequireSuperUser superUser={superUser}>
-                <PurchaseManage />
-              </RequireSuperUser>
-            }
-          />
-          <Route
-            path="sakura"
-            element={
-              <RequireSuperUser superUser={superUser}>
-                <SakuraManage />
-              </RequireSuperUser>
-            }
-          />
+          >
+            <Route index element={<AdminHomepage />} />
+            <Route path="manage1" element={<RegisterAdmin />} />
+            <Route path="adminedit" element={<AdminEditPage />} />
+            <Route path="usersedit" element={<UserEditPage />} />
+            <Route
+              path="manage"
+              element={
+                <RequireSuperUser superUser={superUser}>
+                  <AdminManage />
+                </RequireSuperUser>
+              }
+            />
+            <Route
+              path="users"
+              element={
+                <RequireSuperUser superUser={superUser}>
+                  <UserManage />
+                </RequireSuperUser>
+              }
+            />
+            <Route
+              path="purchase"
+              element={
+                <RequireSuperUser superUser={superUser}>
+                  <PurchaseManage />
+                </RequireSuperUser>
+              }
+            />
+            <Route
+              path="sakura"
+              element={
+                <RequireSuperUser superUser={superUser}>
+                  <SakuraManage />
+                </RequireSuperUser>
+              }
+            />
 
-          <Route path="artists" element={<ArtistManage />} />
-          <Route path="artistsedit" element={<ArtistEdit />} />
-          <Route path="photos" element={<PhotoManage />} />
-          <Route path="photosedit" element={<PhotoEdit />} />
+            <Route path="artists" element={<ArtistManage />} />
+            <Route path="artistsedit" element={<ArtistEdit />} />
+            <Route path="photos" element={<PhotoManage />} />
+            <Route path="photosedit" element={<PhotoEdit />} />
+          </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

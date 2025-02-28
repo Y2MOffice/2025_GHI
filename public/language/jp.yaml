@@ -109,7 +109,7 @@ sucomp:
   message3: "楽しい時間をお過ごしください。"
   button: "ホームページへ移動"
 supage:
-  error1: "ニックネームを入力してください"
+  error1: "すべてのフィールドを入力してください"
   error2: "パスワードが一致しません。"
   name: "アカウント作成"
   nickname: "ニックネーム"
@@ -118,6 +118,8 @@ supage:
   pwdchk: "パスワード（確認）"
   button: "登録"
   login: "すでにアカウントをお持ちですか？ログイン"
+  name1: "名"
+  name2:  "姓"
 artistpage:
   page: "アーティスト 登録"
 artisttable:
