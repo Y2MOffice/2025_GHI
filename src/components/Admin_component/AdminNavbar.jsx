@@ -136,16 +136,8 @@ const AdminNavbar = ({ superUser }) => {
               </NavLink>
             </List>
           </Collapse>
+          
           {superUser && (
-            <StyledListItemButton onClick={() => handleMenuToggle("users")}>
-              <ListItemIcon>
-                <ManageAccountsIcon />
-              </ListItemIcon>
-              <ListItemText primary={translations.users.manage} />
-              {openMenus["users"] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            </StyledListItemButton>
-          )}
-          <Collapse in={openMenus["users"]} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <NavLink to="users" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
@@ -163,24 +155,9 @@ const AdminNavbar = ({ superUser }) => {
                   </StyledListItemButton>
                 )}
               </NavLink>
-              <NavLink to="users1" style={{ textDecoration: "none" }}>
-                {({ isActive }) => (
-                  <StyledListItemButton
-                    sx={{
-                      pl: 4,
-                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
-                      color: isActive ? "white" : "black",
-                    }}
-                  >
-                    <ListItemIcon>
-                      <PersonAddIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={translations.users.regist} />
-                  </StyledListItemButton>
-                )}
-              </NavLink>
             </List>
-          </Collapse>
+            )}
+
 
           <StyledListItemButton onClick={() => handleMenuToggle("artists")}>
             <ListItemIcon>
@@ -370,15 +347,6 @@ const AdminNavbar = ({ superUser }) => {
               </List>
             </Collapse>
             {superUser && (
-              <StyledListItemButton onClick={() => handleMenuToggle("users")}>
-                <ListItemIcon>
-                  <ManageAccountsIcon />
-                </ListItemIcon>
-                <ListItemText primary={translations.users.manage} />
-                {openMenus["users"] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </StyledListItemButton>
-            )}
-            <Collapse in={openMenus["users"]} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <NavLink to="users" style={{ textDecoration: "none" }}>
                   {({ isActive }) => (
@@ -396,24 +364,10 @@ const AdminNavbar = ({ superUser }) => {
                     </StyledListItemButton>
                   )}
                 </NavLink>
-                <NavLink to="users1" style={{ textDecoration: "none" }}>
-                  {({ isActive }) => (
-                    <StyledListItemButton
-                      sx={{
-                        pl: 4,
-                        backgroundColor: isActive ? "#c1a3a3" : "inherit",
-                        color: isActive ? "white" : "black",
-                      }}
-                    >
-                      <ListItemIcon>
-                        <PersonAddIcon />
-                      </ListItemIcon>
-                      <ListItemText primary={translations.users.regist} />
-                    </StyledListItemButton>
-                  )}
-                </NavLink>
               </List>
-            </Collapse>
+
+            )}
+ 
 
             <StyledListItemButton onClick={() => handleMenuToggle("artists")}>
               <ListItemIcon>
