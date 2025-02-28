@@ -48,6 +48,7 @@ function Menu({
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // ✅ 인증 토큰 추가
             },
             credentials: "include",
           }
@@ -58,6 +59,7 @@ function Menu({
         } else {
           sessionStorage.removeItem("token");
           sessionStorage.removeItem("authenticate");
+          sessionStorage.removeItem("user");
 
           setAuthenticate(false);
           navigate("/login");

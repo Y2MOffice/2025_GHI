@@ -46,21 +46,21 @@ const LoginPage = ({ setAuthenticate }) => {
       .then((res) => res.json())
       .then((data) => setIpAddress(data.ip))
       .catch((err) => console.log("IP 주소 가져오기 실패:", err));
-  
+
     const userAgent = navigator.userAgent;
     if (/Mobi|Android|iPhone/i.test(userAgent)) {
       setDeviceType("mobile");
     } else {
       setDeviceType("web");
     }
-  
+
     const savedCountry = localStorage.getItem("country");
     if (savedCountry) {
       setCountry(savedCountry);
     } else {
       fetch("https://ipapi.co/json/", {
         method: "GET",
-        mode: "no-cors",
+        mode: "cors",
         headers: {
           "Content-Type": "application/json",
         },
@@ -73,7 +73,6 @@ const LoginPage = ({ setAuthenticate }) => {
         .catch((err) => console.log("국가 정보 가져오기 실패:", err));
     }
   }, []);
-  
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -108,8 +107,43 @@ const LoginPage = ({ setAuthenticate }) => {
           sessionStorage.setItem("token", token);
           sessionStorage.setItem("authenticate", true);
 
-          setAuthenticate(true);
-          navigate("/");
+          // 🔹 로그인 후 사용자 정보 요청
+          const userResponse = await fetch(
+            "https://stage-api.glowsnaps.tokyo/api/users/me",
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+            }
+          );
+
+          if (!userResponse.ok) {
+            throw new Error(
+              `사용자 정보 가져오기 실패: ${userResponse.status}`
+            );
+          } else {
+            const userData = await userResponse.json();
+            if (userData.resultCode === 0 && userData.data) {
+              sessionStorage.setItem("user", JSON.stringify(userData.data));
+            }
+            const userType = userData.data?.userType;
+            const isAuthorized = Boolean(
+              userType === "admin" || userType === "super_admin"
+            );
+
+            setAuthenticate(true);
+
+            setTimeout(() => {
+              if (isAuthorized) {
+                navigate("/admin");
+              } else {
+                navigate("/");
+              }
+            }, 100);
+          }
         } else {
           setErrorMessage(
             "로그인 실패: " + (responseData.errorMessage || "알 수 없는 오류")

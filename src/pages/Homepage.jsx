@@ -33,8 +33,6 @@ const HomePage = (authenticate) => {
   const [startY, setStartY] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   const { translations } = useContext(LanguageContext);
-  const token = sessionStorage.getItem("token");
-  console.log("토큰 :"+token);
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
