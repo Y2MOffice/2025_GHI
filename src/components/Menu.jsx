@@ -22,9 +22,18 @@ function Menu({
   setSelectedIndex,
 }) {
   const navigate = useNavigate();
-  const userName = "ユーザー名";
-  const [pointCount, setPointCount] = useState(10); //사쿠라포인트
   const { translations } = useContext(LanguageContext);
+  const firstName = JSON.parse(sessionStorage.getItem("user"))?.firstName;
+  const lastName = JSON.parse(sessionStorage.getItem("user"))?.lastName;
+
+  const paidSakura = Number(
+    JSON.parse(sessionStorage.getItem("user"))?.paidSakura
+  );
+  const freeSakura = Number(
+    JSON.parse(sessionStorage.getItem("user"))?.freeSakura
+  );
+  const userName = lastName + firstName;
+  const pointCount = paidSakura + freeSakura;
 
   const handleNavigation = () => {
     navigate("/mypage");

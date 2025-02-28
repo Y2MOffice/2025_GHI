@@ -4,7 +4,8 @@ import yaml from "js-yaml";
 export const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState("ko");
+  const language =
+    JSON.parse(sessionStorage.getItem("user"))?.displayLanguage || "jp";
   const [translations, setTranslations] = useState({
     admin: {},
     users: {},
@@ -74,7 +75,7 @@ export const LanguageProvider = ({ children }) => {
   }, [language]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, translations }}>
+    <LanguageContext.Provider value={{ language, translations }}>
       {children}
     </LanguageContext.Provider>
   );
