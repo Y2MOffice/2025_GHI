@@ -76,7 +76,6 @@ const App = () => {
             <Route path="viewPage/:id" element={<ViewPage />} />
           </Route>
         </Route>
-        {/* admin페이지 */}
         <Route element={<ProtectedRoute />}>
           <Route
             path="/admin"
@@ -85,9 +84,8 @@ const App = () => {
             }
           >
             <Route index element={<AdminHomepage />} />
-            <Route path="manage1" element={<RegisterAdmin />} />
-            <Route path="adminedit" element={<AdminEditPage />} />
-            <Route path="usersedit" element={<UserEditPage />} />
+            <Route path="adminedit/:id" element={<AdminEditPage />} />
+            <Route path="useredit/:id" element={<UserEditPage />} />
             <Route
               path="manage"
               element={

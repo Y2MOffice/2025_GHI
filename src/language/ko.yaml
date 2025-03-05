@@ -76,6 +76,7 @@ loginpage:
   login: "로그인"
   pwsearch: "비밀번호를 잊어버리셨나요?"
   regist: "회원가입"
+  message: "아이디 또는 비밀번호가 맞지 않습니다. 다시 확인해주세요."
 mypage:
   editacc: "개인정보수정"
   pointhis: "포인트 사용 내역"
@@ -119,7 +120,7 @@ supage:
   button: "등록"
   login: "이미 계정을 가지고 계십니까? 로그인"
   name1: "이름"
-  name2:  "성"
+  name2: "성"
 artistpage:
   name: "아티스트 목록"
 artisttable:
@@ -165,6 +166,7 @@ purchasetable:
   price: "가격"
   created_at: "거래 일시"
 usertable:
+  id: "Id"
   name: "이름"
   nickname: "닉네임"
   email: "이메일"
@@ -176,7 +178,7 @@ usertable:
   download: "다운로드"
   search_result: "검색 결과"
   search: "검색"
-  phonenumber: "전화번호"  
+  phonenumber: "전화번호"
 userpage:
   name: "사용자 페이지"
 usereditpage:
@@ -197,6 +199,7 @@ usereditpage:
     inactive: "비활성"
   cancel: "취소"
   save: "저장"
+  delete: "삭제"
 admineditpage:
   title: "관리자 수정"
   first_name: "이름"
@@ -214,6 +217,12 @@ admineditpage:
     inactive: "비활성"
   cancel: "취소"
   save: "저장"
+  delete: "관리자 권한 삭제"
+  changelog: "역할이 성공적으로 변경되었습니다."
+  changefail: "역할 변경에 실패했습니다. 오류:"
+  question: "정말로 관리자 권한을 삭제하겠습니까?"
+  deletelog: "성공적으로 삭제했습니다."
+  deletefail: "삭제에 실패했습니다."
 registeradmin:
   title: "관리자 등록"
   first_name: "이름"
@@ -229,6 +238,3 @@ registeradmin:
     superadmin: "최고 관리자"
   cancel: "취소"
   save: "저장"
-
-
-

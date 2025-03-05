@@ -1,24 +1,71 @@
-import React, { useContext } from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  useMediaQuery,
-  Paper,
-} from "@mui/material";
+import React, { useState, useEffect, useContext } from "react";
 import { LanguageContext } from "../../contexts/LanguageContext";
-import DownloadButton from "../../components/Admin_component/DownloadButton";
-import SearchArea from "../../components/Admin_component/SearchArea";
-import PaginationComponent from "../../components/Admin_component/PaginationComponent";
+import { Container, Typography, Box, Paper } from "@mui/material";
 import UserTable from "../../components/Admin_component/Table/UserTable";
+import SearchUserArea from "../../components/Admin_component/SearchUserArea";
+import PaginationComponent from "../../components/Admin_component/PaginationComponent";
+import DownloadButton from "../../components/Admin_component/DownloadButton";
+import { useMediaQuery } from "@mui/material";
 
 const UserManagePage = () => {
   const { translations } = useContext(LanguageContext);
   const isMobile = useMediaQuery("(max-width:600px)");
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [searchParams, setSearchParams] = useState({});
+  const [pagination, setPagination] = useState({
+    totalPages: 1,
+    page: 1,
+    pageSize: 10,
+  });
+
+  const fetchUsers = async (params = {}) => {
+    setLoading(true);
+    try {
+      const token = sessionStorage.getItem("token");
+
+      const filteredParams = Object.fromEntries(
+        Object.entries(params).filter(([_, v]) => v !== "")
+      );
+      const queryString = new URLSearchParams(filteredParams).toString();
+      const response = await fetch(
+        `https://stage-api.glowsnaps.tokyo/api/users?${queryString}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`서버 응답 오류: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setUsers(data.data.items || []);
+      setPagination({
+        totalPages: data.data.totalPages,
+        page: data.data.page,
+        pageSize: data.data.pageSize,
+      });
+    } catch (err) {
+      console.error("유저 목록 가져오기 실패:", err);
+      setError(err.message);
+      setUsers([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers(searchParams);
+  }, [pagination.page]);
 
   return (
     <Container maxWidth="lg" sx={{ mt: 2 }}>
-      {/* 헤더 영역 */}
       <Box
         display="flex"
         justifyContent="space-between"
@@ -28,10 +75,9 @@ const UserManagePage = () => {
         <Typography variant="h5" fontWeight="bold">
           {translations.userpage.name}
         </Typography>
-        <DownloadButton />
+        <DownloadButton users={users} />
       </Box>
 
-      {/* 검색 및 필터 영역 */}
       <Paper
         elevation={3}
         sx={{
@@ -44,17 +90,23 @@ const UserManagePage = () => {
           justifyContent: isMobile ? "center" : "flex-start",
         }}
       >
-        <SearchArea />
+        <SearchUserArea
+          onSearch={(params) => {
+            setSearchParams(params);
+            fetchUsers(params);
+          }}
+        />
       </Paper>
 
-      {/* 데이터 테이블 영역 */}
       <Paper elevation={3} sx={{ p: 1, borderRadius: 2, mb: 1 }}>
-        <UserTable />
+        <UserTable users={users} loading={loading} error={error} />
       </Paper>
 
-      {/* 페이지네이션 */}
       <Box display="flex" justifyContent="center" mt={1}>
-        <PaginationComponent />
+        <PaginationComponent
+          pagination={pagination}
+          setPagination={setPagination}
+        />
       </Box>
     </Container>
   );
