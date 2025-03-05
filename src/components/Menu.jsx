@@ -64,9 +64,9 @@ function Menu({
             top: 0,
             left: 0,
             width: {
-              xs: "60%",
-              sm: "50%",
-              md: "40%",
+              xs: "85%",
+              sm: "70%",
+              md: "45%",
               lg: "30%",
             },
             height: "100vh",

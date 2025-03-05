@@ -23,7 +23,7 @@ managetable:
   email: "メールアドレス"
   state: "状態"
   date: "登録日"
-  manage: "管理"
+  manage: "ユーザータイプ"
   delete: "選択削除"
   download: "ダウンロード"
   search_result: "検索結果"
@@ -76,6 +76,7 @@ loginpage:
   login: "ログイン"
   pwsearch: "パスワードをお忘れですか？"
   regist: "会員登録"
+  message: "IDまたはパスワードが正しくありません。 もう一度確認をお願いします。"
 mypage:
   editacc: "個人情報修正"
   pointhis: "ポイント利用履歴"
@@ -119,7 +120,7 @@ supage:
   button: "登録"
   login: "すでにアカウントをお持ちですか？ログイン"
   name1: "名"
-  name2:  "姓"
+  name2: "姓"
 artistpage:
   page: "アーティスト 登録"
 artisttable:
@@ -165,6 +166,7 @@ purchasetable:
   price: "価格"
   created_at: "取引日時"
 usertable:
+  id: "Id"
   name: "名前"
   nickname: "ニックネーム"
   email: "メールアドレス"
@@ -197,6 +199,7 @@ usereditpage:
     inactive: "非アクティブ"
   cancel: "キャンセル"
   save: "保存"
+  delete: "削除"
 admineditpage:
   title: "管理者編集"
   first_name: "名"
@@ -214,6 +217,12 @@ admineditpage:
     inactive: "非アクティブ"
   cancel: "キャンセル"
   save: "保存"
+  delete: "管理者権限削除"
+  changelog: "ロールが正常に変更されました。"
+  changefail: "ロールの変更に失敗しました。 エラー:"
+  question: "本当に管理者権限を削除しますか？"
+  deletelog: "正常に削除しました。"
+  deletefail: "削除に失敗しました。"
 registeradmin:
   title: "管理者登録"
   first_name: "名"
@@ -229,7 +238,3 @@ registeradmin:
     superadmin: "スーパー管理者"
   cancel: "キャンセル"
   save: "保存"
-
-
-
-

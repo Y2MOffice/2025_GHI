@@ -23,7 +23,7 @@ managetable:
   email: "Email"
   state: "Status"
   date: "Join Date"
-  manage: "Manage"
+  manage: "UserType"
   delete: "Delete Selected"
   download: "Download"
   search_result: "Search Results"
@@ -76,6 +76,7 @@ loginpage:
   login: "Log in"
   pwsearch: "Forgot your password?"
   regist: "Sign Up"
+  message: "The ID or password is not correct, please check again."
 mypage:
   editacc: "Edit Personal Information"
   pointhis: "Point Usage History"
@@ -119,7 +120,7 @@ supage:
   button: "Register"
   login: "Already have an account? Log in"
   name1: "LastName"
-  name2:  "FirstName"
+  name2: "FirstName"
 artistpage:
   name: "Artist List"
 artisttable:
@@ -165,6 +166,7 @@ purchasetable:
   price: "Price"
   created_at: "Transaction Date"
 usertable:
+  id: "Id"
   name: "Name"
   nickname: "Nickname"
   email: "Email"
@@ -197,6 +199,7 @@ usereditpage:
     inactive: "Inactive"
   cancel: "Cancel"
   save: "Save"
+  delete: "Delete"
 admineditpage:
   title: "Edit Admin"
   first_name: "First Name"
@@ -214,6 +217,12 @@ admineditpage:
     inactive: "Inactive"
   cancel: "Cancel"
   save: "Save"
+  delete: "Delete Administrator Privileges"
+  changelog: "Role changed successfully."
+  changefail: "Role change failed. Error:"
+  question: "Are you sure you want to delete administrator privileges?"
+  deletelog: "Deleted successfully."
+  deletefail: "Failed to delete."
 registeradmin:
   title: "Register Admin"
   first_name: "First Name"

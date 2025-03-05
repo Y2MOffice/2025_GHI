@@ -1,7 +1,7 @@
 import React from "react";
 import { Pagination } from "@mui/material";
 
-const PaginationComponent = ({ pagination, setPagination }) => {
+const AdminPaginationComponent = ({ pagination, setPagination }) => {
   const handleChange = (event, value) => {
     setPagination((prev) => ({ ...prev, page: value }));
   };
@@ -17,4 +17,4 @@ const PaginationComponent = ({ pagination, setPagination }) => {
   );
 };
 
-export default PaginationComponent;
+export default AdminPaginationComponent;

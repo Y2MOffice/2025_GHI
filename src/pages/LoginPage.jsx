@@ -107,7 +107,6 @@ const LoginPage = ({ setAuthenticate }) => {
           sessionStorage.setItem("token", token);
           sessionStorage.setItem("authenticate", true);
 
-          // 🔹 로그인 후 사용자 정보 요청
           const userResponse = await fetch(
             "https://stage-api.glowsnaps.tokyo/api/users/me",
             {
@@ -122,7 +121,8 @@ const LoginPage = ({ setAuthenticate }) => {
 
           if (!userResponse.ok) {
             throw new Error(
-              `사용자 정보 가져오기 실패: ${userResponse.status}`
+              `사용자 정보 가져오기 실패: ${userResponse.status}`,
+              alert(translations.loginpage.message)
             );
           } else {
             const userData = await userResponse.json();
@@ -146,7 +146,8 @@ const LoginPage = ({ setAuthenticate }) => {
           }
         } else {
           setErrorMessage(
-            "로그인 실패: " + (responseData.errorMessage || "알 수 없는 오류")
+            "로그인 실패: " + (responseData.errorMessage || "알 수 없는 오류"),
+            alert(translations.loginpage.message)
           );
         }
       }
@@ -154,6 +155,7 @@ const LoginPage = ({ setAuthenticate }) => {
       console.error("로그인 요청 오류:", error);
       setAuthenticate(false);
       setErrorMessage("네트워크 오류가 발생했습니다.");
+      alert(translations.loginpage.message);
     }
   };
 

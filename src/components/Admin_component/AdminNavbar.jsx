@@ -13,6 +13,7 @@ import {
   IconButton,
   Backdrop,
   ListItemIcon,
+  Typography,
 } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -58,6 +59,10 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
     setMobileOpen(!mobileOpen);
   };
 
+  const firstName = JSON.parse(sessionStorage.getItem("user"))?.firstName || "";
+  const lastName = JSON.parse(sessionStorage.getItem("user"))?.lastName || "";
+  const userName = `${lastName}${firstName}`.trim();
+
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar
@@ -89,6 +94,26 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
           <NavLink to="/admin" style={{ textDecoration: "none" }}>
             <img src={logo} alt="Logo" style={{ height: "40px" }} />
           </NavLink>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            padding: 2,
+            backgroundColor: "pink",
+            color: "white",
+          }}
+        >
+          <Typography
+            variant="h6"
+            sx={{
+              flexGrow: 1,
+              textShadow: "2px 2px 4px rgb(241, 209, 210)",
+            }}
+          >
+            {userName}
+          </Typography>
         </Box>
 
         <List>
@@ -302,6 +327,25 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
         sx={{ display: { xs: "block", md: "none" } }}
       >
         <Box sx={{ width: 240 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            padding: 2,
+            backgroundColor: "pink",
+            color: "white",
+          }}
+        >
+          <Typography
+            variant="h6"
+            sx={{
+              flexGrow: 1,
+              textShadow: "2px 2px 4px rgb(241, 209, 210)",
+            }}
+          >
+            {userName}
+          </Typography>
+        </Box>
           <List>
             {superUser && (
               <StyledListItemButton onClick={() => handleMenuToggle("admin")}>
