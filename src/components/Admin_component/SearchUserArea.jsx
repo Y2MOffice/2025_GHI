@@ -29,12 +29,11 @@ const SearchUserArea = ({ onSearch }) => {
   const handleSearch = () => {
     const params = { ...searchParams };
 
-    // ✅ UTC 포맷 적용 (서버의 `createdAt`과 동일한 형식)
     if (params.startDate) {
       params.startDate = dayjs(params.startDate)
         .utc() // ✅ UTC 변환
         .startOf("day") // ✅ 하루의 시작 시간
-        .format("YYYY-MM-DDTHH:mm:ss.SSSSSSZ"); // ✅ 서버 형식 맞춤
+        .format("YYYY-MM-DDTHH:mm:ss.SSSSSSZ");
     }
 
     if (params.endDate) {

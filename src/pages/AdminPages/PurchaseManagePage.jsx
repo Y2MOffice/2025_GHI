@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { Container, Typography, Box, Paper } from "@mui/material";
 import PaginationComponent from "../../components/Admin_component/PaginationComponent";
@@ -10,6 +10,11 @@ import { useMediaQuery } from "@mui/material";
 const PurchaseManagePage = () => {
   const { translations } = useContext(LanguageContext);
   const isMobile = useMediaQuery("(max-width:600px)");
+  const [pagination, setPagination] = useState({
+    totalPages: 1,
+    page: 1,
+    pageSize: 10,
+  });
 
   return (
     <Container maxWidth="lg" sx={{ mt: 2 }}>
@@ -49,7 +54,10 @@ const PurchaseManagePage = () => {
 
       {/* 페이지네이션 */}
       <Box display="flex" justifyContent="center" mt={1}>
-        <PaginationComponent />
+        <PaginationComponent
+          pagination={pagination}
+          setPagination={setPagination}
+        />
       </Box>
     </Container>
   );

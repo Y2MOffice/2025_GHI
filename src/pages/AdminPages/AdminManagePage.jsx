@@ -24,11 +24,10 @@ const AdminManagePage = () => {
     setLoading(true);
     try {
       const token = sessionStorage.getItem("token");
-      const queryString = new URLSearchParams({
-        ...params,
-        startDate: params.startDate || "",
-        endDate: params.endDate || "",
-      }).toString();
+      const filteredParams = Object.fromEntries(
+        Object.entries(params).filter(([_, v]) => v !== "")
+      );
+      const queryString = new URLSearchParams(filteredParams).toString();
 
       const response = await fetch(
         `https://stage-api.glowsnaps.tokyo/api/admins?${queryString}`,
