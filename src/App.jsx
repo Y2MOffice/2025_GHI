@@ -84,7 +84,6 @@ const App = () => {
             }
           >
             <Route index element={<AdminHomepage />} />
-            <Route path="manage1" element={<RegisterAdmin />} />
             <Route path="adminedit/:id" element={<AdminEditPage />} />
             <Route path="useredit/:id" element={<UserEditPage />} />
             <Route

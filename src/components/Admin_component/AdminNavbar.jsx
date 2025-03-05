@@ -144,27 +144,6 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
                   </StyledListItemButton>
                 )}
               </NavLink>
-              <NavLink to="manage1" style={{ textDecoration: "none" }}>
-                {({ isActive }) => (
-                  <StyledListItemButton
-                    sx={{
-                      pl: 4,
-                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
-                      color: isActive ? "white" : "black",
-                    }}
-                  >
-                    <ListItemIcon>
-                      <PersonAddIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={translations.admin.regist} />
-                  </StyledListItemButton>
-                )}
-              </NavLink>
-            </List>
-          </Collapse>
-          
-          {superUser && (
-            <List component="div" disablePadding>
               <NavLink to="users" style={{ textDecoration: "none" }}>
                 {({ isActive }) => (
                   <StyledListItemButton
@@ -182,8 +161,7 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
                 )}
               </NavLink>
             </List>
-            )}
-
+          </Collapse>
 
           <StyledListItemButton onClick={() => handleMenuToggle("artists")}>
             <ListItemIcon>
@@ -327,25 +305,25 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
         sx={{ display: { xs: "block", md: "none" } }}
       >
         <Box sx={{ width: 240 }}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            padding: 2,
-            backgroundColor: "pink",
-            color: "white",
-          }}
-        >
-          <Typography
-            variant="h6"
+          <Box
             sx={{
-              flexGrow: 1,
-              textShadow: "2px 2px 4px rgb(241, 209, 210)",
+              display: "flex",
+              alignItems: "center",
+              padding: 2,
+              backgroundColor: "pink",
+              color: "white",
             }}
           >
-            {userName}
-          </Typography>
-        </Box>
+            <Typography
+              variant="h6"
+              sx={{
+                flexGrow: 1,
+                textShadow: "2px 2px 4px rgb(241, 209, 210)",
+              }}
+            >
+              {userName}
+            </Typography>
+          </Box>
           <List>
             {superUser && (
               <StyledListItemButton onClick={() => handleMenuToggle("admin")}>
@@ -374,26 +352,6 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
                     </StyledListItemButton>
                   )}
                 </NavLink>
-                <NavLink to="manage1" style={{ textDecoration: "none" }}>
-                  {({ isActive }) => (
-                    <StyledListItemButton
-                      sx={{
-                        pl: 4,
-                        backgroundColor: isActive ? "#c1a3a3" : "inherit",
-                        color: isActive ? "white" : "black",
-                      }}
-                    >
-                      <ListItemIcon>
-                        <PersonAddIcon />
-                      </ListItemIcon>
-                      <ListItemText primary={translations.admin.regist} />
-                    </StyledListItemButton>
-                  )}
-                </NavLink>
-              </List>
-            </Collapse>
-            {superUser && (
-              <List component="div" disablePadding>
                 <NavLink to="users" style={{ textDecoration: "none" }}>
                   {({ isActive }) => (
                     <StyledListItemButton
@@ -411,10 +369,7 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
                   )}
                 </NavLink>
               </List>
-
-            )}
- 
-
+            </Collapse>
             <StyledListItemButton onClick={() => handleMenuToggle("artists")}>
               <ListItemIcon>
                 <ColorLensIcon />
