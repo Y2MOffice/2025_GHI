@@ -125,7 +125,7 @@ artistpage:
   name: "아티스트 목록"
 artisttable:
   name: "이름"
-  description: "설명"
+  hashtag: "태그"
   created_at: "생성 날짜"
   updated_at: "수정 날짜"
   manage: "관리"
@@ -133,6 +133,9 @@ artisttable:
   edit: "수정"
   cancel: "취소"
   page: "아티스트 등록"
+  search: "검색"
+  description: "설명"
+  placeholder: "해쉬태그를 쉼표(,)로 구분하여 입력"
 photopage:
   name: "사진집 목록"
 phototable:
@@ -179,6 +182,9 @@ usertable:
   search_result: "검색 결과"
   search: "검색"
   phonenumber: "전화번호"
+  deletequestion: "유저를 삭제하시겠습니까?"
+  deletesuccess: "유저가 삭제되었습니다."
+  deletefailed: "유저 삭제에 실패했습니다"
 userpage:
   name: "사용자 페이지"
 usereditpage:
@@ -200,6 +206,7 @@ usereditpage:
   cancel: "취소"
   save: "저장"
   delete: "삭제"
+  auth: "관리자 권한 부여"
 admineditpage:
   title: "관리자 수정"
   first_name: "이름"

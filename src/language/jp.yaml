@@ -125,7 +125,7 @@ artistpage:
   page: "アーティスト 登録"
 artisttable:
   name: "名前"
-  description: "説明"
+  hashtag: "タグ"
   created_at: "作成日"
   updated_at: "更新日"
   manage: "管理"
@@ -133,6 +133,7 @@ artisttable:
   edit: "編集"
   cancel: "キャンセル"
   page: "アーティスト一覧"
+  search: "検索"
 photopage:
   name: "写真集一覧"
 phototable:
@@ -179,6 +180,9 @@ usertable:
   search_result: "検索結果"
   search: "検索"
   phonenumber: "電話番号"
+  deletequestion: "ユーザーを削除しますか？"
+  deletesuccess: "ユーザーが削除されました。"
+  deletefailed: "ユーザーが削除されました。"
 userpage:
   name: "ユーザーページ"
 usereditpage:
@@ -200,6 +204,7 @@ usereditpage:
   cancel: "キャンセル"
   save: "保存"
   delete: "削除"
+  auth: "管理者権限付与"
 admineditpage:
   title: "管理者編集"
   first_name: "名"

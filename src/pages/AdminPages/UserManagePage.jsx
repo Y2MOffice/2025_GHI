@@ -99,7 +99,7 @@ const UserManagePage = () => {
       </Paper>
 
       <Paper elevation={3} sx={{ p: 1, borderRadius: 2, mb: 1 }}>
-        <UserTable users={users} loading={loading} error={error} />
+        <UserTable users={users} loading={loading} error={error} onUserDeleted={() => fetchUsers(searchParams)} />
       </Paper>
 
       <Box display="flex" justifyContent="center" mt={1}>

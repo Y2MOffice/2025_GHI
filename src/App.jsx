@@ -31,6 +31,7 @@ import PurchaseManage from "./pages/AdminPages/PurchaseManagePage";
 import SakuraManage from "./pages/AdminPages/SakuraManagePage";
 import AdminHomepage from "./pages/AdminPages/AdminHomepage";
 import ArtistEdit from "./pages/AdminPages/ArtistEditPage";
+import ArtistCreate from "./pages/AdminPages/ArtistCreatePage";
 import PhotoEdit from "./pages/AdminPages/PhotoEditPage";
 import RegisterAdmin from "./pages/AdminPages/RegisterAdmin";
 import UserEditPage from "./pages/AdminPages/UserEditPage";
@@ -120,7 +121,8 @@ const App = () => {
             />
 
             <Route path="artists" element={<ArtistManage />} />
-            <Route path="artistsedit" element={<ArtistEdit />} />
+            <Route path="artistsedit" element={<ArtistCreate />} />
+            <Route path="artistsedit/:id" element={<ArtistEdit />} />
             <Route path="photos" element={<PhotoManage />} />
             <Route path="photosedit" element={<PhotoEdit />} />
           </Route>

@@ -18,7 +18,7 @@ const AdminManagePage = () => {
     totalPages: 1,
     page: 1,
     pageSize: 10,
-  }); // ✅ 페이지네이션 데이터
+  });
 
   const fetchAdmins = async (params) => {
     setLoading(true);
