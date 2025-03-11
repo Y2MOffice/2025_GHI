@@ -1,20 +1,68 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { Container, Typography, Box, Paper } from "@mui/material";
 import PaginationComponent from "../../components/Admin_component/PaginationComponent";
 import DownloadButton from "../../components/Admin_component/DownloadButton";
 import PhotoTable from "../../components/Admin_component/Table/PhotoTable";
-import SearchArea from "../../components/Admin_component/SearchArea";
+import SearchPhotoArea from "../../components/Admin_component/SearchArea";
 import { useMediaQuery } from "@mui/material";
 
 const PhotoManagePage = () => {
   const { translations } = useContext(LanguageContext);
   const isMobile = useMediaQuery("(max-width:600px)");
+  const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchParams, setSearchParams] = useState({});
   const [pagination, setPagination] = useState({
-      totalPages: 1,
-      page: 1,
-      pageSize: 10,
-    });
+    totalPages: 1,
+    page: 1,
+    pageSize: 10,
+  });
+
+  const fetchPhotos = async (params) => {
+    setLoading(true);
+    try {
+      const token = sessionStorage.getItem("token");
+      const filteredParams = Object.fromEntries(
+        Object.entries(params).filter(([_, v]) => v !== "")
+      );
+      const queryString = new URLSearchParams(filteredParams).toString();
+
+      const response = await fetch(
+        `https://stage-api.glowsnaps.tokyo/api/photo-collections?${queryString}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`서버 응답 오류: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setPhotos(data.data.items || []);
+      setPagination({
+        totalPages: data.data.totalPages,
+        page: data.data.page,
+        pageSize: data.data.pageSize,
+      });
+    } catch (err) {
+      console.error("목록 가져오기 실패:", err);
+      setError(err.message);
+      setPhotos([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPhotos(searchParams);
+  }, [pagination.page]);
 
   return (
     <Container maxWidth="lg" sx={{ mt: 2 }}>
@@ -44,7 +92,12 @@ const PhotoManagePage = () => {
           justifyContent: isMobile ? "center" : "flex-start",
         }}
       >
-        <SearchArea />
+        <SearchPhotoArea
+          onSearch={(params) => {
+            setSearchParams(params);
+            fetchPhotos(params);
+          }}
+        />
       </Paper>
 
       {/* 데이터 테이블 영역 */}

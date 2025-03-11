@@ -1,24 +1,20 @@
 import React, { useState, useContext } from "react";
-import { TextField, Button, Box, useMediaQuery, Select, MenuItem } from "@mui/material";
+import { TextField, Button, Box, Select, MenuItem } from "@mui/material";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 
 dayjs.extend(utc);
 
-const SearchAdminArea = ({ onSearch }) => {
+const SearchArtistArea = ({ onSearch }) => {
   const { translations } = useContext(LanguageContext);
   const [searchParams, setSearchParams] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-    userType: "",
-    isDeleted: "",
+    name: "",
+    hashtag: "",
     startDate: "",
     endDate: "",
+    isDeleted: "",
   });
-
-  const isMobile = useMediaQuery("(max-width:600px)");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -46,38 +42,22 @@ const SearchAdminArea = ({ onSearch }) => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: 1,
-        flexDirection: isMobile ? "column" : "row",
-        alignItems: "center",
-      }}
-    >
+    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, alignItems: "center" }}>
       <TextField
-        label={translations.supage.mail}
-        name="email"
-        value={searchParams.email}
+        label={translations.artisttable.name}
+        name="name"
+        value={searchParams.name}
         onChange={handleChange}
         size="small"
       />
       <TextField
-        label={translations.supage.name1}
-        name="firstName"
-        value={searchParams.firstName}
-        onChange={handleChange}
-        size="small"
-      />
-      <TextField
-        label={translations.supage.name2}
-        name="lastName"
-        value={searchParams.lastName}
+        label={translations.artisttable.hashtag}
+        name="hashtag"
+        value={searchParams.hashtag}
         onChange={handleChange}
         size="small"
       />
       <Select
-        label={translations.usertable.usertype}
         name="isDeleted"
         value={searchParams.isDeleted}
         onChange={handleChange}
@@ -88,20 +68,8 @@ const SearchAdminArea = ({ onSearch }) => {
         <MenuItem value="true">Inactive</MenuItem>
         <MenuItem value="false">Active</MenuItem>
       </Select>
-      <Select
-        label={translations.usertable.userType}
-        name="userType"
-        value={searchParams.userType}
-        onChange={handleChange}
-        size="small"
-        displayEmpty
-      >
-        <MenuItem value=""></MenuItem>
-        <MenuItem value="super_admin">super_admin</MenuItem>
-        <MenuItem value="admin">admin</MenuItem>
-      </Select>
       <TextField
-        label={translations.managetable.date}
+        label={translations.artisttable.date}
         name="startDate"
         type="date"
         value={searchParams.startDate}
@@ -111,7 +79,7 @@ const SearchAdminArea = ({ onSearch }) => {
       />
       ~
       <TextField
-        label={translations.managetable.date}
+        label={translations.artisttable.date}
         name="endDate"
         type="date"
         value={searchParams.endDate}
@@ -119,14 +87,11 @@ const SearchAdminArea = ({ onSearch }) => {
         size="small"
         InputLabelProps={{ shrink: true }}
       />
-      <>
-
-      </>
       <Button variant="contained" color="primary" onClick={handleSearch}>
-        검색
+        {translations.artisttable.search}
       </Button>
     </Box>
   );
 };
 
-export default SearchAdminArea;
+export default SearchArtistArea;

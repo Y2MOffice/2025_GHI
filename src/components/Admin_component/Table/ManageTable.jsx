@@ -108,9 +108,6 @@ const ManageTable = ({ users, loading, error }) => {
                 >
                   <Edit fontSize="small" />
                 </IconButton>
-                <IconButton color="error" size="small">
-                  <Delete fontSize="small" />
-                </IconButton>
               </TableCell>
             </TableRow>
           ))}

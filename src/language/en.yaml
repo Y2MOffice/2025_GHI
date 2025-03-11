@@ -125,7 +125,7 @@ artistpage:
   name: "Artist List"
 artisttable:
   name: "Name"
-  description: "Description"
+  hashtag: "Tag"
   created_at: "Created Date"
   updated_at: "Updated Date"
   manage: "Manage"
@@ -133,6 +133,7 @@ artisttable:
   edit: "Edit"
   cancel: "Cancel"
   page: "Artist Registration"
+  search: "Search"
 photopage:
   name: "Photobook List"
 phototable:
@@ -179,6 +180,9 @@ usertable:
   search_result: "Search Results"
   search: "Search"
   phonenumber: "PhoneNumber"
+  deletequestion: "Do you want to delete the user?"
+  deletesuccess: "The user has been deleted"
+  deletefailed: "Failed to delete user"
 userpage:
   name: "User Page"
 usereditpage:
@@ -200,6 +204,7 @@ usereditpage:
   cancel: "Cancel"
   save: "Save"
   delete: "Delete"
+  auth: "Administrator Authorization"
 admineditpage:
   title: "Edit Admin"
   first_name: "First Name"

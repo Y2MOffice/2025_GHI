@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 
 const MIN_ROWS = 10;
 
-const UserTable = ({ users, loading, error }) => {
+const UserTable = ({ users, loading, error, onUserDeleted  }) => {
   const { translations } = useContext(LanguageContext);
   const [selected, setSelected] = useState([]);
   const navigate = useNavigate();
@@ -28,6 +28,34 @@ const UserTable = ({ users, loading, error }) => {
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
+  };
+
+  const handleDeleteUser = async (user) => {
+    const token = sessionStorage.getItem("token");
+
+    const confirmDelete = window.confirm(
+      `${user.firstName} ${user.lastName} ${translations.usertable.deletequestion}`
+    );
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`https://stage-api.glowsnaps.tokyo/api/users/${user.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`failed (ID: ${user.id})`);
+      }
+
+      alert(`${user.firstName} ${user.lastName} ${translations.usertable.deletesuccess}`);
+      onUserDeleted();
+    } catch (err) {
+      alert(`${translations.usertable.deletefailed}: ${err.message}`);
+    }
   };
 
   const emptyRows = Math.max(MIN_ROWS - users.length, 0);
@@ -50,6 +78,7 @@ const UserTable = ({ users, loading, error }) => {
                 }
               />
             </TableCell>
+            <TableCell>ID</TableCell>
             <TableCell>{translations.usertable.name}</TableCell>
             <TableCell>{translations.usertable.email}</TableCell>
             <TableCell>{translations.usertable.usertype}</TableCell>
@@ -80,6 +109,7 @@ const UserTable = ({ users, loading, error }) => {
                     onChange={() => handleSelect(user.id)}
                   />
                 </TableCell>
+                <TableCell>{user.id}</TableCell>
                 <TableCell>{`${user.firstName} ${user.lastName}`}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.userType}</TableCell>
@@ -93,7 +123,7 @@ const UserTable = ({ users, loading, error }) => {
                   >
                     <Edit fontSize="small" />
                   </IconButton>
-                  <IconButton color="error" size="small">
+                  <IconButton color="error" size="small" onClick={() => handleDeleteUser(user)}>
                     <Delete fontSize="small" />
                   </IconButton>
                 </TableCell>
