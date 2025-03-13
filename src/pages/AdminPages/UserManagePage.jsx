@@ -11,6 +11,8 @@ const UserManagePage = () => {
   const { translations } = useContext(LanguageContext);
   const isMobile = useMediaQuery("(max-width:600px)");
   const [users, setUsers] = useState([]);
+  const [orderBy, setOrderBy] = useState("createdAt");
+  const [ascending, setAscending] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useState({});
@@ -26,7 +28,9 @@ const UserManagePage = () => {
       const token = sessionStorage.getItem("token");
 
       const filteredParams = Object.fromEntries(
-        Object.entries(params).filter(([_, v]) => v !== "")
+        Object.entries({ ...params, orderBy, ascending }).filter(
+          ([_, v]) => v !== ""
+        )
       );
       const queryString = new URLSearchParams(filteredParams).toString();
       const response = await fetch(
@@ -62,7 +66,17 @@ const UserManagePage = () => {
 
   useEffect(() => {
     fetchUsers(searchParams);
-  }, [pagination.page]);
+  }, [pagination.page, orderBy, ascending]);
+
+  const handleSortChange = (newOrderBy, newAscending) => {
+    setOrderBy(newOrderBy);
+    setAscending(newAscending);
+    fetchUsers({
+      ...searchParams,
+      orderBy: newOrderBy,
+      ascending: newAscending,
+    });
+  };
 
   return (
     <Container maxWidth="lg" sx={{ mt: 2 }}>
@@ -99,7 +113,15 @@ const UserManagePage = () => {
       </Paper>
 
       <Paper elevation={3} sx={{ p: 1, borderRadius: 2, mb: 1 }}>
-        <UserTable users={users} loading={loading} error={error} onUserDeleted={() => fetchUsers(searchParams)} />
+        <UserTable
+          users={users}
+          loading={loading}
+          error={error}
+          onUserDeleted={() => fetchUsers(searchParams)}
+          orderBy={orderBy}
+          ascending={ascending}
+          onSortChange={handleSortChange}
+        />
       </Paper>
 
       <Box display="flex" justifyContent="center" mt={1}>

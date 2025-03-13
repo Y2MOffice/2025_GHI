@@ -46,7 +46,7 @@ detail:
   view: "作品を見る"
   buy: "購入する"
 adminpage:
-  name: "管理者ページ"
+  name: "管理者リスト"
 editacc:
   name: "メンバー情報修正"
   namelabel: "名前"
@@ -175,6 +175,7 @@ usertable:
   date: "登録日"
   manage: "管理"
   usertype: "ユーザータイプ"
+  usertype2: "活性化可否"
   delete: "選択削除"
   download: "ダウンロード"
   search_result: "検索結果"
