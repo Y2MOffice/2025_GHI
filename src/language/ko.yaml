@@ -46,7 +46,8 @@ detail:
   view: "작품보기"
   buy: "구매하기"
 adminpage:
-  name: "관리자페이지"
+  name: "관리자 목록"
+  searchCondition: "검색 조건"
 editacc:
   name: "회원정보수정"
   namelabel: "이름"
@@ -177,6 +178,7 @@ usertable:
   date: "가입일"
   manage: "관리"
   usertype: "사용자 유형"
+  usertype2: "활성화 여부"
   delete: "선택 삭제"
   download: "다운로드"
   search_result: "검색 결과"

@@ -11,6 +11,8 @@ const AdminManagePage = () => {
   const { translations } = useContext(LanguageContext);
   const isMobile = useMediaQuery("(max-width:600px)");
   const [users, setUsers] = useState([]);
+  const [orderBy, setOrderBy] = useState("createdAt");
+  const [ascending, setAscending] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useState({});
@@ -25,7 +27,9 @@ const AdminManagePage = () => {
     try {
       const token = sessionStorage.getItem("token");
       const filteredParams = Object.fromEntries(
-        Object.entries(params).filter(([_, v]) => v !== "")
+        Object.entries({ ...params, orderBy, ascending }).filter(
+          ([_, v]) => v !== ""
+        )
       );
       const queryString = new URLSearchParams(filteredParams).toString();
 
@@ -62,7 +66,17 @@ const AdminManagePage = () => {
 
   useEffect(() => {
     fetchAdmins(searchParams);
-  }, [pagination.page]); // ✅ 페이지가 변경될 때마다 요청
+  }, [pagination.page, orderBy, ascending]);
+
+  const handleSortChange = (newOrderBy, newAscending) => {
+    setOrderBy(newOrderBy);
+    setAscending(newAscending);
+    fetchAdmins({
+      ...searchParams,
+      orderBy: newOrderBy,
+      ascending: newAscending,
+    });
+  };
 
   return (
     <Container maxWidth="lg" sx={{ mt: 2 }}>
@@ -102,7 +116,14 @@ const AdminManagePage = () => {
 
       {/* 데이터 테이블 영역 */}
       <Paper elevation={3} sx={{ p: 1, borderRadius: 2, mb: 1 }}>
-        <ManageTable users={users} loading={loading} error={error} />
+        <ManageTable
+          users={users}
+          loading={loading}
+          error={error}
+          orderBy={orderBy}
+          ascending={ascending}
+          onSortChange={handleSortChange}
+        />
       </Paper>
 
       {/* 페이지네이션 */}

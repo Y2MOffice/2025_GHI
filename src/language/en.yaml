@@ -46,7 +46,7 @@ detail:
   view: "View Work"
   buy: "Purchase"
 adminpage:
-  name: "Admin Page"
+  name: "Admin List"
 editacc:
   name: "Edit Account Information"
   namelabel: "Name"
@@ -175,6 +175,7 @@ usertable:
   date: "Join Date"
   manage: "Manage"
   usertype: "UserType"
+  usertype2: "Enable or not"
   delete: "Delete Selected"
   download: "Download"
   search_result: "Search Results"

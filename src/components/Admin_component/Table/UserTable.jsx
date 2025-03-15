@@ -7,6 +7,7 @@ import {
   TableCell,
   TableBody,
   TableContainer,
+  TableSortLabel,
   Paper,
   Checkbox,
   IconButton,
@@ -19,15 +20,30 @@ import { useNavigate } from "react-router-dom";
 
 const MIN_ROWS = 10;
 
-const UserTable = ({ users, loading, error, onUserDeleted  }) => {
+const UserTable = ({
+  users,
+  loading,
+  error,
+  onUserDeleted,
+  onSortChange,
+  orderBy,
+  ascending,
+}) => {
   const { translations } = useContext(LanguageContext);
   const [selected, setSelected] = useState([]);
   const navigate = useNavigate();
+  if (loading) return <p>불러오는 중...</p>;
+  if (error) return <p>오류 발생: {error}</p>;
 
   const handleSelect = (id) => {
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
+  };
+
+  const handleRequestSort = (property) => {
+    const isAsc = orderBy === property && ascending;
+    onSortChange(property, !isAsc);
   };
 
   const handleDeleteUser = async (user) => {
@@ -39,19 +55,24 @@ const UserTable = ({ users, loading, error, onUserDeleted  }) => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`https://stage-api.glowsnaps.tokyo/api/users/${user.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `https://stage-api.glowsnaps.tokyo/api/users/${user.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`failed (ID: ${user.id})`);
       }
 
-      alert(`${user.firstName} ${user.lastName} ${translations.usertable.deletesuccess}`);
+      alert(
+        `${user.firstName} ${user.lastName} ${translations.usertable.deletesuccess}`
+      );
       onUserDeleted();
     } catch (err) {
       alert(`${translations.usertable.deletefailed}: ${err.message}`);
@@ -73,17 +94,50 @@ const UserTable = ({ users, loading, error, onUserDeleted  }) => {
                 checked={selected.length === users.length}
                 onChange={() =>
                   setSelected(
-                    selected.length === users.length ? [] : users.map((u) => u.id)
+                    selected.length === users.length
+                      ? []
+                      : users.map((u) => u.id)
                   )
                 }
               />
             </TableCell>
             <TableCell>ID</TableCell>
-            <TableCell>{translations.usertable.name}</TableCell>
-            <TableCell>{translations.usertable.email}</TableCell>
-            <TableCell>{translations.usertable.usertype}</TableCell>
-            <TableCell>{translations.usertable.date}</TableCell>
-            <TableCell>{translations.usertable.state}</TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "name"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("name")}
+              >
+                {translations.usertable.name}
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "email"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("email")}
+              >
+                {translations.usertable.email}
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "createdAt"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("createdAt")}
+              >
+                {translations.usertable.date}
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "createdAt"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("createdAt")}
+              >
+                {translations.usertable.state}
+              </TableSortLabel>
+            </TableCell>
             <TableCell>{translations.usertable.manage}</TableCell>
           </TableRow>
         </TableHead>
@@ -110,10 +164,11 @@ const UserTable = ({ users, loading, error, onUserDeleted  }) => {
                   />
                 </TableCell>
                 <TableCell>{user.id}</TableCell>
-                <TableCell>{`${user.firstName} ${user.lastName}`}</TableCell>
+                <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
-                <TableCell>{user.userType}</TableCell>
-                <TableCell>{dayjs(user.createdAt).format("YYYY-MM-DD")}</TableCell>
+                <TableCell>
+                  {dayjs(user.createdAt).format("YYYY-MM-DD")}
+                </TableCell>
                 <TableCell>{user.isDeleted ? "Inactive" : "Active"}</TableCell>
                 <TableCell>
                   <IconButton
@@ -123,7 +178,11 @@ const UserTable = ({ users, loading, error, onUserDeleted  }) => {
                   >
                     <Edit fontSize="small" />
                   </IconButton>
-                  <IconButton color="error" size="small" onClick={() => handleDeleteUser(user)}>
+                  <IconButton
+                    color="error"
+                    size="small"
+                    onClick={() => handleDeleteUser(user)}
+                  >
                     <Delete fontSize="small" />
                   </IconButton>
                 </TableCell>

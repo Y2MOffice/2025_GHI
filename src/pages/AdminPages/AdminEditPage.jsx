@@ -135,81 +135,18 @@ const AdminEditPage = () => {
         <Typography variant="h5" fontWeight="bold" mb={2}>
           {translations.admineditpage.title}
         </Typography>
+        {admin && (
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            color="primary"
+            sx={{ mb: 2 }}
+          >
+            현재 수정 중인 유저
+            <br /> {admin.name}
+          </Typography>
+        )}
         <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              value={admin.firstName}
-              label={translations.admineditpage.first_name}
-              variant="outlined"
-              disabled
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              value={admin.lastName}
-              label={translations.admineditpage.last_name}
-              variant="outlined"
-              disabled
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              value={admin.nickname}
-              label={translations.admineditpage.nickname}
-              variant="outlined"
-              disabled
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              value={admin.email}
-              label={translations.admineditpage.email}
-              variant="outlined"
-              disabled
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              value={admin.phoneNumber}
-              label={translations.admineditpage.phone_number}
-              variant="outlined"
-              disabled
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              label={translations.admineditpage.status}
-              value={
-                admin.isDeleted
-                  ? translations.admineditpage.status_options.inactive
-                  : translations.admineditpage.status_options.active
-              }
-              disabled
-            />
-          </Grid>
-
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              label={translations.admineditpage.language}
-              value={
-                admin.displayLanguage === "ko"
-                  ? "한국어"
-                  : admin.displayLanguage === "jp"
-                  ? "日本語"
-                  : "English"
-              }
-              disabled
-            />
-          </Grid>
           <Grid item xs={12}>
             <FormControlLabel
               control={

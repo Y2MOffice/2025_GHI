@@ -7,6 +7,7 @@ import {
   TableCell,
   TableBody,
   TableContainer,
+  TableSortLabel,
   Paper,
   Checkbox,
   IconButton,
@@ -19,7 +20,14 @@ import { useNavigate } from "react-router-dom";
 
 const MIN_ROWS = 10;
 
-const ManageTable = ({ users, loading, error }) => {
+const ManageTable = ({
+  users,
+  loading,
+  error,
+  onSortChange,
+  orderBy,
+  ascending,
+}) => {
   const { translations } = useContext(LanguageContext);
   const [selected, setSelected] = useState([]);
   const Navigate = useNavigate();
@@ -31,6 +39,12 @@ const ManageTable = ({ users, loading, error }) => {
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
+
+  const handleRequestSort = (property) => {
+    const isAsc = orderBy === property && ascending;
+    onSortChange(property, !isAsc);
+  };
+
   const emptyRows = Math.max(MIN_ROWS - users.length, 0);
 
   return (
@@ -57,16 +71,40 @@ const ManageTable = ({ users, loading, error }) => {
               ID
             </TableCell>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-              {translations.managetable.name}
+              <TableSortLabel
+                active={orderBy === "name"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("name")}
+              >
+                {translations.managetable.name}
+              </TableSortLabel>
             </TableCell>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-              {translations.managetable.email}
+              <TableSortLabel
+                active={orderBy === "email"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("email")}
+              >
+                {translations.managetable.email}
+              </TableSortLabel>
             </TableCell>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-              {translations.managetable.state}
+              <TableSortLabel
+                active={orderBy === "isDeleted"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("isDeleted")}
+              >
+                {translations.managetable.state}
+              </TableSortLabel>
             </TableCell>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-              {translations.managetable.date}
+              <TableSortLabel
+                active={orderBy === "createdAt"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("createdAt")}
+              >
+                {translations.managetable.date}
+              </TableSortLabel>
             </TableCell>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
               {translations.managetable.manage}
@@ -89,7 +127,7 @@ const ManageTable = ({ users, loading, error }) => {
                 {user.id}
               </TableCell>
               <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-                {user.lastName} {user.firstName}
+                {user.name}
               </TableCell>
               <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
                 {user.email}
