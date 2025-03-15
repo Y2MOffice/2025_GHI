@@ -130,11 +130,11 @@ const UserTable = ({
               </TableSortLabel>
             </TableCell>
             <TableCell>
-              <TableSortLabel
-                active={orderBy === "createdAt"}
-                direction={ascending ? "asc" : "desc"}
-                onClick={() => handleRequestSort("createdAt")}
-              >
+               <TableSortLabel
+                 active={orderBy === "isDeleted"}
+                 direction={ascending ? "asc" : "desc"}
+                 onClick={() => handleRequestSort("isDeleted")}
+               >
                 {translations.usertable.state}
               </TableSortLabel>
             </TableCell>

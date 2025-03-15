@@ -7,6 +7,7 @@ import {
   createTheme,
   ThemeProvider,
   Box,
+  Typography,
 } from "@mui/material";
 import { pink } from "@mui/material/colors";
 import dayjs from "dayjs";
@@ -45,52 +46,68 @@ const SearchArea = () => {
   };
 
   return (
-    <Box display="flex" flexWrap="wrap" gap={2}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Box display="flex" gap={2} alignItems="center">
-          <DatePicker
-            slotProps={{ textField: { size: "small", sx: { width: "150px" } } }}
-            format="YYYY-MM-DD"
-            value={startDate}
-            onChange={(newValue) => setStartDate(newValue)}
-            maxDate={endDate}
-          />
-          <span>~</span>
-          <DatePicker
-            slotProps={{ textField: { size: "small", sx: { width: "150px" } } }}
-            format="YYYY-MM-DD"
-            value={endDate}
-            onChange={(newValue) => setEndDate(newValue)}
-            minDate={startDate}
-          />
-        </Box>
-      </LocalizationProvider>
-      <Box display="flex" alignItems="center" gap={1}>
-        <Paper
-          component="form"
-          sx={{
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            width: "100%",
-          }}
-          onSubmit={handleSearch}
-        >
-          <InputBase
-            sx={{ ml: 1, flex: 1 }}
-            placeholder={translations.managetable.search_result}
-            inputProps={{
-              "aria-label": translations.managetable.search_result,
+    <Box
+      sx={{
+        p: 2,
+        border: "1px solid #ccc",
+        borderRadius: 2,
+        bgcolor: "#f9f9f9",
+      }}
+    >
+      <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
+        {translations.adminpage.searchCondition}
+      </Typography>
+      <Box display="flex" flexWrap="wrap" gap={2}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Box display="flex" gap={2} alignItems="center">
+            <DatePicker
+              slotProps={{
+                textField: { size: "small", sx: { width: "150px" } },
+              }}
+              format="YYYY-MM-DD"
+              value={startDate}
+              onChange={(newValue) => setStartDate(newValue)}
+              maxDate={endDate}
+            />
+            <span>~</span>
+            <DatePicker
+              slotProps={{
+                textField: { size: "small", sx: { width: "150px" } },
+              }}
+              format="YYYY-MM-DD"
+              value={endDate}
+              onChange={(newValue) => setEndDate(newValue)}
+              minDate={startDate}
+            />
+          </Box>
+        </LocalizationProvider>
+        <Box display="flex" alignItems="center" gap={1}>
+          <Paper
+            component="form"
+            sx={{
+              p: "2px 4px",
+              display: "flex",
+              alignItems: "center",
+              width: "100%",
             }}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </Paper>
-        <ThemeProvider theme={theme}>
-          <Button variant="contained" disableElevation onClick={handleSearch}>
-            {translations.managetable.search}
-          </Button>
-        </ThemeProvider>
+            onSubmit={handleSearch}
+          >
+            <InputBase
+              sx={{ ml: 1, flex: 1 }}
+              placeholder={translations.managetable.search_result}
+              inputProps={{
+                "aria-label": translations.managetable.search_result,
+              }}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </Paper>
+          <ThemeProvider theme={theme}>
+            <Button variant="contained" disableElevation onClick={handleSearch}>
+              {translations.managetable.search}
+            </Button>
+          </ThemeProvider>
+        </Box>
       </Box>
     </Box>
   );

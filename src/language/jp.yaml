@@ -134,6 +134,14 @@ artisttable:
   cancel: "キャンセル"
   page: "アーティスト一覧"
   search: "検索"
+  description: "説明"
+  placeholder: "ハッシュタグをコンマ(,)で区切って入力"
+  create: "生成"
+  delete_question: "アーティストを削除しますか？"
+  delete_success: "削除成功"
+  delete_failed: "削除失敗"
+  edit_title: "アーティスト修正"
+  create_title: "アーティスト登録"
 photopage:
   name: "写真集一覧"
 phototable:
