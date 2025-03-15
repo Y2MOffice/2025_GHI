@@ -7,6 +7,7 @@ import {
   TableCell,
   TableBody,
   TableContainer,
+  TableSortLabel,
   Paper,
   Checkbox,
   IconButton,
@@ -19,16 +20,61 @@ import { useNavigate } from "react-router-dom";
 
 const MIN_ROWS = 10; // 최소 표시할 행 개수
 
-const ArtistTable = ({ artists, loading, error }) => {
+const ArtistTable = ({
+  artists,
+  loading,
+  error,
+  onSortChange,
+  orderBy,
+  ascending,
+}) => {
   const { translations } = useContext(LanguageContext);
   const [selected, setSelected] = useState([]);
   const navigate = useNavigate();
+  if (loading) return <p>불러오는 중...</p>;
+  if (error) return <p>오류 발생: {error}</p>;
 
   // 체크박스 선택 핸들러
   const handleSelect = (id) => {
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
+  };
+
+  const handleRequestSort = (property) => {
+    const isAsc = orderBy === property && ascending;
+    onSortChange(property, !isAsc);
+  };
+
+  const handleDeleteArtist = async (artist) => {
+    const token = sessionStorage.getItem("token");
+
+    const confirmDelete = window.confirm(
+      `${artist.name} ${translations.artisttable.delete_question}`
+    );
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(
+        `https://stage-api.glowsnaps.tokyo/api/artists/${artist.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`deleteFailed (ID: ${artist.id})`);
+      }
+
+      alert(`${artist.name} ${translations.artisttable.delete_success}`);
+      window.location.reload(); // ✅ 삭제 후 목록 새로고침
+    } catch (err) {
+      alert(`${translations.artisttable.delete_failed}: ${err.message}`);
+    }
   };
 
   // 빈 행 추가 (테이블 높이를 유지하려고)
@@ -54,11 +100,34 @@ const ArtistTable = ({ artists, loading, error }) => {
                 }
               />
             </TableCell>
-            <TableCell>{translations.artisttable.name}</TableCell>
+            <TableCell>
+               <TableSortLabel
+                 active={orderBy === "name"}
+                 direction={ascending ? "asc" : "desc"}
+                 onClick={() => handleRequestSort("name")}
+               >
+                 {translations.artisttable.name}
+               </TableSortLabel>
+             </TableCell>
             <TableCell>{translations.artisttable.hashtag}</TableCell>
-            <TableCell>{translations.artisttable.created_at}</TableCell>
-            <TableCell>{translations.artisttable.updated_at}</TableCell>
-            <TableCell>{translations.usertable.state}</TableCell>
+            <TableCell>
+               <TableSortLabel
+                 active={orderBy === "createdAt"}
+                 direction={ascending ? "asc" : "desc"}
+                 onClick={() => handleRequestSort("createdAt")}
+               >
+                 {translations.artisttable.created_at}
+               </TableSortLabel>
+             </TableCell>
+             <TableCell>
+               <TableSortLabel
+                 active={orderBy === "isDeleted"}
+                 direction={ascending ? "asc" : "desc"}
+                 onClick={() => handleRequestSort("isDeleted")}
+               >
+                 {translations.usertable.state}
+               </TableSortLabel>
+             </TableCell>
             <TableCell>{translations.artisttable.manage}</TableCell>
           </TableRow>
         </TableHead>
@@ -85,10 +154,17 @@ const ArtistTable = ({ artists, loading, error }) => {
                   />
                 </TableCell>
                 <TableCell>{artist.name}</TableCell>
-                <TableCell>{artist.hashtags.length > 0 ? artist.hashtags.join(", ") : "-"}</TableCell>
-                <TableCell>{dayjs(artist.startDate).format("YYYY-MM-DD")}</TableCell>
-                <TableCell>{dayjs(artist.endDate).format("YYYY-MM-DD")}</TableCell>
-                <TableCell>{artist.isDeleted ? "Inactive" : "Active"}</TableCell>
+                <TableCell>
+                   {artist.hashtags.length > 0
+                     ? artist.hashtags.join(", ")
+                     : "-"}
+                 </TableCell>
+                 <TableCell>
+                   {dayjs(artist.createdAt).format("YYYY-MM-DD")}
+                 </TableCell>
+                 <TableCell>
+                   {artist.isDeleted ? "Inactive" : "Active"}
+                 </TableCell>
                 <TableCell>
                   <IconButton
                     color="primary"
@@ -97,7 +173,11 @@ const ArtistTable = ({ artists, loading, error }) => {
                   >
                     <Edit fontSize="small" />
                   </IconButton>
-                  <IconButton color="error" size="small">
+                  <IconButton
+                     color="error"
+                     size="small"
+                     onClick={() => handleDeleteArtist(artist)}
+                   >
                     <Delete fontSize="small" />
                   </IconButton>
                 </TableCell>

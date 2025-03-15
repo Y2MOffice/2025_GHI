@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  TextField,
-  Container,
-  Box,
-  Button,
-} from "@mui/material";
+import { TextField, Container, Box, Button, Typography } from "@mui/material";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -31,7 +26,6 @@ const ArtistEditPage = () => {
           startDate: data.data.createdAt,
         });
         setLoading(false);
-        console.log(data)
       })
       .catch(() => {
         alert("Loading Failed");
@@ -87,56 +81,74 @@ const ArtistEditPage = () => {
 
   return (
     <Container maxWidth="sm">
-      <Box sx={{ mt: 4 }}>
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <>
-            <TextField
-              label={translations.artisttable.name}
-              name="name"
-              value={formData?.name || ""}
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label={translations.artisttable.description}
-              name="description"
-              value={formData?.description || ""}
-              onChange={handleChange}
-              multiline
-              rows={20}
-              fullWidth
-            />
-            <TextField
-              label={translations.artisttable.hashtag}
-              name="hashtags"
-              value={formData?.hashtags.length > 0 ? formData.hashtags.join(", ") : ""}
-              onChange={handleHashtagChange}
-              fullWidth
-              placeholder={translations.artisttable.placeholder}
-            />
-            <TextField
-              label={translations.artisttable.startDate}
-              name="startDate"
-              value={formData?.startDate || ""}
-              InputProps={{ readOnly: true }}
-              fullWidth
-            />
-          </>
+      <Box
+         sx={{
+           p: 2,
+           border: "2px solid #ccc",
+           borderRadius: 3,
+           bgcolor: "#f9f9f9",
+           mt: 4
+         }}
+       >
+         <Typography variant="h4" fontWeight="bold" sx={{ mb: 3, mt: 4 }}>
+           {translations.artisttable.edit_title}
+         </Typography>
+         <Box sx={{ mt: 4 }}>
+           {loading ? (
+             <p>Loading...</p>
+           ) : (
+             <>
+               <TextField
+                 label={translations.artisttable.name}
+                 name="name"
+                 value={formData?.name || ""}
+                 onChange={handleChange}
+                 fullWidth
+                 sx={{ mb: 2 }}
+               />
+               <TextField
+                 label={translations.artisttable.description}
+                 name="description"
+                 value={formData?.description || ""}
+                 onChange={handleChange}
+                 multiline
+                 rows={20}
+                 fullWidth
+                 sx={{ mb: 2 }}
+               />
+               <TextField
+                 label={translations.artisttable.hashtag}
+                 name="hashtags"
+                 value={
+                   formData?.hashtags.length > 0
+                     ? formData.hashtags.join(", ")
+                     : ""
+                 }
+                 onChange={handleHashtagChange}
+                 fullWidth
+                 placeholder={translations.artisttable.placeholder}
+               />
+             </>
+           )}
+         </Box>
+ 
+         {!loading && (
+           <Box
+             sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 4 }}
+           >
+             <Button variant="contained" color="primary" onClick={handleSubmit}>
+               {translations.artisttable.edit}
+             </Button>
+             <Button
+               variant="outlined"
+               color="secondary"
+               onClick={() => navigate("/admin/artists")}
+             >
+               {translations.artisttable.cancel}
+             </Button>
+           </Box>
         )}
       </Box>
-
-      {!loading && (
-        <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 4 }}>
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
-            {translations.artisttable.edit}
-          </Button>
-          <Button variant="outlined" color="secondary" onClick={() => navigate("/admin/artistmanage")}>
-            {translations.artisttable.cancel}
-          </Button>
-        </Box>
-      )}
     </Container>
   );
 };

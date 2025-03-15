@@ -11,6 +11,8 @@ const ArtistManagePage = () => {
   const { translations } = useContext(LanguageContext);
   const isMobile = useMediaQuery("(max-width:600px)");
   const [artists, setArtists] = useState([]);
+  const [orderBy, setOrderBy] = useState("createdAt");
+  const [ascending, setAscending] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useState({});
@@ -26,7 +28,9 @@ const ArtistManagePage = () => {
       const token = sessionStorage.getItem("token");
 
       const filteredParams = Object.fromEntries(
-        Object.entries(params).filter(([_, v]) => v !== "")
+        Object.entries({ ...params, orderBy, ascending }).filter(
+          ([_, v]) => v !== ""
+        )
       );
       const queryString = new URLSearchParams(filteredParams).toString();
       const response = await fetch(
@@ -62,7 +66,17 @@ const ArtistManagePage = () => {
 
   useEffect(() => {
     fetchArtists(searchParams);
-  }, [pagination.page]);
+  }, [pagination.page, orderBy, ascending]);
+
+  const handleSortChange = (newOrderBy, newAscending) => {
+    setOrderBy(newOrderBy);
+    setAscending(newAscending);
+    fetchArtists({
+      ...searchParams,
+      orderBy: newOrderBy,
+      ascending: newAscending,
+    });
+  };
 
   return (
     <Container maxWidth="lg" sx={{ mt: 2 }}>
@@ -102,7 +116,14 @@ const ArtistManagePage = () => {
 
       {/* 데이터 테이블 영역 */}
       <Paper elevation={3} sx={{ p: 1, borderRadius: 2, mb: 1 }}>
-        <ArtistTable artists={artists} loading={loading} error={error} />
+        <ArtistTable
+          artists={artists}
+          loading={loading}
+          error={error}
+          orderBy={orderBy}
+          ascending={ascending}
+          onSortChange={handleSortChange}
+        />
       </Paper>
 
       {/* 페이지네이션 */}

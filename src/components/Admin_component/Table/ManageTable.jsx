@@ -90,9 +90,9 @@ const ManageTable = ({
             </TableCell>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
               <TableSortLabel
-                active={orderBy === "isDeleted"}
+                active={orderBy === "userType"}
                 direction={ascending ? "asc" : "desc"}
-                onClick={() => handleRequestSort("isDeleted")}
+                onClick={() => handleRequestSort("userType")}
               >
                 {translations.managetable.state}
               </TableSortLabel>
