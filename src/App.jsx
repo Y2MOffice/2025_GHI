@@ -77,6 +77,7 @@ const App = () => {
             <Route path="viewPage/:id" element={<ViewPage />} />
           </Route>
         </Route>
+        {/* 관리자 페이지 */}
         <Route element={<ProtectedRoute />}>
           <Route
             path="/admin"
@@ -87,6 +88,8 @@ const App = () => {
             <Route index element={<AdminHomepage />} />
             <Route path="adminedit/:id" element={<AdminEditPage />} />
             <Route path="useredit/:id" element={<UserEditPage />} />
+
+            {/* 슈퍼 유저 전용 */}
             <Route
               path="manage"
               element={
@@ -120,6 +123,7 @@ const App = () => {
               }
             />
 
+            {/* 일반 관리자 가능 */}
             <Route path="artists" element={<ArtistManage />} />
             <Route path="artistsedit" element={<ArtistCreate />} />
             <Route path="artistsedit/:id" element={<ArtistEdit />} />
@@ -127,6 +131,8 @@ const App = () => {
             <Route path="photosedit" element={<PhotoEdit />} />
           </Route>
         </Route>
+
+        {/* 404 페이지 */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </LanguageProvider>

@@ -7,15 +7,21 @@ import {
   Select,
   MenuItem,
   Typography,
+  Collapse,
+  IconButton,
 } from "@mui/material";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 dayjs.extend(utc);
 
 const SearchUserArea = ({ onSearch }) => {
   const { translations } = useContext(LanguageContext);
+  const [open, setOpen] = useState(true);
+
   const [searchParams, setSearchParams] = useState({
     firstName: "",
     lastName: "",
@@ -27,6 +33,9 @@ const SearchUserArea = ({ onSearch }) => {
     endDate: "",
   });
 
+  const handleClick = () => {
+    setOpen(!open);
+  };
   const isMobile = useMediaQuery("(max-width:600px)");
 
   const handleChange = (event) => {
@@ -56,15 +65,25 @@ const SearchUserArea = ({ onSearch }) => {
   return (
     <Box
       sx={{
-        p: 2,
+        p: 1,
         border: "1px solid #ccc",
         borderRadius: 2,
         bgcolor: "#f9f9f9",
       }}
     >
-      <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-        {translations.adminpage.searchCondition}
-      </Typography>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ p: 0 }}
+      >
+        <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
+          {translations.adminpage.searchCondition}
+        </Typography>
+        <IconButton onClick={handleClick}>
+          {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </IconButton>
+      </Box>
       <Box
         sx={{
           display: "flex",
@@ -74,61 +93,63 @@ const SearchUserArea = ({ onSearch }) => {
           alignItems: "center",
         }}
       >
-        <TextField
-          label={translations.usertable.email}
-          name="email"
-          value={searchParams.email}
-          onChange={handleChange}
-          size="small"
-        />
-        <TextField
-          label={translations.usereditpage.first_name}
-          name="firstName"
-          value={searchParams.firstName}
-          onChange={handleChange}
-          size="small"
-        />
-        <TextField
-          label={translations.usereditpage.last_name}
-          name="lastName"
-          value={searchParams.lastName}
-          onChange={handleChange}
-          size="small"
-        />
-        <Select
-          label={translations.usertable.usertype}
-          name="isDeleted"
-          value={searchParams.isDeleted}
-          onChange={handleChange}
-          size="small"
-          displayEmpty
-        >
-          <MenuItem value="">{translations.usertable.usertype}</MenuItem>
-          <MenuItem value="true">Inactive</MenuItem>
-          <MenuItem value="false">Active</MenuItem>
-        </Select>
-        <TextField
-          label={translations.usertable.date}
-          name="startDate"
-          type="date"
-          value={searchParams.startDate}
-          onChange={handleChange}
-          size="small"
-          InputLabelProps={{ shrink: true }}
-        />
-        ~
-        <TextField
-          label={translations.usertable.date}
-          name="endDate"
-          type="date"
-          value={searchParams.endDate}
-          onChange={handleChange}
-          size="small"
-          InputLabelProps={{ shrink: true }}
-        />
-        <Button variant="contained" color="primary" onClick={handleSearch}>
-          검색
-        </Button>
+        <Collapse in={open}>
+          <TextField
+            label={translations.usertable.email}
+            name="email"
+            value={searchParams.email}
+            onChange={handleChange}
+            size="small"
+          />
+          <TextField
+            label={translations.usereditpage.first_name}
+            name="firstName"
+            value={searchParams.firstName}
+            onChange={handleChange}
+            size="small"
+          />
+          <TextField
+            label={translations.usereditpage.last_name}
+            name="lastName"
+            value={searchParams.lastName}
+            onChange={handleChange}
+            size="small"
+          />
+          <Select
+            label={translations.usertable.usertype}
+            name="isDeleted"
+            value={searchParams.isDeleted}
+            onChange={handleChange}
+            size="small"
+            displayEmpty
+          >
+            <MenuItem value="">{translations.usertable.usertype}</MenuItem>
+            <MenuItem value="true">Inactive</MenuItem>
+            <MenuItem value="false">Active</MenuItem>
+          </Select>
+          <TextField
+            label={translations.usertable.date}
+            name="startDate"
+            type="date"
+            value={searchParams.startDate}
+            onChange={handleChange}
+            size="small"
+            InputLabelProps={{ shrink: true }}
+          />
+          ~
+          <TextField
+            label={translations.usertable.date}
+            name="endDate"
+            type="date"
+            value={searchParams.endDate}
+            onChange={handleChange}
+            size="small"
+            InputLabelProps={{ shrink: true }}
+          />
+          <Button variant="contained" color="primary" onClick={handleSearch}>
+            검색
+          </Button>
+        </Collapse>
       </Box>
     </Box>
   );

@@ -153,7 +153,7 @@ const List = ({ title, data }) => {
                 fontSize: index === 9 ? "130px" : "200px",
                 fontWeight: "bold",
                 // color: "#191919",
-                "-webkit-text-stroke": index === 9 ? "3px white" : "5px white",
+                WebkitTextStroke: index === 9 ? "3px white" : "5px white",
                 opacity: 0.8,
                 zIndex: 1,
                 letterSpacing: index === 9 ? "-15px" : null,

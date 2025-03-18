@@ -6,6 +6,7 @@ import DownloadButton from "../../components/Admin_component/DownloadButton";
 import PhotoTable from "../../components/Admin_component/Table/PhotoTable";
 import SearchPhotoArea from "../../components/Admin_component/SearchArea";
 import { useMediaQuery } from "@mui/material";
+import { apiRequest } from "../../utils/api";
 
 const PhotoManagePage = () => {
   const { translations } = useContext(LanguageContext);
@@ -23,28 +24,29 @@ const PhotoManagePage = () => {
   const fetchPhotos = async (params) => {
     setLoading(true);
     try {
-      const token = sessionStorage.getItem("token");
-      const filteredParams = Object.fromEntries(
-        Object.entries(params).filter(([_, v]) => v !== "")
-      );
-      const queryString = new URLSearchParams(filteredParams).toString();
+      // const token = sessionStorage.getItem("token");
+      // // const filteredParams = Object.fromEntries(
+      // //   Object.entries(params).filter(([_, v]) => v !== "")
+      // // );
+      const queryString = new URLSearchParams(params).toString();
+      const data = await apiRequest(`/photo-collections?${queryString}`);
+      // const response = await fetch(
+      //   `${API_BASE_URL}/photo-collections?${queryString}`,
+      //   {
+      //     method: "GET",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   }
+      // );
+      // console.log("Response Status:", response.status);
+      // if (!response.ok) {
+      //   throw new Error(`서버 응답 오류: ${response.status}`);
+      // }
 
-      const response = await fetch(
-        `https://stage-api.glowsnaps.tokyo/api/photo-collections?${queryString}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`서버 응답 오류: ${response.status}`);
-      }
-
-      const data = await response.json();
+      // const data = await response.json();
+      // // console.log("Server Response:", data);
       setPhotos(data.data.items || []);
       setPagination({
         totalPages: data.data.totalPages,
@@ -102,7 +104,7 @@ const PhotoManagePage = () => {
 
       {/* 데이터 테이블 영역 */}
       <Paper elevation={3} sx={{ p: 1, borderRadius: 2, mb: 1 }}>
-        <PhotoTable />
+        <PhotoTable photos={photos} loading={loading} error={error} />
       </Paper>
 
       {/* 페이지네이션 */}
