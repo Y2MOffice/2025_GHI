@@ -1,20 +1,82 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { Container, Typography, Box, Paper } from "@mui/material";
 import PaginationComponent from "../../components/Admin_component/PaginationComponent";
 import DownloadButton from "../../components/Admin_component/DownloadButton";
 import SakuraTable from "../../components/Admin_component/Table/SakuraTable";
-import SearchArea from "../../components/Admin_component/SearchArea";
+import SearchSakuraArea from "../../components/Admin_component/SearchSakuraArea";
 import { useMediaQuery } from "@mui/material";
 
 const SakuraManagePage = () => {
   const { translations } = useContext(LanguageContext);
   const isMobile = useMediaQuery("(max-width:600px)");
+  const [purchase, setPurchase] = useState([]);
+  const [orderBy, setOrderBy] = useState("CreatedAt");
+  const [ascending, setAscending] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [searchParams, setSearchParams] = useState({});
   const [pagination, setPagination] = useState({
-      totalPages: 1,
-      page: 1,
-      pageSize: 10,
-    });
+    totalPages: 1,
+    page: 1,
+    pageSize: 10,
+  });
+
+  const fetchPurchase = async (params = {}) => {
+      setLoading(true);
+      try {
+        const token = sessionStorage.getItem("token");
+  
+        const filteredParams = Object.fromEntries(
+          Object.entries({ ...params, orderBy, ascending }).filter(
+            ([_, v]) => v !== ""
+          )
+        );
+        const queryString = new URLSearchParams(filteredParams).toString();
+        const response = await fetch(
+          `https://stage-api.glowsnaps.tokyo/api/sakura-transactions?${queryString}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+  
+        if (!response.ok) {
+          throw new Error(`서버 응답 오류: ${response.status}`);
+        }
+  
+        const data = await response.json();
+        setPurchase(data.data.items || []);
+        setPagination({
+          totalPages: data.data.totalPages,
+          page: data.data.page,
+          pageSize: data.data.pageSize,
+        });
+      } catch (err) {
+        console.error("유저 목록 가져오기 실패:", err);
+        setError(err.message);
+        setPurchase([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    useEffect(() => {
+      fetchPurchase(searchParams);
+    }, [pagination.page, orderBy, ascending]);
+  
+    const handleSortChange = (newOrderBy, newAscending) => {
+      setOrderBy(newOrderBy);
+      setAscending(newAscending);
+      fetchPurchase({
+        ...searchParams,
+        orderBy: newOrderBy,
+        ascending: newAscending,
+      });
+    };
 
   return (
     <Container maxWidth="lg" sx={{ mt: 2 }}>
@@ -44,12 +106,24 @@ const SakuraManagePage = () => {
           justifyContent: isMobile ? "center" : "flex-start",
         }}
       >
-        <SearchArea />
+        <SearchSakuraArea
+          onSearch={(params) => {
+            setSearchParams(params);
+            fetchPurchase(params);
+          }}
+        />
       </Paper>
 
       {/* 데이터 테이블 영역 */}
       <Paper elevation={3} sx={{ p: 1, borderRadius: 2, mb: 1 }}>
-        <SakuraTable />
+        <SakuraTable
+          purchase={purchase}
+          loading={loading}
+          error={error}
+          orderBy={orderBy}
+          ascending={ascending}
+          onSortChange={handleSortChange}
+        />
       </Paper>
 
       {/* 페이지네이션 */}

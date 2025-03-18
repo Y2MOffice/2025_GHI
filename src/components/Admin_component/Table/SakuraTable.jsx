@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { LanguageContext } from "../../../contexts/LanguageContext";
 import {
   Table,
@@ -9,106 +9,103 @@ import {
   TableContainer,
   TableSortLabel,
   Paper,
-  Checkbox,
-  IconButton,
-  Button,
-  useMediaQuery,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { Edit, Delete } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { pink } from "@mui/material/colors";
 
-// 유저 데이터
-const sakuraData = [
-  {
-    "id": "0",
-    "user_id": "101",
-    "transaction_type": "purchase",
-    "amount": 5000,
-    "is_paid": true,
-    "created_at": "2024-02-21T14:30:00Z"
-  },
-  {
-    "id": "1",
-    "user_id": "102",
-    "transaction_type": "event_bonus",
-    "amount": 1000,
-    "is_paid": false,
-    "created_at": "2024-02-20T12:15:00Z"
-  },
-  {
-    "id": "2",
-    "user_id": "103",
-    "transaction_type": "photo_collection_purchase",
-    "amount": 8000,
-    "is_paid": true,
-    "created_at": "2024-02-19T18:45:00Z"
-  },
-  {
-    "id": "3",
-    "user_id": "104",
-    "transaction_type": "purchase",
-    "amount": 3000,
-    "is_paid": true,
-    "created_at": "2024-02-18T10:05:00Z"
-  },
-  {
-    "id": "4",
-    "user_id": "105",
-    "transaction_type": "event_bonus",
-    "amount": 2000,
-    "is_paid": false,
-    "created_at": "2024-02-17T22:00:00Z"
-  }
-]
-;
-
 const MIN_ROWS = 10; // 최소 표시할 행 개수
 
-const PurchaseTable = () => {
+const SakuraTable = ({
+  purchase = [],
+  loading,
+  error,
+  onSortChange,
+  orderBy,
+  ascending,
+}) => {
   const { translations } = useContext(LanguageContext);
-  const [sakura, setSakura] = useState(sakuraData);
-  const [selected, setSelected] = useState([]);
-  const navigate = useNavigate();
 
-  // 빈 행 추가 (테이블 높이를 유지하려고)
-  const emptyRows = Math.max(MIN_ROWS - sakura.length, 0);
+  if (loading) return <p>불러오는 중...</p>;
+  if (error) return <p>오류 발생: {error}</p>;
+
+  const handleRequestSort = (property) => {
+    const isAsc = orderBy === property && ascending;
+    onSortChange(property, !isAsc);
+  };
+
+  const emptyRows = Math.max(MIN_ROWS - purchase.length, 0);
 
   return (
-    <TableContainer
-      component={Paper}
-      sx={{ overflow: "auto" }} // 스크롤 가능
-    >
+    <TableContainer component={Paper} sx={{ overflow: "auto" }}>
       <Table size="small" sx={{ minWidth: "100%" }}>
         <TableHead sx={{ backgroundColor: pink[50] }}>
           <TableRow sx={{ height: "40px" }}>
-            <TableCell padding="none">
-              {translations.sakuratable.user_id}
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "UserName"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("UserName")}
+              >
+                {translations.sakuratable.userName}
+              </TableSortLabel>
             </TableCell>
-            <TableCell padding="none">
-              {translations.sakuratable.transaction_type}
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "Email"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("Email")}
+              >
+                {translations.sakuratable.email}
+              </TableSortLabel>
             </TableCell>
-            <TableCell padding="none">
-              {translations.sakuratable.amount}
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "TransactionType"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("TransactionType")}
+              >
+                {translations.sakuratable.transaction_type}
+              </TableSortLabel>
             </TableCell>
-            <TableCell padding="none">
-              {translations.sakuratable.is_paid}
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "Amount"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("Amount")}
+              >
+                {translations.sakuratable.amount}
+              </TableSortLabel>
             </TableCell>
-            <TableCell padding="none">
-              {translations.sakuratable.created_at}
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "Is_paid"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("Is_paid")}
+              >
+                {translations.sakuratable.is_paid}
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "Created_at"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("Created_at")}
+              >
+                {translations.sakuratable.created_at}
+              </TableSortLabel>
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {sakura.map((user) => (
-            <TableRow key={user.id} sx={{ height: "40px" }}>
-              <TableCell padding="none">{user.user_id}</TableCell>
-              <TableCell padding="none">{user.transaction_type}</TableCell>
-              <TableCell padding="none">{user.amount}</TableCell>
-              <TableCell padding="none">{user.is_paid ? "O" : "X"}</TableCell>
-              <TableCell padding="none">
-                {dayjs(user.created_at).format("YYYY-MM-DD")}
+          {purchase.map((purchase) => (
+            <TableRow key={purchase.id} sx={{ height: "40px" }}>
+              <TableCell>{purchase.userName}</TableCell>
+              <TableCell>{purchase.userEmail}</TableCell>
+              <TableCell>{purchase.transactionType}</TableCell>
+              <TableCell>{purchase.amount}</TableCell>
+              <TableCell>{purchase.isPaid ? "O" : "X"}</TableCell>
+              <TableCell>
+                {dayjs(purchase.createdAt).format("YYYY-MM-DD")}
               </TableCell>
             </TableRow>
           ))}
@@ -124,4 +121,4 @@ const PurchaseTable = () => {
   );
 };
 
-export default PurchaseTable;
+export default SakuraTable;
