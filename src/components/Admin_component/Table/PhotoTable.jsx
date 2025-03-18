@@ -18,9 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { Edit, Delete } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { pink } from "@mui/material/colors";
-import.meta.env.VITE_API_BASE_URL;
-
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+import { apiRequest } from "../../../utils/api";
 
 const truncateText = (text, maxLength) => {
   return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
@@ -28,7 +26,7 @@ const truncateText = (text, maxLength) => {
 
 const MIN_ROWS = 10; // 최소 표시할 행 개수
 
-const PhotoTable = ({ photos, loading, error }) => {
+const PhotoTable = ({ photos, loading, error, onDelete }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const { translations } = useContext(LanguageContext);
   const [selected, setSelected] = useState([]);
@@ -43,14 +41,6 @@ const PhotoTable = ({ photos, loading, error }) => {
 
   // 빈 행 추가 (테이블 높이를 유지하려고)
   const emptyRows = Math.max(MIN_ROWS - photos.length, 0);
-
-  //delete
-  const handleDelete = async (photoId) => {
-    // console.log(photoId);
-    try {
-      const response = await fetch(``);
-    } catch (error) {}
-  };
 
   return (
     <TableContainer
@@ -128,7 +118,7 @@ const PhotoTable = ({ photos, loading, error }) => {
                 <IconButton
                   color="error"
                   size="small"
-                  onClick={() => handleDelete(photo.id)}
+                  onClick={() => onDelete(photo.id)}
                 >
                   <Delete fontSize="small" />
                 </IconButton>

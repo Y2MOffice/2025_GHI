@@ -20,33 +20,13 @@ const PhotoManagePage = () => {
     page: 1,
     pageSize: 10,
   });
-
-  const fetchPhotos = async (params) => {
+  //GET
+  const getPhotos = async (params) => {
     setLoading(true);
     try {
-      // const token = sessionStorage.getItem("token");
-      // // const filteredParams = Object.fromEntries(
-      // //   Object.entries(params).filter(([_, v]) => v !== "")
-      // // );
       const queryString = new URLSearchParams(params).toString();
       const data = await apiRequest(`/photo-collections?${queryString}`);
-      // const response = await fetch(
-      //   `${API_BASE_URL}/photo-collections?${queryString}`,
-      //   {
-      //     method: "GET",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       Authorization: `Bearer ${token}`,
-      //     },
-      //   }
-      // );
-      // console.log("Response Status:", response.status);
-      // if (!response.ok) {
-      //   throw new Error(`서버 응답 오류: ${response.status}`);
-      // }
 
-      // const data = await response.json();
-      // // console.log("Server Response:", data);
       setPhotos(data.data.items || []);
       setPagination({
         totalPages: data.data.totalPages,
@@ -63,8 +43,20 @@ const PhotoManagePage = () => {
   };
 
   useEffect(() => {
-    fetchPhotos(searchParams);
+    getPhotos(searchParams);
   }, [pagination.page]);
+
+  //DELETE
+  const deletePhoto = async (photoId) => {
+    if (!window.confirm("정말 삭제하겠습니까?")) return;
+    try {
+      await apiRequest(`/photo-collections/${photoId}`, "DELETE");
+      alert("삭제되었습니다.");
+      getPhotos(searchParams); //삭제하고나서 다시목록 받아옴
+    } catch (err) {
+      alert(`삭제 실패:${err.message}`);
+    }
+  };
 
   return (
     <Container maxWidth="lg" sx={{ mt: 2 }}>
@@ -97,14 +89,19 @@ const PhotoManagePage = () => {
         <SearchPhotoArea
           onSearch={(params) => {
             setSearchParams(params);
-            fetchPhotos(params);
+            getPhotos(params);
           }}
         />
       </Paper>
 
       {/* 데이터 테이블 영역 */}
       <Paper elevation={3} sx={{ p: 1, borderRadius: 2, mb: 1 }}>
-        <PhotoTable photos={photos} loading={loading} error={error} />
+        <PhotoTable
+          photos={photos}
+          loading={loading}
+          error={error}
+          onDelete={deletePhoto}
+        />
       </Paper>
 
       {/* 페이지네이션 */}
