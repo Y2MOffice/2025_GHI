@@ -37,6 +37,8 @@ import RegisterAdmin from "./pages/AdminPages/RegisterAdmin";
 import UserEditPage from "./pages/AdminPages/UserEditPage";
 import AdminEditPage from "./pages/AdminPages/AdminEditPage";
 import RequireSuperUser from "./routes/RequireSuperUser";
+import BannerEdit from "./pages/AdminPages/BannerEditPage";
+import BannerManage from "./pages/AdminPages/BannerManagePage";
 
 const App = () => {
   const superUser =
@@ -117,12 +119,15 @@ const App = () => {
                 <RequireSuperUser superUser={superUser}>
                   <SakuraManage />
                 </RequireSuperUser>
-              }
+              } 
             />
 
             <Route path="artists" element={<ArtistManage />} />
             <Route path="artistsedit" element={<ArtistCreate />} />
             <Route path="artistsedit/:id" element={<ArtistEdit />} />
+            <Route path="banners" element={<BannerManage />} />
+            <Route path="bannersedit" element={<BannerEdit />} />
+            <Route path="bannersedit/:id" element={<BannerEdit />} />
             <Route path="photos" element={<PhotoManage />} />
             <Route path="photosedit" element={<PhotoEdit />} />
           </Route>

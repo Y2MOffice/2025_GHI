@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { Container, Typography, Box, Paper } from "@mui/material";
+import BannerTable from "../../components/Admin_component/Table/BannerTable";
+import SearchBannerArea from "../../components/Admin_component/SearchBannerArea";
 import PaginationComponent from "../../components/Admin_component/PaginationComponent";
 import DownloadButton from "../../components/Admin_component/DownloadButton";
-import PurchaseTable from "../../components/Admin_component/Table/PurchaseTable";
-import SearchPurchaseArea from "../../components/Admin_component/SearchPurchaseArea";
 import { useMediaQuery } from "@mui/material";
 
-const PurchaseManagePage = () => {
+const BannerManagePage = () => {
   const { translations } = useContext(LanguageContext);
   const isMobile = useMediaQuery("(max-width:600px)");
-  const [purchase, setPurchase] = useState([]);
-  const [orderBy, setOrderBy] = useState("PurchasedAt");
+  const [banners, setBanners] = useState([]);
+  const [orderBy, setOrderBy] = useState("DisplayOrder");
   const [ascending, setAscending] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -22,7 +22,7 @@ const PurchaseManagePage = () => {
     pageSize: 10,
   });
 
-  const fetchPurchase = async (params = {}) => {
+  const fetchBanners = async (params = {}) => {
     setLoading(true);
     try {
       const token = sessionStorage.getItem("token");
@@ -34,7 +34,7 @@ const PurchaseManagePage = () => {
       );
       const queryString = new URLSearchParams(filteredParams).toString();
       const response = await fetch(
-        `https://stage-api.glowsnaps.tokyo/api/purchases?${queryString}`,
+        `https://stage-api.glowsnaps.tokyo/api/banners?${queryString}`,
         {
           method: "GET",
           headers: {
@@ -42,36 +42,36 @@ const PurchaseManagePage = () => {
             Authorization: `Bearer ${token}`,
           },
         }
-      );  
+      );
 
       if (!response.ok) {
         throw new Error(`서버 응답 오류: ${response.status}`);
       }
 
       const data = await response.json();
-      setPurchase(data.data.items || []);
+      setBanners(data.data.items || []);
       setPagination({
         totalPages: data.data.totalPages,
         page: data.data.page,
         pageSize: data.data.pageSize,
       });
     } catch (err) {
-      console.error("유저 목록 가져오기 실패:", err);
+      console.error("배너 목록 가져오기 실패:", err);
       setError(err.message);
-      setPurchase([]);
+      setBanners([]);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchPurchase(searchParams);
+    fetchBanners(searchParams);
   }, [pagination.page, orderBy, ascending]);
 
   const handleSortChange = (newOrderBy, newAscending) => {
     setOrderBy(newOrderBy);
     setAscending(newAscending);
-    fetchPurchase({
+    fetchBanners({
       ...searchParams,
       orderBy: newOrderBy,
       ascending: newAscending,
@@ -80,7 +80,6 @@ const PurchaseManagePage = () => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 2 }}>
-      {/* 헤더 영역 */}
       <Box
         display="flex"
         justifyContent="space-between"
@@ -88,12 +87,11 @@ const PurchaseManagePage = () => {
         mb={1}
       >
         <Typography variant="h5" fontWeight="bold">
-          {translations.purchasepage.name}
+          {translations.bannerpage.name}
         </Typography>
-        <DownloadButton />
+        <DownloadButton banners={banners} />
       </Box>
 
-      {/* 검색 및 필터 영역 */}
       <Paper
         elevation={3}
         sx={{
@@ -106,27 +104,26 @@ const PurchaseManagePage = () => {
           justifyContent: isMobile ? "center" : "flex-start",
         }}
       >
-        <SearchPurchaseArea
+        <SearchBannerArea
           onSearch={(params) => {
             setSearchParams(params);
-            fetchPurchase(params);
+            fetchBanners(params);
           }}
         />
       </Paper>
 
-      {/* 데이터 테이블 영역 */}
       <Paper elevation={3} sx={{ p: 1, borderRadius: 2, mb: 1 }}>
-        <PurchaseTable
-          purchase={purchase}
+        <BannerTable
+          banners={banners}
           loading={loading}
           error={error}
+          onBannerDeleted={() => fetchBanners(searchParams)}
           orderBy={orderBy}
           ascending={ascending}
           onSortChange={handleSortChange}
         />
       </Paper>
 
-      {/* 페이지네이션 */}
       <Box display="flex" justifyContent="center" mt={1}>
         <PaginationComponent
           pagination={pagination}
@@ -137,4 +134,4 @@ const PurchaseManagePage = () => {
   );
 };
 
-export default PurchaseManagePage;
+export default BannerManagePage;

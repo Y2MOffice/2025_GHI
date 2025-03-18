@@ -167,13 +167,19 @@ sakuratable:
   is_paid: "有料ステータス"
   created_at: "取引日時"
   manage: "管理"
+  userName: "ユーザー名"
+  email: "メール"
 purchasepage:
   name: "写真集決済履歴"
+  title: "タイトル"
 purchasetable:
   user_id: "ユーザーID"
   photo_collection_id: "写真集ID"
   price: "価格"
-  created_at: "取引日時"
+  purchased_at: "取引日時"
+  title: "写真集 名"
+  name: "ユーザー名"
+  email: "メール"
 usertable:
   id: "Id"
   name: "名前"
@@ -252,3 +258,5 @@ registeradmin:
     superadmin: "スーパー管理者"
   cancel: "キャンセル"
   save: "保存"
+banners:
+  manage: "관리"

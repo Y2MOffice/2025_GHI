@@ -17,16 +17,16 @@ import utc from "dayjs/plugin/utc";
 
 dayjs.extend(utc);
 
-const SearchAdminArea = ({ onSearch }) => {
+const SearchSakuraArea = ({ onSearch }) => {
   const { translations } = useContext(LanguageContext);
   const [searchParams, setSearchParams] = useState({
-    email: "",
-    firstName: "",
     lastName: "",
-    userType: "",
-    isDeleted: "",
-    startDate: "",
-    endDate: "",
+    firstName: "",
+    email: "",
+    transactionType: "",
+    isPaid: "",
+    StartDate: "",
+    EndDate: "",
   });
 
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -75,14 +75,14 @@ const SearchAdminArea = ({ onSearch }) => {
       params.startDate = dayjs(params.startDate)
         .utc()
         .startOf("day")
-        .format("YYYY-MM-DDTHH:mm:ss.SSSSSSZ");
+        .format("YYYY-MM-DD");
     }
 
     if (params.endDate) {
       params.endDate = dayjs(params.endDate)
         .utc()
         .endOf("day")
-        .format("YYYY-MM-DDTHH:mm:ss.SSSSSSZ");
+        .format("YYYY-MM-DD");
     }
 
     onSearch(params);
@@ -111,9 +111,9 @@ const SearchAdminArea = ({ onSearch }) => {
           }}
         >
           <TextField
-            label={translations.supage.mail}
-            name="email"
-            value={searchParams.email}
+            label={translations.supage.name2}
+            name="lastName"
+            value={searchParams.lastName}
             onChange={handleChange}
             size="small"
           />
@@ -125,35 +125,30 @@ const SearchAdminArea = ({ onSearch }) => {
             size="small"
           />
           <TextField
-            label={translations.supage.name2}
-            name="lastName"
-            value={searchParams.lastName}
+            label={translations.sakuratable.email}
+            name="email"
+            value={searchParams.email}
+            onChange={handleChange}
+            size="small"
+          />
+          <TextField
+            label={translations.sakuratable.transaction_type}
+            name="transactionType"
+            value={searchParams.transactionType}
             onChange={handleChange}
             size="small"
           />
           <Select
-            label={translations.usertable.usertype2}
-            name="isDeleted"
-            value={searchParams.isDeleted}
+            label={translations.sakuratable.is_paid}
+            name="isPaid"
+            value={searchParams.isPaid}
             onChange={handleChange}
             size="small"
             displayEmpty
           >
-            <MenuItem value="">{translations.usertable.usertype2}</MenuItem>
-            <MenuItem value="true">Inactive</MenuItem>
-            <MenuItem value="false">Active</MenuItem>
-          </Select>
-          <Select
-            label={translations.usertable.userType}
-            name="userType"
-            value={searchParams.userType}
-            onChange={handleChange}
-            size="small"
-            displayEmpty
-          >
-            <MenuItem value="">{translations.usertable.usertype}</MenuItem>
-            <MenuItem value="super_admin">super_admin</MenuItem>
-            <MenuItem value="admin">admin</MenuItem>
+            <MenuItem value="">{translations.sakuratable.is_paid}</MenuItem>
+            <MenuItem value={true}>O</MenuItem>
+            <MenuItem value={false}>X</MenuItem>
           </Select>
           <DatePicker
             slotProps={{
@@ -178,7 +173,6 @@ const SearchAdminArea = ({ onSearch }) => {
               searchParams.startDate ? dayjs(searchParams.startDate) : null
             }
           />
-          <></>
           <Button variant="contained" color="primary" onClick={handleSearch}>
             검색
           </Button>
@@ -188,4 +182,4 @@ const SearchAdminArea = ({ onSearch }) => {
   );
 };
 
-export default SearchAdminArea;
+export default SearchSakuraArea;
