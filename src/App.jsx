@@ -129,6 +129,7 @@ const App = () => {
             <Route path="artistsedit/:id" element={<ArtistEdit />} />
             <Route path="photos" element={<PhotoManage />} />
             <Route path="photosedit" element={<PhotoEdit />} />
+            <Route path="photosedit/:id" element={<PhotoEdit />} />
           </Route>
         </Route>
 

@@ -17,7 +17,7 @@ export const apiRequest = async (endpoint, method = "GET", body = null) => {
         if (!response.ok) {
             throw new Error(data.errorMessage || `Error ${response.status}`);
         }
-        console.log("rarr", data)
+        console.log("rarr", data.data)
         return data;
     } catch (error) {
         throw new Error(error.message);
