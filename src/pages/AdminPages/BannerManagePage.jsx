@@ -28,7 +28,7 @@ const BannerManagePage = () => {
       const token = sessionStorage.getItem("token");
 
       const filteredParams = Object.fromEntries(
-        Object.entries({ ...params, orderBy, ascending }).filter(
+        Object.entries({ ...params, page: pagination.page, orderBy, ascending }).filter(
           ([_, v]) => v !== ""
         )
       );
@@ -79,7 +79,7 @@ const BannerManagePage = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 2 }}>
+    <Container sx={{ mt: 2 }}>
       <Box
         display="flex"
         justifyContent="space-between"

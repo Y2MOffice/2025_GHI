@@ -274,6 +274,7 @@ bannertable:
   photoCollectionTitle: "연결된사진집"
   displayOrder: "표시순서"
   state: "상태"
+  isActive: "활성여부"
   displayStartDate: "시작날짜"
   displayEndDate: "종료날짜"
   manage: "관리"

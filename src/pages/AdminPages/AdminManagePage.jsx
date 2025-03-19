@@ -27,7 +27,7 @@ const AdminManagePage = () => {
     try {
       const token = sessionStorage.getItem("token");
       const filteredParams = Object.fromEntries(
-        Object.entries({ ...params, orderBy, ascending }).filter(
+        Object.entries({ ...params, page: pagination.page, orderBy, ascending }).filter(
           ([_, v]) => v !== ""
         )
       );

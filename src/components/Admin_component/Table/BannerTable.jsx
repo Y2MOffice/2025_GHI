@@ -70,9 +70,7 @@ const BannerTable = ({
         throw new Error(`failed (ID: ${banner.id})`);
       }
 
-      alert(
-        `${banner.title} ${translations.bannertable.deletesuccess}`
-      );
+      alert(`${banner.title} ${translations.bannertable.deletesuccess}`);
       onBannerDeleted();
     } catch (err) {
       alert(`${translations.bannertable.deletefailed}: ${err.message}`);
@@ -82,7 +80,7 @@ const BannerTable = ({
   const emptyRows = Math.max(MIN_ROWS - banners.length, 0);
 
   return (
-    <TableContainer component={Paper} sx={{ overflow: "auto" }}>
+    <TableContainer component={Paper} sx={{ overflow: "auto", width: "100%" }}>
       <Table size="small" sx={{ minWidth: "100%" }}>
         <TableHead sx={{ backgroundColor: pink[50] }}>
           <TableRow sx={{ height: "40px" }}>
@@ -138,29 +136,38 @@ const BannerTable = ({
               </TableSortLabel>
             </TableCell>
             <TableCell>
-               <TableSortLabel
-                 active={orderBy === "isDeleted"}
-                 direction={ascending ? "asc" : "desc"}
-                 onClick={() => handleRequestSort("isDeleted")}
-               >
+              <TableSortLabel
+                active={orderBy === "isDeleted"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("isDeleted")}
+              >
                 {translations.bannertable.state}
               </TableSortLabel>
             </TableCell>
             <TableCell>
-               <TableSortLabel
-                 active={orderBy === "displayStartDate"}
-                 direction={ascending ? "asc" : "desc"}
-                 onClick={() => handleRequestSort("displayStartDate")}
-               >
+              <TableSortLabel
+                active={orderBy === "isActive"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("isActive")}
+              >
+                {translations.bannertable.isActive}
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "displayStartDate"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("displayStartDate")}
+              >
                 {translations.bannertable.displayStartDate}
               </TableSortLabel>
             </TableCell>
             <TableCell>
-               <TableSortLabel
-                 active={orderBy === "displayEndDate"}
-                 direction={ascending ? "asc" : "desc"}
-                 onClick={() => handleRequestSort("displayEndDate")}
-               >
+              <TableSortLabel
+                active={orderBy === "displayEndDate"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("displayEndDate")}
+              >
                 {translations.bannertable.displayEndDate}
               </TableSortLabel>
             </TableCell>
@@ -191,9 +198,12 @@ const BannerTable = ({
                 </TableCell>
                 <TableCell>{banner.title}</TableCell>
                 <TableCell>{banner.description}</TableCell>
-                <TableCell>{banner.photoCollectionId}</TableCell>
+                <TableCell>{banner.photoCollectionTitle}</TableCell>
                 <TableCell>{banner.displayOrder}</TableCell>
-                <TableCell>{banner.isDeleted ? "Active" : "Inactive"}</TableCell>
+                <TableCell>
+                  {banner.isDeleted ? "Inactive" : "Active"}
+                </TableCell>
+                <TableCell>{banner.isActive ? "Active" : "Inactive"}</TableCell>
                 <TableCell>
                   {dayjs(banner.displayStartDate).format("YYYY-MM-DD")}
                 </TableCell>

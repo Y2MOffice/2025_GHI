@@ -11,6 +11,8 @@ import {
   Button,
   Select,
   MenuItem,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 import dayjs from "dayjs";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -54,28 +56,28 @@ const BannerEditPage = () => {
       })
         .then((res) => res.json())
         .then((data) => {
+          console.log(data)
           setFormData({
+            imageId: data.data.imageId || "",
             imageUrl: data.data.imageUrl || "",
             redirectUrl: data.data.redirectUrl || "",
             title: data.data.title || "",
             description: data.data.description || "",
             photoCollectionId: data.data.photoCollectionId || "",
             photoCollectionTitle: data.data.photoCollectionTitle || "",
-            displayOrder: data.data.displayOrder ?? 0,
-            isDeleted: data.data.isDeleted ?? false,
-            isActive: data.data.isActive ?? true,
-            displayStartDate: data.data.displayStartDate
-              ? dayjs(data.data.displayStartDate)
-              : null,
-            displayEndDate: data.data.displayEndDate
-              ? dayjs(data.data.displayEndDate)
+            displayOrder: data.data.displayOrder || 0,
+            isDeleted: data.data.isDeleted || false,
+            isActive: data.data.isActive || true,
+            currentDate: data.data.currentDate
+              ? dayjs(data.data.currentDate)
               : null,
           });
           if (data.imageUrl) setUploadedImage(true);
         })
-        .catch(() => alert("배너 정보를 불러오는 데 실패했습니다."));
+        .catch(() => alert("Get Banner Failed"));
     }
   }, [id, isEditMode]);
+  //console.log(formData)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -101,7 +103,7 @@ const BannerEditPage = () => {
 
   const handleImageUpload = () => {
     const token = sessionStorage.getItem("token");
-    if (!selectedFile) return alert("업로드할 파일이 없습니다.");
+    if (!selectedFile) return alert("Missing File");
     const formData = new FormData();
     formData.append("file", selectedFile);
     fetch("https://stage-api.glowsnaps.tokyo/api/uploads/banner-image", {
@@ -120,7 +122,7 @@ const BannerEditPage = () => {
         setUploadedImage(true);
         setLocalImage(null);
       })
-      .catch(() => alert("이미지 업로드에 실패했습니다."));
+      .catch(() => alert("Failed Upload"));
   };
 
   const handleImageDelete = () => {
@@ -135,7 +137,7 @@ const BannerEditPage = () => {
       ? `https://stage-api.glowsnaps.tokyo/api/banners?bannerId=${id}`
       : "https://stage-api.glowsnaps.tokyo/api/banners";
     const method = isEditMode ? "PATCH" : "POST";
-    console.log(JSON.stringify(formData))
+    console.log(JSON.stringify(formData));
     fetch(url, {
       method,
       headers: {
@@ -146,10 +148,10 @@ const BannerEditPage = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        alert("저장되었습니다.");
+        alert("Saved");
         navigate("/admin/banners");
       })
-      .catch(() => alert("저장에 실패했습니 다."));
+      .catch(() => alert("Save Failed"));
   };
 
   return (
@@ -279,40 +281,43 @@ const BannerEditPage = () => {
             </Grid>
             <Grid item xs={6}>
               <DatePicker
-                label="시작 날짜"
+                label="표시 날짜"
                 value={
-                  formData.displayStartDate
-                    ? dayjs(formData.displayStartDate)
+                  formData.currentDate
+                    ? dayjs(formData.currentDate)
                     : null
                 }
                 onChange={(date) =>
-                  setFormData({ ...formData, displayStartDate: date })
-                }
-                maxDate={
-                  formData.displayEndDate
-                    ? dayjs(formData.displayEndDate)
-                    : undefined
+                  setFormData({ ...formData, currentDate: date })
                 }
                 fullWidth
               />
             </Grid>
-            <Grid item xs={6}>
-              <DatePicker
-                label="종료 날짜"
-                value={
-                  formData.displayEndDate
-                    ? dayjs(formData.displayEndDate)
-                    : null
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={formData.isActive}
+                    onChange={(e) =>
+                      setFormData({ ...formData, isActive: e.target.checked })
+                    }
+                  />
                 }
-                onChange={(date) =>
-                  setFormData({ ...formData, displayEndDate: date })
+                label="활성화"
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={formData.isDeleted}
+                    onChange={(e) =>
+                      setFormData({ ...formData, isDeleted: e.target.checked })
+                    }
+                  />
                 }
-                minDate={
-                  formData.displayStartDate
-                    ? dayjs(formData.displayStartDate)
-                    : undefined
-                }
-                fullWidth
+                label="삭제"
               />
             </Grid>
           </Grid>
