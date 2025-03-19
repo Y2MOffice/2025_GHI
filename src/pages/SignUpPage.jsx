@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import { LanguageContext } from "../contexts/LanguageContext";
+import { Link } from "react-router-dom";
 import {
   TextField,
   Button,
   Box,
   Typography,
   Container,
-  Link,
   CssBaseline,
   ThemeProvider,
   createTheme,
@@ -64,23 +64,26 @@ const SignUpPage = () => {
       return;
     }
     try {
-      const response = await fetch("https://stage-api.glowsnaps.tokyo/api/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          password,
-          phoneNumber: phone,
-          displayLanguage: language,
-          nickname,
-          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        }),
-        mode: "cors"
-      });
+      const response = await fetch(
+        "https://stage-api.glowsnaps.tokyo/api/users",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            password,
+            phoneNumber: phone,
+            displayLanguage: language,
+            nickname,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          }),
+          mode: "cors",
+        }
+      );
 
       if (response.ok) {
         alert("회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.");
@@ -208,7 +211,7 @@ const SignUpPage = () => {
             width="100%"
             sx={{ mt: 1 }}
           >
-            <Link href="/login" variant="body2">
+            <Link to="/login" variant="body2">
               {translations.supage.login}
             </Link>
           </Box>

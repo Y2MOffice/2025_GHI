@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import { LanguageContext } from "../contexts/LanguageContext";
+import { Link } from "react-router-dom";
 import {
   TextField,
   Button,
   Box,
   Typography,
   Container,
-  Link,
   CssBaseline,
   ThemeProvider,
   createTheme,
@@ -84,8 +84,8 @@ const FindPasswordPage = () => {
               {translations.findpw.button}
             </Button>
           </Box>
-          <Link href="/login" variant="body2">
-          {translations.findpw.return}
+          <Link to="/login" variant="body2">
+            {translations.findpw.return}
           </Link>
         </Box>
       </Container>
