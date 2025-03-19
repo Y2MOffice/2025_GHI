@@ -6,6 +6,7 @@ import DownloadButton from "../../components/Admin_component/DownloadButton";
 import PurchaseTable from "../../components/Admin_component/Table/PurchaseTable";
 import SearchPurchaseArea from "../../components/Admin_component/SearchPurchaseArea";
 import { useMediaQuery } from "@mui/material";
+import { apiRequest } from "../../utils/api";
 
 const PurchaseManagePage = () => {
   const { translations } = useContext(LanguageContext);
@@ -25,30 +26,15 @@ const PurchaseManagePage = () => {
   const fetchPurchase = async (params = {}) => {
     setLoading(true);
     try {
-      const token = sessionStorage.getItem("token");
-
       const filteredParams = Object.fromEntries(
         Object.entries({ ...params, page: pagination.page, orderBy, ascending }).filter(
           ([_, v]) => v !== ""
         )
       );
       const queryString = new URLSearchParams(filteredParams).toString();
-      const response = await fetch(
-        `https://stage-api.glowsnaps.tokyo/api/purchases?${queryString}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );  
+      
+      const data = await apiRequest(`/purchases?${queryString}`);
 
-      if (!response.ok) {
-        throw new Error(`서버 응답 오류: ${response.status}`);
-      }
-
-      const data = await response.json();
       setPurchase(data.data.items || []);
       setPagination({
         totalPages: data.data.totalPages,

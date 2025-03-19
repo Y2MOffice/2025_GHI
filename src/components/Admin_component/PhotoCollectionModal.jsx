@@ -16,6 +16,7 @@ import {
   TablePagination,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { apiRequest } from "../../utils/api";
 
 const PhotoCollectionModal = ({ open, onClose, onSelect }) => {
   const [searchTitle, setSearchTitle] = useState("");
@@ -23,18 +24,17 @@ const PhotoCollectionModal = ({ open, onClose, onSelect }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const handleSearch = () => {
-    const token = sessionStorage.getItem("token");
-    fetch(`https://stage-api.glowsnaps.tokyo/api/photo-collections?title=${searchTitle}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.resultCode === 0) {
-          setPhotoCollections(data.data.items);
-        }
-      })
-      .catch((error) => console.error("사진집 검색 실패:", error));
+  const handleSearch = async () => {
+    try {
+      const response = await apiRequest(
+        `/photo-collections?title=${searchTitle}`
+      );
+
+      setPhotoCollections(response.data.items);
+      
+    } catch (error) {
+      console.error("사진집 검색 요청 실패:", error.message);
+    }
   };
 
   return (
@@ -69,22 +69,24 @@ const PhotoCollectionModal = ({ open, onClose, onSelect }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {photoCollections.slice(page * rowsPerPage, (page + 1) * rowsPerPage).map((collection) => (
-                <TableRow key={collection.id}>
-                  <TableCell>{collection.title}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      onClick={() => {
-                        onSelect(collection.id, collection.title);
-                        onClose();
-                      }}
-                    >
-                      선택
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {photoCollections
+                .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+                .map((collection) => (
+                  <TableRow key={collection.id}>
+                    <TableCell>{collection.title}</TableCell>
+                    <TableCell>
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          onSelect(collection.id, collection.title);
+                          onClose();
+                        }}
+                      >
+                        선택
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
@@ -94,7 +96,9 @@ const PhotoCollectionModal = ({ open, onClose, onSelect }) => {
           page={page}
           rowsPerPage={rowsPerPage}
           onPageChange={(_, newPage) => setPage(newPage)}
-          onRowsPerPageChange={(e) => setRowsPerPage(parseInt(e.target.value, 10))}
+          onRowsPerPageChange={(e) =>
+            setRowsPerPage(parseInt(e.target.value, 10))
+          }
         />
       </DialogContent>
     </Dialog>

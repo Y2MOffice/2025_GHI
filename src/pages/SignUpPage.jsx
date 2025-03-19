@@ -17,6 +17,7 @@ import {
 import { MuiTelInput } from "mui-tel-input";
 import { useNavigate } from "react-router-dom";
 import { pink } from "@mui/material/colors";
+import { loginapiRequest } from "../utils/loginapi";
 const theme = createTheme({
   components: {
     MuiCssBaseline: {
@@ -64,34 +65,23 @@ const SignUpPage = () => {
       return;
     }
     try {
-      const response = await fetch(
-        "https://stage-api.glowsnaps.tokyo/api/users",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            firstName,
-            lastName,
-            email,
-            password,
-            phoneNumber: phone,
-            displayLanguage: language,
-            nickname,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-          }),
-          mode: "cors",
-        }
-      );
-
-      if (response.ok) {
-        alert("회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.");
-        navigate("/login");
-      } else {
-        const errorData = await response.json();
-        setErrorMessage(errorData.message || "회원가입 실패");
+      const log = await loginapiRequest(`/users`, "POST", {
+        firstName,
+        lastName,
+        email,
+        password,
+        phoneNumber: phone,
+        displayLanguage: language,
+        nickname,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      });
+      console.log(log.data);
+      if (log.data.resultCode != 200) {
+        alert("회원가입 요청 오류:"+ log.data.errorMessage);
+        return;
       }
+      alert("회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.");
+      navigate("/login");
     } catch (error) {
       console.error("회원가입 요청 오류:", error);
       setErrorMessage("네트워크 오류가 발생했습니다.");

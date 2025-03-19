@@ -138,6 +138,7 @@ const SearchAdminArea = ({ onSearch }) => {
               value={searchParams.email}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
             />
             <TextField
               label={translations.supage.name1}
@@ -145,6 +146,7 @@ const SearchAdminArea = ({ onSearch }) => {
               value={searchParams.firstName}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
             />
             <TextField
               label={translations.supage.name2}
@@ -152,6 +154,7 @@ const SearchAdminArea = ({ onSearch }) => {
               value={searchParams.lastName}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
             />
             <Select
               label={translations.usertable.usertype2}
@@ -159,6 +162,7 @@ const SearchAdminArea = ({ onSearch }) => {
               value={searchParams.isDeleted}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
               displayEmpty
             >
               <MenuItem value="">{translations.usertable.usertype2}</MenuItem>
@@ -171,6 +175,7 @@ const SearchAdminArea = ({ onSearch }) => {
               value={searchParams.userType}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
               displayEmpty
             >
               <MenuItem value="">{translations.usertable.usertype}</MenuItem>
@@ -184,7 +189,6 @@ const SearchAdminArea = ({ onSearch }) => {
                 gap: 1,
                 flexDirection: isMobile ? "column" : "row",
                 alignItems: "center",
-                mt: 1,
                 width: "100%",
               }}
             >

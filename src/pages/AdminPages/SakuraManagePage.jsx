@@ -6,6 +6,7 @@ import DownloadButton from "../../components/Admin_component/DownloadButton";
 import SakuraTable from "../../components/Admin_component/Table/SakuraTable";
 import SearchSakuraArea from "../../components/Admin_component/SearchSakuraArea";
 import { useMediaQuery } from "@mui/material";
+import { apiRequest } from "../../utils/api";
 
 const SakuraManagePage = () => {
   const { translations } = useContext(LanguageContext);
@@ -25,7 +26,6 @@ const SakuraManagePage = () => {
   const fetchPurchase = async (params = {}) => {
       setLoading(true);
       try {
-        const token = sessionStorage.getItem("token");
   
         const filteredParams = Object.fromEntries(
           Object.entries({ ...params, page: pagination.page, orderBy, ascending }).filter(
@@ -33,22 +33,8 @@ const SakuraManagePage = () => {
           )
         );
         const queryString = new URLSearchParams(filteredParams).toString();
-        const response = await fetch(
-          `https://stage-api.glowsnaps.tokyo/api/sakura-transactions?${queryString}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
   
-        if (!response.ok) {
-          throw new Error(`서버 응답 오류: ${response.status}`);
-        }
-  
-        const data = await response.json();
+        const data = await apiRequest(`/sakura-transactions?${queryString}`);
         setPurchase(data.data.items || []);
         setPagination({
           totalPages: data.data.totalPages,

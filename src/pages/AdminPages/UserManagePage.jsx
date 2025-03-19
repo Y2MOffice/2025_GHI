@@ -6,6 +6,7 @@ import SearchUserArea from "../../components/Admin_component/SearchUserArea";
 import PaginationComponent from "../../components/Admin_component/PaginationComponent";
 import DownloadButton from "../../components/Admin_component/DownloadButton";
 import { useMediaQuery } from "@mui/material";
+import { apiRequest } from "../../utils/api";
 
 const UserManagePage = () => {
   const { translations } = useContext(LanguageContext);
@@ -25,30 +26,15 @@ const UserManagePage = () => {
   const fetchUsers = async (params = {}) => {
     setLoading(true);
     try {
-      const token = sessionStorage.getItem("token");
-
       const filteredParams = Object.fromEntries(
         Object.entries({ ...params, page: pagination.page, orderBy, ascending }).filter(
           ([_, v]) => v !== ""
         )
       );
       const queryString = new URLSearchParams(filteredParams).toString();
-      const response = await fetch(
-        `https://stage-api.glowsnaps.tokyo/api/users?${queryString}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      
+      const data = await apiRequest(`/users?${queryString}`);
 
-      if (!response.ok) {
-        throw new Error(`서버 응답 오류: ${response.status}`);
-      }
-
-      const data = await response.json();
       setUsers(data.data.items || []);
       setPagination({
         totalPages: data.data.totalPages,

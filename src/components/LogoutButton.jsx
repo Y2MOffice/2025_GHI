@@ -2,28 +2,14 @@ import React from "react";
 import { IconButton, Box } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
+import { logoutapiRequest } from "../utils/logoutapi";
 
 const LogoutButton = ({ setAuthenticate }) => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      const token = sessionStorage.getItem("token");
-
-      if (!token) {
-        console.warn("토큰이 없습니다. 이미 로그아웃된 상태일 수 있습니다.");
-      } else {
-        const response = await fetch(
-          "https://stage-api.glowsnaps.tokyo/api/users/logout",
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            credentials: "include",
-          }
-        );
+        const response = await logoutapiRequest("/users/logout", "DELETE");
 
         if (!response.ok) {
           console.error("서버 로그아웃 실패:", response.status);
@@ -35,8 +21,7 @@ const LogoutButton = ({ setAuthenticate }) => {
           setAuthenticate(false);
           navigate("/login");
         }
-      }
-    } catch (error) {
+      } catch (error) {
       console.error("로그아웃 요청 중 오류 발생:", error);
     }
   };

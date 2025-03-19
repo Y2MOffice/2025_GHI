@@ -17,6 +17,7 @@ import { Edit, Delete } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { pink } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
+import { apiRequest } from "../../../utils/api";
 
 const MIN_ROWS = 10;
 
@@ -30,16 +31,9 @@ const BannerTable = ({
   ascending,
 }) => {
   const { translations } = useContext(LanguageContext);
-  const [selected, setSelected] = useState([]);
   const navigate = useNavigate();
   if (loading) return <p>불러오는 중...</p>;
   if (error) return <p>오류 발생: {error}</p>;
-
-  const handleSelect = (id) => {
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
 
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && ascending;
@@ -55,20 +49,7 @@ const BannerTable = ({
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(
-        `https://stage-api.glowsnaps.tokyo/api/banners/${banner.id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`failed (ID: ${banner.id})`);
-      }
+      await apiRequest(`/banners/${banner.id}`, "DELETE");
 
       alert(`${banner.title} ${translations.bannertable.deletesuccess}`);
       onBannerDeleted();
@@ -84,21 +65,6 @@ const BannerTable = ({
       <Table size="small" sx={{ minWidth: "100%" }}>
         <TableHead sx={{ backgroundColor: pink[50] }}>
           <TableRow sx={{ height: "40px" }}>
-            <TableCell padding="checkbox" sx={{ px: 1 }}>
-              <Checkbox
-                indeterminate={
-                  selected.length > 0 && selected.length < banners.length
-                }
-                checked={selected.length === banners.length}
-                onChange={() =>
-                  setSelected(
-                    selected.length === banners.length
-                      ? []
-                      : banners.map((u) => u.id)
-                  )
-                }
-              />
-            </TableCell>
             <TableCell>
               <TableSortLabel
                 active={orderBy === "title"}
@@ -190,12 +156,6 @@ const BannerTable = ({
           ) : (
             banners.map((banner) => (
               <TableRow key={banner.id} sx={{ height: "40px" }}>
-                <TableCell padding="checkbox" sx={{ px: 1 }}>
-                  <Checkbox
-                    checked={selected.includes(banner.id)}
-                    onChange={() => handleSelect(banner.id)}
-                  />
-                </TableCell>
                 <TableCell>{banner.title}</TableCell>
                 <TableCell>{banner.description}</TableCell>
                 <TableCell>{banner.photoCollectionTitle}</TableCell>
@@ -237,15 +197,6 @@ const BannerTable = ({
           ))}
         </TableBody>
       </Table>
-
-      <Button
-        variant="contained"
-        color="error"
-        disabled={selected.length === 0}
-        style={{ margin: "10px" }}
-      >
-        {translations.managetable.delete}
-      </Button>
     </TableContainer>
   );
 };

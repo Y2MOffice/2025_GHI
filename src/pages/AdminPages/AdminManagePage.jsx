@@ -6,6 +6,7 @@ import PaginationComponent from "../../components/Admin_component/PaginationComp
 import DownloadButton from "../../components/Admin_component/DownloadButton";
 import ManageTable from "../../components/Admin_component/Table/ManageTable";
 import { useMediaQuery } from "@mui/material";
+import { apiRequest } from "../../utils/api";
 
 const AdminManagePage = () => {
   const { translations } = useContext(LanguageContext);
@@ -25,35 +26,22 @@ const AdminManagePage = () => {
   const fetchAdmins = async (params) => {
     setLoading(true);
     try {
-      const token = sessionStorage.getItem("token");
       const filteredParams = Object.fromEntries(
-        Object.entries({ ...params, page: pagination.page, orderBy, ascending }).filter(
-          ([_, v]) => v !== ""
-        )
+        Object.entries({
+          ...params,
+          page: pagination.page,
+          orderBy,
+          ascending,
+        }).filter(([_, v]) => v !== "")
       );
       const queryString = new URLSearchParams(filteredParams).toString();
-
-      const response = await fetch(
-        `https://stage-api.glowsnaps.tokyo/api/admins?${queryString}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`서버 응답 오류: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setUsers(data.data.items || []);
+      
+      const response = await apiRequest(`/admins?${queryString}`);
+      setUsers(response.data.items || []);
       setPagination({
-        totalPages: data.data.totalPages,
-        page: data.data.page,
-        pageSize: data.data.pageSize,
+        totalPages: response.data.totalPages,
+        page: response.data.page,
+        pageSize: response.data.pageSize,
       });
     } catch (err) {
       console.error("관리자 목록 가져오기 실패:", err);

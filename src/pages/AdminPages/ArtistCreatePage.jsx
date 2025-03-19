@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { TextField, Container, Box, Button, Typography } from "@mui/material";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { useNavigate } from "react-router-dom";
+import { apiRequest } from "../../utils/api";
 
 const ArtistCreatePage = () => {
   const { translations } = useContext(LanguageContext);
@@ -24,30 +25,19 @@ const ArtistCreatePage = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    const token = sessionStorage.getItem("token");
-
-    fetch("https://stage-api.glowsnaps.tokyo/api/artists", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
+  const handleSubmit = async () => {
+    try {
+      await apiRequest(`/artists`, "POST", {
         name: formData.name,
         description: formData.description,
         hashtags: formData.hashtags,
-      }),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Create Failed");
-        return res.json();
-      })
-      .then(() => {
-        alert("Create Success");
-        navigate("/admin/artists");
-      })
-      .catch(() => alert("Create Failed"));
+      });
+
+      alert("Create Success");
+      navigate("/admin/artists");
+    } catch (error) {
+      alert("Create Failed");
+    }
   };
 
   return (

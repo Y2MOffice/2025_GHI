@@ -134,6 +134,7 @@ const SearchArtistArea = ({ onSearch }) => {
               value={searchParams.name}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
             />
             <TextField
               label={translations.artisttable.hashtag}
@@ -141,12 +142,14 @@ const SearchArtistArea = ({ onSearch }) => {
               value={searchParams.hashtag}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
             />
             <Select
               name="isDeleted"
               value={searchParams.isDeleted}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
               displayEmpty
             >
               <MenuItem value="">{translations.managetable.state}</MenuItem>
@@ -160,7 +163,6 @@ const SearchArtistArea = ({ onSearch }) => {
                 gap: 1,
                 flexDirection: isMobile ? "column" : "row",
                 alignItems: "center",
-                mt: 1,
                 width: "100%",
               }}
             >
