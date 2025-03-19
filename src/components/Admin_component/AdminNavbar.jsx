@@ -295,6 +295,50 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
               </NavLink>
             </List>
           </Collapse>
+
+          <StyledListItemButton onClick={() => handleMenuToggle("banners")}>
+            <ListItemIcon>
+              <ColorLensIcon />
+            </ListItemIcon>
+            <ListItemText primary={translations.banners.manage} />
+            {openMenus["banners"] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </StyledListItemButton>
+          <Collapse in={openMenus["banners"]} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <NavLink to="banners" style={{ textDecoration: "none" }}>
+                {({ isActive }) => (
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
+                    <ListItemIcon>
+                      <PaletteIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={translations.banners.list} />
+                  </StyledListItemButton>
+                )}
+              </NavLink>
+              <NavLink to="bannersedit" style={{ textDecoration: "none" }}>
+                {({ isActive }) => (
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
+                    <ListItemIcon>
+                      <BrushIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={translations.banners.regist} />
+                  </StyledListItemButton>
+                )}
+              </NavLink>
+            </List>
+          </Collapse>
           <LogoutButton setAuthenticate={setAuthenticate} />
         </List>
       </Drawer>
@@ -508,6 +552,49 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
                 </NavLink>
               </List>
             </Collapse>
+            <StyledListItemButton onClick={() => handleMenuToggle("banners")}>
+            <ListItemIcon>
+              <ColorLensIcon />
+            </ListItemIcon>
+            <ListItemText primary={translations.banners.manage} />
+            {openMenus["banners"] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </StyledListItemButton>
+          <Collapse in={openMenus["banners"]} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <NavLink to="banners" style={{ textDecoration: "none" }}>
+                {({ isActive }) => (
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
+                    <ListItemIcon>
+                      <PaletteIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={translations.banners.list} />
+                  </StyledListItemButton>
+                )}
+              </NavLink>
+              <NavLink to="bannersedit" style={{ textDecoration: "none" }}>
+                {({ isActive }) => (
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
+                    <ListItemIcon>
+                      <BrushIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={translations.banners.regist} />
+                  </StyledListItemButton>
+                )}
+              </NavLink>
+            </List>
+          </Collapse>
             <LogoutButton setAuthenticate={setAuthenticate} />
           </List>
         </Box>

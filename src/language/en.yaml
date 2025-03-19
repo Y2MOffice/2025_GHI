@@ -167,13 +167,19 @@ sakuratable:
   is_paid: "Paid Status"
   created_at: "Transaction Date"
   manage: "Manage"
+  userName: "User Name"
+  email: "Email"
 purchasepage:
   name: "Photobook Purchase History"
+  title: "Title"
 purchasetable:
   user_id: "User ID"
   photo_collection_id: "Photo Collection ID"
   price: "Price"
-  created_at: "Transaction Date"
+  purchased_at: "Transaction Date"
+  title: "Photo book"
+  name: "User name"
+  email: "Email"
 usertable:
   id: "Id"
   name: "Name"
@@ -252,3 +258,5 @@ registeradmin:
     superadmin: "SuperAdmin"
   cancel: "Cancel"
   save: "Save"
+banners:
+  manage: "관리"
