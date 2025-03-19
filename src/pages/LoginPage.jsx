@@ -1,13 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import { LanguageContext } from "../contexts/LanguageContext";
-
+import { Link } from "react-router-dom";
 import {
   TextField,
   Button,
   Box,
   Typography,
   Container,
-  Link,
   CssBaseline,
   ThemeProvider,
   createTheme,
@@ -213,10 +212,10 @@ const LoginPage = ({ setAuthenticate }) => {
             </Button>
           </Box>
           <Box display="flex" justifyContent="space-between" width="100%">
-            <Link href="/find-password" variant="body2">
+            <Link to="/find-password" variant="body2">
               {translations.loginpage.pwsearch}
             </Link>
-            <Link href="/signup" variant="body2">
+            <Link to="/signup" variant="body2">
               {translations.loginpage.regist}
             </Link>
           </Box>
