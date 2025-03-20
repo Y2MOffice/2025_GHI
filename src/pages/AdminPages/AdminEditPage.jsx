@@ -14,6 +14,7 @@ import {
 import { pink, grey } from "@mui/material/colors";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { useParams, useNavigate } from "react-router-dom";
+import { apiRequest } from "../../utils/api";
 
 const AdminEditPage = () => {
   const { translations } = useContext(LanguageContext);
@@ -27,25 +28,10 @@ const AdminEditPage = () => {
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        const token = sessionStorage.getItem("token");
-        const response = await fetch(
-          `https://stage-api.glowsnaps.tokyo/api/admins/${id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await apiRequest(`/admins/${id}`);
 
-        if (!response.ok) {
-          throw new Error(`서버 응답 오류: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setAdmin(data.data);
-        setOriginalRole(data.data.userType);
+        setAdmin(response.data);
+        setOriginalRole(response.data.userType);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -57,31 +43,15 @@ const AdminEditPage = () => {
   }, [id]);
 
   const handleRoleChange = async () => {
-    const token = sessionStorage.getItem("token");
     const newRole = admin.userType === "super_admin" ? "super_admin" : "admin";
 
     try {
-      const response = await fetch(
-        `https://stage-api.glowsnaps.tokyo/api/admins/${id}/role`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ role: newRole }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(`서버 오류: ${response.status}`);
-      }
+      const data = await apiRequest(`/admins/${id}/role`, "PATCH", { role: newRole });
 
       if (data.resultCode === 0) {
         alert(translations.admineditpage.changelog);
         setAdmin((prevAdmin) => ({ ...prevAdmin, userType: newRole }));
+        navigate("/admin/manage");
       } else {
         alert(`변경 실패: ${data.errorMessage || "unknownError"}`);
       }
@@ -90,32 +60,18 @@ const AdminEditPage = () => {
     }
   };
 
-  const handleDeleteAdmin = () => {
-    if (!window.confirm(translations.admineditpage.question)) return; // ✅ 삭제 확인 알람
+  const handleDeleteAdmin = async () => {
+    if (!window.confirm(translations.admineditpage.question)) return;
 
-    const token = sessionStorage.getItem("token");
+    try {
+        await apiRequest(`/admins/${id}`, "DELETE");
 
-    fetch(`https://stage-api.glowsnaps.tokyo/api/admins/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("삭제 실패");
-        }
-        return response.json();
-      })
-      .then(() => {
         alert(translations.admineditpage.deletelog);
         navigate("/admin/manage");
-      })
-      .catch((error) => {
+    } catch (error) {
         alert(translations.admineditpage.deletefail);
-      });
-  };
+    }
+};
 
   if (loading) return <p>Now loading...</p>;
   if (error) return <p>Error: {error}</p>;

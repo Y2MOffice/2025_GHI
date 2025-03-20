@@ -105,6 +105,7 @@ const SearchUserArea = ({ onSearch }) => {
           border: "1px solid #ccc",
           borderRadius: 2,
           bgcolor: "#f9f9f9",
+          width: "100%",
         }}
       >
         <Box
@@ -163,34 +164,52 @@ const SearchUserArea = ({ onSearch }) => {
               <MenuItem value="true">Inactive</MenuItem>
               <MenuItem value="false">Active</MenuItem>
             </Select>
-            <DatePicker
-              slotProps={{
-                textField: { size: "small", sx: { width: "150px" } },
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 1,
+                flexDirection: isMobile ? "column" : "row",
+                alignItems: "center",
+                mt: 1,
+                width: "100%",
               }}
-              format="YYYY-MM-DD"
-              value={
-                searchParams.startDate ? dayjs(searchParams.startDate) : null
-              }
-              onChange={handleStartDateChange}
-              maxDate={
-                searchParams.endDate ? dayjs(searchParams.endDate) : null
-              } // 🔹 종료 날짜 이후 선택 방지
-            />
-            <span>~</span>
-            <DatePicker
-              slotProps={{
-                textField: { size: "small", sx: { width: "150px" } },
-              }}
-              format="YYYY-MM-DD"
-              value={searchParams.endDate ? dayjs(searchParams.endDate) : null}
-              onChange={handleEndDateChange}
-              minDate={
-                searchParams.startDate ? dayjs(searchParams.startDate) : null
-              }
-            />
-            <Button variant="contained" color="primary" onClick={handleSearch}>
-              검색
-            </Button>
+            >
+              <DatePicker
+                slotProps={{
+                  textField: { size: "small", sx: { width: "150px" } },
+                }}
+                format="YYYY-MM-DD"
+                value={
+                  searchParams.startDate ? dayjs(searchParams.startDate) : null
+                }
+                onChange={handleStartDateChange}
+                maxDate={
+                  searchParams.endDate ? dayjs(searchParams.endDate) : null
+                } // 🔹 종료 날짜 이후 선택 방지
+              />
+              <span>~</span>
+              <DatePicker
+                slotProps={{
+                  textField: { size: "small", sx: { width: "150px" } },
+                }}
+                format="YYYY-MM-DD"
+                value={
+                  searchParams.endDate ? dayjs(searchParams.endDate) : null
+                }
+                onChange={handleEndDateChange}
+                minDate={
+                  searchParams.startDate ? dayjs(searchParams.startDate) : null
+                }
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSearch}
+              >
+                검색
+              </Button>
+            </Box>
           </Collapse>
         </Box>
       </Box>

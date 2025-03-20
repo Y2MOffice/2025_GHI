@@ -17,17 +17,15 @@ import utc from "dayjs/plugin/utc";
 
 dayjs.extend(utc);
 
-const SearchUserArea = ({ onSearch }) => {
+const SearchBannerArea = ({ onSearch }) => {
   const { translations } = useContext(LanguageContext);
   const [searchParams, setSearchParams] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    nickname: "",
+    title: "",
+    photoCollectionTitle: "",
     isDeleted: "",
-    startDate: "",
-    endDate: "",
+    isActive: "",
+    displayStartDate: "",
+    displayEndDate: "",
   });
 
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -38,49 +36,51 @@ const SearchUserArea = ({ onSearch }) => {
   };
 
   const handleStartDateChange = (newValue) => {
-      setSearchParams((prev) => {
-        const formattedDate = newValue
-          ? dayjs(newValue).format("YYYY-MM-DD")
-          : "";
-        return {
-          ...prev,
-          startDate: formattedDate,
-          endDate:
-            prev.endDate && dayjs(prev.endDate).isBefore(dayjs(formattedDate))
-              ? formattedDate
-              : prev.endDate,
-        };
-      });
-    };
-  
-    const handleEndDateChange = (newValue) => {
-      setSearchParams((prev) => {
-        const formattedDate = newValue
-          ? dayjs(newValue).format("YYYY-MM-DD")
-          : "";
-        return {
-          ...prev,
-          endDate: formattedDate,
-          startDate:
-            prev.startDate && dayjs(prev.startDate).isAfter(dayjs(formattedDate))
-              ? formattedDate
-              : prev.startDate,
-        };
-      });
-    };
+    setSearchParams((prev) => {
+      const formattedDate = newValue
+        ? dayjs(newValue).format("YYYY-MM-DD")
+        : "";
+      return {
+        ...prev,
+        displayStartDate: formattedDate,
+        displayEndDate:
+          prev.displayEndDate &&
+          dayjs(prev.displayEndDate).isBefore(dayjs(formattedDate))
+            ? formattedDate
+            : prev.displayEndDate,
+      };
+    });
+  };
+
+  const handleEndDateChange = (newValue) => {
+    setSearchParams((prev) => {
+      const formattedDate = newValue
+        ? dayjs(newValue).format("YYYY-MM-DD")
+        : "";
+      return {
+        ...prev,
+        displayEndDate: formattedDate,
+        displayStartDate:
+          prev.displayStartDate &&
+          dayjs(prev.displayStartDate).isAfter(dayjs(formattedDate))
+            ? formattedDate
+            : prev.displayStartDate,
+      };
+    });
+  };
 
   const handleSearch = () => {
     const params = { ...searchParams };
 
-    if (params.startDate) {
-      params.startDate = dayjs(params.startDate)
+    if (params.displayStartDate) {
+      params.displayStartDate = dayjs(params.displayStartDate)
         .utc() // ✅ UTC 변환
         .startOf("day") // ✅ 하루의 시작 시간
         .format("YYYY-MM-DDTHH:mm:ss.SSSSSSZ");
     }
 
-    if (params.endDate) {
-      params.endDate = dayjs(params.endDate)
+    if (params.displayEndDate) {
+      params.displayEndDate = dayjs(params.displayEndDate)
         .utc()
         .endOf("day") // ✅ 하루의 끝 시간
         .format("YYYY-MM-DDTHH:mm:ss.SSSSSSZ");
@@ -96,6 +96,7 @@ const SearchUserArea = ({ onSearch }) => {
           border: "1px solid #ccc",
           borderRadius: 2,
           bgcolor: "#f9f9f9",
+          width: "100%",
         }}
       >
         <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
@@ -111,48 +112,71 @@ const SearchUserArea = ({ onSearch }) => {
           }}
         >
           <TextField
-            label={translations.usertable.email}
-            name="email"
-            value={searchParams.email}
+            label={translations.bannertable.title}
+            name="title"
+            value={searchParams.title}
             onChange={handleChange}
             size="small"
           />
           <TextField
-            label={translations.usereditpage.first_name}
-            name="firstName"
-            value={searchParams.firstName}
-            onChange={handleChange}
-            size="small"
-          />
-          <TextField
-            label={translations.usereditpage.last_name}
-            name="lastName"
-            value={searchParams.lastName}
+            label={translations.bannertable.photoCollectionTitle}
+            name="photoCollectionTitle"
+            value={searchParams.photoCollectionTitle}
             onChange={handleChange}
             size="small"
           />
           <Select
-            label={translations.usertable.usertype}
+            label={translations.bannertable.state}
             name="isDeleted"
             value={searchParams.isDeleted}
             onChange={handleChange}
             size="small"
             displayEmpty
           >
-            <MenuItem value="">{translations.usertable.usertype}</MenuItem>
+            <MenuItem value="">{translations.bannertable.state}</MenuItem>
             <MenuItem value="true">Inactive</MenuItem>
             <MenuItem value="false">Active</MenuItem>
           </Select>
+          <Select
+            label={translations.bannertable.isActive}
+            name="isActive"
+            value={searchParams.isActive}
+            onChange={handleChange}
+            size="small"
+            displayEmpty
+          >
+            <MenuItem value="">{translations.bannertable.isActive}</MenuItem>
+            <MenuItem value="true">Active</MenuItem>
+            <MenuItem value="false">Inactive</MenuItem>
+          </Select>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 1,
+            flexDirection: isMobile ? "column" : "row",
+            alignItems: "center",
+            mt: 1,
+            width: "100%",
+          }}
+        >
           <DatePicker
             slotProps={{
               textField: { size: "small", sx: { width: "150px" } },
             }}
             format="YYYY-MM-DD"
             value={
-              searchParams.startDate ? dayjs(searchParams.startDate) : null
+              searchParams.displayStartDate
+                ? dayjs(searchParams.displayStartDate)
+                : null
             }
             onChange={handleStartDateChange}
-            maxDate={searchParams.endDate ? dayjs(searchParams.endDate) : null} // 🔹 종료 날짜 이후 선택 방지
+            maxDate={
+              searchParams.displayEndDate
+                ? dayjs(searchParams.displayEndDate)
+                : null
+            } // 🔹 종료 날짜 이후 선택 방지
           />
           <span>~</span>
           <DatePicker
@@ -160,10 +184,16 @@ const SearchUserArea = ({ onSearch }) => {
               textField: { size: "small", sx: { width: "150px" } },
             }}
             format="YYYY-MM-DD"
-            value={searchParams.endDate ? dayjs(searchParams.endDate) : null}
+            value={
+              searchParams.displayEndDate
+                ? dayjs(searchParams.displayEndDate)
+                : null
+            }
             onChange={handleEndDateChange}
             minDate={
-              searchParams.startDate ? dayjs(searchParams.startDate) : null
+              searchParams.displayStartDate
+                ? dayjs(searchParams.displayStartDate)
+                : null
             }
           />
           <Button variant="contained" color="primary" onClick={handleSearch}>
@@ -175,4 +205,4 @@ const SearchUserArea = ({ onSearch }) => {
   );
 };
 
-export default SearchUserArea;
+export default SearchBannerArea;

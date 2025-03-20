@@ -106,6 +106,7 @@ const SearchAdminArea = ({ onSearch }) => {
           border: "1px solid #ccc",
           borderRadius: 2,
           bgcolor: "#f9f9f9",
+          width: "100%",
         }}
       >
         <Box
@@ -137,6 +138,7 @@ const SearchAdminArea = ({ onSearch }) => {
               value={searchParams.email}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
             />
             <TextField
               label={translations.supage.name1}
@@ -144,6 +146,7 @@ const SearchAdminArea = ({ onSearch }) => {
               value={searchParams.firstName}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
             />
             <TextField
               label={translations.supage.name2}
@@ -151,6 +154,7 @@ const SearchAdminArea = ({ onSearch }) => {
               value={searchParams.lastName}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
             />
             <Select
               label={translations.usertable.usertype2}
@@ -158,6 +162,7 @@ const SearchAdminArea = ({ onSearch }) => {
               value={searchParams.isDeleted}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
               displayEmpty
             >
               <MenuItem value="">{translations.usertable.usertype2}</MenuItem>
@@ -170,41 +175,59 @@ const SearchAdminArea = ({ onSearch }) => {
               value={searchParams.userType}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
               displayEmpty
             >
               <MenuItem value="">{translations.usertable.usertype}</MenuItem>
               <MenuItem value="super_admin">super_admin</MenuItem>
               <MenuItem value="admin">admin</MenuItem>
             </Select>
-            <DatePicker
-              slotProps={{
-                textField: { size: "small", sx: { width: "150px" } },
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 1,
+                flexDirection: isMobile ? "column" : "row",
+                alignItems: "center",
+                width: "100%",
               }}
-              format="YYYY-MM-DD"
-              value={
-                searchParams.startDate ? dayjs(searchParams.startDate) : null
-              }
-              onChange={handleStartDateChange}
-              maxDate={
-                searchParams.endDate ? dayjs(searchParams.endDate) : null
-              } // 🔹 종료 날짜 이후 선택 방지
-            />
-            <span>~</span>
-            <DatePicker
-              slotProps={{
-                textField: { size: "small", sx: { width: "150px" } },
-              }}
-              format="YYYY-MM-DD"
-              value={searchParams.endDate ? dayjs(searchParams.endDate) : null}
-              onChange={handleEndDateChange}
-              minDate={
-                searchParams.startDate ? dayjs(searchParams.startDate) : null
-              }
-            />
-            <></>
-            <Button variant="contained" color="primary" onClick={handleSearch}>
-              검색
-            </Button>
+            >
+              <DatePicker
+                slotProps={{
+                  textField: { size: "small", sx: { width: "150px" } },
+                }}
+                format="YYYY-MM-DD"
+                value={
+                  searchParams.startDate ? dayjs(searchParams.startDate) : null
+                }
+                onChange={handleStartDateChange}
+                maxDate={
+                  searchParams.endDate ? dayjs(searchParams.endDate) : null
+                } // 🔹 종료 날짜 이후 선택 방지
+              />
+              <span>~</span>
+              <DatePicker
+                slotProps={{
+                  textField: { size: "small", sx: { width: "150px" } },
+                }}
+                format="YYYY-MM-DD"
+                value={
+                  searchParams.endDate ? dayjs(searchParams.endDate) : null
+                }
+                onChange={handleEndDateChange}
+                minDate={
+                  searchParams.startDate ? dayjs(searchParams.startDate) : null
+                }
+              />
+              <></>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSearch}
+              >
+                검색
+              </Button>
+            </Box>
           </Collapse>
         </Box>
       </Box>

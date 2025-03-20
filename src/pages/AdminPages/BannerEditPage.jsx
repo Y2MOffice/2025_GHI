@@ -11,6 +11,8 @@ import {
   Button,
   Select,
   MenuItem,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 import dayjs from "dayjs";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -19,6 +21,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import Dropzone from "react-dropzone-uploader";
 import PhotoCollectionModal from "../../components/Admin_component/PhotoCollectionModal";
+import { apiRequest } from "../../utils/api";
 
 const BannerEditPage = () => {
   const { id } = useParams();
@@ -46,35 +49,38 @@ const BannerEditPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    if (isEditMode) {
-      const token = sessionStorage.getItem("token");
-      fetch(`https://stage-api.glowsnaps.tokyo/api/banners/${id}`, {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setFormData({
-            imageUrl: data.data.imageUrl || "",
-            redirectUrl: data.data.redirectUrl || "",
-            title: data.data.title || "",
-            description: data.data.description || "",
-            photoCollectionId: data.data.photoCollectionId || "",
-            photoCollectionTitle: data.data.photoCollectionTitle || "",
-            displayOrder: data.data.displayOrder ?? 0,
-            isDeleted: data.data.isDeleted ?? false,
-            isActive: data.data.isActive ?? true,
-            displayStartDate: data.data.displayStartDate
-              ? dayjs(data.data.displayStartDate)
-              : null,
-            displayEndDate: data.data.displayEndDate
-              ? dayjs(data.data.displayEndDate)
-              : null,
-          });
-          if (data.imageUrl) setUploadedImage(true);
-        })
-        .catch(() => alert("배너 정보를 불러오는 데 실패했습니다."));
-    }
+    if (!isEditMode) return;
+
+    const fetchBannerData = async () => {
+      try {
+        const data = await apiRequest(`/banners/${id}`);
+
+        setFormData({
+          imageId: data.data.imageId || "",
+          imageUrl: data.data.imageUrl || "",
+          redirectUrl: data.data.redirectUrl || "",
+          title: data.data.title || "",
+          description: data.data.description || "",
+          photoCollectionId: data.data.photoCollectionId || "",
+          photoCollectionTitle: data.data.photoCollectionTitle || "",
+          displayOrder: data.data.displayOrder || 0,
+          isDeleted: data.data.isDeleted || false,
+          isActive: data.data.isActive || true,
+          displayStartDate: data.data.displayStartDate
+            ? dayjs(data.data.displayStartDate)
+            : null,
+          displayEndDate: data.data.displayEndDate
+            ? dayjs(data.data.displayEndDate)
+            : null,
+        });
+
+        if (data.data.imageUrl) setUploadedImage(true);
+      } catch (error) {
+        alert("Get Banner Failed");
+      }
+    };
+
+    fetchBannerData();
   }, [id, isEditMode]);
 
   const handleChange = (e) => {
@@ -99,28 +105,32 @@ const BannerEditPage = () => {
     };
   };
 
-  const handleImageUpload = () => {
-    const token = sessionStorage.getItem("token");
-    if (!selectedFile) return alert("업로드할 파일이 없습니다.");
+  const handleImageUpload = async () => {
+    if (!selectedFile) return alert("Missing File");
+
     const formData = new FormData();
     formData.append("file", selectedFile);
-    fetch("https://stage-api.glowsnaps.tokyo/api/uploads/banner-image", {
-      method: "POST",
-      body: formData,
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const absoluteUrl = `https://stage-api.glowsnaps.tokyo${data.data.url}`;
-        setFormData((prev) => ({
-          ...prev,
-          imageId: data.data.id,
-          imageUrl: absoluteUrl,
-        }));
-        setUploadedImage(true);
-        setLocalImage(null);
-      })
-      .catch(() => alert("이미지 업로드에 실패했습니다."));
+
+    try {
+      const data = await apiRequest(
+        "/uploads/banner-image",
+        "POST",
+        formData,
+        true
+      );
+
+      const absoluteUrl = `https://stage-api.glowsnaps.tokyo${data.data.url}`;
+      setFormData((prev) => ({
+        ...prev,
+        imageId: data.data.id,
+        imageUrl: absoluteUrl,
+      }));
+
+      setUploadedImage(true);
+      setLocalImage(null);
+    } catch (error) {
+      alert("Failed Upload");
+    }
   };
 
   const handleImageDelete = () => {
@@ -129,27 +139,17 @@ const BannerEditPage = () => {
     setUploadedImage(false);
   };
 
-  const handleSubmit = () => {
-    const token = sessionStorage.getItem("token");
-    const url = isEditMode
-      ? `https://stage-api.glowsnaps.tokyo/api/banners?bannerId=${id}`
-      : "https://stage-api.glowsnaps.tokyo/api/banners";
-    const method = isEditMode ? "PATCH" : "POST";
-    console.log(JSON.stringify(formData))
-    fetch(url, {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        alert("저장되었습니다.");
-        navigate("/admin/banners");
-      })
-      .catch(() => alert("저장에 실패했습니 다."));
+  const handleSubmit = async () => {
+    try {
+      const endpoint = isEditMode ? `/banners?bannerId=${id}` : "/banners";
+      const method = isEditMode ? "PATCH" : "POST";
+
+      const data = await apiRequest(endpoint, method, formData);
+      alert("Saved");
+      navigate("/admin/banners");
+    } catch (error) {
+      alert("Save Failed");
+    }
   };
 
   return (
@@ -313,6 +313,33 @@ const BannerEditPage = () => {
                     : undefined
                 }
                 fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={formData.isActive}
+                    onChange={(e) =>
+                      setFormData({ ...formData, isActive: e.target.checked })
+                    }
+                  />
+                }
+                label="활성화"
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={formData.isDeleted}
+                    onChange={(e) =>
+                      setFormData({ ...formData, isDeleted: e.target.checked })
+                    }
+                  />
+                }
+                label="삭제"
               />
             </Grid>
           </Grid>

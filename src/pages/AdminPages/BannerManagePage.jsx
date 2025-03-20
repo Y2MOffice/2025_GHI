@@ -6,6 +6,7 @@ import SearchBannerArea from "../../components/Admin_component/SearchBannerArea"
 import PaginationComponent from "../../components/Admin_component/PaginationComponent";
 import DownloadButton from "../../components/Admin_component/DownloadButton";
 import { useMediaQuery } from "@mui/material";
+import { apiRequest } from "../../utils/api";
 
 const BannerManagePage = () => {
   const { translations } = useContext(LanguageContext);
@@ -25,30 +26,15 @@ const BannerManagePage = () => {
   const fetchBanners = async (params = {}) => {
     setLoading(true);
     try {
-      const token = sessionStorage.getItem("token");
-
       const filteredParams = Object.fromEntries(
-        Object.entries({ ...params, orderBy, ascending }).filter(
+        Object.entries({ ...params, page: pagination.page, orderBy, ascending }).filter(
           ([_, v]) => v !== ""
         )
       );
       const queryString = new URLSearchParams(filteredParams).toString();
-      const response = await fetch(
-        `https://stage-api.glowsnaps.tokyo/api/banners?${queryString}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      
+      const data = await apiRequest(`/banners?${queryString}`);
 
-      if (!response.ok) {
-        throw new Error(`서버 응답 오류: ${response.status}`);
-      }
-
-      const data = await response.json();
       setBanners(data.data.items || []);
       setPagination({
         totalPages: data.data.totalPages,
@@ -79,7 +65,7 @@ const BannerManagePage = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 2 }}>
+    <Container sx={{ mt: 2 }}>
       <Box
         display="flex"
         justifyContent="space-between"

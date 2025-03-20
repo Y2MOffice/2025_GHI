@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { useParams, useNavigate } from "react-router-dom";
+import { apiRequest } from "../../utils/api";
 
 const UserEditPage = () => {
   const { translations } = useContext(LanguageContext);
@@ -20,17 +21,23 @@ const UserEditPage = () => {
   const token = sessionStorage.getItem("token");
 
   useEffect(() => {
-    fetch(`https://stage-api.glowsnaps.tokyo/api/users/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setUser(data.data);
-        setIsAdmin(data.isAdmin ?? false); // 🚀 undefined 방지
-        setSwitchState(data.isAdmin ?? false); // 🚀 undefined 방지
-      })
-      .catch(() => alert("Missing User"));
-  }, [id, token]);
+    const fetchUserData = async () => {
+        try {
+            const data = await apiRequest(`/users/${id}`);
+
+            setUser(data.data);
+            setIsAdmin(data.isAdmin ?? false); // 🚀 undefined 방지
+            setSwitchState(data.isAdmin ?? false); // 🚀 undefined 방지
+        } catch (error) {
+            alert("Missing User");
+        }
+    };
+
+    if (id) {
+        fetchUserData();
+    }
+}, [id]);
+
 
   // 스위치 변경 이벤트
   const handleToggle = () => {
@@ -38,46 +45,31 @@ const UserEditPage = () => {
   };
 
   // 확인 버튼 클릭 (API 호출)
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (switchState === isAdmin) {
-      alert("Not Changed State");
-      return;
+        alert("Not Changed State");
+        return;
     }
 
-    if (switchState) {
-      // 관리자 권한 부여 (POST 요청)
-      fetch(`https://stage-api.glowsnaps.tokyo/api/admins/promote/${id}`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then((res) => {
-          if (!res.ok) throw new Error("권한 부여 실패");
-          return res.json();
-        })
-        .then(() => {
-          alert("Admin Setting Success");
-          navigate("/admin/users");
-        })
-        .catch(() => alert("관리자 권한 부여에 실패했습니다."));
-    } else {
-      // 관리자 권한 삭제 (DELETE 요청)
-      if (!window.confirm("Delete Admin authority?")) return;
+    try {
+        if (switchState) {
+            // 관리자 권한 부여 (POST 요청)
+            await apiRequest(`/admins/promote/${id}`, "POST");
+            alert("Admin Setting Success");
+        } else {
+            // 관리자 권한 삭제 (DELETE 요청)
+            if (!window.confirm("Delete Admin authority?")) return;
 
-      fetch(`https://stage-api.glowsnaps.tokyo/api/admins/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then((res) => {
-          if (!res.ok) throw new Error("삭제 실패");
-          return res.json();
-        })
-        .then(() => {
-          alert("Delete Success");
-          navigate("/admin/users");
-        })
-        .catch(() => alert("Delete Fail"));
+            await apiRequest(`/admins/${id}`, "DELETE");
+            alert("Delete Success");
+        }
+
+        navigate("/admin/users");
+    } catch (error) {
+        alert(switchState ? "관리자 권한 부여에 실패했습니다." : "Delete Fail");
     }
-  };
+};
+
 
   // 취소 버튼 클릭 시 이동
   const handleCancel = () => {

@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { pink } from "@mui/material/colors";
+import { loginapiRequest } from "../utils/loginapi";
+import { apiRequest } from "../utils/api";
 
 const theme = createTheme({
   components: {
@@ -78,77 +80,44 @@ const LoginPage = ({ setAuthenticate }) => {
     setErrorMessage("");
 
     try {
-      const response = await fetch(
-        "https://stage-api.glowsnaps.tokyo/api/users/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-            ipAddress,
-            deviceType,
-            country,
-          }),
-          credentials: "include",
+      const response = await loginapiRequest(`/users/login`, "POST", {
+        email,
+        password,
+        ipAddress,
+        deviceType,
+        country,
+      });
+
+      if (response.data.resultCode === 0 && response.data.data) {
+        const token = response.data.data;
+
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("authenticate", true);
+
+        const userData = await apiRequest(`/users/me`);
+
+        if (userData.resultCode === 0 && userData.data) {
+          sessionStorage.setItem("user", JSON.stringify(userData.data));
         }
-      );
+        const userType = userData.data?.userType;
+        const isAuthorized = Boolean(
+          userType === "admin" || userType === "super_admin"
+        );
 
-      if (!response.ok) {
-        throw new Error(`HTTP Error: ${response.status}`);
-      } else {
-        const responseData = await response.json();
-        if (responseData.resultCode === 0 && responseData.data) {
-          const token = responseData.data;
+        setAuthenticate(true);
 
-          sessionStorage.setItem("token", token);
-          sessionStorage.setItem("authenticate", true);
-
-          const userResponse = await fetch(
-            "https://stage-api.glowsnaps.tokyo/api/users/me",
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
-              credentials: "include",
-            }
-          );
-
-          if (!userResponse.ok) {
-            throw new Error(
-              `사용자 정보 가져오기 실패: ${userResponse.status}`,
-              alert(translations.loginpage.message)
-            );
+        setTimeout(() => {
+          if (isAuthorized) {
+            navigate("/admin");
           } else {
-            const userData = await userResponse.json();
-            if (userData.resultCode === 0 && userData.data) {
-              sessionStorage.setItem("user", JSON.stringify(userData.data));
-            }
-            const userType = userData.data?.userType;
-            const isAuthorized = Boolean(
-              userType === "admin" || userType === "super_admin"
-            );
-
-            setAuthenticate(true);
-
-            setTimeout(() => {
-              if (isAuthorized) {
-                navigate("/admin");
-              } else {
-                navigate("/");
-              }
-            }, 100);
+            navigate("/");
           }
-        } else {
-          setErrorMessage(
-            "로그인 실패: " + (responseData.errorMessage || "알 수 없는 오류"),
-            alert(translations.loginpage.message)
-          );
-        }
+        }, 100);
+      } else {
+        setErrorMessage(
+          "로그인 실패: " + (response.data.errorMessage || "알 수 없는 오류"),
+          alert(translations.loginpage.message)
+        );
       }
     } catch (error) {
       console.error("로그인 요청 오류:", error);

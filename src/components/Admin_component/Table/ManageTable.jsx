@@ -29,16 +29,9 @@ const ManageTable = ({
   ascending,
 }) => {
   const { translations } = useContext(LanguageContext);
-  const [selected, setSelected] = useState([]);
   const Navigate = useNavigate();
   if (loading) return <p>불러오는 중...</p>;
   if (error) return <p>오류 발생: {error}</p>;
-
-  const handleSelect = (id) => {
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
 
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && ascending;
@@ -52,21 +45,6 @@ const ManageTable = ({
       <Table size="small" sx={{ minWidth: "100%" }}>
         <TableHead sx={{ backgroundColor: pink[50] }}>
           <TableRow sx={{ height: "40px" }}>
-            <TableCell padding="checkbox" sx={{ whiteSpace: "nowrap", px: 2 }}>
-              <Checkbox
-                indeterminate={
-                  selected.length > 0 && selected.length < users.length
-                }
-                checked={selected.length === users.length}
-                onChange={() =>
-                  setSelected(
-                    selected.length === users.length
-                      ? []
-                      : users.map((u) => u.id)
-                  )
-                }
-              />
-            </TableCell>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
               ID
             </TableCell>
@@ -114,15 +92,6 @@ const ManageTable = ({
         <TableBody>
           {users.map((user) => (
             <TableRow key={user.id} sx={{ height: "40px" }}>
-              <TableCell
-                padding="checkbox"
-                sx={{ whiteSpace: "nowrap", px: 2 }}
-              >
-                <Checkbox
-                  checked={selected.includes(user.id)}
-                  onChange={() => handleSelect(user.id)}
-                />
-              </TableCell>
               <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
                 {user.id}
               </TableCell>
@@ -156,14 +125,6 @@ const ManageTable = ({
           ))}
         </TableBody>
       </Table>
-      <Button
-        variant="contained"
-        color="error"
-        disabled={selected.length === 0}
-        style={{ margin: "10px" }}
-      >
-        {translations.managetable.delete}
-      </Button>
     </TableContainer>
   );
 };
