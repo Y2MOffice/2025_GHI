@@ -24,45 +24,47 @@ const SakuraManagePage = () => {
   });
 
   const fetchPurchase = async (params = {}) => {
-      setLoading(true);
-      try {
-  
-        const filteredParams = Object.fromEntries(
-          Object.entries({ ...params, page: pagination.page, orderBy, ascending }).filter(
-            ([_, v]) => v !== ""
-          )
-        );
-        const queryString = new URLSearchParams(filteredParams).toString();
-  
-        const data = await apiRequest(`/sakura-transactions?${queryString}`);
-        setPurchase(data.data.items || []);
-        setPagination({
-          totalPages: data.data.totalPages,
-          page: data.data.page,
-          pageSize: data.data.pageSize,
-        });
-      } catch (err) {
-        console.error("유저 목록 가져오기 실패:", err);
-        setError(err.message);
-        setPurchase([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    useEffect(() => {
-      fetchPurchase(searchParams);
-    }, [pagination.page, orderBy, ascending]);
-  
-    const handleSortChange = (newOrderBy, newAscending) => {
-      setOrderBy(newOrderBy);
-      setAscending(newAscending);
-      fetchPurchase({
-        ...searchParams,
-        orderBy: newOrderBy,
-        ascending: newAscending,
+    setLoading(true);
+    try {
+      const filteredParams = Object.fromEntries(
+        Object.entries({
+          ...params,
+          page: pagination.page,
+          orderBy,
+          ascending,
+        }).filter(([_, v]) => v !== "")
+      );
+      const queryString = new URLSearchParams(filteredParams).toString();
+
+      const data = await apiRequest(`/sakura-transactions?${queryString}`);
+      setPurchase(data.data.items || []);
+      setPagination({
+        totalPages: data.data.totalPages,
+        page: data.data.page,
+        pageSize: data.data.pageSize,
       });
-    };
+    } catch (err) {
+      console.error("유저 목록 가져오기 실패:", err);
+      setError(err.message);
+      setPurchase([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPurchase(searchParams);
+  }, [pagination.page, orderBy, ascending]);
+
+  const handleSortChange = (newOrderBy, newAscending) => {
+    setOrderBy(newOrderBy);
+    setAscending(newAscending);
+    fetchPurchase({
+      ...searchParams,
+      orderBy: newOrderBy,
+      ascending: newAscending,
+    });
+  };
 
   return (
     <Container maxWidth="lg" sx={{ mt: 2 }}>
@@ -76,7 +78,15 @@ const SakuraManagePage = () => {
         <Typography variant="h5" fontWeight="bold">
           {translations.sakurapage.name}
         </Typography>
-        <DownloadButton />
+        <DownloadButton
+          fetchUrl="/sakura-transactions"
+          fileName="Sakura-transactions.xlsx"
+          searchParams={searchParams}
+          orderBy={orderBy}
+          ascending={ascending}
+          orderBy={orderBy}
+          ascending={ascending}
+        />
       </Box>
 
       {/* 검색 및 필터 영역 */}

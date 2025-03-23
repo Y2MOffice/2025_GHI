@@ -135,6 +135,7 @@ const UserTable = ({
                     color="primary"
                     size="small"
                     onClick={() => navigate(`/admin/useredit/${user.id}`)}
+                    disabled={user.isDeleted}
                   >
                     <Edit fontSize="small" />
                   </IconButton>
@@ -142,6 +143,7 @@ const UserTable = ({
                     color="error"
                     size="small"
                     onClick={() => handleDeleteUser(user)}
+                    disabled={user.isDeleted}
                   >
                     <Delete fontSize="small" />
                   </IconButton>

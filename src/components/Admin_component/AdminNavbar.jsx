@@ -16,6 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -62,6 +63,9 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
   const firstName = JSON.parse(sessionStorage.getItem("user"))?.firstName || "";
   const lastName = JSON.parse(sessionStorage.getItem("user"))?.lastName || "";
   const userName = `${lastName}${firstName}`.trim();
+  const location = useLocation();
+  const isManageActive = ["/admin/manage", "/admin/adminedit"].some(path => location.pathname.startsWith(path));
+  const isUsersActive = ["/admin/users", "/admin/useredit"].some(path => location.pathname.startsWith(path));
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -133,8 +137,8 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
                   <StyledListItemButton
                     sx={{
                       pl: 4,
-                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
-                      color: isActive ? "white" : "black",
+                      backgroundColor: isManageActive ? "#c1a3a3" : "inherit",
+                      color: isManageActive ? "white" : "black",
                     }}
                   >
                     <ListItemIcon>
@@ -149,8 +153,8 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
                   <StyledListItemButton
                     sx={{
                       pl: 4,
-                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
-                      color: isActive ? "white" : "black",
+                      backgroundColor: isUsersActive ? "#c1a3a3" : "inherit",
+                      color: isUsersActive ? "white" : "black",
                     }}
                   >
                     <ListItemIcon>
@@ -293,6 +297,22 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
                   </StyledListItemButton>
                 )}
               </NavLink>
+              <NavLink to="payment" style={{ textDecoration: "none" }}>
+                {({ isActive }) => (
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
+                    <ListItemIcon>
+                      <ReceiptLongIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={translations.purchase.payment} />
+                  </StyledListItemButton>
+                )}
+              </NavLink>
             </List>
           </Collapse>
 
@@ -385,8 +405,8 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
                     <StyledListItemButton
                       sx={{
                         pl: 4,
-                        backgroundColor: isActive ? "#c1a3a3" : "inherit",
-                        color: isActive ? "white" : "black",
+                        backgroundColor: isManageActive ? "#c1a3a3" : "inherit",
+                        color: isManageActive ? "white" : "black",
                       }}
                     >
                       <ListItemIcon>
@@ -401,8 +421,8 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
                     <StyledListItemButton
                       sx={{
                         pl: 4,
-                        backgroundColor: isActive ? "#c1a3a3" : "inherit",
-                        color: isActive ? "white" : "black",
+                        backgroundColor: isUsersActive ? "#c1a3a3" : "inherit",
+                        color: isUsersActive ? "white" : "black",
                       }}
                     >
                       <ListItemIcon>
@@ -550,6 +570,22 @@ const AdminNavbar = ({ setAuthenticate, superUser }) => {
                     </StyledListItemButton>
                   )}
                 </NavLink>
+              <NavLink to="payment" style={{ textDecoration: "none" }}>
+                {({ isActive }) => (
+                  <StyledListItemButton
+                    sx={{
+                      pl: 4,
+                      backgroundColor: isActive ? "#c1a3a3" : "inherit",
+                      color: isActive ? "white" : "black",
+                    }}
+                  >
+                    <ListItemIcon>
+                      <ReceiptLongIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={translations.purchase.payment} />
+                  </StyledListItemButton>
+                )}
+              </NavLink>
               </List>
             </Collapse>
             <StyledListItemButton onClick={() => handleMenuToggle("banners")}>

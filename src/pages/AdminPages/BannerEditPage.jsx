@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   TextField,
   Grid,
@@ -20,6 +20,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useParams, useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import Dropzone from "react-dropzone-uploader";
+import { LanguageContext } from "../../contexts/LanguageContext";
 import PhotoCollectionModal from "../../components/Admin_component/PhotoCollectionModal";
 import { apiRequest } from "../../utils/api";
 
@@ -27,6 +28,7 @@ const BannerEditPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEditMode = Boolean(id);
+  const { translations } = useContext(LanguageContext);
 
   const [formData, setFormData] = useState({
     imageId: "",
@@ -159,7 +161,7 @@ const BannerEditPage = () => {
           sx={{ border: "2px solid #ddd", borderRadius: "12px", p: 3, mt: 4 }}
         >
           <Typography variant="h5" fontWeight="bold" sx={{ mb: 3 }}>
-            {isEditMode ? "배너 수정" : "배너 등록"}
+            {isEditMode ? translations.banners.edit : translations.banners.regist}
           </Typography>
 
           <Grid container spacing={2}>
@@ -200,7 +202,7 @@ const BannerEditPage = () => {
                     >
                       <AddIcon sx={{ fontSize: 48, color: "gray" }} />
                       <Typography variant="body2" color="gray">
-                        이미지 업로드
+                        {translations.bannerpage.upload}
                       </Typography>
                     </Box>
                   </label>
@@ -213,7 +215,7 @@ const BannerEditPage = () => {
                   sx={{ mt: 2 }}
                   onClick={handleImageUpload}
                 >
-                  서버에 이미지 등록
+                  {translations.bannerpage.set}
                 </Button>
               )}
               {(uploadedImage || localImage) && (
@@ -223,7 +225,7 @@ const BannerEditPage = () => {
                   sx={{ mt: 2 }}
                   onClick={handleImageDelete}
                 >
-                  이미지 삭제
+                  {translations.bannerpage.delete}
                 </Button>
               )}
             </Grid>
@@ -238,18 +240,18 @@ const BannerEditPage = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography>
-                선택된 사진집:{" "}
+              {translations.bannerpage.photo}:{" "}
                 {formData.photoCollectionTitle
                   ? `: ${formData.photoCollectionTitle}`
                   : "없음"}
               </Typography>
               <Button variant="contained" onClick={() => setModalOpen(true)}>
-                사진집 검색
+              {translations.bannerpage.search}
               </Button>
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="표시 순서"
+                label={translations.bannerpage.displayOrder}
                 name="displayOrder"
                 type="number"
                 value={formData.displayOrder}
@@ -259,7 +261,7 @@ const BannerEditPage = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="설명"
+                label={translations.bannerpage.description}
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
@@ -270,7 +272,7 @@ const BannerEditPage = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="이동할 URL"
+                label={translations.bannerpage.redirectUrl}
                 name="redirectUrl"
                 value={formData.redirectUrl}
                 onChange={handleChange}
@@ -279,7 +281,7 @@ const BannerEditPage = () => {
             </Grid>
             <Grid item xs={6}>
               <DatePicker
-                label="시작 날짜"
+                label={translations.bannerpage.displayStartDate}
                 value={
                   formData.displayStartDate
                     ? dayjs(formData.displayStartDate)
@@ -298,7 +300,7 @@ const BannerEditPage = () => {
             </Grid>
             <Grid item xs={6}>
               <DatePicker
-                label="종료 날짜"
+                label={translations.bannerpage.displayEndDate}
                 value={
                   formData.displayEndDate
                     ? dayjs(formData.displayEndDate)
@@ -325,7 +327,7 @@ const BannerEditPage = () => {
                     }
                   />
                 }
-                label="활성화"
+                label={translations.bannerpage.isActive}
               />
             </Grid>
 
@@ -339,7 +341,7 @@ const BannerEditPage = () => {
                     }
                   />
                 }
-                label="삭제"
+                label={translations.bannerpage.isDeleted}
               />
             </Grid>
           </Grid>
@@ -349,7 +351,7 @@ const BannerEditPage = () => {
             sx={{ mt: 3 }}
             onClick={handleSubmit}
           >
-            저장
+            {translations.bannerpage.save}
           </Button>
         </Box>
       </Container>
