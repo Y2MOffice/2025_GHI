@@ -137,6 +137,7 @@ const SearchUserArea = ({ onSearch }) => {
               value={searchParams.email}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
             />
             <TextField
               label={translations.usereditpage.first_name}
@@ -144,6 +145,7 @@ const SearchUserArea = ({ onSearch }) => {
               value={searchParams.firstName}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
             />
             <TextField
               label={translations.usereditpage.last_name}
@@ -151,6 +153,7 @@ const SearchUserArea = ({ onSearch }) => {
               value={searchParams.lastName}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
             />
             <Select
               label={translations.usertable.usertype}
@@ -158,6 +161,7 @@ const SearchUserArea = ({ onSearch }) => {
               value={searchParams.isDeleted}
               onChange={handleChange}
               size="small"
+              sx={{ mb: 1, mr: 1 }}
               displayEmpty
             >
               <MenuItem value="">{translations.usertable.usertype}</MenuItem>

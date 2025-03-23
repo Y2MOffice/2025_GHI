@@ -70,7 +70,13 @@ const PhotoManagePage = () => {
         <Typography variant="h5" fontWeight="bold">
           {translations.photopage.name}
         </Typography>
-        <DownloadButton />
+        <DownloadButton
+          fetchUrl="/photo-collections"
+          fileName="Photo-collections.xlsx"
+          searchParams={searchParams}
+          orderBy={orderBy}
+          ascending={ascending}
+        />
       </Box>
 
       {/* 검색 및 필터 영역 */}

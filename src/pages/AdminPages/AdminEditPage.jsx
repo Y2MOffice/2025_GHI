@@ -53,7 +53,7 @@ const AdminEditPage = () => {
         setAdmin((prevAdmin) => ({ ...prevAdmin, userType: newRole }));
         navigate("/admin/manage");
       } else {
-        alert(`변경 실패: ${data.errorMessage || "unknownError"}`);
+        alert(`Edit Fail: ${data.errorMessage || "unknownError"}`);
       }
     } catch (error) {
       alert(`${translations.admineditpage.changefail} ${error.message}`);

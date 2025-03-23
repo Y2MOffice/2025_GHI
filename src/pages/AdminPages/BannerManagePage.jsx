@@ -27,12 +27,15 @@ const BannerManagePage = () => {
     setLoading(true);
     try {
       const filteredParams = Object.fromEntries(
-        Object.entries({ ...params, page: pagination.page, orderBy, ascending }).filter(
-          ([_, v]) => v !== ""
-        )
+        Object.entries({
+          ...params,
+          page: pagination.page,
+          orderBy,
+          ascending,
+        }).filter(([_, v]) => v !== "")
       );
       const queryString = new URLSearchParams(filteredParams).toString();
-      
+
       const data = await apiRequest(`/banners?${queryString}`);
 
       setBanners(data.data.items || []);
@@ -42,7 +45,6 @@ const BannerManagePage = () => {
         pageSize: data.data.pageSize,
       });
     } catch (err) {
-      console.error("배너 목록 가져오기 실패:", err);
       setError(err.message);
       setBanners([]);
     } finally {
@@ -75,7 +77,13 @@ const BannerManagePage = () => {
         <Typography variant="h5" fontWeight="bold">
           {translations.bannerpage.name}
         </Typography>
-        <DownloadButton banners={banners} />
+        <DownloadButton
+          fetchUrl="/banners"
+          fileName="Banners.xlsx"
+          searchParams={searchParams}
+          orderBy={orderBy}
+          ascending={ascending}
+        />
       </Box>
 
       <Paper

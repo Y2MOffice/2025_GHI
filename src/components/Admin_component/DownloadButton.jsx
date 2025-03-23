@@ -3,6 +3,7 @@ import { pink } from "@mui/material/colors";
 import React, { useContext } from "react";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import * as XLSX from "xlsx";
+import { apiRequest } from "../../utils/api";
 
 const theme = createTheme({
   palette: {
@@ -13,22 +14,38 @@ const theme = createTheme({
   },
 });
 
-const DownloadButton = ({ users }) => {
+const DownloadButton = ({ fetchUrl, fileName = "data.xlsx", searchParams = {}, orderBy, ascending }) => {
   const { translations } = useContext(LanguageContext);
 
-  const handleDownload = () => {
-    if (users.length === 0) {
-      alert("다운로드할 데이터가 없습니다.");
-      return;
+  const handleDownload = async () => {
+    try {
+      const params = Object.fromEntries(
+        Object.entries({
+          ...searchParams,
+          page: 1,
+          pageSize: 10000,
+          orderBy,
+          ascending,
+        }).filter(([_, v]) => v !== "")
+      );
+
+      const queryString = new URLSearchParams(params).toString();
+      const json = await apiRequest(`${fetchUrl}?${queryString}`);
+      
+      if (json.resultCode !== 0 || !json.data?.items) {
+        alert("데이터를 불러오지 못했습니다.");
+        return;
+      }
+
+      const worksheet = XLSX.utils.json_to_sheet(json.data.items);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+      XLSX.writeFile(workbook, fileName);
+    } catch (error) {
+      console.error("다운로드 오류:", error);
+      alert("다운로드 중 오류 발생");
     }
-
-    // ✅ 엑셀 워크북 및 시트 생성
-    const worksheet = XLSX.utils.json_to_sheet(users);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Admins");
-
-    // ✅ 파일 저장
-    XLSX.writeFile(workbook, "AdminData.xlsx");
   };
 
   return (

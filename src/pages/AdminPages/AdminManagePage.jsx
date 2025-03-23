@@ -35,7 +35,7 @@ const AdminManagePage = () => {
         }).filter(([_, v]) => v !== "")
       );
       const queryString = new URLSearchParams(filteredParams).toString();
-      
+
       const response = await apiRequest(`/admins?${queryString}`);
       setUsers(response.data.items || []);
       setPagination({
@@ -78,7 +78,13 @@ const AdminManagePage = () => {
         <Typography variant="h5" fontWeight="bold">
           {translations.adminpage.name}
         </Typography>
-        <DownloadButton users={users} />
+        <DownloadButton
+          fetchUrl="/admins"
+          fileName="Admins.xlsx"
+          searchParams={searchParams}
+          orderBy={orderBy}
+          ascending={ascending}
+        />
       </Box>
 
       {/* 검색 및 필터 영역 */}

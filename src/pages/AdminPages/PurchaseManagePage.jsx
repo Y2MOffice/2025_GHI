@@ -27,12 +27,15 @@ const PurchaseManagePage = () => {
     setLoading(true);
     try {
       const filteredParams = Object.fromEntries(
-        Object.entries({ ...params, page: pagination.page, orderBy, ascending }).filter(
-          ([_, v]) => v !== ""
-        )
+        Object.entries({
+          ...params,
+          page: pagination.page,
+          orderBy,
+          ascending,
+        }).filter(([_, v]) => v !== "")
       );
       const queryString = new URLSearchParams(filteredParams).toString();
-      
+
       const data = await apiRequest(`/purchases?${queryString}`);
 
       setPurchase(data.data.items || []);
@@ -76,7 +79,13 @@ const PurchaseManagePage = () => {
         <Typography variant="h5" fontWeight="bold">
           {translations.purchasepage.name}
         </Typography>
-        <DownloadButton />
+        <DownloadButton
+          fetchUrl="/purchases"
+          fileName="Purchases.xlsx"
+          searchParams={searchParams}
+          orderBy={orderBy}
+          ascending={ascending}
+        />
       </Box>
 
       {/* 검색 및 필터 영역 */}
