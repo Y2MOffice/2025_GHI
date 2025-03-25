@@ -48,13 +48,13 @@ const PhotoManagePage = () => {
 
   //DELETE
   const deletePhoto = async (photoId) => {
-    if (!window.confirm("정말 삭제하겠습니까?")) return;
+    if (!window.confirm(translations.photomanage.question)) return;
     try {
       await apiRequest(`/photo-collections/${photoId}`, "DELETE");
-      alert("삭제되었습니다.");
+      alert(translations.photomanage.ok);
       getPhotos(searchParams); //삭제하고나서 다시목록 받아옴
     } catch (err) {
-      alert(`삭제 실패:${err.message}`);
+      alert(`${translations.photomanage.failed}:${err.message}`);
     }
   };
 

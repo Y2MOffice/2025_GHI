@@ -48,6 +48,7 @@ detail:
   buy: "Purchase"
 adminpage:
   name: "Admin List"
+  searchCondition: "Search conditions"
 editacc:
   name: "Edit Account Information"
   namelabel: "Name"
@@ -294,3 +295,73 @@ bannertable:
   manage: "Manage"
   loading: "Loading..."
   error: "Error:"
+gloval:
+  loading: "Loading..."
+  error: "An error occurred:"
+photomodal:
+  title: "Photo Book Search"
+  search: "Search Photo Book Title"
+  searchbutton: "Search"
+  titletable: "Title"
+  select: "Select"
+paymentTable:
+  name: "Name"
+  nickname: "Nickname"
+  email: "Email"
+  usertype: "User Type"
+  payment: "Payment Method"
+  paystatus: "Payment Status"
+  price: "Amount"
+  date: "Payment Date"
+sakura:
+  id: "ID"
+  type: "Type"
+  price: "Amount"
+  paid: "Paid"
+  date: "Created Date"
+  ok: "Completed"
+  no: "Unpaid"
+userinfo:
+  userinfo: "User Information"
+  name: "Name"
+  email: "Email"
+  phone: "Phone Number"
+  language: "Display Language"
+  nickname: "Nickname"
+  type: "User Role"
+  psakura: "Paid Sakura"
+  fsakura: "Free Sakura"
+  deleted: "Deleted"
+  yes: "Yes"
+  no: "No"
+  admin: "Grant Admin Rights"
+loginhistory:
+  history: "Login History"
+  time: "Login Time"
+  ip: "IP Address"
+  device: "Device Type"
+  country: "Country"
+photopurchasetab:
+  photopurchase: "Photo Book Purchase History"
+  title: "Photo Book Title"
+  date: "Purchase Date"
+userpaymenttab:
+  title: "Payment History"
+  price: "Amount"
+  method: "Payment Method"
+  status: "Payment Status"
+  date: "Payment Date"
+banneredit:
+  title: "Banner Title"
+photomanage:
+  question: "Are you sure you want to delete?"
+  ok: "Deleted successfully."
+  failed: "Deletion failed."
+helptext:
+  password: "Passwords do not match."
+useredit:
+  info: "User Info"
+  login: "Login History"
+  sakura: "Sakura Purchase History"
+  photo: "Photo Book Purchase History"
+  pay: "User Payment History"

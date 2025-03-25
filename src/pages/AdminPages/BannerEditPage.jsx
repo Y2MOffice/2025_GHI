@@ -231,7 +231,7 @@ const BannerEditPage = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="배너 제목"
+                label= {translations.banneredit.title}
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
@@ -243,7 +243,7 @@ const BannerEditPage = () => {
               {translations.bannerpage.photo}:{" "}
                 {formData.photoCollectionTitle
                   ? `: ${formData.photoCollectionTitle}`
-                  : "없음"}
+                  : "None"}
               </Typography>
               <Button variant="contained" onClick={() => setModalOpen(true)}>
               {translations.bannerpage.search}
@@ -272,7 +272,7 @@ const BannerEditPage = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label={translations.bannerpage.redirectUrl}
+                label={translations.bannerpage.redirectURL}
                 name="redirectUrl"
                 value={formData.redirectUrl}
                 onChange={handleChange}

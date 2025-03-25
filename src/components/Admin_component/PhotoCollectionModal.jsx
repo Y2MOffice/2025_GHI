@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { LanguageContext } from "../../contexts/LanguageContext";
 import {
   Dialog,
   DialogTitle,
@@ -23,6 +24,7 @@ const PhotoCollectionModal = ({ open, onClose, onSelect }) => {
   const [photoCollections, setPhotoCollections] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+    const { translations } = useContext(LanguageContext);
 
   const handleSearch = async () => {
     try {
@@ -33,14 +35,14 @@ const PhotoCollectionModal = ({ open, onClose, onSelect }) => {
       setPhotoCollections(response.data.items);
       
     } catch (error) {
-      console.error("사진집 검색 요청 실패:", error.message);
+      console.error("error:", error.message);
     }
   };
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>
-        사진집 검색
+        {translations.photomodal.title}
         <IconButton
           aria-label="close"
           onClick={onClose}
@@ -51,21 +53,21 @@ const PhotoCollectionModal = ({ open, onClose, onSelect }) => {
       </DialogTitle>
       <DialogContent dividers>
         <TextField
-          label="사진집 제목 검색"
+          label={translations.photomodal.search}
           value={searchTitle}
           onChange={(e) => setSearchTitle(e.target.value)}
           fullWidth
           sx={{ mb: 2 }}
         />
         <Button variant="contained" onClick={handleSearch} sx={{ mb: 2 }}>
-          검색
+        {translations.photomodal.searchbutton}
         </Button>
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>제목</TableCell>
-                <TableCell>선택</TableCell>
+                <TableCell>{translations.photomodal.titletable}</TableCell>
+                <TableCell>{translations.photomodal.select}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -82,7 +84,7 @@ const PhotoCollectionModal = ({ open, onClose, onSelect }) => {
                           onClose();
                         }}
                       >
-                        선택
+                        {translations.photomodal.select}
                       </Button>
                     </TableCell>
                   </TableRow>

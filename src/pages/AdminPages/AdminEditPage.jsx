@@ -98,7 +98,6 @@ const AdminEditPage = () => {
             color="primary"
             sx={{ mb: 2 }}
           >
-            현재 수정 중인 유저
             <br /> {admin.name}
           </Typography>
         )}

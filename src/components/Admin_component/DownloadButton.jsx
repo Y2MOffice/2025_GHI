@@ -23,7 +23,7 @@ const DownloadButton = ({ fetchUrl, fileName = "data.xlsx", searchParams = {}, o
         Object.entries({
           ...searchParams,
           page: 1,
-          pageSize: 10000,
+          pageSize: 100000,
           orderBy,
           ascending,
         }).filter(([_, v]) => v !== "")
@@ -33,7 +33,7 @@ const DownloadButton = ({ fetchUrl, fileName = "data.xlsx", searchParams = {}, o
       const json = await apiRequest(`${fetchUrl}?${queryString}`);
       
       if (json.resultCode !== 0 || !json.data?.items) {
-        alert("데이터를 불러오지 못했습니다.");
+        alert(translations.global.error);
         return;
       }
 
@@ -44,7 +44,7 @@ const DownloadButton = ({ fetchUrl, fileName = "data.xlsx", searchParams = {}, o
       XLSX.writeFile(workbook, fileName);
     } catch (error) {
       console.error("다운로드 오류:", error);
-      alert("다운로드 중 오류 발생");
+      alert(translations.global.error);
     }
   };
 

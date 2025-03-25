@@ -82,7 +82,7 @@ const UserInfoTab = ({ userId }) => {
   return (
     <Box sx={{ p: 3, bgcolor: grey[100], borderRadius: 2 }}>
       <Typography variant="h5" fontWeight="bold" mb={2}>
-        유저 정보
+        {translations.userinfo.userinfo}
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={6}>
@@ -93,73 +93,73 @@ const UserInfoTab = ({ userId }) => {
         </Grid>
 
         <Grid item xs={6}>
-          <Typography>이름:</Typography>
+          <Typography>{translations.userinfo.name}:</Typography>
         </Grid>
         <Grid item xs={6}>
           <Typography>{user.name}</Typography>
         </Grid>
 
         <Grid item xs={6}>
-          <Typography>이메일:</Typography>
+          <Typography>translations.userinfo.email:</Typography>
         </Grid>
         <Grid item xs={6}>
           <Typography>{user.email}</Typography>
         </Grid>
 
         <Grid item xs={6}>
-          <Typography>전화번호:</Typography>
+          <Typography>{translations.userinfo.phone}:</Typography>
         </Grid>
         <Grid item xs={6}>
           <Typography>{user.phoneNumber}</Typography>
         </Grid>
 
         <Grid item xs={6}>
-          <Typography>표시 언어:</Typography>
+          <Typography>{translations.userinfo.language}:</Typography>
         </Grid>
         <Grid item xs={6}>
           <Typography>{user.displayLanguage}</Typography>
         </Grid>
 
         <Grid item xs={6}>
-          <Typography>닉네임:</Typography>
+          <Typography>{translations.userinfo.nickname}:</Typography>
         </Grid>
         <Grid item xs={6}>
           <Typography>{user.nickname}</Typography>
         </Grid>
 
         <Grid item xs={6}>
-          <Typography>유저 유형:</Typography>
+          <Typography>{translations.userinfo.usertype}:</Typography>
         </Grid>
         <Grid item xs={6}>
           <Typography>{user.userType}</Typography>
         </Grid>
 
         <Grid item xs={6}>
-          <Typography>유료 사쿠라:</Typography>
+          <Typography>{translations.userinfo.psakura}:</Typography>
         </Grid>
         <Grid item xs={6}>
           <Typography>{user.paidSakura}</Typography>
         </Grid>
 
         <Grid item xs={6}>
-          <Typography>무료 사쿠라:</Typography>
+          <Typography>{translations.userinfo.fsakura}:</Typography>
         </Grid>
         <Grid item xs={6}>
           <Typography>{user.freeSakura}</Typography>
         </Grid>
 
         <Grid item xs={6}>
-          <Typography>삭제 여부:</Typography>
+          <Typography>{translations.userinfo.deleted}:</Typography>
         </Grid>
         <Grid item xs={6}>
-          <Typography>{user.isDeleted ? "예" : "아니오"}</Typography>
+          <Typography>{user.isDeleted ? translations.userinfo.yes : translations.userinfo.no}</Typography>
         </Grid>
       </Grid>
 
       <Box sx={{ mt: 3 }}>
         <FormControlLabel
           control={<Switch checked={switchState} onChange={handleToggle} />}
-          label={"관리자 권한 부여"}
+          label={translations.userinfo.admin}
         />
       </Box>
       <Box sx={{ mt: 3, display: "flex", justifyContent: "center", gap: 2 }}>
