@@ -38,7 +38,7 @@ menu:
   charge: "サクラチャージ"
   home: "ホーム"
   policy: "個人情報保護ポリシー"
-  commercial: "特定商取引法表示"
+  commercial: "特定商取引法"
   guide: "ご利用ガイド"
   text: "このアプリは作り中です。"
 detail:
@@ -365,3 +365,8 @@ useredit:
   sakura: "さくら購入履歴"
   photo: "写真集購入履歴"
   pay: "ユーザー支払履歴"
+payresult:
+  success: "支払いが完了しました"
+  fail: "支払いに失敗しました"
+  go2home: "まもなくメインページに移動します。"
+  go2back: "まもなく前のページに戻ります。"

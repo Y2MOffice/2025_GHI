@@ -38,7 +38,7 @@ menu:
   charge: "Charge Sakura"
   home: "Home"
   policy: "Privacy Policy"
-  commercial: "Specified Commercial Transactions Act"
+  commercial: "Specified Commercial Law"
   guide: "User Guide"
   text: "This application is under development."
 detail:
@@ -365,3 +365,8 @@ useredit:
   sakura: "Sakura Purchase History"
   photo: "Photo Book Purchase History"
   pay: "User Payment History"
+payresult:
+  success: "Payment completed successfully"
+  fail: "Payment failed"
+  go2home: "You will be redirected to the main page shortly."
+  go2back: "You will be redirected to the previous page shortly."

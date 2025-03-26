@@ -40,6 +40,7 @@ import RequireSuperUser from "./routes/RequireSuperUser";
 import BannerEdit from "./pages/AdminPages/BannerEditPage";
 import BannerManage from "./pages/AdminPages/BannerManagePage";
 import PaymentsManagePage from "./pages/AdminPages/PaymentsManagePage";
+import PaymentResultPage from "./pages/PaymentResultPage"
 
 const App = () => {
   const superUser =
@@ -78,6 +79,8 @@ const App = () => {
             <Route path="photo-history" element={<PhotoPurchaseHistory />} />
             <Route path="favorites" element={<FavoriteList />} />
             <Route path="viewPage/:id" element={<ViewPage />} />
+            <Route path="/payment/success" element={<PaymentResultPage />} />
+            <Route path="/payment/fail" element={<PaymentResultPage />} />
           </Route>
         </Route>
         {/* 관리자 페이지 */}

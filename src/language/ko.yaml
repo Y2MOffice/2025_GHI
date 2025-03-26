@@ -38,7 +38,7 @@ menu:
   charge: "사쿠라 충전하기"
   home: "홈"
   policy: "개인정보보호정책"
-  commercial: "특정상거래법표시"
+  commercial: "특정상거래법"
   guide: "이용 가이드"
   text: "이 애플리케이션은 만드는 중 입니다."
 detail:
@@ -365,3 +365,8 @@ useredit:
   sakura: "사쿠라 구매 이력"
   photo: "사진집 구매 이력"
   pay: "유저 결제 이력"
+payresult:
+  success: "결제가 완료되었습니다"
+  fail: "결제에 실패하였습니다"
+  go2home: "잠시 후 메인 페이지로 이동합니다."
+  go2back: "잠시 후 이전 페이지로 돌아갑니다."
