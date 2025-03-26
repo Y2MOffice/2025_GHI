@@ -8,7 +8,6 @@ import {
   TableBody,
   TableContainer,
   Paper,
-  Checkbox,
   IconButton,
   Button,
   useMediaQuery,
@@ -33,7 +32,10 @@ const PhotoTable = ({ photos, onDelete }) => {
   const emptyRows = Math.max(MIN_ROWS - photos.length, 0);
 
   return (
-    <TableContainer component={Paper} sx={{ overflow: "auto" }}>
+    <TableContainer
+      component={Paper}
+      sx={{ overflow: "auto", maxWidth: "1800px", mx: "auto" }}
+    >
       <Table size="small" sx={{ minWidth: "100%" }}>
         <TableHead sx={{ backgroundColor: pink[50] }}>
           <TableRow sx={{ height: "40px" }}>
@@ -69,9 +71,12 @@ const PhotoTable = ({ photos, onDelete }) => {
               <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
                 {truncateText(photo.title, isMobile ? 6 : 15)}
               </TableCell>
-              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>{photo.price}</TableCell>
               <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-                {dayjs(photo.created_at).format("YYYY-MM-DD")}
+                ${photo.price}
+              </TableCell>
+
+              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
+                {dayjs(photo.createdAt).format("YYYY-MM-DD")}
               </TableCell>
               <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
                 <IconButton
