@@ -27,12 +27,15 @@ const UserManagePage = () => {
     setLoading(true);
     try {
       const filteredParams = Object.fromEntries(
-        Object.entries({ ...params, page: pagination.page, orderBy, ascending }).filter(
-          ([_, v]) => v !== ""
-        )
+        Object.entries({
+          ...params,
+          page: pagination.page,
+          orderBy,
+          ascending,
+        }).filter(([_, v]) => v !== "")
       );
       const queryString = new URLSearchParams(filteredParams).toString();
-      
+
       const data = await apiRequest(`/users?${queryString}`);
 
       setUsers(data.data.items || []);
@@ -75,7 +78,13 @@ const UserManagePage = () => {
         <Typography variant="h5" fontWeight="bold">
           {translations.userpage.name}
         </Typography>
-        <DownloadButton users={users} />
+        <DownloadButton
+          fetchUrl="/users"
+          fileName="Users.xlsx"
+          searchParams={searchParams}
+          orderBy={orderBy}
+          ascending={ascending}
+        />
       </Box>
 
       <Paper

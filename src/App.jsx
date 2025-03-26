@@ -39,6 +39,7 @@ import AdminEditPage from "./pages/AdminPages/AdminEditPage";
 import RequireSuperUser from "./routes/RequireSuperUser";
 import BannerEdit from "./pages/AdminPages/BannerEditPage";
 import BannerManage from "./pages/AdminPages/BannerManagePage";
+import PaymentsManagePage from "./pages/AdminPages/PaymentsManagePage";
 
 const App = () => {
   const superUser =
@@ -124,6 +125,15 @@ const App = () => {
                 </RequireSuperUser>
               } 
             />
+            <Route
+              path="payment"
+              element={
+                <RequireSuperUser superUser={superUser}>
+                  <PaymentsManagePage />
+                </RequireSuperUser>
+              } 
+            />
+
 
             {/* 일반 관리자 가능 */}
             <Route path="artists" element={<ArtistManage />} />

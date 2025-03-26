@@ -77,14 +77,13 @@ const SignUpPage = () => {
       });
       console.log(log.data);
       if (log.data.resultCode != 200) {
-        alert("회원가입 요청 오류:"+ log.data.errorMessage);
+        alert("SignUp Fail:"+ log.data.errorMessage);
         return;
       }
-      alert("회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.");
+      alert("SignUp Success!");
       navigate("/login");
     } catch (error) {
-      console.error("회원가입 요청 오류:", error);
-      setErrorMessage("네트워크 오류가 발생했습니다.");
+      setErrorMessage("Network Error");
     }
   };
 
