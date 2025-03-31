@@ -46,7 +46,7 @@ const LoginPage = ({ setAuthenticate }) => {
     fetch("https://api64.ipify.org?format=json")
       .then((res) => res.json())
       .then((data) => setIpAddress(data.ip))
-      .catch((err) => console.log("IP 주소 가져오기 실패:", err));
+      .catch((err) => console.log("error:", err));
 
     const userAgent = navigator.userAgent;
     if (/Mobi|Android|iPhone/i.test(userAgent)) {
@@ -71,7 +71,7 @@ const LoginPage = ({ setAuthenticate }) => {
           setCountry(data.country_name);
           localStorage.setItem("country", data.country_name);
         })
-        .catch((err) => console.log("국가 정보 가져오기 실패:", err));
+        .catch((err) => console.log("error:", err));
     }
   }, []);
 
@@ -95,6 +95,7 @@ const LoginPage = ({ setAuthenticate }) => {
         sessionStorage.setItem("authenticate", true);
 
         const userData = await apiRequest(`/users/me`);
+        console.log(userData)
 
         if (userData.resultCode === 0 && userData.data) {
           sessionStorage.setItem("user", JSON.stringify(userData.data));
@@ -115,14 +116,13 @@ const LoginPage = ({ setAuthenticate }) => {
         }, 100);
       } else {
         setErrorMessage(
-          "로그인 실패: " + (response.data.errorMessage || "알 수 없는 오류"),
+          "failed: " + (response.data.errorMessage || "MissingError"),
           alert(translations.loginpage.message)
         );
       }
     } catch (error) {
-      console.error("로그인 요청 오류:", error);
       setAuthenticate(false);
-      setErrorMessage("네트워크 오류가 발생했습니다.");
+      setErrorMessage("NetworkError");
       alert(translations.loginpage.message);
     }
   };

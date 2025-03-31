@@ -37,11 +37,11 @@ const AdminEditPage = () => {
           variant="fullWidth"
           sx={{ borderBottom: 1, borderColor: "divider" }}
         >
-          <Tab icon={<InfoIcon />} label="유저 정보" />
-          <Tab icon={<PhoneIcon />} label="로그인 기록" />
-          <Tab icon={<FavoriteIcon />} label="사쿠라 구매 이력" />
-          <Tab icon={<PersonPinIcon />} label="사진집 구매 이력" />
-          <Tab icon={<PaymentIcon  />} label="유저 결제 이력" />
+          <Tab icon={<InfoIcon />} label={translations.useredit.info} />
+          <Tab icon={<PhoneIcon />} label={translations.useredit.login} />
+          <Tab icon={<FavoriteIcon />} label={translations.useredit.sakura} />
+          <Tab icon={<PersonPinIcon />} label={translations.useredit.photo} />
+          <Tab icon={<PaymentIcon  />} label={translations.useredit.pay} />
         </Tabs>
       </Box>
 

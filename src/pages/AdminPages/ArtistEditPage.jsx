@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { TextField, Container, Box, Button } from "@mui/material";
+import { TextField, Container, Box, Button, Typography } from "@mui/material";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { apiRequest } from "../../utils/api";
@@ -55,18 +55,18 @@ const ArtistEditPage = () => {
 
   const handleSubmit = async () => {
     try {
-        await apiRequest(`/artists/${id}`, "PATCH", {
-            name: formData?.name || "",
-            description: formData?.description || "",
-            hashtags: formData?.hashtags || [],
-        });
+      await apiRequest(`/artists/${id}`, "PATCH", {
+        name: formData?.name || "",
+        description: formData?.description || "",
+        hashtags: formData?.hashtags || [],
+      });
 
-        alert("Edit Success");
-        navigate("/admin/artists");
+      alert("Edit Success");
+      navigate("/admin/artists");
     } catch (error) {
-        alert("Edit Failed");
+      alert("Edit Failed");
     }
-};
+  };
 
   return (
     <Container maxWidth="sm">
@@ -75,12 +75,16 @@ const ArtistEditPage = () => {
           <p>Loading...</p>
         ) : (
           <>
+            <Typography variant="h5" fontWeight="bold" mb={2}>
+              {translations.artisttable.page}
+            </Typography>
             <TextField
               label={translations.artisttable.name}
               name="name"
               value={formData?.name || ""}
               onChange={handleChange}
               fullWidth
+              sx={{ mb: 3 }}
             />
             <TextField
               label={translations.artisttable.description}
@@ -90,6 +94,7 @@ const ArtistEditPage = () => {
               multiline
               rows={20}
               fullWidth
+              sx={{ mb: 3 }}
             />
             <TextField
               label={translations.artisttable.hashtag}
@@ -101,6 +106,7 @@ const ArtistEditPage = () => {
               }
               onChange={handleHashtagChange}
               fullWidth
+              sx={{ mb: 3 }}
               placeholder={translations.artisttable.placeholder}
             />
             <TextField
@@ -109,6 +115,7 @@ const ArtistEditPage = () => {
               value={formData?.startDate || ""}
               InputProps={{ readOnly: true }}
               fullWidth
+              sx={{ mb: 3 }}
             />
           </>
         )}

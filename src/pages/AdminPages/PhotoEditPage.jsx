@@ -38,7 +38,7 @@ const DataEditor = () => {
       } catch (err) {
         console.error("사진 목록 가져오기 실패:", err);
         setError(err.message);
-        alert("데이터가 없거나 삭제되었습니다.");
+        alert("No Data");
         navigate("/admin/photos");
       }
     };

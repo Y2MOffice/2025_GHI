@@ -3,20 +3,21 @@ import jp from "../language/jp.yaml";
 import ko from "../language/ko.yaml";
 import en from "../language/en.yaml";
 
-
 export const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-  const language =
-    JSON.parse(sessionStorage.getItem("user"))?.displayLanguage || "jp";
-    const translations = {
-      jp,
-      ko,
-      en,
-    }[language] || jp;
+  const [language, setLanguage] = useState("jp");
+
+  useEffect(() => {
+    const userLang =
+      JSON.parse(sessionStorage.getItem("user"))?.displayLanguage || "jp";
+    setLanguage(userLang);
+  }, [sessionStorage.getItem("user")]);
+
+  const translations = { jp, ko, en }[language] || jp;
 
   return (
-    <LanguageContext.Provider value={{ language, translations }}>
+    <LanguageContext.Provider value={{ language, translations, setLanguage }}>
       {children}
     </LanguageContext.Provider>
   );

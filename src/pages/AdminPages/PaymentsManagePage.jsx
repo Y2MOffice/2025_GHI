@@ -1,5 +1,4 @@
-// PaymentsManagePage.jsx
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { Container, Typography, Box, Paper } from "@mui/material";
 import PaginationComponent from "../../components/Admin_component/PaginationComponent";
@@ -75,7 +74,7 @@ const PaymentsManagePage = () => {
         mb={1}
       >
         <Typography variant="h5" fontWeight="bold">
-          결제 내역 조회
+          {translations.purchase.payment}
         </Typography>
         <DownloadButton
           fetchUrl="/payments"
