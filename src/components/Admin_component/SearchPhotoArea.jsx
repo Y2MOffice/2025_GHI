@@ -107,7 +107,7 @@ const SearchPhotoArea = ({ onSearch }) => {
           sx={{
             mt: 2,
             display: "flex",
-            flexWrap: "wrap", // 화면 크기에 따라 자동 줄바꿈
+            flexWrap: "wrap",
             gap: 2,
             alignItems: "center",
           }}
@@ -120,7 +120,7 @@ const SearchPhotoArea = ({ onSearch }) => {
                 flexWrap: "wrap",
                 gap: 1,
                 alignItems: "center",
-                minWidth: "250px", // 최소 폭 보장
+                minWidth: "250px",
               }}
             >
               <DatePicker
@@ -159,8 +159,8 @@ const SearchPhotoArea = ({ onSearch }) => {
               display: "flex",
               flexWrap: "wrap",
               gap: 1,
-              flex: "1 1 auto", // 남은 공간 활용
-              minWidth: "200px", // 최소 폭 보장
+              flex: "1 1 auto",
+              minWidth: "200px",
             }}
           >
             <Paper
@@ -221,7 +221,7 @@ const SearchPhotoArea = ({ onSearch }) => {
               display: "flex",
               flexWrap: "wrap",
               gap: 1,
-              minWidth: "150px", // 최소 폭 보장
+              minWidth: "150px",
             }}
           >
             <ThemeProvider theme={theme}>
@@ -231,14 +231,14 @@ const SearchPhotoArea = ({ onSearch }) => {
                 onClick={handleSearch}
                 sx={{ flex: "1 1 100px" }}
               >
-                {translations.managetable.search}
+                {translations.phototable.search}
               </Button>
               <Button
                 variant="outlined"
                 onClick={handleReset}
                 sx={{ flex: "1 1 100px" }}
               >
-                {translations.managetable.reset || "초기화"}
+                {translations.phototable.reset}
               </Button>
             </ThemeProvider>
           </Box>

@@ -81,13 +81,13 @@ const PhotoManagePage = () => {
         <Typography variant="h5" fontWeight="bold">
           {translations.photopage.name}
         </Typography>
-        <DownloadButton
+        {/* <DownloadButton
           fetchUrl="/photo-collections"
           fileName="Photo-collections.xlsx"
           searchParams={searchParams}
           orderBy={orderBy}
           ascending={ascending}
-        />
+        /> */}
       </Box>
 
       <Paper elevation={3} sx={{ p: 1, mb: 1, borderRadius: 2 }}>

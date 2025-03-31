@@ -67,7 +67,15 @@ const PaymentsManagePage = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 2 }}>
+    <Box
+      sx={{
+        mt: 2,
+        maxWidth: "1800px",
+        width: "100%",
+        mx: "auto",
+        px: { xs: 2, md: 4 },
+      }}
+    >
       <Box
         display="flex"
         justifyContent="space-between"
@@ -123,7 +131,7 @@ const PaymentsManagePage = () => {
           setPagination={setPagination}
         />
       </Box>
-    </Container>
+    </Box>
   );
 };
 

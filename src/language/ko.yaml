@@ -159,7 +159,14 @@ phototable:
   cancel: "취소"
   add: "여기에 이미지를 드래그 앤 드롭하거나 클릭하여 업로드하세요."
   page: "사진집 등록"
+  register: "등록"
   addthumbnail: "여기에 썸네일 이미지를 드래그 앤 드롭하거나 클릭하여 업로드하세요."
+  uploadPhotos: "사진집 업로드"
+  coverImage: "커버 이미지"
+  changeImage: "이미지 변경"
+  helperText: "쉼표(,)로 해시태그를 구분하세요"
+  search: "검색"
+  reset: "초기화"
 sakurapage:
   name: "사쿠라 결제 내역"
 sakuratable:

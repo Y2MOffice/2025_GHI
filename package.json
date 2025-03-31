@@ -6,6 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build-stage": "vite build --mode stage",
+    "deploy-stage": "oci os object bulk-upload -ns nro7ooo9zw3g -bn stage.glowsnaps.tokyo --src-dir ./dist --overwrite --content-type auto",
+    "build-prod": "vite build --mode prod",
+    "deploy-prod": "oci os object bulk-upload -ns nro7ooo9zw3g -bn glowsnaps.tokyo --src-dir ./dist --overwrite --content-type auto",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -37,6 +41,7 @@
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^1.3.2",
+    "cross-env": "^7.0.3",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",

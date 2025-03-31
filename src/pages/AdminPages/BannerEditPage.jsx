@@ -161,7 +161,9 @@ const BannerEditPage = () => {
           sx={{ border: "2px solid #ddd", borderRadius: "12px", p: 3, mt: 4 }}
         >
           <Typography variant="h5" fontWeight="bold" sx={{ mb: 3 }}>
-            {isEditMode ? translations.banners.edit : translations.banners.regist}
+            {isEditMode
+              ? translations.banners.edit
+              : translations.banners.regist}
           </Typography>
 
           <Grid container spacing={2}>
@@ -240,13 +242,13 @@ const BannerEditPage = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography>
-              {translations.bannerpage.photo}:{" "}
+                {translations.bannerpage.photo}:{" "}
                 {formData.photoCollectionTitle
                   ? `: ${formData.photoCollectionTitle}`
                   : "없음"}
               </Typography>
               <Button variant="contained" onClick={() => setModalOpen(true)}>
-              {translations.bannerpage.search}
+                {translations.bannerpage.search}
               </Button>
             </Grid>
             <Grid item xs={12}>

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   TextField,
@@ -20,90 +20,96 @@ import { apiRequest } from "../../utils/api";
 const PhotoEditPage = () => {
   const { translations } = useContext(LanguageContext);
   const { id } = useParams();
-  const [formData, setFormData] = useState({
-    artistId: "", // 초기값을 빈 문자열로 변경
+  const navigate = useNavigate();
+  const fileInputRef = useRef(null);
+  const [dragOver, setDragOver] = useState(false);
+  const [photoDragOver, setPhotoDragOver] = useState(false);
+
+  const resetForm = {
+    artistId: "",
     title: "",
     description: "",
-    coverImageId: 0,
+    coverImageId: null,
     coverImageUrl: "",
     price: 0,
     hashtags: [],
     coverImageFile: null,
-  });
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
+    photoFiles: [],
+    photoPreviews: [],
+  };
+
+  const [formData, setFormData] = useState(resetForm);
   const [artists, setArtists] = useState([]);
-  const [isLoadingArtists, setIsLoadingArtists] = useState(true); // 로딩 상태 추가
+  const [isLoadingArtists, setIsLoadingArtists] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
-    const getPhoto = async () => {
+    if (!id) {
+      console.log("등록 모드 진입 (새 컬렉션)");
+      setFormData(resetForm);
+      return;
+    }
+
+    const fetchPhoto = async () => {
       try {
-        const data = await apiRequest(`/photo-collections/${id}`);
-        console.log("API에서 가져온 데이터:", data);
-        setFormData({
-          ...formData,
-          artistId: data.data.artistId || "", // 빈 문자열로 대체 가능
-          title: data.data.title || "",
-          description: data.data.description || "",
-          coverImageId: data.data.coverImageId || 0,
-          coverImageUrl: data.data.coverImageUrl || "",
-          price: data.data.price || 0,
-          hashtags: data.data.hashtags || [],
+        console.log("사진 데이터 가져오는 중...");
+        const { data } = await apiRequest(`/photo-collections/${id}`);
+        console.log("불러온 데이터:", data);
+
+        setFormData((prev) => ({
+          ...prev,
+          artistId: data.artistId || "",
+          title: data.title || "",
+          description: data.description || "",
+          coverImageId: data.coverImageId ?? null,
+          coverImageUrl: data.coverImageUrl || "",
+          price: data.price || 0,
+          hashtags: data.hashtags || [],
           coverImageFile: null,
-        });
+          photoFiles: [],
+          photoPreviews: [],
+        }));
       } catch (err) {
-        console.error("사진 목록 가져오기 실패:", err);
-        setError(err.message);
+        console.error("사진 불러오기 실패:", err);
         alert("데이터가 없거나 삭제되었습니다.");
         navigate("/admin/photos");
       }
     };
-    getPhoto();
+
+    fetchPhoto();
   }, [id, navigate]);
 
   useEffect(() => {
-    const getArtist = async () => {
+    const fetchArtists = async () => {
       try {
-        const data = await apiRequest(`/artists`);
-        console.log("아티스트 데이터:", data);
-        setArtists(data.data.items || []); // items가 없으면 빈 배열
-        setIsLoadingArtists(false); // 로딩 완료
+        console.log("아티스트 목록 요청 중...");
+        const { data } = await apiRequest(`/artists`);
+        console.log("아티스트 목록:", data.items);
+        setArtists(data.items || []);
       } catch (err) {
-        console.error("아티스트 목록 가져오기 실패:", err);
+        console.error("아티스트 가져오기 실패:", err);
+      } finally {
         setIsLoadingArtists(false);
       }
     };
-    getArtist();
+    fetchArtists();
   }, []);
-
-  useEffect(() => {
-    console.log("현재 formData 상태:", formData);
-  }, [formData]);
-
-  useEffect(() => {
-    return () => {
-      if (formData.coverImageUrl && formData.coverImageFile) {
-        URL.revokeObjectURL(formData.coverImageUrl);
-      }
-    };
-  }, [formData.coverImageUrl, formData.coverImageFile]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(`변경됨: ${name} = ${value}`);
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleArtistChange = (event) => {
-    const selectedId = event.target.value;
-    console.log("선택된 아티스트 ID:", selectedId);
-    setFormData((prev) => ({ ...prev, artistId: selectedId }));
+  const handleArtistChange = (e) => {
+    console.log("아티스트 선택됨:", e.target.value);
+    setFormData((prev) => ({ ...prev, artistId: e.target.value }));
   };
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
+      console.log("커버 이미지 선택:", file.name);
       setFormData((prev) => ({
         ...prev,
         coverImageUrl: imageUrl,
@@ -112,61 +118,130 @@ const PhotoEditPage = () => {
     }
   };
 
+  const handleDropImage = (e) => {
+    e.preventDefault();
+    setDragOver(false);
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith("image/")) {
+      const imageUrl = URL.createObjectURL(file);
+      console.log("커버 이미지 드롭:", file.name);
+      setFormData((prev) => ({
+        ...prev,
+        coverImageUrl: imageUrl,
+        coverImageFile: file,
+      }));
+    }
+  };
+
+  const handlePhotoFilesChange = (e) => {
+    const newFiles = Array.from(e.target.files);
+    const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
+    console.log(
+      "추가 사진 업로드:",
+      newFiles.map((f) => f.name)
+    );
+
+    setFormData((prev) => ({
+      ...prev,
+      photoFiles: [...prev.photoFiles, ...newFiles],
+      photoPreviews: [...prev.photoPreviews, ...newPreviews],
+    }));
+
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const handleDropPhotos = (e) => {
+    e.preventDefault();
+    setPhotoDragOver(false);
+    const newFiles = Array.from(e.dataTransfer.files).filter((file) =>
+      file.type.startsWith("image/")
+    );
+    const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
+    console.log(
+      "추가 사진 드롭:",
+      newFiles.map((f) => f.name)
+    );
+
+    setFormData((prev) => ({
+      ...prev,
+      photoFiles: [...prev.photoFiles, ...newFiles],
+      photoPreviews: [...prev.photoPreviews, ...newPreviews],
+    }));
+  };
+
   const handleSubmit = async () => {
     try {
-      let coverImageId = formData.coverImageId;
-      let coverImageUrl = formData.coverImageUrl;
+      console.log("폼 제출 시작");
+      let { coverImageId, coverImageUrl } = formData;
 
       if (formData.coverImageFile) {
         const imageForm = new FormData();
         imageForm.append("File", formData.coverImageFile);
-        const imageResponse = await apiRequest(
+        console.log("커버 이미지 업로드 요청");
+        const imageRes = await apiRequest(
           "/uploads/cover-image",
           "POST",
           imageForm,
           true
         );
-        console.log("이미지 업로드 응답:", imageResponse);
-        coverImageId = imageResponse.data.id;
-        coverImageUrl = imageResponse.data.url;
+        coverImageId = imageRes.data.id;
+        coverImageUrl = imageRes.data.url;
+        console.log("커버 이미지 업로드 완료:", imageRes.data);
       }
 
-      const jsonData = {
-        artistId: formData.artistId || "", // 빈 문자열로 대체 가능
-        title: formData.title || "",
-        description: formData.description || "",
-        coverImageId: coverImageId,
-        coverImageUrl: coverImageUrl,
-        price: formData.price || 0,
-        hashtags: Array.isArray(formData.hashtags) ? formData.hashtags : [],
+      if (!coverImageId) {
+        alert("커버 이미지를 선택하거나 업로드해주세요.");
+        return;
+      }
+
+      let uploadedPhotoFilenames = [];
+      if (formData.photoFiles.length > 0) {
+        const photoForm = new FormData();
+        formData.photoFiles.forEach((file) => {
+          photoForm.append("request", file);
+        });
+
+        console.log("추가 사진 업로드 요청");
+        const photoUploadRes = await apiRequest(
+          "/Photos/upload",
+          "POST",
+          photoForm,
+          true
+        );
+        uploadedPhotoFilenames = photoUploadRes.data || [];
+        console.log("업로드된 사진 파일명:", uploadedPhotoFilenames);
+      }
+
+      const payload = {
+        artistId: formData.artistId,
+        title: formData.title,
+        description: formData.description,
+        coverImageId,
+        coverImageUrl,
+        price: Number(formData.price),
+        hashtags: formData.hashtags.filter((tag) => tag.trim() !== ""),
+        photoFileNames: uploadedPhotoFilenames,
       };
 
-      console.log("저장하려는 JSON 데이터:", jsonData);
+      console.log(id ? "수정 요청:" : "등록 요청:", payload);
 
-      let response;
       if (id) {
-        response = await apiRequest(
-          `/photo-collections/${id}`,
-          "PATCH",
-          jsonData
-        );
-        console.log("수정 후 서버 응답:", response);
+        await apiRequest(`/photo-collections/${id}`, "PATCH", payload);
       } else {
-        response = await apiRequest("/photo-collections", "POST", jsonData);
-        console.log("등록 후 서버 응답:", response);
+        await apiRequest("/photo-collections", "POST", payload);
       }
 
-      alert(
-        id
-          ? "사진집이 성공적으로 수정되었습니다."
-          : "사진집이 성공적으로 등록되었습니다."
-      );
+      alert(id ? "수정되었습니다." : "등록되었습니다.");
       navigate("/admin/photos");
     } catch (error) {
       console.error("저장 실패:", error);
       alert("저장 중 오류가 발생했습니다.");
     }
   };
+
+  useEffect(() => {
+    console.log("현재 formData 상태:", formData);
+  }, [formData]);
 
   return (
     <Container maxWidth="md">
@@ -184,25 +259,31 @@ const PhotoEditPage = () => {
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 4 }}>
         <FormControl fullWidth>
           <InputLabel>{translations.phototable.artist}</InputLabel>
-          {isLoadingArtists ? (
-            <Typography>아티스트 로딩 중...</Typography>
-          ) : (
-            <Select
-              value={formData.artistId}
-              onChange={handleArtistChange}
-              disabled={isLoadingArtists || !artists.length}
-            >
-              {artists.length === 0 ? (
-                <MenuItem value="">아티스트 없음</MenuItem>
-              ) : (
-                artists.map((artist) => (
-                  <MenuItem key={artist.id} value={artist.id}>
-                    {artist.name}
-                  </MenuItem>
-                ))
-              )}
-            </Select>
-          )}
+          <Select
+            value={
+              artists.length === 0 ||
+              !artists.some((a) => a.id === Number(formData.artistId))
+                ? ""
+                : formData.artistId
+            }
+            onChange={handleArtistChange}
+            disabled={!artists.length}
+            label={translations.phototable.artist}
+          >
+            {isLoadingArtists ? (
+              <MenuItem value="">
+                <em>로딩 중...</em>
+              </MenuItem>
+            ) : artists.length === 0 ? (
+              <MenuItem value="">아티스트 없음</MenuItem>
+            ) : (
+              artists.map((artist) => (
+                <MenuItem key={artist.id} value={artist.id}>
+                  {artist.name}
+                </MenuItem>
+              ))
+            )}
+          </Select>
         </FormControl>
 
         <TextField
@@ -212,16 +293,24 @@ const PhotoEditPage = () => {
           value={formData.title}
           onChange={handleChange}
         />
-
+        <Typography fontWeight="bold" mb={1}>
+          {translations.phototable.coverImage}
+        </Typography>
         <Card
           sx={{
-            mt: 2,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             height: 200,
             position: "relative",
+            border: dragOver ? "2px dashed blue" : "2px dashed gray",
           }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDragOver(true);
+          }}
+          onDragLeave={() => setDragOver(false)}
+          onDrop={handleDropImage}
         >
           {formData.coverImageUrl ? (
             <>
@@ -240,7 +329,7 @@ const PhotoEditPage = () => {
                 component="label"
                 sx={{ position: "absolute", bottom: 8, right: 8 }}
               >
-                이미지 변경
+                {translations.phototable.changeImage}
                 <input
                   type="file"
                   accept="image/*"
@@ -265,7 +354,6 @@ const PhotoEditPage = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   cursor: "pointer",
-                  border: "2px dashed gray",
                   padding: "20px",
                   borderRadius: "8px",
                   textAlign: "center",
@@ -296,16 +384,17 @@ const PhotoEditPage = () => {
           label="Hashtags"
           name="hashtags"
           fullWidth
-          value={
-            Array.isArray(formData.hashtags) ? formData.hashtags.join(", ") : ""
-          }
+          value={formData.hashtags.join(", ")}
           onChange={(e) =>
             setFormData((prev) => ({
               ...prev,
-              hashtags: e.target.value.split(",").map((tag) => tag.trim()),
+              hashtags: e.target.value
+                .split(",")
+                .map((tag) => tag.trim())
+                .filter((tag) => tag),
             }))
           }
-          helperText="쉼표(,)로 해시태그를 구분하세요"
+          helperText={translations.phototable.helperText}
         />
 
         <TextField
@@ -316,15 +405,78 @@ const PhotoEditPage = () => {
           value={formData.price}
           onChange={handleChange}
         />
+        <Typography fontWeight="bold">
+          {translations.phototable.uploadPhotos}
+        </Typography>
+        <Box
+          sx={{
+            padding: 2,
+            border: photoDragOver ? "2px dashed blue" : "2px dashed gray",
+            borderRadius: "8px",
+          }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setPhotoDragOver(true);
+          }}
+          onDragLeave={() => setPhotoDragOver(false)}
+          onDrop={handleDropPhotos}
+        >
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handlePhotoFilesChange}
+            style={{ marginTop: "10px" }}
+          />
+
+          <Box display="flex" flexWrap="wrap" mt={2} gap={2}>
+            {formData.photoPreviews.map((url, index) => (
+              <Card
+                key={index}
+                sx={{ width: 120, height: 120, position: "relative" }}
+              >
+                <CardMedia
+                  component="img"
+                  image={url}
+                  sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+                <Button
+                  size="small"
+                  onClick={() => {
+                    setFormData((prev) => {
+                      const newPhotoFiles = [...prev.photoFiles];
+                      const newPreviews = [...prev.photoPreviews];
+                      newPhotoFiles.splice(index, 1);
+                      newPreviews.splice(index, 1);
+                      console.log("추가 사진 삭제:", index);
+                      return {
+                        ...prev,
+                        photoFiles: newPhotoFiles,
+                        photoPreviews: newPreviews,
+                      };
+                    });
+                  }}
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    minWidth: 0,
+                    padding: "4px",
+                    backgroundColor: "rgba(0,0,0,0.5)",
+                    color: "white",
+                  }}
+                >
+                  ×
+                </Button>
+              </Card>
+            ))}
+          </Box>
+        </Box>
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 4 }}>
-        <Button
-          variant="contained"
-          color="primary"
-          disabled={formData.isDeleted}
-          onClick={handleSubmit}
-        >
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
           {id ? translations.phototable.edit : translations.phototable.register}
         </Button>
         <Button
