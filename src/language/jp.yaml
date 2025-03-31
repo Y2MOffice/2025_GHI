@@ -18,7 +18,7 @@ purchase:
   manage: "決済管理"
   sakura: "サクラ決済履歴"
   photobook: "写真集決済履歴"
-  payment: "決済内訳"
+  payment: "Stripe決済内訳"
 managetable:
   name: "名前"
   email: "メールアドレス"
@@ -56,6 +56,7 @@ editacc:
   phone: "電話番号"
   mail: "メールアドレス"
   save: "保存"
+  required: "パスワードの入力をお願いします"
 favli:
   name: "お気に入りリスト"
 findpw:
@@ -81,7 +82,7 @@ loginpage:
   message: "IDまたはパスワードが正しくありません。 もう一度確認をお願いします。"
 mypage:
   editacc: "個人情報修正"
-  pointhis: "ポイント利用履歴"
+  pointhis: "サクラ獲得内訳"
   photohis: "写真購入履歴"
   favli: "お気に入りリスト"
 nfpage:
@@ -100,7 +101,7 @@ pphis:
   list: "履歴"
   price: "金額"
 phis:
-  name: "ポイント利用履歴"
+  name: "サクラ獲得内訳"
   list: "履歴"
   price: "金額"
 searchpage:
@@ -346,7 +347,7 @@ photopurchasetab:
   title: "写真集タイトル"
   date: "購入日"
 userpaymenttab:
-  title: "支払履歴"
+  title: "Stripe支払履歴"
   price: "金額"
   method: "支払方法"
   status: "支払状況"
@@ -370,3 +371,10 @@ payresult:
   fail: "支払いに失敗しました"
   go2home: "まもなくメインページに移動します。"
   go2back: "まもなく前のページに戻ります。"
+tradelaw:
+  title: "特定商取引法に基づく表示"
+  name: "販売業者名"
+  nameAns: "株式会社ワイ・ツー・エム"
+  leader: "代表取締役　呉 榮澤"
+  address: "東京都葛飾区西新小岩三丁目32番7号"
+  email: "メールアドレス："

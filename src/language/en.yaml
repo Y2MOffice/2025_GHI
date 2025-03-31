@@ -18,7 +18,7 @@ purchase:
   manage: "Payment Management"
   sakura: "Sakura Payment History"
   photobook: "Photo Album Payment History"
-  payment: "Payment history"
+  payment: "Stripe Payment history"
 managetable:
   name: "Name"
   email: "Email"
@@ -56,6 +56,7 @@ editacc:
   phone: "Phone Number"
   mail: "Email Address"
   save: "Save"
+  required: "Please enter a password."
 favli:
   name: "Favorite List"
 findpw:
@@ -81,7 +82,7 @@ loginpage:
   message: "The ID or password is not correct, please check again."
 mypage:
   editacc: "Edit Personal Information"
-  pointhis: "Point Usage History"
+  pointhis: "Sakura Acquisition History"
   photohis: "Photo Purchase History"
   favli: "Favorite List"
 nfpage:
@@ -100,7 +101,7 @@ pphis:
   list: "Details"
   price: "Amount"
 phis:
-  name: "Point Usage History"
+  name: "Sakura Acquisition History"
   list: "Details"
   price: "Amount"
 searchpage:
@@ -346,7 +347,7 @@ photopurchasetab:
   title: "Photo Book Title"
   date: "Purchase Date"
 userpaymenttab:
-  title: "Payment History"
+  title: "Stripe Payment History"
   price: "Amount"
   method: "Payment Method"
   status: "Payment Status"
@@ -370,3 +371,10 @@ payresult:
   fail: "Payment failed"
   go2home: "You will be redirected to the main page shortly."
   go2back: "You will be redirected to the previous page shortly."
+tradelaw:
+  title: "Notation based on the Act on Specified Commercial Transactions"
+  name: "Business Name"
+  nameAns: "Y2M Co., Ltd."
+  leader: "Representative Director: Youngtaek Oh"
+  address: "3-32-7 Nishishinkoiwa, Katsushika-ku, Tokyo"
+  email: "Email Address:"

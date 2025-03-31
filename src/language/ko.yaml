@@ -18,7 +18,7 @@ purchase:
   manage: "결제 관리"
   sakura: "사쿠라 결제 내역"
   photobook: "사진집 결제 내역"
-  payment: "결제 내역"
+  payment: "Stripe 결제 내역"
 managetable:
   name: "이름"
   email: "이메일"
@@ -56,6 +56,7 @@ editacc:
   phone: "전화번호"
   mail: "메일주소"
   save: "저장"
+  required: "비밀번호를 입력해주세요."
 favli:
   name: "마음에 드는 리스트"
 findpw:
@@ -81,7 +82,7 @@ loginpage:
   message: "아이디 또는 비밀번호가 맞지 않습니다. 다시 확인해주세요."
 mypage:
   editacc: "개인정보수정"
-  pointhis: "포인트 사용 내역"
+  pointhis: "사쿠라 획득 내역"
   photohis: "사진 구입 내역"
   favli: "마음에 드는 리스트"
 nfpage:
@@ -100,7 +101,7 @@ pphis:
   list: "내역"
   price: "금액"
 phis:
-  name: "포인트사용내역"
+  name: "사쿠라 획득 내역"
   list: "내역"
   price: "금액"
 searchpage:
@@ -346,7 +347,7 @@ photopurchasetab:
   title: "사진집 제목"
   date: "구매일"
 userpaymenttab:
-  title: "결제 내역"
+  title: "Stripe 결제 내역"
   price: "금액"
   method: "결제 방법"
   status: "결제 수단"
@@ -370,3 +371,10 @@ payresult:
   fail: "결제에 실패하였습니다"
   go2home: "잠시 후 메인 페이지로 이동합니다."
   go2back: "잠시 후 이전 페이지로 돌아갑니다."
+tradelaw:
+  title: "특정 상거래법에 의거한 표시"
+  name: "판매업자명"
+  nameAns: "주식회사 와이 투 엠"
+  leader: "대표이사 오 영택"
+  address: "도쿄도 가츠시카구 니시신코이와산초메 32번 7호"
+  email: "메일주소:"

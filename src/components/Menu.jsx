@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { LanguageContext } from "../contexts/LanguageContext";
 import {
   Box,
@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import MenuButton from "./MenuButton";
 import FilterVintageIcon from "@mui/icons-material/FilterVintage";
 import LogoutButton from "./LogoutButton";
+import { apiRequest } from "../utils/api";
 
 function Menu({
   onClose,
@@ -23,17 +24,26 @@ function Menu({
 }) {
   const navigate = useNavigate();
   const { translations } = useContext(LanguageContext);
-  const firstName = JSON.parse(sessionStorage.getItem("user"))?.firstName;
-  const lastName = JSON.parse(sessionStorage.getItem("user"))?.lastName;
+  const [userData, setUserData] = useState(null);
 
-  const paidSakura = Number(
-    JSON.parse(sessionStorage.getItem("user"))?.paidSakura
-  );
-  const freeSakura = Number(
-    JSON.parse(sessionStorage.getItem("user"))?.freeSakura
-  );
-  const userName = lastName + firstName;
-  const pointCount = paidSakura + freeSakura;
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const res = await apiRequest('/users/me');
+        if (res?.resultCode === 0) {
+          setUserData(res.data);
+        } else {
+          console.error("Failed to fetch user data", res.errorMessage);
+        }
+      } catch (err) {
+        console.error("API Error", err);
+      }
+    };
+    fetchUserData();
+  }, []);
+
+  const userName = userData ? userData.name : "";
+  const pointCount = userData ? (userData.paidSakura + userData.freeSakura) : 0;
 
   const handleNavigation = () => {
     navigate("/mypage");
@@ -170,7 +180,7 @@ function Menu({
               index={2}
               selectedIndex={selectedIndex}
               onClick={() => setSelectedIndex(2)}
-              path="trade-law"
+              path="SpecifiedCommercialLaw"
             />
             <MenuButton
               text={translations.menu.guide}

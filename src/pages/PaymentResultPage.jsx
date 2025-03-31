@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { Box, Typography, CircularProgress } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { LanguageContext } from "../../contexts/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const PaymentResultPage = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const PaymentResultPage = () => {
       if (isSuccess) {
         navigate('/');
       } else {
-        navigate(-1); // 뒤로가기
+        navigate('/mypage');
       }
     }, 3000);
 

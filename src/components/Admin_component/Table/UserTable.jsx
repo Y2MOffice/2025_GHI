@@ -136,7 +136,6 @@ const UserTable = ({
                     color="primary"
                     size="small"
                     onClick={() => navigate(`/admin/useredit/${user.id}`)}
-                    disabled={user.isDeleted}
                   >
                     <Edit fontSize="small" />
                   </IconButton>

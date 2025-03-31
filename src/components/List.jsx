@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState, useContext, useEffect } from "react";
 import { LanguageContext } from "../contexts/LanguageContext";
 import {
   ImageList,
@@ -8,7 +8,9 @@ import {
   Typography,
 } from "@mui/material";
 import MovieDetail from "./MovieDetail";
+import { useParams } from "react-router-dom";
 import FullView from "./FullView";
+import { apiRequest } from "../utils/api";
 import ConditionalPopup from "./ConditionalPopup";
 
 const List = ({ title, data }) => {
@@ -18,6 +20,7 @@ const List = ({ title, data }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isFullViewOpen, setIsFullViewOpen] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const params = useParams();
   const { translations } = useContext(LanguageContext);
 
   const handleMouseDown = (e) => {
@@ -51,6 +54,18 @@ const List = ({ title, data }) => {
       }, 0);
     }
   };
+
+  useEffect(() => {
+    const fetchMovie = async () => {
+        if (params.id) {
+            const res = await apiRequest(`/photo-collections/${params.id}`);
+            if (res.resultCode === 0 && res.data) {
+                setSelectedMovie(res.data);
+            }
+        }
+    };
+    fetchMovie();
+}, [params.id]);
 
   const closeDetail = () => {
     setIsFadingOut(true);
@@ -139,7 +154,7 @@ const List = ({ title, data }) => {
           >
             <Box
               component="img"
-              src={item.mainImg[0]}
+              src={`https://stage-api.glowsnaps.tokyo${item.coverImageUrl}`}
               alt={item.title}
               sx={{
                 width: "100%",

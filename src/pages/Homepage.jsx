@@ -1,12 +1,10 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState, useContext, useEffect } from "react";
 import { LanguageContext } from "../contexts/LanguageContext";
 import { Box, createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 import List from "../components/List.jsx";
 import Footer from "../components/Footer.jsx";
-import mylist from "../data/List.js";
-import RankingList from "../components/RankingList.jsx";
-import rList from "../data/Rankinglist.js";
 import Carousel from "../components/Carousel.jsx";
+import { apiRequest } from "../utils/api";
 
 const theme = createTheme({
   palette: {
@@ -33,6 +31,24 @@ const HomePage = (authenticate) => {
   const [startY, setStartY] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   const { translations } = useContext(LanguageContext);
+  
+  const [groupedData, setGroupedData] = useState({});
+
+
+  useEffect(() => {
+    const fetchGroupedData = async () => {
+      try {
+        const res = await apiRequest("/photo-collections/grouped-by/artist");
+        if (res.resultCode === 0 && res.data) {
+          setGroupedData(res.data);
+        }
+      } catch (err) {
+        console.error("Error loading photo collections:", err);
+      }
+    };
+
+    fetchGroupedData();
+  }, []);
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
@@ -66,20 +82,15 @@ const HomePage = (authenticate) => {
           userSelect: "none",
         }}
       >
-        <Carousel data={rList} />
-        <RankingList
-          title={translations.homepage.rankinglist}
-          data={rList}
-          authenticate={authenticate}
-        />
-        <List
-          title={translations.homepage.list1}
-          data={mylist}
-          authenticate={authenticate}
-        />
-        <List title={translations.homepage.temp} data={mylist} authenticate={authenticate} />
-        <List title={translations.homepage.temp} data={mylist} authenticate={authenticate} />
-        <List title={translations.homepage.temp} data={mylist} authenticate={authenticate} />
+        <Carousel />
+        {Object.entries(groupedData).map(([artist, items], idx) => (
+          <List
+            key={idx}
+            title={artist}
+            data={items}
+            authenticate={authenticate}
+          />
+        ))}
         <Footer />
       </Box>
     </ThemeProvider>

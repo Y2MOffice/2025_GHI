@@ -40,7 +40,7 @@ import RequireSuperUser from "./routes/RequireSuperUser";
 import BannerEdit from "./pages/AdminPages/BannerEditPage";
 import BannerManage from "./pages/AdminPages/BannerManagePage";
 import PaymentsManagePage from "./pages/AdminPages/PaymentsManagePage";
-import PaymentResultPage from "./pages/PaymentResultPage"
+import PaymentResultPage from "./pages/PaymentResultPage";
 
 const App = () => {
   const superUser =
@@ -68,7 +68,7 @@ const App = () => {
           {/* 로그인 됐을때 user*/}
           <Route path="/" element={<Navbar setAuthenticate={setAuth} />}>
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="trade-law" element={<TradeLaw />} />
+            <Route path="SpecifiedCommercialLaw" element={<TradeLaw />} />
             <Route path="user-guide" element={<UserGuide />} />
             <Route index element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
@@ -78,6 +78,7 @@ const App = () => {
             <Route path="point-history" element={<PointHistory />} />
             <Route path="photo-history" element={<PhotoPurchaseHistory />} />
             <Route path="favorites" element={<FavoriteList />} />
+            <Route path="/photo/:id" element={<HomePage />} />
             <Route path="viewPage/:id" element={<ViewPage />} />
             <Route path="/payment/success" element={<PaymentResultPage />} />
             <Route path="/payment/fail" element={<PaymentResultPage />} />
@@ -126,7 +127,7 @@ const App = () => {
                 <RequireSuperUser superUser={superUser}>
                   <SakuraManage />
                 </RequireSuperUser>
-              } 
+              }
             />
             <Route
               path="payment"
@@ -134,9 +135,8 @@ const App = () => {
                 <RequireSuperUser superUser={superUser}>
                   <PaymentsManagePage />
                 </RequireSuperUser>
-              } 
+              }
             />
-
 
             {/* 일반 관리자 가능 */}
             <Route path="artists" element={<ArtistManage />} />

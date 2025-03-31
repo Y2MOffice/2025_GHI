@@ -50,6 +50,12 @@ const BannerEditPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
+  const handleChangeStatus = ({ meta, file }, status) => {
+    if (status === "done" || status === "headers_received") {
+      handleImageSelection(file);
+    }
+  };
+
   useEffect(() => {
     if (!isEditMode) return;
 
@@ -161,7 +167,9 @@ const BannerEditPage = () => {
           sx={{ border: "2px solid #ddd", borderRadius: "12px", p: 3, mt: 4 }}
         >
           <Typography variant="h5" fontWeight="bold" sx={{ mb: 3 }}>
-            {isEditMode ? translations.banners.edit : translations.banners.regist}
+            {isEditMode
+              ? translations.banners.edit
+              : translations.banners.regist}
           </Typography>
 
           <Grid container spacing={2}>
@@ -181,31 +189,32 @@ const BannerEditPage = () => {
                     sx={{ maxHeight: "100%", objectFit: "contain" }}
                   />
                 ) : (
-                  <label htmlFor="image-upload">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      style={{ display: "none" }}
-                      id="image-upload"
-                      onChange={(e) => handleImageSelection(e.target.files[0])}
-                    />
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        cursor: "pointer",
+                  <Dropzone
+                    onChangeStatus={handleChangeStatus}
+                    accept="image/*"
+                    maxFiles={1}
+                    multiple={false}
+                    canCancel={false}
+                    inputContent="클릭하거나 이미지를 드래그 앤 드롭하세요"
+                    styles={{
+                      dropzone: {
+                        minHeight: 180,
                         border: "2px dashed gray",
-                        p: 2,
                         borderRadius: "8px",
-                      }}
-                    >
-                      <AddIcon sx={{ fontSize: 48, color: "gray" }} />
-                      <Typography variant="body2" color="gray">
-                        {translations.bannerpage.upload}
-                      </Typography>
-                    </Box>
-                  </label>
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      },
+                      inputLabel: {
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center", 
+                        height: 180,
+                        color: "gray",
+                        fontSize: 14,
+                      },
+                    }}
+                  />
                 )}
               </Card>
               {!uploadedImage && localImage && (
@@ -231,7 +240,7 @@ const BannerEditPage = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label= {translations.banneredit.title}
+                label={translations.banneredit.title}
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
@@ -240,13 +249,13 @@ const BannerEditPage = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography>
-              {translations.bannerpage.photo}:{" "}
+                {translations.bannerpage.photo}:{" "}
                 {formData.photoCollectionTitle
                   ? `: ${formData.photoCollectionTitle}`
                   : "None"}
               </Typography>
               <Button variant="contained" onClick={() => setModalOpen(true)}>
-              {translations.bannerpage.search}
+                {translations.bannerpage.search}
               </Button>
             </Grid>
             <Grid item xs={12}>

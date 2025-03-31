@@ -95,6 +95,7 @@ const LoginPage = ({ setAuthenticate }) => {
         sessionStorage.setItem("authenticate", true);
 
         const userData = await apiRequest(`/users/me`);
+        console.log(userData)
 
         if (userData.resultCode === 0 && userData.data) {
           sessionStorage.setItem("user", JSON.stringify(userData.data));

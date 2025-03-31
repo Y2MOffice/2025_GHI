@@ -134,7 +134,7 @@ const FullView = ({ data, title, onClose }) => {
                   }}
                 >
                   <img
-                    src={movie.mainImg[0]}
+                    src={`https://stage-api.glowsnaps.tokyo${movie.coverImageUrl}`}
                     alt={movie.title}
                     style={{
                       width: "100%",
