@@ -67,7 +67,15 @@ const SakuraManagePage = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 2 }}>
+    <Box
+      sx={{
+        mt: 2,
+        maxWidth: "1800px",
+        width: "100%",
+        mx: "auto",
+        px: { xs: 2, md: 4 },
+      }}
+    >
       {/* 헤더 영역 */}
       <Box
         display="flex"
@@ -127,7 +135,7 @@ const SakuraManagePage = () => {
           setPagination={setPagination}
         />
       </Box>
-    </Container>
+    </Box>
   );
 };
 

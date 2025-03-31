@@ -158,9 +158,16 @@ phototable:
   photo: "写真一覧"
   edit: "編集"
   cancel: "キャンセル"
+  register: "登録."
   add: "ここに画像をドラッグ アンド ドロップするか、クリックしてアップロードします。"
   page: "写真集 登録"
   addthumbnail: "ここにサムネイル画像をドラッグ アンド ドロップするか、クリックしてアップロードします。"
+  uploadPhotos: "写真集をアップロード"
+  helperText: "コンマ(,)でハッシュタグを区切ってください"
+  coverImage: "カバー画像"
+  changeImage: "画像を変更"
+  search: "検索"
+  reset: "リセット"
 sakurapage:
   name: "サクラ決済履歴"
 sakuratable:

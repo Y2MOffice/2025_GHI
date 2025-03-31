@@ -157,10 +157,17 @@ phototable:
   manage: "Manage"
   photo: "Photo List"
   edit: "Edit"
+  register: "Register"
   cancel: "Cancel"
   add: "Drag and drop the image here or click to upload it."
   page: "Photobook Registration"
   addthumbnail: "Drag and drop the Thumbnail image here or click to upload it."
+  uploadPhotos: "Upload Photo Collection"
+  helperText: "Separate hashtags with commas (,)"
+  coverImage: "Cover Image"
+  changeImage: "Change Image"
+  reset: "Reset"
+  search: "Search"
 sakurapage:
   name: "Sakura Payment History"
 sakuratable:
