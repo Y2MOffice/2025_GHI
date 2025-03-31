@@ -24,9 +24,9 @@ const PurchaseTable = ({
   ascending,
 }) => {
   const { translations } = useContext(LanguageContext);
+  if (loading) return <p>{translations.gloval.loading}</p>;
+  if (error) return <p style={{ color: "red" }}>{translations.gloval.error} {error}</p>;
 
-  if (loading) return <p>불러오는 중...</p>;
-  if (error) return <p>오류 발생: {error}</p>;
 
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && ascending;

@@ -69,8 +69,9 @@ const PhotoEditPage = () => {
           photoPreviews: [],
         }));
       } catch (err) {
-        console.error("사진 불러오기 실패:", err);
-        alert("데이터가 없거나 삭제되었습니다.");
+        console.error("사진 목록 가져오기 실패:", err);
+        setError(err.message);
+        alert("No Data");
         navigate("/admin/photos");
       }
     };

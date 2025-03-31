@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { LanguageContext } from "../contexts/LanguageContext";
 import {
   Box,
@@ -12,22 +12,49 @@ import {
   Paper,
   Pagination,
 } from "@mui/material";
-
-const dummyData = Array.from({ length: 30 }, (_, index) => ({
-  id: index + 1,
-  detail: "ポイント決済",
-  amount: `${(index % 2 === 0 ? 500 : 1000).toLocaleString()}円`,
-  date: `2024-0${(index % 9) + 1}-17 11:30:${10 + index}`,
-}));
+import { apiRequest } from "../utils/api";
 
 const PointHistory = () => {
+  const { translations } = useContext(LanguageContext);
+  const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
-  const paginatedData = dummyData.slice(
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await apiRequest("/sakura-transactions/me");
+        if (res?.resultCode === 0) {
+          const formatted = res.data.map((item) => ({
+            id: item.id,
+            detail: item.transactionType,
+            amount: `${item.amount.toLocaleString()} sakura`,
+            date: formatDate(item.createdAt),
+          }));
+          setData(formatted);
+        } else {
+          console.error("데이터 불러오기 실패", res.errorMessage);
+        }
+      } catch (err) {
+        console.error("API 오류", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const paginatedData = data.slice(
     (page - 1) * itemsPerPage,
     page * itemsPerPage
   );
-  const { translations } = useContext(LanguageContext);
+
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    const hh = String(date.getHours()).padStart(2, "0");
+    const min = String(date.getMinutes()).padStart(2, "0");
+    return `${yyyy}.${mm}.${dd} ${hh}:${min}`;
+  };
 
   return (
     <Box
@@ -96,7 +123,7 @@ const PointHistory = () => {
 
       <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
         <Pagination
-          count={Math.ceil(dummyData.length / itemsPerPage)}
+          count={Math.ceil(data.length / itemsPerPage)}
           page={page}
           onChange={(e, value) => setPage(value)}
           sx={{

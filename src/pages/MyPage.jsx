@@ -1,13 +1,34 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { LanguageContext } from "../contexts/LanguageContext";
 import { Box, Typography, Grid, Button, Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import FilterVintageIcon from "@mui/icons-material/FilterVintage";
+import { apiRequest } from "../utils/api";
 
 const MyPage = () => {
   const contentRef = useRef(null);
   const navigate = useNavigate();
   const { translations } = useContext(LanguageContext);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const res = await apiRequest("/users/me");
+        if (res?.resultCode === 0) {
+          setUserData(res.data);
+        } else {
+          console.error("Failed to fetch user data", res.errorMessage);
+        }
+      } catch (err) {
+        console.error("API Error", err);
+      }
+    };
+    fetchUserData();
+  }, []);
+
+  const userName = userData ? userData.name : "";
+  const pointCount = userData ? userData.paidSakura + userData.freeSakura : 0;
 
   const handleEditClick = () => {
     navigate("/edit_account");
@@ -67,7 +88,7 @@ const MyPage = () => {
             textShadow: "2px 2px 4px rgb(241, 209, 210)",
           }}
         >
-          名無しさん
+          {userName}
         </Typography>
         <Box
           sx={{
@@ -83,7 +104,7 @@ const MyPage = () => {
           <FilterVintageIcon
             sx={{ fontSize: "24px", color: "rgb(255, 182, 193)" }}
           />{" "}
-          <Typography variant="body1">10</Typography>
+          <Typography variant="body1">{pointCount}</Typography>
         </Box>
 
         <Button

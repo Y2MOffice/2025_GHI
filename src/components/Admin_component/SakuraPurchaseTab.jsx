@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { LanguageContext } from "../../contexts/LanguageContext";
 import {
   Table,
   TableBody,
@@ -23,6 +24,7 @@ const SakuraPurchaseTab = ({ userId }) => {
   const [order, setOrder] = useState("desc");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+      const { translations } = useContext(LanguageContext);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -66,13 +68,13 @@ const SakuraPurchaseTab = ({ userId }) => {
     setPage(0);
   };
 
-  if (loading) return <p>로딩 중...</p>;
-  if (error) return <p style={{ color: "red" }}>에러 발생: {error}</p>;
+  if (loading) return <p>{translations.gloval.loading}</p>;
+  if (error) return <p style={{ color: "red" }}>{translations.gloval.error} {error}</p>;
 
   return (
     <Box>
       <Typography variant="h6" gutterBottom>
-        사쿠라 구매 이력
+        {translations.purchase.sakura}
       </Typography>
       <TableContainer component={Paper}>
         <Table size="small">
@@ -84,7 +86,7 @@ const SakuraPurchaseTab = ({ userId }) => {
                   direction={order}
                   onClick={() => handleSort("id")}
                 >
-                  ID
+                  {translations.sakura.id}
                 </TableSortLabel>
               </TableCell>
               <TableCell>
@@ -93,7 +95,7 @@ const SakuraPurchaseTab = ({ userId }) => {
                   direction={order}
                   onClick={() => handleSort("transactionType")}
                 >
-                  타입
+                  {translations.sakura.type}
                 </TableSortLabel>
               </TableCell>
               <TableCell>
@@ -102,7 +104,7 @@ const SakuraPurchaseTab = ({ userId }) => {
                   direction={order}
                   onClick={() => handleSort("amount")}
                 >
-                  금액
+                  {translations.sakura.price}
                 </TableSortLabel>
               </TableCell>
               <TableCell>
@@ -111,7 +113,7 @@ const SakuraPurchaseTab = ({ userId }) => {
                   direction={order}
                   onClick={() => handleSort("isPaid")}
                 >
-                  결제 여부
+                  translations.sakura.paid
                 </TableSortLabel>
               </TableCell>
               <TableCell>
@@ -120,7 +122,7 @@ const SakuraPurchaseTab = ({ userId }) => {
                   direction={order}
                   onClick={() => handleSort("createdAt")}
                 >
-                  생성일
+                  translations.sakura.date
                 </TableSortLabel>
               </TableCell>
             </TableRow>
@@ -133,7 +135,7 @@ const SakuraPurchaseTab = ({ userId }) => {
                   <TableCell>{entry.id}</TableCell>
                   <TableCell>{entry.transactionType}</TableCell>
                   <TableCell>{entry.amount}</TableCell>
-                  <TableCell>{entry.isPaid ? "완료" : "미결제"}</TableCell>
+                  <TableCell>{entry.isPaid ? translations.sakura.ok : translations.sakura.no}</TableCell>
                   <TableCell>
                     {dayjs(entry.createdAt).format("YYYY-MM-DD HH:mm:ss")}
                   </TableCell>

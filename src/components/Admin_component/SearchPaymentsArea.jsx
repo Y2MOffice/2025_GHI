@@ -1,4 +1,3 @@
-// SearchPaymentsArea.jsx
 import React, { useState, useContext } from "react";
 import {
   TextField,
@@ -64,26 +63,72 @@ const SearchPaymentsArea = ({ onSearch }) => {
     const params = { ...searchParams };
 
     if (params.startDate)
-      params.startDate = dayjs(params.startDate).utc().startOf("day").format("YYYY-MM-DD");
+      params.startDate = dayjs(params.startDate)
+        .utc()
+        .startOf("day")
+        .format("YYYY-MM-DD");
 
     if (params.endDate)
-      params.endDate = dayjs(params.endDate).utc().endOf("day").format("YYYY-MM-DD");
+      params.endDate = dayjs(params.endDate)
+        .utc()
+        .endOf("day")
+        .format("YYYY-MM-DD");
 
     onSearch(params);
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box sx={{ p: 2, border: "1px solid #ccc", borderRadius: 2, bgcolor: "#f9f9f9", width: "100%" }}>
+      <Box
+        sx={{
+          p: 2,
+          border: "1px solid #ccc",
+          borderRadius: 2,
+          bgcolor: "#f9f9f9",
+          width: "100%",
+        }}
+      >
         <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-          검색 조건
+          {translations.adminpage.searchCondition}
         </Typography>
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, flexDirection: isMobile ? "column" : "row", alignItems: "center" }}>
-          <TextField label="성" name="lastName" value={searchParams.lastName} onChange={handleChange} size="small" />
-          <TextField label="이름" name="firstName" value={searchParams.firstName} onChange={handleChange} size="small" />
-          <TextField label="이메일" name="email" value={searchParams.email} onChange={handleChange} size="small" />
-          <Select name="userType" value={searchParams.userType} onChange={handleChange} size="small" displayEmpty>
-            <MenuItem value="">회원 구분</MenuItem>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 1,
+            flexDirection: isMobile ? "column" : "row",
+            alignItems: "center",
+          }}
+        >
+          <TextField
+            label={translations.usereditpage.last_name}
+            name="lastName"
+            value={searchParams.lastName}
+            onChange={handleChange}
+            size="small"
+          />
+          <TextField
+            label={translations.usereditpage.first_name}
+            name="firstName"
+            value={searchParams.firstName}
+            onChange={handleChange}
+            size="small"
+          />
+          <TextField
+            label={translations.usereditpage.email}
+            name="email"
+            value={searchParams.email}
+            onChange={handleChange}
+            size="small"
+          />
+          <Select
+            name="userType"
+            value={searchParams.userType}
+            onChange={handleChange}
+            size="small"
+            displayEmpty
+          >
+            <MenuItem value="">{translations.paymentTable.usertype}</MenuItem>
             <MenuItem value="super_admin">Super Admin</MenuItem>
             <MenuItem value="admin">Admin</MenuItem>
             <MenuItem value="user">User</MenuItem>
@@ -91,7 +136,9 @@ const SearchPaymentsArea = ({ onSearch }) => {
           <DatePicker
             slotProps={{ textField: { size: "small", sx: { width: "150px" } } }}
             format="YYYY-MM-DD"
-            value={searchParams.startDate ? dayjs(searchParams.startDate) : null}
+            value={
+              searchParams.startDate ? dayjs(searchParams.startDate) : null
+            }
             onChange={handleStartDateChange}
             maxDate={searchParams.endDate ? dayjs(searchParams.endDate) : null}
           />
@@ -101,9 +148,13 @@ const SearchPaymentsArea = ({ onSearch }) => {
             format="YYYY-MM-DD"
             value={searchParams.endDate ? dayjs(searchParams.endDate) : null}
             onChange={handleEndDateChange}
-            minDate={searchParams.startDate ? dayjs(searchParams.startDate) : null}
+            minDate={
+              searchParams.startDate ? dayjs(searchParams.startDate) : null
+            }
           />
-          <Button variant="contained" color="primary" onClick={handleSearch}>검색</Button>
+          <Button variant="contained" color="primary" onClick={handleSearch}>
+          {translations.managetable.search}
+          </Button>
         </Box>
       </Box>
     </LocalizationProvider>

@@ -93,7 +93,7 @@ const AdminRegisterPage = () => {
               value={confirmPassword}
               onChange={handleConfirmPassword}
               error={passwordError}
-              helperText={passwordError ? "비밀번호가 일치하지 않습니다." : ""}
+              helperText={passwordError ? translations.helptext.password : ""}
             />
           </Grid>
 

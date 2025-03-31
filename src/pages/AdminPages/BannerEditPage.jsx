@@ -50,6 +50,12 @@ const BannerEditPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
+  const handleChangeStatus = ({ meta, file }, status) => {
+    if (status === "done" || status === "headers_received") {
+      handleImageSelection(file);
+    }
+  };
+
   useEffect(() => {
     if (!isEditMode) return;
 
@@ -183,31 +189,32 @@ const BannerEditPage = () => {
                     sx={{ maxHeight: "100%", objectFit: "contain" }}
                   />
                 ) : (
-                  <label htmlFor="image-upload">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      style={{ display: "none" }}
-                      id="image-upload"
-                      onChange={(e) => handleImageSelection(e.target.files[0])}
-                    />
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        cursor: "pointer",
+                  <Dropzone
+                    onChangeStatus={handleChangeStatus}
+                    accept="image/*"
+                    maxFiles={1}
+                    multiple={false}
+                    canCancel={false}
+                    inputContent="클릭하거나 이미지를 드래그 앤 드롭하세요"
+                    styles={{
+                      dropzone: {
+                        minHeight: 180,
                         border: "2px dashed gray",
-                        p: 2,
                         borderRadius: "8px",
-                      }}
-                    >
-                      <AddIcon sx={{ fontSize: 48, color: "gray" }} />
-                      <Typography variant="body2" color="gray">
-                        {translations.bannerpage.upload}
-                      </Typography>
-                    </Box>
-                  </label>
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      },
+                      inputLabel: {
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center", 
+                        height: 180,
+                        color: "gray",
+                        fontSize: 14,
+                      },
+                    }}
+                  />
                 )}
               </Card>
               {!uploadedImage && localImage && (
@@ -233,7 +240,7 @@ const BannerEditPage = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="배너 제목"
+                label={translations.banneredit.title}
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
@@ -245,7 +252,7 @@ const BannerEditPage = () => {
                 {translations.bannerpage.photo}:{" "}
                 {formData.photoCollectionTitle
                   ? `: ${formData.photoCollectionTitle}`
-                  : "없음"}
+                  : "None"}
               </Typography>
               <Button variant="contained" onClick={() => setModalOpen(true)}>
                 {translations.bannerpage.search}
@@ -274,7 +281,7 @@ const BannerEditPage = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label={translations.bannerpage.redirectUrl}
+                label={translations.bannerpage.redirectURL}
                 name="redirectUrl"
                 value={formData.redirectUrl}
                 onChange={handleChange}

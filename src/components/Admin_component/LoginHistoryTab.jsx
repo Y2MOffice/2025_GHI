@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { LanguageContext } from "../../contexts/LanguageContext";
 import {
   Table,
   TableBody,
@@ -23,12 +24,12 @@ const LoginHistoryTab = ({ userId }) => {
   const [order, setOrder] = useState("desc");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const { translations } = useContext(LanguageContext);
 
   useEffect(() => {
     const fetchLoginHistory = async () => {
       try {
         const response = await apiRequest(`/users/${userId}/login-history`);
-        console.log(response);
         if (response.resultCode === 0) {
           setLoginHistory(response.data);
         } else {
@@ -67,13 +68,13 @@ const LoginHistoryTab = ({ userId }) => {
     setPage(0);
   };
 
-  if (loading) return <p>로딩 중...</p>;
-  if (error) return <p style={{ color: "red" }}>에러 발생: {error}</p>;
+  if (loading) return <p>{translations.gloval.loading}</p>;
+  if (error) return <p style={{ color: "red" }}>{translations.gloval.error} {error}</p>;
 
   return (
     <Box>
       <Typography variant="h6" gutterBottom>
-        로그인 기록
+        {translations.loginhistory.history}
       </Typography>
       <TableContainer component={Paper}>
         <Table size="small">
@@ -85,7 +86,7 @@ const LoginHistoryTab = ({ userId }) => {
                   direction={order}
                   onClick={() => handleSort("loginTime")}
                 >
-                  로그인 시간
+                  {translations.loginhistory.time}
                 </TableSortLabel>
               </TableCell>
               <TableCell>
@@ -94,7 +95,7 @@ const LoginHistoryTab = ({ userId }) => {
                   direction={order}
                   onClick={() => handleSort("ipAddress")}
                 >
-                  IP 주소
+                  {translations.loginhistory.ip}
                 </TableSortLabel>
               </TableCell>
               <TableCell>
@@ -103,7 +104,7 @@ const LoginHistoryTab = ({ userId }) => {
                   direction={order}
                   onClick={() => handleSort("deviceType")}
                 >
-                  디바이스 종류
+                  {translations.loginhistory.device}
                 </TableSortLabel>
               </TableCell>
               <TableCell>
@@ -112,7 +113,7 @@ const LoginHistoryTab = ({ userId }) => {
                   direction={order}
                   onClick={() => handleSort("country")}
                 >
-                  국가
+                  {translations.loginhistory.country}
                 </TableSortLabel>
               </TableCell>
             </TableRow>

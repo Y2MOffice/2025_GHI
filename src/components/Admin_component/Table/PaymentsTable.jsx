@@ -1,4 +1,3 @@
-// PaymentsTable.jsx
 import React, { useContext } from "react";
 import { LanguageContext } from "../../../contexts/LanguageContext";
 import {
@@ -26,8 +25,9 @@ const PaymentsTable = ({
 }) => {
   const { translations } = useContext(LanguageContext);
 
-  if (loading) return <p>불러오는 중...</p>;
-  if (error) return <p>오류 발생: {error}</p>;
+  if (loading) return <p>{translations.gloval.loading}</p>;
+  if (error) return <p style={{ color: "red" }}>{translations.gloval.error} {error}</p>;
+
 
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && ascending;
@@ -47,7 +47,7 @@ const PaymentsTable = ({
                 direction={ascending ? "asc" : "desc"}
                 onClick={() => handleRequestSort("Name")}
               >
-                이름
+                {translations.paymentTable.name}
               </TableSortLabel>
             </TableCell>
             <TableCell>
@@ -56,7 +56,7 @@ const PaymentsTable = ({
                 direction={ascending ? "asc" : "desc"}
                 onClick={() => handleRequestSort("NickName")}
               >
-                닉네임
+                {translations.paymentTable.nickname}
               </TableSortLabel>
             </TableCell>
             <TableCell>
@@ -65,7 +65,7 @@ const PaymentsTable = ({
                 direction={ascending ? "asc" : "desc"}
                 onClick={() => handleRequestSort("Email")}
               >
-                이메일
+                {translations.paymentTable.email}
               </TableSortLabel>
             </TableCell>
             <TableCell>
@@ -74,7 +74,7 @@ const PaymentsTable = ({
                 direction={ascending ? "asc" : "desc"}
                 onClick={() => handleRequestSort("UserType")}
               >
-                회원 구분
+                {translations.paymentTable.usertype}
               </TableSortLabel>
             </TableCell>
             <TableCell>
@@ -83,7 +83,7 @@ const PaymentsTable = ({
                 direction={ascending ? "asc" : "desc"}
                 onClick={() => handleRequestSort("PaymentMethod")}
               >
-                결제 수단
+                {translations.paymentTable.payment}
               </TableSortLabel>
             </TableCell>
             <TableCell>
@@ -92,17 +92,17 @@ const PaymentsTable = ({
                 direction={ascending ? "asc" : "desc"}
                 onClick={() => handleRequestSort("PaymentStatus")}
               >
-                결제 상태
+                {translations.paymentTable.paystatus}
               </TableSortLabel>
             </TableCell>
-            <TableCell>금액</TableCell>
+            <TableCell>{translations.paymentTable.price}</TableCell>
             <TableCell>
               <TableSortLabel
                 active={orderBy === "CreatedAt"}
                 direction={ascending ? "asc" : "desc"}
                 onClick={() => handleRequestSort("CreatedAt")}
               >
-                결제일
+                {translations.paymentTable.date}
               </TableSortLabel>
             </TableCell>
           </TableRow>

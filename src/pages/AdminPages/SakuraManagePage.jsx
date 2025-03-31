@@ -92,8 +92,6 @@ const SakuraManagePage = () => {
           searchParams={searchParams}
           orderBy={orderBy}
           ascending={ascending}
-          orderBy={orderBy}
-          ascending={ascending}
         />
       </Box>
 

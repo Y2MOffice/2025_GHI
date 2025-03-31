@@ -18,7 +18,7 @@ purchase:
   manage: "Payment Management"
   sakura: "Sakura Payment History"
   photobook: "Photo Album Payment History"
-  payment: "Payment history"
+  payment: "Stripe Payment history"
 managetable:
   name: "Name"
   email: "Email"
@@ -38,7 +38,7 @@ menu:
   charge: "Charge Sakura"
   home: "Home"
   policy: "Privacy Policy"
-  commercial: "Specified Commercial Transactions Act"
+  commercial: "Specified Commercial Law"
   guide: "User Guide"
   text: "This application is under development."
 detail:
@@ -48,6 +48,7 @@ detail:
   buy: "Purchase"
 adminpage:
   name: "Admin List"
+  searchCondition: "Search conditions"
 editacc:
   name: "Edit Account Information"
   namelabel: "Name"
@@ -55,6 +56,7 @@ editacc:
   phone: "Phone Number"
   mail: "Email Address"
   save: "Save"
+  required: "Please enter a password."
 favli:
   name: "Favorite List"
 findpw:
@@ -80,7 +82,7 @@ loginpage:
   message: "The ID or password is not correct, please check again."
 mypage:
   editacc: "Edit Personal Information"
-  pointhis: "Point Usage History"
+  pointhis: "Sakura Acquisition History"
   photohis: "Photo Purchase History"
   favli: "Favorite List"
 nfpage:
@@ -99,7 +101,7 @@ pphis:
   list: "Details"
   price: "Amount"
 phis:
-  name: "Point Usage History"
+  name: "Sakura Acquisition History"
   list: "Details"
   price: "Amount"
 searchpage:
@@ -301,3 +303,85 @@ bannertable:
   manage: "Manage"
   loading: "Loading..."
   error: "Error:"
+gloval:
+  loading: "Loading..."
+  error: "An error occurred:"
+photomodal:
+  title: "Photo Book Search"
+  search: "Search Photo Book Title"
+  searchbutton: "Search"
+  titletable: "Title"
+  select: "Select"
+paymentTable:
+  name: "Name"
+  nickname: "Nickname"
+  email: "Email"
+  usertype: "User Type"
+  payment: "Payment Method"
+  paystatus: "Payment Status"
+  price: "Amount"
+  date: "Payment Date"
+sakura:
+  id: "ID"
+  type: "Type"
+  price: "Amount"
+  paid: "Paid"
+  date: "Created Date"
+  ok: "Completed"
+  no: "Unpaid"
+userinfo:
+  userinfo: "User Information"
+  name: "Name"
+  email: "Email"
+  phone: "Phone Number"
+  language: "Display Language"
+  nickname: "Nickname"
+  type: "User Role"
+  psakura: "Paid Sakura"
+  fsakura: "Free Sakura"
+  deleted: "Deleted"
+  yes: "Yes"
+  no: "No"
+  admin: "Grant Admin Rights"
+loginhistory:
+  history: "Login History"
+  time: "Login Time"
+  ip: "IP Address"
+  device: "Device Type"
+  country: "Country"
+photopurchasetab:
+  photopurchase: "Photo Book Purchase History"
+  title: "Photo Book Title"
+  date: "Purchase Date"
+userpaymenttab:
+  title: "Stripe Payment History"
+  price: "Amount"
+  method: "Payment Method"
+  status: "Payment Status"
+  date: "Payment Date"
+banneredit:
+  title: "Banner Title"
+photomanage:
+  question: "Are you sure you want to delete?"
+  ok: "Deleted successfully."
+  failed: "Deletion failed."
+helptext:
+  password: "Passwords do not match."
+useredit:
+  info: "User Info"
+  login: "Login History"
+  sakura: "Sakura Purchase History"
+  photo: "Photo Book Purchase History"
+  pay: "User Payment History"
+payresult:
+  success: "Payment completed successfully"
+  fail: "Payment failed"
+  go2home: "You will be redirected to the main page shortly."
+  go2back: "You will be redirected to the previous page shortly."
+tradelaw:
+  title: "Notation based on the Act on Specified Commercial Transactions"
+  name: "Business Name"
+  nameAns: "Y2M Co., Ltd."
+  leader: "Representative Director: Youngtaek Oh"
+  address: "3-32-7 Nishishinkoiwa, Katsushika-ku, Tokyo"
+  email: "Email Address:"

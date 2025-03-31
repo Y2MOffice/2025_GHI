@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { LanguageContext } from "../../contexts/LanguageContext";
 import {
   Table,
   TableBody,
@@ -23,6 +24,7 @@ const UserPaymentTab = ({ userId }) => {
   const [order, setOrder] = useState("desc");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+      const { translations } = useContext(LanguageContext);
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -66,13 +68,13 @@ const UserPaymentTab = ({ userId }) => {
     setPage(0);
   };
 
-  if (loading) return <p>로딩 중...</p>;
-  if (error) return <p style={{ color: "red" }}>에러 발생: {error}</p>;
+  if (loading) return <p>{translations.gloval.loading}</p>;
+  if (error) return <p style={{ color: "red" }}>{translations.gloval.error} {error}</p>;
 
   return (
     <Box>
       <Typography variant="h6" gutterBottom>
-        결제 내역
+        {translations.userpaymenttab.title}
       </Typography>
       <TableContainer component={Paper}>
         <Table size="small">
@@ -93,7 +95,7 @@ const UserPaymentTab = ({ userId }) => {
                   direction={order}
                   onClick={() => handleSort("sakuraAmount")}
                 >
-                  금액
+                  {translations.userpaymenttab.price}
                 </TableSortLabel>
               </TableCell>
               <TableCell>
@@ -102,7 +104,7 @@ const UserPaymentTab = ({ userId }) => {
                   direction={order}
                   onClick={() => handleSort("paymentMethod")}
                 >
-                  결제 수단
+                  {translations.userpaymenttab.method}
                 </TableSortLabel>
               </TableCell>
               <TableCell>
@@ -111,7 +113,7 @@ const UserPaymentTab = ({ userId }) => {
                   direction={order}
                   onClick={() => handleSort("paymentStatus")}
                 >
-                  결제 수단
+                  {translations.userpaymenttab.status}
                 </TableSortLabel>
               </TableCell>
               <TableCell>
@@ -120,7 +122,7 @@ const UserPaymentTab = ({ userId }) => {
                   direction={order}
                   onClick={() => handleSort("createdAt")}
                 >
-                  결제일
+                  {translations.userpaymenttab.date}
                 </TableSortLabel>
               </TableCell>
             </TableRow>

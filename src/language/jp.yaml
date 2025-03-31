@@ -18,7 +18,7 @@ purchase:
   manage: "決済管理"
   sakura: "サクラ決済履歴"
   photobook: "写真集決済履歴"
-  payment: "決済内訳"
+  payment: "Stripe決済内訳"
 managetable:
   name: "名前"
   email: "メールアドレス"
@@ -38,7 +38,7 @@ menu:
   charge: "サクラチャージ"
   home: "ホーム"
   policy: "個人情報保護ポリシー"
-  commercial: "特定商取引法表示"
+  commercial: "特定商取引法"
   guide: "ご利用ガイド"
   text: "このアプリは作り中です。"
 detail:
@@ -48,6 +48,7 @@ detail:
   buy: "購入する"
 adminpage:
   name: "管理者リスト"
+  searchCondition: "検索条件"
 editacc:
   name: "メンバー情報修正"
   namelabel: "名前"
@@ -55,6 +56,7 @@ editacc:
   phone: "電話番号"
   mail: "メールアドレス"
   save: "保存"
+  required: "パスワードの入力をお願いします"
 favli:
   name: "お気に入りリスト"
 findpw:
@@ -80,7 +82,7 @@ loginpage:
   message: "IDまたはパスワードが正しくありません。 もう一度確認をお願いします。"
 mypage:
   editacc: "個人情報修正"
-  pointhis: "ポイント利用履歴"
+  pointhis: "サクラ獲得内訳"
   photohis: "写真購入履歴"
   favli: "お気に入りリスト"
 nfpage:
@@ -99,7 +101,7 @@ pphis:
   list: "履歴"
   price: "金額"
 phis:
-  name: "ポイント利用履歴"
+  name: "サクラ獲得内訳"
   list: "履歴"
   price: "金額"
 searchpage:
@@ -301,3 +303,85 @@ bannertable:
   manage: "管理"
   loading: "ローディング中です.."
   error: "エラー : "
+gloval:
+  loading: "読み込み中..."
+  error: "エラーが発生しました："
+photomodal:
+  title: "写真集検索"
+  search: "写真集のタイトルを検索"
+  searchbutton: "検索"
+  titletable: "タイトル"
+  select: "選択"
+paymentTable:
+  name: "名前"
+  nickname: "ニックネーム"
+  email: "メールアドレス"
+  usertype: "ユーザー種別"
+  payment: "支払方法"
+  paystatus: "支払状況"
+  price: "金額"
+  date: "支払日"
+sakura:
+  id: "ID"
+  type: "タイプ"
+  price: "金額"
+  paid: "支払済み"
+  date: "作成日"
+  ok: "完了"
+  no: "未払い"
+userinfo:
+  userinfo: "ユーザー情報"
+  name: "名前"
+  email: "メールアドレス"
+  phone: "電話番号"
+  language: "表示言語"
+  nickname: "ニックネーム"
+  type: "ユーザー権限"
+  psakura: "有料さくら"
+  fsakura: "無料さくら"
+  deleted: "削除済み"
+  yes: "はい"
+  no: "いいえ"
+  admin: "管理者権限を付与"
+loginhistory:
+  history: "ログイン履歴"
+  time: "ログイン時間"
+  ip: "IPアドレス"
+  device: "デバイス種別"
+  country: "国"
+photopurchasetab:
+  photopurchase: "写真集購入履歴"
+  title: "写真集タイトル"
+  date: "購入日"
+userpaymenttab:
+  title: "Stripe支払履歴"
+  price: "金額"
+  method: "支払方法"
+  status: "支払状況"
+  date: "支払日"
+banneredit:
+  title: "バナーのタイトル"
+photomanage:
+  question: "本当に削除しますか？"
+  ok: "削除されました。"
+  failed: "削除に失敗しました。"
+helptext:
+  password: "パスワードが一致しません。"
+useredit:
+  info: "ユーザー情報"
+  login: "ログイン履歴"
+  sakura: "さくら購入履歴"
+  photo: "写真集購入履歴"
+  pay: "ユーザー支払履歴"
+payresult:
+  success: "支払いが完了しました"
+  fail: "支払いに失敗しました"
+  go2home: "まもなくメインページに移動します。"
+  go2back: "まもなく前のページに戻ります。"
+tradelaw:
+  title: "特定商取引法に基づく表示"
+  name: "販売業者名"
+  nameAns: "株式会社ワイ・ツー・エム"
+  leader: "代表取締役　呉 榮澤"
+  address: "東京都葛飾区西新小岩三丁目32番7号"
+  email: "メールアドレス："
