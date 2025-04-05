@@ -12,6 +12,8 @@ const PhotoManagePage = () => {
   const { translations } = useContext(LanguageContext);
   const isMobile = useMediaQuery("(max-width:600px)");
   const [photos, setPhotos] = useState([]);
+  const [orderBy, setOrderBy] = useState("CreatedAt");
+  const [ascending, setAscending] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useState({});
@@ -21,16 +23,18 @@ const PhotoManagePage = () => {
     pageSize: 10,
   });
 
-  const getPhotos = async (params) => {
+  const getPhotos = async (params = {}) => {
     setLoading(true);
     try {
       const queryParams = {
         ...params,
         Page: pagination.page,
         PageSize: pagination.pageSize,
+        orderBy,
+        ascending,
       };
       const queryString = new URLSearchParams(queryParams).toString();
-      const data = await apiRequest(`/photo-collections?${queryString}`); // /api 제거
+      const data = await apiRequest(`/photo-collections?${queryString}`);
 
       setPhotos(data.data.items || []);
       setPagination({
@@ -49,14 +53,24 @@ const PhotoManagePage = () => {
 
   useEffect(() => {
     getPhotos(searchParams);
-  }, [pagination.page]);
+  }, [pagination.page, orderBy, ascending]);
+
+  const handleSortChange = (newOrderBy, newAscending) => {
+    setOrderBy(newOrderBy);
+    setAscending(newAscending);
+    getPhotos({
+      ...searchParams,
+      orderBy: newOrderBy,
+      ascending: newAscending,
+    });
+  };
 
   const deletePhoto = async (photoId) => {
     if (!window.confirm(translations.photomanage.question)) return;
     try {
       await apiRequest(`/photo-collections/${photoId}`, "DELETE");
       alert(translations.photomanage.ok);
-      getPhotos(searchParams); //삭제하고나서 다시목록 받아옴
+      getPhotos(searchParams);
     } catch (err) {
       alert(`${translations.photomanage.failed}:${err.message}`);
     }
@@ -81,13 +95,13 @@ const PhotoManagePage = () => {
         <Typography variant="h5" fontWeight="bold">
           {translations.photopage.name}
         </Typography>
-        {/* <DownloadButton
+        <DownloadButton
           fetchUrl="/photo-collections"
           fileName="Photo-collections.xlsx"
           searchParams={searchParams}
           orderBy={orderBy}
           ascending={ascending}
-        /> */}
+        />
       </Box>
 
       <Paper elevation={3} sx={{ p: 1, mb: 1, borderRadius: 2 }}>
@@ -101,7 +115,13 @@ const PhotoManagePage = () => {
       </Paper>
 
       <Paper elevation={3} sx={{ p: 1, borderRadius: 2, mb: 1 }}>
-        <PhotoTable photos={photos} onDelete={deletePhoto} />
+        <PhotoTable
+          photos={photos}
+          onDelete={deletePhoto}
+          orderBy={orderBy}
+          ascending={ascending}
+          onSortChange={handleSortChange}
+        />
       </Paper>
 
       <Box display="flex" justifyContent="center" mt={1}>

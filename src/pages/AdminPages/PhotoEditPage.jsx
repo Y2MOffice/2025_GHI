@@ -39,6 +39,7 @@ const PhotoEditPage = () => {
   };
 
   const [formData, setFormData] = useState(resetForm);
+  const [hashtagsInput, setHashtagsInput] = useState(""); // 별도의 문자열 상태 추가
   const [artists, setArtists] = useState([]);
   const [isLoadingArtists, setIsLoadingArtists] = useState(true);
 
@@ -46,6 +47,7 @@ const PhotoEditPage = () => {
     if (!id) {
       console.log("등록 모드 진입 (새 컬렉션)");
       setFormData(resetForm);
+      setHashtagsInput("");
       return;
     }
 
@@ -55,22 +57,26 @@ const PhotoEditPage = () => {
         const { data } = await apiRequest(`/photo-collections/${id}`);
         console.log("불러온 데이터:", data);
 
+        const absoluteCoverImageUrl = data.coverImageUrl.startsWith("http")
+          ? data.coverImageUrl
+          : `https://stage-api.glowsnaps.tokyo${data.coverImageUrl}`;
+
         setFormData((prev) => ({
           ...prev,
           artistId: data.artistId || "",
           title: data.title || "",
           description: data.description || "",
           coverImageId: data.coverImageId ?? null,
-          coverImageUrl: data.coverImageUrl || "",
+          coverImageUrl: absoluteCoverImageUrl || "",
           price: data.price || 0,
           hashtags: data.hashtags || [],
           coverImageFile: null,
           photoFiles: [],
           photoPreviews: [],
         }));
+        setHashtagsInput((data.hashtags || []).join(", ")); // 초기값 설정
       } catch (err) {
         console.error("사진 목록 가져오기 실패:", err);
-        setError(err.message);
         alert("No Data");
         navigate("/admin/photos");
       }
@@ -170,6 +176,23 @@ const PhotoEditPage = () => {
     }));
   };
 
+  const handleHashtagsChange = (e) => {
+    setHashtagsInput(e.target.value); // 입력값을 실시간으로 업데이트
+  };
+
+  const handleHashtagsBlur = () => {
+    // 포커스가 벗어날 때 배열로 변환
+    const newHashtags = hashtagsInput
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter((tag) => tag);
+    setFormData((prev) => ({
+      ...prev,
+      hashtags: newHashtags,
+    }));
+    console.log("해시태그 업데이트:", newHashtags);
+  };
+
   const handleSubmit = async () => {
     try {
       console.log("폼 제출 시작");
@@ -186,7 +209,7 @@ const PhotoEditPage = () => {
           true
         );
         coverImageId = imageRes.data.id;
-        coverImageUrl = imageRes.data.url;
+        coverImageUrl = `https://stage-api.glowsnaps.tokyo${imageRes.data.url}`;
         console.log("커버 이미지 업로드 완료:", imageRes.data);
       }
 
@@ -220,7 +243,7 @@ const PhotoEditPage = () => {
         coverImageId,
         coverImageUrl,
         price: Number(formData.price),
-        hashtags: formData.hashtags.filter((tag) => tag.trim() !== ""),
+        hashtags: formData.hashtags,
         photoFileNames: uploadedPhotoFilenames,
       };
 
@@ -323,6 +346,9 @@ const PhotoEditPage = () => {
                   objectFit: "contain",
                 }}
                 image={formData.coverImageUrl}
+                onError={(e) =>
+                  console.error("이미지 로드 실패:", formData.coverImageUrl)
+                }
               />
               <Button
                 variant="outlined"
@@ -385,16 +411,9 @@ const PhotoEditPage = () => {
           label="Hashtags"
           name="hashtags"
           fullWidth
-          value={formData.hashtags.join(", ")}
-          onChange={(e) =>
-            setFormData((prev) => ({
-              ...prev,
-              hashtags: e.target.value
-                .split(",")
-                .map((tag) => tag.trim())
-                .filter((tag) => tag),
-            }))
-          }
+          value={hashtagsInput}
+          onChange={handleHashtagsChange}
+          onBlur={handleHashtagsBlur}
           helperText={translations.phototable.helperText}
         />
 

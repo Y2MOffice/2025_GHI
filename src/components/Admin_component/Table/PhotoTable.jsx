@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { LanguageContext } from "../../../contexts/LanguageContext";
+import React, { useContext } from "react";
 import {
   Table,
   TableHead,
@@ -9,13 +8,15 @@ import {
   TableContainer,
   Paper,
   IconButton,
-  Button,
   useMediaQuery,
+  TableSortLabel,
+  Box,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Edit, Delete } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { pink } from "@mui/material/colors";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 const truncateText = (text, maxLength) => {
   return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
@@ -23,12 +24,16 @@ const truncateText = (text, maxLength) => {
 
 const MIN_ROWS = 10;
 
-const PhotoTable = ({ photos, onDelete }) => {
+const PhotoTable = ({ photos, onDelete, orderBy, ascending, onSortChange }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const { translations } = useContext(LanguageContext);
   const navigate = useNavigate();
 
-  // 부족한 행 추가 (테이블 높이 유지)
+  const handleRequestSort = (property) => {
+    const isAsc = orderBy === property && ascending;
+    onSortChange(property, !isAsc);
+  };
+
   const emptyRows = Math.max(MIN_ROWS - photos.length, 0);
 
   return (
@@ -40,19 +45,46 @@ const PhotoTable = ({ photos, onDelete }) => {
         <TableHead sx={{ backgroundColor: pink[50] }}>
           <TableRow sx={{ height: "40px" }}>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-              {translations.phototable.artist}
+              <TableSortLabel
+                active={orderBy === "ArtistName"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("ArtistName")}
+              >
+                {translations.phototable.artist}
+              </TableSortLabel>
             </TableCell>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-              {translations.phototable.title}
+              <TableSortLabel
+                active={orderBy === "Title"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("Title")}
+              >
+                {translations.phototable.title}
+              </TableSortLabel>
             </TableCell>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
               {translations.phototable.price}
             </TableCell>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-              {translations.phototable.created_at}
+              <TableSortLabel
+                active={orderBy === "CreatedAt"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("CreatedAt")}
+              >
+                {translations.phototable.created_at}
+              </TableSortLabel>
             </TableCell>
             <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
               {translations.phototable.manage}
+            </TableCell>
+            <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
+              <TableSortLabel
+                active={orderBy === "IsDeleted"}
+                direction={ascending ? "asc" : "desc"}
+                onClick={() => handleRequestSort("IsDeleted")}
+              >
+                {translations.phototable.state || "dd"}
+              </TableSortLabel>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -74,7 +106,6 @@ const PhotoTable = ({ photos, onDelete }) => {
               <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
                 ${photo.price}
               </TableCell>
-
               <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
                 {dayjs(photo.createdAt).format("YYYY-MM-DD")}
               </TableCell>
@@ -95,6 +126,23 @@ const PhotoTable = ({ photos, onDelete }) => {
                 >
                   <Delete fontSize="small" />
                 </IconButton>
+              </TableCell>
+              <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
+                <Box
+                  component="span"
+                  sx={{
+                    px: 1.2,
+                    py: 0.2,
+                    borderRadius: 1,
+                    fontSize: "0.75rem",
+                    color: photo.isDeleted ? "error.main" : "success.main",
+                    backgroundColor: photo.isDeleted ? "#ffe5e5" : "#e6f4ea",
+                    display: "inline-block",
+                    fontWeight: 500,
+                  }}
+                >
+                  {photo.isDeleted ? "Inactive" : "Active"}
+                </Box>
               </TableCell>
             </TableRow>
           ))}
