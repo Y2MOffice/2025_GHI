@@ -154,7 +154,7 @@ const List = ({ title, data }) => {
           >
             <Box
               component="img"
-              src={`https://stage-api.glowsnaps.tokyo${item.coverImageUrl}`}
+              src={`${item.coverImageUrl}`}
               alt={item.title}
               sx={{
                 width: "100%",
