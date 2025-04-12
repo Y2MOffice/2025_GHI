@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { LanguageContext } from "../contexts/LanguageContext";
 import {
   Box,
@@ -16,44 +16,62 @@ import {
 import { apiRequest } from "../utils/api";
 
 const PhotoPurchaseHistory = () => {
-  const theme = useTheme();
   const { translations } = useContext(LanguageContext);
+  const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [items, setItems] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 10;
 
-  const fetchPurchaseHistory = async () => {
-    try {
-      const res = await apiRequest(
-        `/me/purchases?page=${page}&pageSize=${itemsPerPage}`
-      );
-      if (res.resultCode === 0 && Array.isArray(res.data.items)) {
-        setItems(res.data.items);
-        setTotalPages(res.data.totalPages || 1);
-      } else {
-        setItems([]);
-      }
-    } catch (error) {
-      console.error("구매 내역 불러오기 오류:", error.message);
-      setItems([]);
-    }
-  };
-
   useEffect(() => {
-    fetchPurchaseHistory();
-  }, [page]);
+    const fetchData = async () => {
+      try {
+        const res = await apiRequest("/me/purchases");
+        if (res?.resultCode === 0) {
+          const formatted = res.data.map((item) => ({
+            id: item.id,
+            detail: item.photoCollectionTitle,
+            amount: `${
+              item.photoCollectionPrice?.toLocaleString() || 0
+            } sakura`,
+            date: formatDate(item.purchasedAt),
+          }));
+          setData(formatted);
+        } else {
+          console.error("error", res.errorMessage);
+        }
+      } catch (err) {
+        console.error("API error", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const paginatedData = data.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
+
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    const hh = String(date.getHours()).padStart(2, "0");
+    const min = String(date.getMinutes()).padStart(2, "0");
+    return `${yyyy}.${mm}.${dd} ${hh}:${min}`;
+  };
 
   return (
     <Box
       sx={{
-        padding: { xs: 2, md: 4 },
-        backgroundColor: theme.palette.background.default,
-        color: theme.palette.text.primary,
-        minHeight: "100vh",
+        padding: 3,
+        backgroundColor: "#c1a3a3",
+        color: "rgb(250, 241, 242)",
+        height: "100vh",
       }}
     >
-      <Typography variant="h4" sx={{ mb: 3 }}>
+      <Typography variant="h4" sx={{ marginBottom: 2 }}>
         {translations.pphis.name}
       </Typography>
 
@@ -69,9 +87,9 @@ const PhotoPurchaseHistory = () => {
             <TableRow>
               <TableCell
                 sx={{
-                  color: theme.palette.text.primary,
+                  color: "rgb(250, 241, 242)",
                   fontWeight: "bold",
-                  fontSize: "1.1rem",
+                  fontSize: "1.2rem",
                 }}
               >
                 {translations.pphis.list}
@@ -88,12 +106,25 @@ const PhotoPurchaseHistory = () => {
               </TableCell>
             </TableRow>
           </TableHead>
-
           <TableBody>
-            {items.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={2} align="center">
-                  {translations.pphis.empty || "購入履歴がありません。"}
+            {paginatedData.map((row) => (
+              <TableRow
+                key={row.id}
+                sx={{ borderBottom: "1px solid rgba(255, 255, 255, 0.2)" }}
+              >
+                <TableCell sx={{ color: "rgb(250, 241, 242)" }}>
+                  <Typography variant="body1">{row.detail}</Typography>
+                  <Typography
+                    variant="caption"
+                    sx={{ color: "rgb(250, 241, 242)" }}
+                  >
+                    {row.date}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  sx={{ color: "rgb(250, 241, 242)", textAlign: "right" }}
+                >
+                  <Typography variant="body1">{row.amount}</Typography>
                 </TableCell>
               </TableRow>
             ) : (
@@ -121,7 +152,8 @@ const PhotoPurchaseHistory = () => {
 
       <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
         <Pagination
-          count={totalPages}
+          count={Math.ceil(data.length / itemsPerPage)}
+          color="secondary"
           page={page}
           onChange={(e, value) => setPage(value)}
           color="primary"
@@ -131,9 +163,11 @@ const PhotoPurchaseHistory = () => {
               borderColor: theme.palette.divider,
             },
             "& .MuiPaginationItem-page.Mui-selected": {
-              backgroundColor: theme.palette.primary.main,
-              color: theme.palette.primary.contrastText,
+              backgroundColor: "#7d5959",
+              color: "#faf1f2",
             },
+            "& .MuiPaginationItem-ellipsis": { color: "#faf1f2" },
+            "& .MuiPaginationItem-icon": { color: "#faf1f2" },
           }}
         />
       </Box>

@@ -23,7 +23,7 @@ const Footer = () => {
         </Typography>
         <Box>
           <Link
-            href="#"
+            href="/#/privacy-policy"
             sx={{
               color: "rgb(250, 241, 242)",
               mx: 1,
@@ -34,7 +34,7 @@ const Footer = () => {
             Privacy Policy
           </Link>
           <Link
-            href="#"
+            href="/#/SpecifiedCommercialLaw"
             sx={{
               color: "rgb(250, 241, 242)",
               mx: 1,
@@ -42,7 +42,18 @@ const Footer = () => {
               "&:hover": { textDecoration: "underline" },
             }}
           >
-            Terms of Service
+            Specified Commercial Law
+          </Link>
+          <Link
+            href="/#/user-guide"
+            sx={{
+              color: "rgb(250, 241, 242)",
+              mx: 1,
+              textDecoration: "none",
+              "&:hover": { textDecoration: "underline" },
+            }}
+          >
+            User Guide
           </Link>
         </Box>
       </Container>

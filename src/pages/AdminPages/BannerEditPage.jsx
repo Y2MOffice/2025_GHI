@@ -195,7 +195,7 @@ const BannerEditPage = () => {
                     maxFiles={1}
                     multiple={false}
                     canCancel={false}
-                    inputContent="클릭하거나 이미지를 드래그 앤 드롭하세요"
+                    inputContent={translations.phototable.add}
                     styles={{
                       dropzone: {
                         minHeight: 180,
