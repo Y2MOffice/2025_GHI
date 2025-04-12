@@ -104,7 +104,7 @@ const PhotoTable = ({ photos, onDelete, orderBy, ascending, onSortChange }) => {
                 {truncateText(photo.title, isMobile ? 6 : 15)}
               </TableCell>
               <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
-                ${photo.price}
+                {photo.price}
               </TableCell>
               <TableCell padding="none" sx={{ whiteSpace: "nowrap", px: 2 }}>
                 {dayjs(photo.createdAt).format("YYYY-MM-DD")}
