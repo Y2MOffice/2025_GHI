@@ -15,6 +15,8 @@ const MovieDetail = ({ movie, onClose }) => {
   const { translations } = useContext(LanguageContext);
   const navigate = useNavigate();
 
+  console.log(movie)
+
   const handleClose = () => {
     setShow(false);
     setTimeout(() => {
@@ -117,7 +119,7 @@ const MovieDetail = ({ movie, onClose }) => {
             {movie?.title}
           </Typography>
           <img
-            src={movie?.mainImg[0]}
+            src={movie?.coverImageUrl}
             alt={movie?.title}
             style={{
               width: "100%",
@@ -128,10 +130,10 @@ const MovieDetail = ({ movie, onClose }) => {
             onDragStart={(e) => e.preventDefault()}
           />
           <Typography variant="h6" sx={{ mb: 1 }}>
-            {movie?.summary}
+            {movie?.description}
           </Typography>
           <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mt: 1, mb: 2 }}>
-            {movie?.tags?.map((tag, index) => (
+            {movie?.hashtags?.map((tag, index) => (
               <Typography
                 key={index}
                 variant="body2"
@@ -185,10 +187,9 @@ const MovieDetail = ({ movie, onClose }) => {
           <Box sx={{ display: "flex", gap: 1, mt: 2 }}>
             <Box
               sx={{ flex: 1, position: "relative", cursor: "pointer" }}
-              onClick={() => console.log("첫 번째 이미지 클릭")}
             >
               <img
-                src={movie?.mainImg[0]}
+                src={movie?.images[0].imageUrl}
                 alt={movie?.title}
                 style={{
                   width: "100%",
@@ -204,7 +205,7 @@ const MovieDetail = ({ movie, onClose }) => {
               onClick={() => console.log("두 번째 이미지 클릭")}
             >
               <img
-                src={movie?.mainImg[1]}
+                src={movie?.images[1].imageUrl}
                 alt={movie?.title}
                 style={{
                   width: "100%",
@@ -221,7 +222,7 @@ const MovieDetail = ({ movie, onClose }) => {
               onMouseLeave={() => setIsHovered(false)}
             >
               <img
-                src={movie?.mainImg[2]}
+                src={movie?.images[2].imageUrl}
                 alt={movie?.title}
                 style={{
                   width: "100%",

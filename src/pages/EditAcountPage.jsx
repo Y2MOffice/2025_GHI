@@ -23,6 +23,7 @@ const EditAccount = () => {
     phoneNumber: "",
     password: "",
     displayLanguage: "",
+    timezone: "",
   });
 
   useEffect(() => {
@@ -65,11 +66,17 @@ const EditAccount = () => {
       alert(translations.prpage.error1);
       return;
     }
-    const dataToSend = { ...form };
     if (!form.password.trim()) {
       alert(translations.editacc.required);
       return;
     }
+    const currentTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    const dataToSend = { 
+      ...form, 
+      timezone: currentTimezone 
+    };
+
     await apiRequest("/users/me", "PATCH", dataToSend);
     const user = JSON.parse(sessionStorage.getItem("user"));
     user.displayLanguage = form.displayLanguage;
