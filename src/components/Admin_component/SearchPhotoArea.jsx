@@ -219,9 +219,9 @@ const SearchPhotoArea = ({ onSearch }) => {
           <Box
             sx={{
               display: "flex",
-              flexWrap: "wrap",
+              flexDirection: "row",
               gap: 1,
-              minWidth: "150px",
+              minWidth: "220px",
             }}
           >
             <ThemeProvider theme={theme}>
