@@ -207,7 +207,6 @@ const PhotoEditPage = () => {
         newPreviews.splice(index, 1);
       }
 
-      // order 값 재할당
       const updatedExistingImages = newExistingImages.map((img, i) => ({
         ...img,
         order: i,
@@ -269,7 +268,6 @@ const PhotoEditPage = () => {
         }));
       }
 
-      // API로 보낼 페이로드 구성
       const payload = {
         artistId: formData.artistId,
         title: formData.title,
@@ -289,9 +287,7 @@ const PhotoEditPage = () => {
       };
 
       if (id) {
-        // 기존 컬렉션 수정
         await apiRequest(`/photo-collections/${id}`, "PATCH", payload);
-        // 수정 후 데이터 다시 가져오기
         const { data } = await apiRequest(`/photo-collections/${id}`);
         const absoluteCoverImageUrl = data.coverImageUrl.startsWith("http")
           ? data.coverImageUrl
@@ -315,7 +311,6 @@ const PhotoEditPage = () => {
         setHashtagsInput((data.hashtags || []).join(", "));
         alert("성공적으로 수정되었습니다.");
       } else {
-        // 새 컬렉션 생성
         await apiRequest("/photo-collections", "POST", payload);
         alert("성공적으로 등록되었습니다.");
       }

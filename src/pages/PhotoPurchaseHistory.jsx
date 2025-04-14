@@ -11,7 +11,6 @@ import {
   TableRow,
   Paper,
   Pagination,
-  useTheme,
 } from "@mui/material";
 import { apiRequest } from "../utils/api";
 
@@ -19,8 +18,6 @@ const PhotoPurchaseHistory = () => {
   const { translations } = useContext(LanguageContext);
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
-  const [items, setItems] = useState([]);
-  const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 10;
 
   useEffect(() => {
@@ -75,16 +72,10 @@ const PhotoPurchaseHistory = () => {
         {translations.pphis.name}
       </Typography>
 
-      <TableContainer
-        component={Paper}
-        sx={{
-          backgroundColor: theme.palette.background.paper,
-          boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
-        }}
-      >
+      <TableContainer component={Paper} sx={{ backgroundColor: "#7d5959" }}>
         <Table>
           <TableHead>
-            <TableRow>
+            <TableRow sx={{ borderBottom: "2px solid rgb(250, 241, 242)" }}>
               <TableCell
                 sx={{
                   color: "rgb(250, 241, 242)",
@@ -96,9 +87,9 @@ const PhotoPurchaseHistory = () => {
               </TableCell>
               <TableCell
                 sx={{
-                  color: theme.palette.text.primary,
+                  color: "rgb(250, 241, 242)",
                   fontWeight: "bold",
-                  fontSize: "1.1rem",
+                  fontSize: "1.2rem",
                   textAlign: "right",
                 }}
               >
@@ -127,40 +118,21 @@ const PhotoPurchaseHistory = () => {
                   <Typography variant="body1">{row.amount}</Typography>
                 </TableCell>
               </TableRow>
-            ) : (
-              items.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>
-                    <Typography variant="body1">
-                      {row.detail || "写真購入"}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      {new Date(row.createdAt).toLocaleString("ja-JP")}
-                    </Typography>
-                  </TableCell>
-                  <TableCell sx={{ textAlign: "right" }}>
-                    <Typography variant="body1">
-                      {row.amount?.toLocaleString() || "0"}円
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-              ))
-            )}
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
 
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
+      <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
         <Pagination
           count={Math.ceil(data.length / itemsPerPage)}
           color="secondary"
           page={page}
           onChange={(e, value) => setPage(value)}
-          color="primary"
           sx={{
             "& .MuiPaginationItem-root": {
-              color: theme.palette.text.primary,
-              borderColor: theme.palette.divider,
+              color: "#faf1f2",
+              borderColor: "#faf1f2",
             },
             "& .MuiPaginationItem-page.Mui-selected": {
               backgroundColor: "#7d5959",
