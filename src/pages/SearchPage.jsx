@@ -7,22 +7,20 @@ import {
   InputBase,
   ImageList,
   ImageListItem,
-  ImageListItemBar,
   Paper,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Loading from "../components/Loading";
-import dataList from "../data/List";
-import MovieDetail from "../components/MovieDetail";
+import { apiRequest } from "../utils/api";
 
 const SearchPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const rowRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
+  const [artistResults, setArtistResults] = useState([]);
+  const [collectionResults, setCollectionResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedMovie, setSelectedMovie] = useState(null);
   const [hasSearched, setHasSearched] = useState(false);
   const { translations } = useContext(LanguageContext);
 
@@ -30,50 +28,112 @@ const SearchPage = () => {
     setSearchTerm(event.target.value);
   };
 
+  const fetchSearchResults = async (keyword) => {
+    setIsLoading(true);
+    setHasSearched(true);
+    setArtistResults([]);
+    setCollectionResults([]);
+
+    try {
+      const [artistRes, collectionRes] = await Promise.all([
+        apiRequest(`/artists/search?tag=${encodeURIComponent(keyword)}`),
+        apiRequest(
+          `/photo-collections/search?tag=${encodeURIComponent(keyword)}`
+        ),
+      ]);
+
+      if (artistRes.resultCode === 0) {
+        setArtistResults(artistRes.data);
+      }
+
+      if (collectionRes.resultCode === 0) {
+        setCollectionResults(collectionRes.data);
+      }
+    } catch (error) {
+      console.error("검색 오류:", error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleSearch = async (event) => {
     if (event.key === "Enter") {
       const keyword = searchTerm.trim();
       if (!keyword) return;
-
-      setIsLoading(true);
-      setFilteredData([]);
-      setHasSearched(true);
-
       navigate(`/search?q=${keyword}`);
-
-      setTimeout(() => {
-        setFilteredData(
-          dataList.filter((item) =>
-            item.title.toLowerCase().includes(keyword.toLowerCase())
-          )
-        );
-        setIsLoading(false);
-      }, 1000);
+      await fetchSearchResults(keyword);
     }
   };
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const query = queryParams.get("q");
+
     if (query) {
       setSearchTerm(query);
-      setIsLoading(true);
-
-      setTimeout(() => {
-        setFilteredData(
-          dataList.filter((item) =>
-            item.title.toLowerCase().includes(query.toLowerCase())
-          )
-        );
-        setIsLoading(false);
-      }, 1000);
+      fetchSearchResults(query);
     }
   }, [location.search]);
+
+  const renderImageList = (items, isArtist = true) =>
+    items.length > 0 && (
+      <Box sx={{ overflowX: "auto", mb: 4 }}>
+        <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
+          {isArtist
+            ? translations.searchpage.artist
+            : translations.searchpage.collection}
+        </Typography>
+        <ImageList
+          sx={{
+            display: "flex",
+            overflowX: "auto",
+            gap: 2,
+            p: 2,
+            cursor: "grab",
+            "&:active": { cursor: "grabbing" },
+            "::-webkit-scrollbar": { display: "none" },
+          }}
+          ref={rowRef}
+        >
+          {items.map((item) => (
+            <ImageListItem
+              key={item.id}
+              sx={{
+                flex: "0 0 auto",
+                width: { xs: "80%", sm: "45%", md: "30%", lg: "20%" },
+                textAlign: "center",
+                borderRadius: "10px",
+                backgroundColor: "background.paper",
+                padding: "10px",
+                boxShadow: 2,
+              }}
+            >
+              {!isArtist && item.coverImageUrl && (
+                <img
+                  src={item.coverImageUrl}
+                  alt={item.title}
+                  style={{
+                    width: "100%",
+                    height: "200px",
+                    objectFit: "cover",
+                    borderRadius: "6px",
+                    marginBottom: "8px",
+                  }}
+                />
+              )}
+              <Box sx={{ fontWeight: "bold" }}>
+                {isArtist ? item.name : item.title}
+              </Box>
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </Box>
+    );
 
   return (
     <Box
       sx={{
-        padding: "20px",
+        padding: 3,
         maxWidth: "1200px",
         margin: "auto",
         minHeight: "calc(100vh - 110px)",
@@ -84,117 +144,42 @@ const SearchPage = () => {
         sx={{
           display: "flex",
           alignItems: "center",
-          backgroundColor: "#ffffff",
-          borderRadius: "10px",
+          borderRadius: 2,
           padding: "10px 15px",
           mb: 3,
-          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <SearchIcon sx={{ color: "#555", mr: 1 }} />
+        <SearchIcon sx={{ mr: 1 }} />
         <InputBase
-          placeholder="Search for an artist…"
+          placeholder="Search for an artist or collection…"
           inputProps={{ "aria-label": "search" }}
           value={searchTerm}
           onChange={handleInputChange}
           onKeyDown={handleSearch}
           sx={{
             flex: 1,
-            color: "#000",
             fontSize: "1rem",
-            "&::placeholder": { color: "#666" },
           }}
         />
       </Paper>
 
       {/* 검색 결과 */}
       {isLoading ? (
-        <Box
-          sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
-        >
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
           <Loading />
         </Box>
-      ) : filteredData.length === 0 ? (
-        <Typography
-          variant="body1"
-          sx={{ textAlign: "center", marginTop: "20px" }}
-        >
-          {translations.searchpage.none}
-        </Typography>
-      ) : (
-        <Box sx={{ overflowX: "auto" }}>
-          <ImageList
-            sx={{
-              display: "flex",
-              overflowX: "auto",
-              gap: 2,
-              p: 2,
-              cursor: "grab",
-              "&:active": { cursor: "grabbing" },
-              "::-webkit-scrollbar": { display: "none" },
-              userSelect: "none",
-            }}
-            ref={rowRef}
-          >
-            {filteredData.map((item) => (
-              <ImageListItem
-                key={item.id}
-                onClick={() => setSelectedMovie(item)}
-                sx={{
-                  flex: "0 0 auto",
-                  width: { xs: "45%", sm: "30%", md: "20%", lg: "15%" },
-                  textAlign: "center",
-                  position: "relative",
-                  overflow: "hidden",
-                  borderRadius: "10px",
-                  transition: "transform 0.3s, box-shadow 0.3s",
-                  "&:hover": {
-                    transform: "scale(1.05)",
-                    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)",
-                  },
-                }}
-              >
-                <Box
-                  component="img"
-                  src={item.mainImg[0]}
-                  alt={item.title}
-                  draggable={false}
-                  sx={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    borderRadius: "10px",
-                    filter: "brightness(1)",
-                    transition: "filter 0.3s",
-                    "&:hover": { filter: "brightness(0.85)" },
-                  }}
-                />
-                <ImageListItemBar
-                  title={item.title}
-                  sx={{
-                    background:
-                      "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
-                    borderRadius: "10px",
-                    textAlign: "left",
-                    padding: "8px",
-                    fontSize: "1.1rem",
-                    fontWeight: "bold",
-                    color: "#fff",
-                  }}
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </Box>
-      )}
-
-      {/* MovieDetail 모달 */}
-      {selectedMovie && (
-        <MovieDetail
-          movie={selectedMovie}
-          onClose={() => setSelectedMovie(null)}
-        />
-      )}
+      ) : hasSearched ? (
+        artistResults.length === 0 && collectionResults.length === 0 ? (
+          <Typography variant="body1" sx={{ textAlign: "center", mt: 4 }}>
+            {translations.searchpage.none}
+          </Typography>
+        ) : (
+          <>
+            {renderImageList(artistResults, true)}
+            {renderImageList(collectionResults, false)}
+          </>
+        )
+      ) : null}
     </Box>
   );
 };

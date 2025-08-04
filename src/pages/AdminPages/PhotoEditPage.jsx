@@ -12,6 +12,8 @@ import {
   Select,
   FormControl,
   InputLabel,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { LanguageContext } from "../../contexts/LanguageContext";
@@ -24,7 +26,9 @@ const PhotoEditPage = () => {
   const fileInputRef = useRef(null);
   const [dragOver, setDragOver] = useState(false);
   const [photoDragOver, setPhotoDragOver] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // 초기 폼 데이터 구조
   const resetForm = {
     artistId: "",
     title: "",
@@ -36,42 +40,52 @@ const PhotoEditPage = () => {
     coverImageFile: null,
     photoFiles: [],
     photoPreviews: [],
+    existingImages: [],
   };
 
   const [formData, setFormData] = useState(resetForm);
+  const [hashtagsInput, setHashtagsInput] = useState("");
   const [artists, setArtists] = useState([]);
   const [isLoadingArtists, setIsLoadingArtists] = useState(true);
 
+  // 사진 컬렉션 데이터를 가져오는 함수
   useEffect(() => {
     if (!id) {
-      console.log("등록 모드 진입 (새 컬렉션)");
       setFormData(resetForm);
+      setHashtagsInput("");
       return;
     }
 
     const fetchPhoto = async () => {
       try {
-        console.log("사진 데이터 가져오는 중...");
         const { data } = await apiRequest(`/photo-collections/${id}`);
-        console.log("불러온 데이터:", data);
+        const absoluteCoverImageUrl = data.coverImageUrl.startsWith("http")
+          ? data.coverImageUrl
+          : `https://stage-api.glowsnaps.tokyo${data.coverImageUrl}`;
 
-        setFormData((prev) => ({
-          ...prev,
+        const validImages = (data.images || []).filter(
+          (img) => img.imageUrl && img.imageUrl.startsWith("http")
+        );
+
+        setFormData({
+          ...resetForm,
           artistId: data.artistId || "",
           title: data.title || "",
           description: data.description || "",
           coverImageId: data.coverImageId ?? null,
-          coverImageUrl: data.coverImageUrl || "",
+          coverImageUrl: absoluteCoverImageUrl || "",
           price: data.price || 0,
           hashtags: data.hashtags || [],
-          coverImageFile: null,
-          photoFiles: [],
-          photoPreviews: [],
-        }));
+          existingImages: validImages.map((img, index) => ({
+            imageUrl: img.imageUrl,
+            caption: img.caption,
+            order: index,
+          })),
+          photoPreviews: validImages.map((img) => img.imageUrl),
+        });
+        setHashtagsInput((data.hashtags || []).join(", "));
       } catch (err) {
-        console.error("사진 목록 가져오기 실패:", err);
-        setError(err.message);
-        alert("No Data");
+        alert("데이터를 불러올 수 없습니다.");
         navigate("/admin/photos");
       }
     };
@@ -79,15 +93,14 @@ const PhotoEditPage = () => {
     fetchPhoto();
   }, [id, navigate]);
 
+  // 아티스트 목록을 가져오는 함수
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        console.log("아티스트 목록 요청 중...");
         const { data } = await apiRequest(`/artists`);
-        console.log("아티스트 목록:", data.items);
         setArtists(data.items || []);
       } catch (err) {
-        console.error("아티스트 가져오기 실패:", err);
+        console.error("아티스트 목록 불러오기 실패:", err);
       } finally {
         setIsLoadingArtists(false);
       }
@@ -95,22 +108,22 @@ const PhotoEditPage = () => {
     fetchArtists();
   }, []);
 
+  // 폼 입력값 변경 처리
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(`변경됨: ${name} = ${value}`);
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // 아티스트 선택 처리
   const handleArtistChange = (e) => {
-    console.log("아티스트 선택됨:", e.target.value);
     setFormData((prev) => ({ ...prev, artistId: e.target.value }));
   };
 
+  // 커버 이미지 업로드 처리
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      console.log("커버 이미지 선택:", file.name);
       setFormData((prev) => ({
         ...prev,
         coverImageUrl: imageUrl,
@@ -119,13 +132,13 @@ const PhotoEditPage = () => {
     }
   };
 
+  // 커버 이미지 드롭 처리
   const handleDropImage = (e) => {
     e.preventDefault();
     setDragOver(false);
     const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith("image/")) {
+    if (file?.type.startsWith("image/")) {
       const imageUrl = URL.createObjectURL(file);
-      console.log("커버 이미지 드롭:", file.name);
       setFormData((prev) => ({
         ...prev,
         coverImageUrl: imageUrl,
@@ -134,13 +147,10 @@ const PhotoEditPage = () => {
     }
   };
 
+  // 사진 파일 업로드 처리
   const handlePhotoFilesChange = (e) => {
     const newFiles = Array.from(e.target.files);
     const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
-    console.log(
-      "추가 사진 업로드:",
-      newFiles.map((f) => f.name)
-    );
 
     setFormData((prev) => ({
       ...prev,
@@ -151,6 +161,7 @@ const PhotoEditPage = () => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
+  // 사진 드롭 처리
   const handleDropPhotos = (e) => {
     e.preventDefault();
     setPhotoDragOver(false);
@@ -158,10 +169,6 @@ const PhotoEditPage = () => {
       file.type.startsWith("image/")
     );
     const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
-    console.log(
-      "추가 사진 드롭:",
-      newFiles.map((f) => f.name)
-    );
 
     setFormData((prev) => ({
       ...prev,
@@ -170,47 +177,95 @@ const PhotoEditPage = () => {
     }));
   };
 
+  // 해시태그 입력 처리
+  const handleHashtagsChange = (e) => {
+    setHashtagsInput(e.target.value);
+  };
+
+  // 해시태그 입력 완료 처리
+  const handleHashtagsBlur = () => {
+    const newHashtags = hashtagsInput
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter(Boolean);
+    setFormData((prev) => ({ ...prev, hashtags: newHashtags }));
+  };
+
+  // 사진 삭제 처리
+  const handleRemovePhoto = (index) => {
+    setFormData((prev) => {
+      const newPhotoFiles = [...prev.photoFiles];
+      const newPreviews = [...prev.photoPreviews];
+      const newExistingImages = [...prev.existingImages];
+
+      if (index < newExistingImages.length) {
+        newExistingImages.splice(index, 1);
+        newPreviews.splice(index, 1);
+      } else {
+        const fileIndex = index - newExistingImages.length;
+        newPhotoFiles.splice(fileIndex, 1);
+        newPreviews.splice(index, 1);
+      }
+
+      const updatedExistingImages = newExistingImages.map((img, i) => ({
+        ...img,
+        order: i,
+      }));
+
+      return {
+        ...prev,
+        photoFiles: newPhotoFiles,
+        photoPreviews: newPreviews,
+        existingImages: updatedExistingImages,
+      };
+    });
+  };
+
+  // 폼 제출 처리
   const handleSubmit = async () => {
+    setIsSubmitting(true);
     try {
-      console.log("폼 제출 시작");
       let { coverImageId, coverImageUrl } = formData;
 
+      // 커버 이미지 업로드
       if (formData.coverImageFile) {
         const imageForm = new FormData();
         imageForm.append("File", formData.coverImageFile);
-        console.log("커버 이미지 업로드 요청");
         const imageRes = await apiRequest(
-          "/uploads/cover-image",
+          "/Uploads/cover-image",
           "POST",
           imageForm,
           true
         );
         coverImageId = imageRes.data.id;
-        coverImageUrl = imageRes.data.url;
-        console.log("커버 이미지 업로드 완료:", imageRes.data);
+        coverImageUrl = `https://stage-api.glowsnaps.tokyo${imageRes.data.url}`;
       }
 
       if (!coverImageId) {
         alert("커버 이미지를 선택하거나 업로드해주세요.");
+        setIsSubmitting(false);
         return;
       }
 
-      let uploadedPhotoFilenames = [];
+      // 새 사진 업로드
+      let newImages = [];
       if (formData.photoFiles.length > 0) {
         const photoForm = new FormData();
         formData.photoFiles.forEach((file) => {
           photoForm.append("request", file);
         });
-
-        console.log("추가 사진 업로드 요청");
         const photoUploadRes = await apiRequest(
           "/Photos/upload",
           "POST",
           photoForm,
           true
         );
-        uploadedPhotoFilenames = photoUploadRes.data || [];
-        console.log("업로드된 사진 파일명:", uploadedPhotoFilenames);
+        const uploadedPhotoFilenames = photoUploadRes.data || [];
+        newImages = uploadedPhotoFilenames.map((filename, index) => ({
+          imageUrl: filename,
+          caption: "",
+          order: formData.existingImages.length + index,
+        }));
       }
 
       const payload = {
@@ -220,44 +275,63 @@ const PhotoEditPage = () => {
         coverImageId,
         coverImageUrl,
         price: Number(formData.price),
-        hashtags: formData.hashtags.filter((tag) => tag.trim() !== ""),
-        photoFileNames: uploadedPhotoFilenames,
+        hashtags: formData.hashtags,
+        images: [
+          ...formData.existingImages.map((img, index) => ({
+            imageUrl: img.imageUrl,
+            caption: img.caption,
+            order: index,
+          })),
+          ...newImages,
+        ],
       };
-
-      console.log(id ? "수정 요청:" : "등록 요청:", payload);
 
       if (id) {
         await apiRequest(`/photo-collections/${id}`, "PATCH", payload);
+        const { data } = await apiRequest(`/photo-collections/${id}`);
+        const absoluteCoverImageUrl = data.coverImageUrl.startsWith("http")
+          ? data.coverImageUrl
+          : `https://stage-api.glowsnaps.tokyo${data.coverImageUrl}`;
+        setFormData({
+          ...resetForm,
+          artistId: data.artistId || "",
+          title: data.title || "",
+          description: data.description || "",
+          coverImageId: data.coverImageId ?? null,
+          coverImageUrl: absoluteCoverImageUrl || "",
+          price: data.price || 0,
+          hashtags: data.hashtags || [],
+          existingImages: (data.images || []).map((img, index) => ({
+            imageUrl: img.imageUrl,
+            caption: img.caption,
+            order: index,
+          })),
+          photoPreviews: (data.images || []).map((img) => img.imageUrl),
+        });
+        setHashtagsInput((data.hashtags || []).join(", "));
+        alert("성공적으로 수정되었습니다.");
       } else {
         await apiRequest("/photo-collections", "POST", payload);
+        alert("성공적으로 등록되었습니다.");
       }
 
-      alert(id ? "수정되었습니다." : "등록되었습니다.");
       navigate("/admin/photos");
     } catch (error) {
       console.error("저장 실패:", error);
       alert("저장 중 오류가 발생했습니다.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  useEffect(() => {
-    console.log("현재 formData 상태:", formData);
-  }, [formData]);
-
   return (
     <Container maxWidth="md">
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        mb={1}
-      >
-        <Typography variant="h5" fontWeight="bold">
-          {translations.phototable.page}
-        </Typography>
-      </Box>
+      <Typography variant="h5" fontWeight="bold" mt={3}>
+        {translations.phototable.page}
+      </Typography>
 
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 4 }}>
+        {/* 아티스트 선택 */}
         <FormControl fullWidth>
           <InputLabel>{translations.phototable.artist}</InputLabel>
           <Select
@@ -275,8 +349,6 @@ const PhotoEditPage = () => {
               <MenuItem value="">
                 <em>로딩 중...</em>
               </MenuItem>
-            ) : artists.length === 0 ? (
-              <MenuItem value="">아티스트 없음</MenuItem>
             ) : (
               artists.map((artist) => (
                 <MenuItem key={artist.id} value={artist.id}>
@@ -287,6 +359,7 @@ const PhotoEditPage = () => {
           </Select>
         </FormControl>
 
+        {/* 제목 입력 */}
         <TextField
           label={translations.phototable.title}
           name="title"
@@ -294,9 +367,12 @@ const PhotoEditPage = () => {
           value={formData.title}
           onChange={handleChange}
         />
+
+        {/* 커버 이미지 업로드 */}
         <Typography fontWeight="bold" mb={1}>
           {translations.phototable.coverImage}
         </Typography>
+
         <Card
           sx={{
             display: "flex",
@@ -305,6 +381,7 @@ const PhotoEditPage = () => {
             height: 200,
             position: "relative",
             border: dragOver ? "2px dashed blue" : "2px dashed gray",
+            borderRadius: "8px",
           }}
           onDragOver={(e) => {
             e.preventDefault();
@@ -355,9 +432,6 @@ const PhotoEditPage = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   cursor: "pointer",
-                  padding: "20px",
-                  borderRadius: "8px",
-                  textAlign: "center",
                   width: "100%",
                   height: "100%",
                 }}
@@ -371,6 +445,7 @@ const PhotoEditPage = () => {
           )}
         </Card>
 
+        {/* 설명 입력 */}
         <TextField
           label={translations.phototable.description}
           name="description"
@@ -381,23 +456,18 @@ const PhotoEditPage = () => {
           onChange={handleChange}
         />
 
+        {/* 해시태그 입력 */}
         <TextField
-          label="Hashtags"
+          label="해시태그"
           name="hashtags"
           fullWidth
-          value={formData.hashtags.join(", ")}
-          onChange={(e) =>
-            setFormData((prev) => ({
-              ...prev,
-              hashtags: e.target.value
-                .split(",")
-                .map((tag) => tag.trim())
-                .filter((tag) => tag),
-            }))
-          }
+          value={hashtagsInput}
+          onChange={handleHashtagsChange}
+          onBlur={handleHashtagsBlur}
           helperText={translations.phototable.helperText}
         />
 
+        {/* 가격 입력 */}
         <TextField
           type="number"
           label={translations.phototable.price}
@@ -406,14 +476,22 @@ const PhotoEditPage = () => {
           value={formData.price}
           onChange={handleChange}
         />
-        <Typography fontWeight="bold">
+
+        {/* 사진 업로드 */}
+        <Typography fontWeight="bold" mb={1}>
           {translations.phototable.uploadPhotos}
         </Typography>
-        <Box
+
+        <Card
           sx={{
-            padding: 2,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: 200,
+            position: "relative",
             border: photoDragOver ? "2px dashed blue" : "2px dashed gray",
             borderRadius: "8px",
+            padding: 2,
           }}
           onDragOver={(e) => {
             e.preventDefault();
@@ -422,72 +500,142 @@ const PhotoEditPage = () => {
           onDragLeave={() => setPhotoDragOver(false)}
           onDrop={handleDropPhotos}
         >
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handlePhotoFilesChange}
-            style={{ marginTop: "10px" }}
-          />
-
-          <Box display="flex" flexWrap="wrap" mt={2} gap={2}>
-            {formData.photoPreviews.map((url, index) => (
-              <Card
-                key={index}
-                sx={{ width: 120, height: 120, position: "relative" }}
-              >
-                <CardMedia
-                  component="img"
-                  image={url}
-                  sx={{ width: "100%", height: "100%", objectFit: "cover" }}
-                />
-                <Button
-                  size="small"
-                  onClick={() => {
-                    setFormData((prev) => {
-                      const newPhotoFiles = [...prev.photoFiles];
-                      const newPreviews = [...prev.photoPreviews];
-                      newPhotoFiles.splice(index, 1);
-                      newPreviews.splice(index, 1);
-                      console.log("추가 사진 삭제:", index);
-                      return {
-                        ...prev,
-                        photoFiles: newPhotoFiles,
-                        photoPreviews: newPreviews,
-                      };
-                    });
-                  }}
+          {formData.photoPreviews.length > 0 ? (
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 2,
+                width: "100%",
+                justifyContent: "center",
+              }}
+            >
+              {formData.photoPreviews.map((url, index) => (
+                <Card
+                  key={index}
                   sx={{
-                    position: "absolute",
-                    top: 0,
-                    right: 0,
-                    minWidth: 0,
-                    padding: "4px",
-                    backgroundColor: "rgba(0,0,0,0.5)",
-                    color: "white",
+                    width: 120,
+                    height: 120,
+                    position: "relative",
+                    borderRadius: "4px",
+                    overflow: "hidden",
                   }}
                 >
-                  ×
-                </Button>
+                  <CardMedia
+                    component="img"
+                    image={url}
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <Button
+                    size="small"
+                    onClick={() => handleRemovePhoto(index)}
+                    sx={{
+                      position: "absolute",
+                      top: 4,
+                      right: 4,
+                      minWidth: 0,
+                      padding: "4px",
+                      backgroundColor: "rgba(0,0,0,0.5)",
+                      color: "white",
+                      "&:hover": {
+                        backgroundColor: "rgba(0,0,0,0.7)",
+                      },
+                    }}
+                  >
+                    ×
+                  </Button>
+                </Card>
+              ))}
+              {/* 추가 업로드 버튼 */}
+              <Card
+                sx={{
+                  width: 120,
+                  height: 120,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  border: "2px dashed gray",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                }}
+                component="label"
+              >
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  hidden
+                  onChange={handlePhotoFilesChange}
+                />
+                <AddIcon sx={{ fontSize: 32, color: "gray" }} />
               </Card>
-            ))}
-          </Box>
+            </Box>
+          ) : (
+            <label htmlFor="photos-upload">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                multiple
+                style={{ display: "none" }}
+                id="photos-upload"
+                onChange={handlePhotoFilesChange}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <AddIcon sx={{ fontSize: 48, color: "gray" }} />
+                <Typography variant="body2" color="gray">
+                  {translations.phototable.uploadPhotos}
+                </Typography>
+              </Box>
+            </label>
+          )}
+        </Card>
+
+        {/* 제출 및 취소 버튼 */}
+        <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+          >
+            {id
+              ? translations.phototable.edit
+              : translations.phototable.register}
+          </Button>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={() => navigate("/admin/photos")}
+            disabled={isSubmitting}
+          >
+            {translations.phototable.cancel}
+          </Button>
         </Box>
       </Box>
 
-      <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 4 }}>
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          {id ? translations.phototable.edit : translations.phototable.register}
-        </Button>
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={() => navigate("/admin/photos")}
-        >
-          {translations.phototable.cancel}
-        </Button>
-      </Box>
+      {/* 로딩 화면 */}
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isSubmitting}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Container>
   );
 };
